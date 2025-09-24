@@ -1,0 +1,139 @@
+---
+layout: default
+---
+
+<style>
+    .post-header {
+        margin-bottom: 3rem;
+    }
+
+    .post-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+
+    .post-meta {
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    .post-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .post-content h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .post-content h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .post-content p {
+        margin-bottom: 1.5rem;
+    }
+
+    .post-content ul, .post-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+    }
+
+    .post-content li {
+        margin-bottom: 0.5rem;
+    }
+
+    .post-content code {
+        background: #1a1a1a;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+    }
+
+    .post-content pre {
+        background: #1a1a1a;
+        padding: 1.5rem;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+    }
+
+    .post-content pre code {
+        background: none;
+        padding: 0;
+    }
+
+    .post-content blockquote {
+        border-left: 3px solid #444;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        color: #ccc;
+        font-style: italic;
+    }
+
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 2rem 0;
+    }
+
+    .post-content .katex-display {
+        margin: 2rem 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: #888;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+        color: #fff;
+    }
+
+    @media (max-width: 768px) {
+        .post-title {
+            font-size: 1.8rem;
+        }
+
+        .post-content {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<article>
+    <a href="/blog/" class="back-link">← Back to blog</a>
+
+    <header class="post-header">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}">
+                {{ page.date | date: "%B %d, %Y" }}
+            </time>
+            {% if page.author %}
+            • {{ page.author }}
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+</article>

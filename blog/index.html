@@ -1,0 +1,110 @@
+---
+layout: default
+title: Blog
+---
+
+<style>
+    .blog-header {
+        margin-bottom: 3rem;
+    }
+
+    .blog-title {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: -0.02em;
+    }
+
+    .blog-subtitle {
+        font-size: 1.1rem;
+        color: #888;
+        line-height: 1.5;
+    }
+
+    .post-list {
+        list-style: none;
+    }
+
+    .post-item {
+        margin-bottom: 3rem;
+        padding-bottom: 3rem;
+        border-bottom: 1px solid #222;
+    }
+
+    .post-item:last-child {
+        border-bottom: none;
+    }
+
+    .post-link {
+        text-decoration: none;
+        display: block;
+    }
+
+    .post-link:hover .post-item-title {
+        opacity: 0.8;
+    }
+
+    .post-item-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        transition: opacity 0.2s;
+    }
+
+    .post-item-date {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .post-item-excerpt {
+        color: #ccc;
+        line-height: 1.6;
+    }
+
+    .empty-state {
+        color: #666;
+        font-style: italic;
+        margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+        .blog-title {
+            font-size: 2rem;
+        }
+
+        .post-item-title {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<div class="blog-header">
+    <h1 class="blog-title">Blog</h1>
+    <p class="blog-subtitle">Technical reports, research papers, and thoughts on AGI.</p>
+</div>
+
+<div class="posts">
+    {% if site.posts.size > 0 %}
+        <ul class="post-list">
+            {% for post in site.posts %}
+            <li class="post-item">
+                <a href="{{ post.url }}" class="post-link">
+                    <h2 class="post-item-title">{{ post.title }}</h2>
+                    <time class="post-item-date" datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: "%B %d, %Y" }}
+                    </time>
+                    {% if post.excerpt %}
+                    <div class="post-item-excerpt">
+                        {{ post.excerpt | strip_html | truncate: 200 }}
+                    </div>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-state">First post coming soon.</p>
+    {% endif %}
+</div>
