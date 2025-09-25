@@ -45,7 +45,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 4.0rem;
             font-weight: 700;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.15rem;
             letter-spacing: -0.02em;
         }
 
@@ -90,9 +90,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">iluvatar labs.</h1>
-            <p class="subtitle">We study nature's intelligence to engineer tomorrow's artificial minds.</p>
-            <div style="margin-top: 2.5rem; font-size: 0.95rem;">
+            <div style="margin-bottom: 3.5rem; font-size: 0.95rem;">
                 <a href="/blog/" style="color: #888; text-decoration: none; margin-right: 2rem;">Blog</a>
                 {% if site.posts.size > 0 %}
                 {% assign latest_post = site.posts.first %}
@@ -100,6 +98,8 @@
                 <a href="{{ latest_post.url }}" style="color: #888; text-decoration: none;">{{ latest_post.title }}</a>
                 {% endif %}
             </div>
+            <h1 class="title">iluvatar labs.</h1>
+            <p class="subtitle">We study nature's intelligence to engineer tomorrow's artificial minds.</p>
         </div>
         
         <div class="content">
