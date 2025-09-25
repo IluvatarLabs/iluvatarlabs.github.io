@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,18 +88,19 @@
     </style>
 </head>
 <body>
-    <nav style="padding: 2rem 2rem 0; max-width: 1200px; margin: 0 auto;">
-        <div style="display: flex; gap: 2rem; font-size: 0.9rem;">
-            <a href="/" style="color: #fff; text-decoration: none;">Home</a>
-            <a href="/blog/" style="color: #888; text-decoration: none;">Blog</a>
-        </div>
-    </nav>
-
     <div class="container">
         <div class="header">
             <h1 class="title">iluvatar labs.</h1>
             <p class="subtitle">Reality-inspired AI architectures for the AGI era.</p>
             <p class="subtitle">We study nature's intelligence to engineer tomorrow's artificial minds.</p>
+            <div style="margin-top: 2rem; font-size: 0.95rem;">
+                <a href="/blog/" style="color: #888; text-decoration: none; margin-right: 2rem;">Blog</a>
+                {% if site.posts.size > 0 %}
+                {% assign latest_post = site.posts.first %}
+                <span style="color: #666;">See our recent work:</span>
+                <a href="{{ latest_post.url }}" style="color: #888; text-decoration: none;">{{ latest_post.title }}</a>
+                {% endif %}
+            </div>
         </div>
         
         <div class="content">
