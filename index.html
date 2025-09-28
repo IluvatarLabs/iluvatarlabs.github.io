@@ -72,15 +72,19 @@
             font-weight: 700;
         }
 
+        a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             .title {
                 font-size: 2.5rem;
             }
-            
+
             .subtitle {
                 font-size: 1rem;
             }
-            
+
             .content {
                 font-size: 0.85rem;
             }
@@ -91,8 +95,8 @@
     <div class="container">
         <div class="header">
             <div style="margin-bottom: 3.5rem; font-size: 0.95rem;">
-                <a href="/blog/" style="color: #888; text-decoration: none; margin-right: 1rem;">Blog</a> 
-                <span style="margin-right: 1rem"> + </span> 
+                <a href="/blog/" style="color: #888; text-decoration: none; margin-right: 0.75rem;">Blog</a> 
+                <span style="margin-right: 0.75rem"> + </span> 
                 {% if site.posts.size > 0 %}
                 {% assign latest_post = site.posts.first %}
                 <span style="color: #666;">See our recent work:</span>
