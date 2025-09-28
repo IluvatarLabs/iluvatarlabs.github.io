@@ -73,7 +73,7 @@
         }
 
         a:hover {
-            text-decoration: underline;
+            text-decoration: underline !important;
         }
 
         @media (max-width: 768px) {
@@ -94,14 +94,19 @@
 <body>
     <div class="container">
         <div class="header">
-            <div style="margin-bottom: 3.5rem; font-size: 0.95rem;">
-                <a href="/blog/" style="color: #888; text-decoration: none; margin-right: 0.75rem;">Blog</a> 
-                <span style="margin-right: 0.75rem"> + </span> 
+            <div style="margin-bottom: 0.rem; font-size: 0.95rem;">
                 {% if site.posts.size > 0 %}
                 {% assign latest_post = site.posts.first %}
                 <span style="color: #666;">See our recent work:</span>
                 <a href="{{ latest_post.url }}" style="color: #888; text-decoration: none;">{{ latest_post.title }}</a>
                 {% endif %}
+            </div>
+            <div style="margin-bottom: 3.5rem; font-size: 0.95rem;">
+                <a href="/blog/" style="color: #888; text-decoration: none; margin-right: 0.75rem;">Blog</a>
+                <span style="margin-right: 0.75rem"> + </span>
+                <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer" style="color: #888; text-decoration: none; margin-right: 0.75rem;">LinkedIn</a>
+                <span style="margin-right: 0.75rem"> + </span>
+                <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer" style="color: #888; text-decoration: none; margin-right: 0.75rem;">X</a>
             </div>
             <h1 class="title">iluvatar labs.</h1>
             <p class="subtitle">We study nature's intelligence to engineer tomorrow's artificial minds.</p>
