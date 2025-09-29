@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:thinkingmachines.ai)"
+      "WebFetch(domain:thinkingmachines.ai)",
+      "WebFetch(domain:www.anthropic.com)"
     ],
     "deny": [],
     "ask": []
