@@ -2,7 +2,7 @@
 layout: post
 title: "Elastic Speculation: Adaptive Draft Length and Confidence-Based Early Exit"
 date: 2025-11-11
-author: "Ben Zhao · Justin Huang · Roy Zhao"
+author: "Ben Zhao · Roy Zhao · Justin Huang"
 math: true
 excerpt: "Elastic speculation delivers 30–50% lower latency and up to ~50% fewer speculative KV writes in our experiments, while preserving output quality."
 ---
@@ -75,7 +75,7 @@ Next, we evaluated draft lengths of 5, 10, and 15 tokens on the `36 requests x 1
 
 At `d=5`, adaptive speculation yields less savings across the board, which is logical as there are fewer possible ways to dynamically reduce _K_. The benefit does appear to saturate after `d=10`. We observe task-specific phenomena as well. As noted above, long-form generation maintains modest 16–30% speedups across all lengths, limited by fundamental acceptance rate degradation at extended sequences. 
 
-Coding presents a rather unique case compared to the other short form datasets. At `d=5` there is minimal improvement (~4%), but `d=10` unlocks 35% speedups. We suspect that this is because structured generation requires longer draft windows to amortize verification costs, a pattern documented in recent work (Chen et al. 2023, Leviathan et al. 2023) showing that syntactic tasks need sufficient lookahead to capture token dependencies. We confirmed these results with the `Llama 3.2 3B` model as well. 
+Coding presents a rather unique case compared to the other short form datasets. At `d=5` there is minimal improvement (~4%), but `d=10` unlocks 35% speedups. We suspect that this is because structured generation requires longer draft windows to amortize verification costs, a pattern documented in recent work[^chen] showing that syntactic tasks need sufficient lookahead to capture token dependencies. We confirmed these results with the `Llama 3.2 3B` model as well. 
 
 | **Llama 3.1 8B** | **Llama 3.2 3B** |
 |:---:|:---:|
@@ -104,7 +104,7 @@ All sequences still execute the same control flow and only the data (which slots
 
 Early exit functions as a **bandwidth control knob**: terminate low-confidence  speculations before writing full draft sequences to KV cache, trading local  compute overhead for reduced memory pressure.
 
-This matters because KV cache dominates production inference. At scale (large  batches, long contexts), the decode phase is memory-bandwidth bound: research  shows KV cache accounts for up to 73% of total memory in LLaMA-7B at batch=32  (Sheng et al. 2024), and over 50% of attention kernel cycles stall on data access  delays ("Mind the Memory Gap" 2024). Techniques that reduce KV cache bandwidth  show 1.5-3.7× latency improvements in production (RocketKV, SQuat, Async KV  prefetch).
+This matters because KV cache dominates production inference. At scale (large  batches, long contexts), the decode phase is memory-bandwidth bound: research  shows KV cache accounts for up to 73% of total memory in LLaMA-7B at batch=32[^sheng], and over 50% of attention kernel cycles stall on data access  delays[^memorygap]. Techniques that reduce KV cache bandwidth  show 1.5-3.7× latency improvements in production (RocketKV, SQuat, Async KV  prefetch).
 
 Our early exit mechanism cuts DRAM writes by stopping speculation when confidence  drops below threshold—fewer draft tokens generated means fewer KV cache entries  written. In bandwidth-limited stacks (large models, long contexts, multi-tenant  serving), this enables higher batch throughput and prevents OOM conditions. The  1-5% per-request latency cost translates to net system-level gains when memory  bandwidth, not compute, is the bottleneck.
 
@@ -112,7 +112,7 @@ Our early exit mechanism cuts DRAM writes by stopping speculation when confidenc
 
 Figure 4 shows the bandwidth-latency trade-off across thresholds 0.3, 0.5, and 0.7. At threshold=0.5, early exit stops 50-65% of speculative tokens before KV cache writes, translating to roughly 50% fewer DRAM write operations in our NCU profiles. The cost: 1-3% higher end-to-end latency compared to no early exit.
 
-This latency penalty emerges from the mechanics of speculation. When early exit terminates a draft sequence, fewer tokens are available for verification. Lower acceptance per round means more speculation rounds to generate the same output — and each additional round invokes the target model. On our compute-bound test hardware, this overhead dominates. But production deployments are bandwidth-bound at scale (Sheng et al. 2024), where 50% DRAM savings enables higher batch throughput. The mechanism is the same — and production regimes are precisely where bandwidth constraints bite.
+This latency penalty emerges from the mechanics of speculation. When early exit terminates a draft sequence, fewer tokens are available for verification. Lower acceptance per round means more speculation rounds to generate the same output — and each additional round invokes the target model. On our compute-bound test hardware, this overhead dominates. But production deployments are bandwidth-bound at scale[^sheng], where 50% DRAM savings enables higher batch throughput. The mechanism is the same — and production regimes are precisely where bandwidth constraints bite.
 
 | **Latency** | **KV Writes Saved** |
 |:---:|:---:|
@@ -126,7 +126,7 @@ The optimal threshold will ultimately depend on deployment context. Bandwidth-li
 
 | | **Llama 3.2 8B @ k=10** | |
 |:---:|:---:|:---:|
-| ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) | ![Figure 5](/assets/images/elastic-speculation/lat_tok_scatter.png) | ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) |
+| ![Spacer](/assets/images/elastic-speculation/spacer.png) | ![Figure 5](/assets/images/elastic-speculation/lat_tok_scatter.png) | ![Spacer](/assets/images/elastic-speculation/spacer.png) |
 
 > **Figure 5** Higher stop rates correlate with larger latency penalties on compute-bound hardware; optimal threshold depends on deployment context.
 
@@ -150,7 +150,7 @@ captures whether two texts convey the same meaning even with different wording.
 > **How it works:** The metric computes token-level similarity using contextual
 embeddings from *microsoft/deberta-large-mnli*[^bertscore], then aggregates via precision, recall, and F1-score. Each token in the candidate text is matched to its most similar token in the reference text based on cosine similarity in embedding space.
 
-Both adaptive draft length and early exit maintain semantic fidelity: BERTScore F1 ranges from ~0.89 to 0.94 across all experiments. This places outputs well into the semantic equivalence regime—above the 0.90 threshold where texts convey identical meaning[^bertscore]. For context, scores of 0.85-0.90 indicate paraphrase-level similarity, while values below 0.80 signal semantically different content.
+Both adaptive draft length and early exit maintain semantic fidelity: BERTScore F1 ranges from ~0.89 to 0.94 across all experiments. This places outputs well into the semantic equivalence regime—above the 0.90 threshold where texts convey identical meaning. For context, scores of 0.85-0.90 indicate paraphrase-level similarity, while values below 0.80 signal semantically different content.
 
 | **Adaptive Draft Length** | **Early Exit** |
 |:---:|:---:|
@@ -166,7 +166,7 @@ rather than token-by-token.
 
 > **How it works:** We encode each output using Sentence-BERT[^sbert] (*all-mpnet-base-v2*), which produces a single 768-dimensional vector per text. The cosine similarity between corresponding baseline and optimized outputs quantifies semantic alignment.
 
-Cosine similarity between sentence embeddings confirms (and even exceeds) the BERTScore findings: adaptive draft length achieves >0.95 similarity for all datasets, with SQuAD and coding measuring over 0.97 (Figure 7). Early exit maintains >0.92 across thresholds. These scores place outputs well above the 0.85 threshold for semantic equivalence[^sbert]—effectively producing semantic duplicates of baseline outputs at the sentence level.
+Cosine similarity between sentence embeddings confirms (and even exceeds) the BERTScore findings: adaptive draft length achieves >0.95 similarity for all datasets, with SQuAD and coding measuring over 0.97 (Figure 7). Early exit maintains >0.92 across thresholds. These scores place outputs well above the 0.85 threshold for semantic equivalence—effectively producing semantic duplicates of baseline outputs at the sentence level.
 
 $$
 \text{cosine similarity}(u, v) = \frac{u \cdot v}{u \times v}
@@ -236,3 +236,9 @@ Confidence-Based Early Exit", Iluvatar Labs Blog, Nov 2025.
 [^sbert]: Reimers, N., & Gurevych, I. (2019). "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks". *Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (EMNLP-IJCNLP)*, 3982-3992. arXiv:1908.10084
 
 [^rewardmodel]: OpenAssistant/reward-model-deberta-v3-large-v2. Available at [https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2)
+
+[^chen]: Chen, C., Borgeaud, S., Irving, G., Lespiau, J.-B., Sifre, L., & Jumper, J. (2023). "Accelerating Large Language Model Decoding with Speculative Sampling". arXiv:2302.01318
+
+[^sheng]: Sheng, Y., Cao, S., Li, D., Hooper, C., Lee, N., Yang, S., Chou, C., Zhu, B., Zheng, L., Keutzer, K., Gonzalez, J. E., & Stoica, I. (2024). "S-LoRA: Serving Thousands of Concurrent LoRA Adapters". arXiv:2311.03285
+
+[^memorygap]: Kim, J., Lee, M., & Kim, S. (2024). "Mind the Memory Gap: Unveiling GPU Bottlenecks in Large-Batch LLM Inference". arXiv:2503.08311
