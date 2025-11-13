@@ -34,17 +34,16 @@ layout: default
     }
 
     .post-container {
-        display: grid;
-        grid-template-columns: 250px 1fr;
-        gap: 3rem;
-        max-width: 1400px;
+        position: relative;
+        max-width: 800px;
         margin: 0 auto;
     }
 
     .toc {
-        position: sticky;
-        top: 2rem;
-        height: fit-content;
+        position: fixed;
+        left: max(2rem, calc(50% - 600px));
+        top: 8rem;
+        width: 200px;
         font-size: 0.9rem;
     }
 
@@ -74,7 +73,6 @@ layout: default
 
     .post-main {
         max-width: 800px;
-        margin-right: 280px;
     }
 
     .sidenote {
@@ -193,12 +191,12 @@ layout: default
         }
     }
 
-    @media (max-width: 900px) {
-        .post-container {
-            grid-template-columns: 1fr;
-        }
+    @media (max-width: 1200px) {
         .toc {
             position: relative;
+            left: auto;
+            width: 100%;
+            margin-bottom: 2rem;
         }
     }
 
@@ -244,6 +242,7 @@ layout: default
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Generate TOC
     const toc = document.querySelector('.toc ul');
     const headings = document.querySelectorAll('.post-content h2, .post-content h3');
 
@@ -259,5 +258,34 @@ document.addEventListener('DOMContentLoaded', function() {
         li.appendChild(a);
         toc.appendChild(li);
     });
+
+    // Convert footnotes to sidenotes
+    const footnoteRefs = document.querySelectorAll('sup[id^="fnref:"]');
+    const footnotes = document.querySelector('.footnotes');
+
+    if (footnotes) {
+        const footnoteList = footnotes.querySelectorAll('li');
+        const footnoteMap = new Map();
+
+        footnoteList.forEach(fn => {
+            const id = fn.id.replace('fn:', '');
+            footnoteMap.set(id, fn.innerHTML.replace(/<a.*?class="reversefootnote".*?<\/a>/, '').trim());
+        });
+
+        footnoteRefs.forEach(ref => {
+            const id = ref.id.replace('fnref:', '').replace(/:.*/, '');
+            const content = footnoteMap.get(id);
+
+            if (content) {
+                const sidenote = document.createElement('span');
+                sidenote.className = 'sidenote';
+                sidenote.innerHTML = content;
+                ref.parentNode.insertBefore(sidenote, ref.nextSibling);
+            }
+        });
+
+        // Hide the original footnotes section
+        footnotes.style.display = 'none';
+    }
 });
 </script>

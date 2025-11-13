@@ -215,7 +215,10 @@ We are preparing an vLLM PR so you can try Elastic Speculation in your own deplo
 
 ---
 
-## References
+Please cite this work as:
+```
+Zhao, Ben and Iluvatar Labs, "Elastic Speculation: Adaptive Draft Length and Confidence-Based Early Exit", Iluvatar Labs Blog, Nov 2025.
+```
 
 [^speculative]: Leviathan, Y., Kalman, M., & Matias, Y. (2023). "Fast Inference from Transformers via Speculative Decoding". *Proceedings of the 40th International Conference on Machine Learning (ICML 2023)*, 19274-19286. arXiv:2211.17192
 
@@ -232,10 +235,3 @@ We are preparing an vLLM PR so you can try Elastic Speculation in your own deplo
 [^sbert]: Reimers, N., & Gurevych, I. (2019). "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks". *Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (EMNLP-IJCNLP)*, 3982-3992. arXiv:1908.10084
 
 [^rewardmodel]: OpenAssistant/reward-model-deberta-v3-large-v2. Available at [https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2)
-
----
-
-Please cite this work as:
-```
-Zhao, Ben and Iluvatar Labs, "Elastic Speculation: Adaptive Draft Length and Confidence-Based Early Exit", Iluvatar Labs Blog, Nov 2025.
-```
