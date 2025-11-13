@@ -126,7 +126,7 @@ The optimal threshold will ultimately depend on deployment context. Bandwidth-li
 
 | | **Llama 3.2 8B @ k=10** | |
 |:---:|:---:|:---:|
-| ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) | ![Figure 5](/assets/images/elastic-speculation/lat_tok_scatter.png) | ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) |
+| ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) | ![Figure 5](/assets/images/elastic-speculation/lat_tok_scatter.png) | ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) ![Spacer](/assets/images/elastic-speculation/spacer.png.gif) |
 
 > **Figure 5** Higher stop rates correlate with larger latency penalties on compute-bound hardware; optimal threshold depends on deployment context.
 
