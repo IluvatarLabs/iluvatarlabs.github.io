@@ -20,7 +20,9 @@ However, two parts of this pipeline are still potentially inefficient:
 
 In this post, we introduce **Elastic Speculation**: a small control layer on top of EAGLE that makes speculative decoding adaptive instead of static.
 
-## Why spec decode still leaves performance on the table
+> **The TL;DR:** Adaptive draft length delivers **20-50% latency reduction** over fixed-length speculation. Confidence-based early exit **cuts speculative KV writes by ~50% at a 1-3% latency cost**. Both methods **preserve semantic quality** at multiple scales (BERTScore >0.9, cosine similarity >0.95, equivalent reward model scoring).
+
+## Why spec decode leaves performance on the table
 
 **First, acceptance is not constant** and so a global, fixed _K_ is too blunt. For easy or highly structured workloads (e.g., coding or QA-style prompts), acceptance can be very high, so a small _K_ underutilizes the draft model. For harder or more creative workloads, acceptance drops, so a large _K_ wastes compute on tokens that will be thrown away.
 
@@ -35,7 +37,7 @@ We do this without changing model weights or the verification rule. Our referenc
 
 ![Figure 1: Elastic Speculation overview](/assets/images/elastic-speculation/overview.png)
 
-> **Figure 1** (overview) illustrates this: speculative decoding with a dynamic _K_, plus a separate control that can gate KV writes.
+> **Figure 1** illustrates this design: speculative decoding with a dynamic _K_, plus a separate control that can gate KV writes.
 
 ## Adaptive draft length: making _K_ elastic
 
@@ -67,7 +69,7 @@ Why the gap? Speculative decoding fundamentally relies on the draft model tracki
 |:---:|:---:|:---:|
 | | ![8B draft length](/assets/images/elastic-speculation/latency_adaptive_d10.png) | |
 
-> **Figure 2** for k=10 show the overall picture. Big gains. 
+> **Figure 2** Adaptive draft length (d=10) achieves 35-55% latency reduction across datasets with Llama-3.1-8B-Instruct.
 
 Next, we evaluted draft lengths of 5, 10, and 15 tokens on the `36 requests x 128 tokens` configuration. These values span the typical deployment range: production systems conservatively use 3-5 tokens (Red Hat's EAGLE3 at 3, NVIDIA's reference configs at 5) to minimize wasted computation when drafts are rejected. Our experiments also tests draft lengths beyond this range, as some implementations suggest 8-10 and even 18-32 for methods like suffix decoding.
 
@@ -79,7 +81,7 @@ Coding presents a rather unique case compared to the other short form datasets. 
 |:---:|:---:|
 | ![8B draft length](/assets/images/elastic-speculation/latency_adaptive.png) | ![3B draft length](/assets/images/elastic-speculation/latency_adaptive_3b.png) |
 
-> **Figure 3** Draft length sensitivity. @ r36 x t128, temp = 0. shows adaptive vs fixed EAGLE latency for several configs and across four distinct datasets for the Llama 3.1 8B Instruct model. @ r36 x t128, temp = 0
+> **Figure 3** Draft length sensitivity. Latency reduction confirms generalization across model scales (8B and 3B). 
 
 Ultimately, this variability explains why no single draft length works universally. Our adaptive approach sidesteps this problem by adjusting draft length per-request based on observed acceptance rates and task-specific requirements: fewer verification rounds when speculation is effective, and less wasted draft compute when it is not.
 
@@ -116,7 +118,7 @@ This latency penalty emerges from the mechanics of speculation. When early exitt
 |:---:|:---:|
 | ![8B draft length](/assets/images/elastic-speculation/latency_early.png) | ![3B draft length](/assets/images/elastic-speculation/tokens_early.png) |
 
-> **Figure 4** summarizes this trade-off for representative configs. @ r36 x t128, temp = 0
+> **Figure 4** Early exit stops a threshold-proportional % of speculative tokens before KV cache writes.  trades 1-3% latency for ~50% bandwidth reduction; coding shows steepest penalty (-5.4%) at threshold=0.7.
 
 Figure 5 visualizes this relationship: higher stop rates correlate with largerlatency penalties. Coding exhibits the steepest degradation at threshold=0.7(73.7% stop rate, -5.4% latency), while other datasets show smaller penalties — structured generation suffers most when speculation is aggressively curtailed.
 
@@ -126,7 +128,7 @@ The optimal threshold will ultimately depend on deployment context. Bandwidth-li
 |:---:|:---:|:---:|
 | | ![8B draft length](/assets/images/elastic-speculation/lat_tok_scatter.png) | |
 
-> **Figure 5** summarizes this trade-off for representative configs. @ r36 x t128, temp = 0 
+> **Figure 5** Higher stop rates correlate with larger latency penalties on compute-bound hardware; optimal threshold depends on deployment context.
 
 ## Maintaining output semantics and quality
 
@@ -154,7 +156,7 @@ Both adaptive draft length and early exit maintain semantic fidelity: BERTScore 
 |:---:|:---:|
 | ![8B draft length](/assets/images/elastic-speculation/bert_adaptive.png) | ![8B draft length](/assets/images/elastic-speculation/bert_early.png) | 
 
-> **Figure 6** summarizes this trade-off for representative configs. @ r36 x t128, temp = 0
+> **Figure 6** Adaptive draft length and early exit maintain BERTScore F1 >0.88 and F1 >0.95 respectively across all datasets, indicating semantic equivalence to baseline.
 
 ### Cosine Similarity (Sentence-Level Embeddings)
 
@@ -179,7 +181,7 @@ For reference, scores of 0.70-0.85 indicate paraphrases with similar meaning, wh
 |:---:|:---:|
 | ![8B draft length](/assets/images/elastic-speculation/cosine_adaptive.png) | ![8B draft length](/assets/images/elastic-speculation/cosine_early.png) | 
 
-> **Figure 7** summarizes this trade-off for representative configs. @ r36 x t128, temp = 0
+> **Figure 7** Adaptive draft length and early exit achieve >0.94 sentence-level similarity across all thresholds and datasets.
 
 ### Reward Model Quality Score ∆ (Human Preference Alignment)
 
@@ -197,7 +199,7 @@ Figure 8 plots the quality score delta: elastic speculation minus baseline specu
 |:---:|:---:|
 | ![8B draft length](/assets/images/elastic-speculation/reward_adaptive.png) | ![8B draft length](/assets/images/elastic-speculation/reward_early.png) | 
 
-> **Figure 8** visualizes semantic similarity for a few representative configurations.
+> **Figure 8** Quality deltas within ±0.15 confirm elastic speculation preserves human-perceived output quality; no statistically significant difference from baseline speculation (p>0.85).
 
 Across all three metrics, elastic speculation preserves semantic quality. BERTScore >0.94, cosine similarity >0.95, and reward model deltas within ±0.2 confirm outputs match baseline speculation in both token-level fidelity and human-perceived quality.  
 
