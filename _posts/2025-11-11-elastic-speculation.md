@@ -11,7 +11,7 @@ excerpt: "Elastic speculation delivers 30–50% lower latency and up to ~50% few
 
 Large language model inference is fast enough to demo and slow enough to hurt.
 
-Speculative decoding is an incredibly effective strategy for speeding up inference: a smaller draft model proposes multiple tokens, a larger target model verifies them, and we commit the accepted prefix and discard the rest.  Implementations like EAGLE in vLLM already make this practical and widely used. 
+Speculative decoding[^speculative] is an incredibly effective strategy for speeding up inference: a smaller draft model proposes multiple tokens, a larger target model verifies them, and we commit the accepted prefix and discard the rest. Implementations like EAGLE[^eagle] in vLLM[^vllm] already make this practical and widely used. 
 
 However, two parts of this pipeline are still potentially inefficient:
 
@@ -26,7 +26,7 @@ In this post, we introduce **Elastic Speculation**: a small control layer on top
 
 **First, acceptance is not constant** and so a global, fixed _K_ is too blunt. For easy or highly structured workloads (e.g., coding or QA-style prompts), acceptance can be very high, so a small _K_ underutilizes the draft model. For harder or more creative workloads, acceptance drops, so a large _K_ wastes compute on tokens that will be thrown away.
 
-**Second, being KV-cache bandwidth constrained hurts.** Even speculative tokens that will never be accepted still pay the full price of KV writes. At larger batch sizes, longer contexts, and bigger models, KV-cache traffic becomes a dominant bottleneck. Reducing unnecessary KV work is often the real lever for throughput. 
+**Second, being KV-cache bandwidth constrained hurts.** Even speculative tokens that will never be accepted still pay the full price of KV writes. At larger batch sizes, longer contexts, and bigger models, KV-cache traffic becomes a dominant bottleneck[^kvbottleneck]. Reducing unnecessary KV work is often the real lever for throughput. 
 
 Elastic Speculation treats speculative decoding as a **runtime control problem**:
 - Speculate more when speculation is working.
@@ -63,7 +63,7 @@ We evaluated adaptive draft length on `Llama-3.1-8B-Instruct` target and draft m
 
 Across workloads ranging from short bursts (`12 requests x 64 tokens`) to long-form generation (`36 x 256`), adaptive draft length cuts latency by s compared to fixed-length EAGLE. Figure 2 breaks down these gains at draft length `d=10` across the four datasets. The short-context benchmarks - Alpaca, SQuAD, and Coding - deliver consistent **35–45%** speedups under both greedy (`temp=0`) and stochastic sampling decoding (`temp=0.7`, not shown). For the long-form dataset, while adaptive still provides sizeable gains, the savings drop to **~16–30%**.
 
-Why the gap? Speculative decoding fundamentally relies on the draft model tracking the target model's distribution. As sequences grow longer, this alignment degrades. Our long-form benchmark averages 487 tokens per output (vs 128–256 for other datasets). The longer the context, the more cumulative errors compound, and acceptance rates fall accordingly [Source]. 
+Why the gap? Speculative decoding fundamentally relies on the draft model tracking the target model's distribution. As sequences grow longer, this alignment degrades. Our long-form benchmark averages 487 tokens per output (vs 128–256 for other datasets). The longer the context, the more cumulative errors compound, and acceptance rates fall accordingly[^seqlen]. 
 
 | | **Llama 3.1 8B @ k=10** | | 
 |:---:|:---:|:---:|
@@ -148,9 +148,9 @@ embeddings from BERT-family models. Unlike surface-level string matching, it
 captures whether two texts convey the same meaning even with different wording.
 
 > **How it works:** The metric computes token-level similarity using contextual
-embeddings from *microsoft/deberta-large-mnli* (Zhang et al., ICLR 2020), then aggregates via precision, recall, and F1-score. Each token in the candidate text is matched to its most similar token in the reference text based on cosine similarity in embedding space.
+embeddings from *microsoft/deberta-large-mnli*[^bertscore], then aggregates via precision, recall, and F1-score. Each token in the candidate text is matched to its most similar token in the reference text based on cosine similarity in embedding space.
 
-Both adaptive draft length and early exit maintain semantic fidelity: BERTScore F1 exceeds ranges from ~0.89 to 0.94 across all experiments. This places outputs well into the semantic equivalence regime—above the 0.90 threshold where texts convey identical  meaning (Zhang et al., ICLR 2020). For context, scores of 0.85-0.90 indicate paraphrase-level similarity, while values below 0.80 signal semantically different content.
+Both adaptive draft length and early exit maintain semantic fidelity: BERTScore F1 exceeds ranges from ~0.89 to 0.94 across all experiments. This places outputs well into the semantic equivalence regime—above the 0.90 threshold where texts convey identical meaning[^bertscore]. For context, scores of 0.85-0.90 indicate paraphrase-level similarity, while values below 0.80 signal semantically different content.
 
 | **Adaptive Draft Length** | **Early Exit** |
 |:---:|:---:|
@@ -164,9 +164,9 @@ Cosine similarity measures the angle between dense vector representations of
 complete sentences, capturing overall semantic content at the document level
 rather than token-by-token.
 
-> **How it works:** We encode each output using Sentence-BERT (*all-mpnet-base-v2*), which produces a single 768-dimensional vector per text. The cosine similarity between corresponding baseline and optimized outputs quantifies semantic alignment.
+> **How it works:** We encode each output using Sentence-BERT[^sbert] (*all-mpnet-base-v2*), which produces a single 768-dimensional vector per text. The cosine similarity between corresponding baseline and optimized outputs quantifies semantic alignment.
 
-Cosine similarity between sentence embeddings confirms (and even exceeds) the BERTScore findings: adaptive draft length achieves >0.95 similarity for all datasets, with SQuAD and coding measuring over 0.97 (Figure 7). Early exit maintains >0.92 across thresholds. These scores place outputs well above the 0.85 threshold for semantic equivalence (Reimers & Gurevych, 2019)—effectively producing semantic duplicates of baseline outputs at the sentence level.
+Cosine similarity between sentence embeddings confirms (and even exceeds) the BERTScore findings: adaptive draft length achieves >0.95 similarity for all datasets, with SQuAD and coding measuring over 0.97 (Figure 7). Early exit maintains >0.92 across thresholds. These scores place outputs well above the 0.85 threshold for semantic equivalence[^sbert]—effectively producing semantic duplicates of baseline outputs at the sentence level.
 
 $$
 \text{cosine similarity}(u, v) = \frac{u \cdot v}{u \times v}
@@ -189,7 +189,7 @@ The reward model measures output quality based on human preference alignment,
 trained on datasets of human judgments about response quality. Unlike similarity
 metrics, it evaluates absolute quality rather than just semantic equivalence.
 
-> **How it works:** We used *OpenAssistant/reward-model-deberta-v3-large-v2*, a `DeBERTa-v3-large` model fine-tuned on human preference data. The model scores each output on a continuous scale, predicting how humans would rate the response quality in terms of helpfulness, correctness, and coherence.
+> **How it works:** We used *OpenAssistant/reward-model-deberta-v3-large-v2*[^rewardmodel], a `DeBERTa-v3-large` model fine-tuned on human preference data. The model scores each output on a continuous scale, predicting how humans would rate the response quality in terms of helpfulness, correctness, and coherence.
 
 This particular model scores outputs on helpfulness, correctness, and coherence as a proxy for human-perceived quality. The model outputs unbounded logit scores (typically -5 to +5 range), where higher values indicate better quality.
 
@@ -215,7 +215,27 @@ We are preparing an vLLM PR so you can try Elastic Speculation in your own deplo
 
 ---
 
+## References
+
+[^speculative]: Leviathan, Y., Kalman, M., & Matias, Y. (2023). "Fast Inference from Transformers via Speculative Decoding". *Proceedings of the 40th International Conference on Machine Learning (ICML 2023)*, 19274-19286. arXiv:2211.17192
+
+[^eagle]: Li, Y., Wei, F., Zhang, C., & Zhang, H. (2024). "EAGLE: Speculative Sampling Requires Rethinking Feature Uncertainty". *Proceedings of the 41st International Conference on Machine Learning (ICML 2024)*. arXiv:2401.15077
+
+[^vllm]: Kwon, W., Li, Z., Zhuang, S., Sheng, Y., Zheng, L., Yu, C. H., Gonzalez, J. E., Zhang, H., & Stoica, I. (2023). "Efficient Memory Management for Large Language Model Serving with PagedAttention". *Proceedings of the 29th ACM Symposium on Operating Systems Principles (SOSP '23)*. arXiv:2309.06180
+
+[^kvbottleneck]: Kwon et al. (2023) show that KV cache accounts for up to 73% of total memory in large-batch inference, with memory bandwidth becoming the primary bottleneck during decoding.
+
+[^seqlen]: Miao, X. et al. (2024). "Draft Model Knows When to Stop: A Self-Verification Length Policy for Speculative Decoding". arXiv:2411.18462. The paper demonstrates that speculative decoding performance degrades as input length grows due to reduced draft accuracy.
+
+[^bertscore]: Zhang, T., Kishore, V., Wu, F., Weinberger, K. Q., & Artzi, Y. (2020). "BERTScore: Evaluating Text Generation with BERT". *Proceedings of the 8th International Conference on Learning Representations (ICLR 2020)*. arXiv:1904.09675
+
+[^sbert]: Reimers, N., & Gurevych, I. (2019). "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks". *Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (EMNLP-IJCNLP)*, 3982-3992. arXiv:1908.10084
+
+[^rewardmodel]: OpenAssistant/reward-model-deberta-v3-large-v2. Available at [https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2)
+
+---
+
 Please cite this work as:
 ```
-Zhao, Ben and Iluvatar Labs, "Elastic Speculation: Adaptive Draft Length and Confidence-Based Early Exit", Iluvatar Labs Blog, Nov 2025. 
+Zhao, Ben and Iluvatar Labs, "Elastic Speculation: Adaptive Draft Length and Confidence-Based Early Exit", Iluvatar Labs Blog, Nov 2025.
 ```

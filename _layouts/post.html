@@ -20,14 +20,75 @@ layout: default
     .post-meta {
         color: #888;
         font-size: 1rem;
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        justify-content: center;
+        text-align: center;
+    }
+
+    .post-meta .author {
+        display: block;
+        margin-bottom: 0.5rem;
     }
 
     .post-meta time {
+        display: block;
         font-weight: 400;
+    }
+
+    .post-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .toc {
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+        font-size: 0.9rem;
+    }
+
+    .toc-title {
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+
+    .toc ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .toc li {
+        margin-bottom: 0.5rem;
+    }
+
+    .toc a {
+        color: #888;
+        text-decoration: none;
+    }
+
+    .toc a:hover {
+        color: #fff;
+    }
+
+    .post-main {
+        max-width: 800px;
+        margin-right: 280px;
+    }
+
+    .sidenote {
+        float: right;
+        clear: right;
+        width: 250px;
+        margin-right: -280px;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        color: #888;
+        border-left: 2px solid #444;
+        padding-left: 1rem;
     }
 
     .post-content {
@@ -69,6 +130,7 @@ layout: default
         border-radius: 3px;
         font-family: 'Courier New', monospace;
         font-size: 0.9em;
+        color: #9cdcfe;
     }
 
     .post-content pre {
@@ -85,11 +147,10 @@ layout: default
     }
 
     .post-content blockquote {
-        border-left: 3px solid #444;
+        border-left: 3px solid #3b82f6;
         padding-left: 1.5rem;
         margin: 2rem 0;
         color: #ccc;
-        font-style: italic;
     }
 
     .post-content img {
@@ -116,6 +177,31 @@ layout: default
         color: #fff;
     }
 
+    @media (max-width: 1400px) {
+        .sidenote {
+            float: none;
+            width: 100%;
+            margin: 1rem 0;
+            margin-right: 0;
+            border-left: none;
+            border-top: 2px solid #444;
+            padding-top: 0.5rem;
+            padding-left: 0;
+        }
+        .post-main {
+            margin-right: 0;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .post-container {
+            grid-template-columns: 1fr;
+        }
+        .toc {
+            position: relative;
+        }
+    }
+
     @media (max-width: 768px) {
         .post-title {
             font-size: 1.5rem;
@@ -134,16 +220,44 @@ layout: default
         <h1 class="post-title">{{ page.title }}</h1>
         <div class="post-meta">
             {% if page.author %}
-            {{ page.author }}
+            <span class="author">{{ page.author }}</span>
             {% endif %}
-            •
             <time datetime="{{ page.date | date_to_xmlschema }}">
                 {{ page.date | date: "%B %d, %Y" }}
             </time>
         </div>
     </header>
 
-    <div class="post-content">
-        {{ content }}
+    <div class="post-container">
+        <nav class="toc">
+            <div class="toc-title">Contents</div>
+            <ul></ul>
+        </nav>
+
+        <div class="post-main">
+            <div class="post-content">
+                {{ content }}
+            </div>
+        </div>
     </div>
 </article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toc = document.querySelector('.toc ul');
+    const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+
+    headings.forEach(heading => {
+        const id = heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        heading.id = id;
+
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${id}`;
+        a.textContent = heading.textContent;
+        if (heading.tagName === 'H3') a.style.paddingLeft = '1rem';
+        li.appendChild(a);
+        toc.appendChild(li);
+    });
+});
+</script>
