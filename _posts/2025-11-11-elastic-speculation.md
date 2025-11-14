@@ -7,6 +7,10 @@ math: true
 excerpt: "Elastic speculation delivers 30–50% lower latency and up to ~50% fewer speculative KV writes in our experiments, while preserving output quality."
 ---
 
+> **The TL;DR:** Elastic speculation speeds up inference while maintaining output quality, resulting in more responsive models and a reduction compute costs.
+> 
+> Specifically, adaptive draft length delivers **20-50% latency reduction** over fixed-length speculation. Confidence-based early exit **cuts speculative KV writes by ~50% at a 1-3% latency cost**. Both methods **preserve semantic quality** at multiple scales (BERTScore >0.9, cosine similarity >0.95, equivalent reward model scoring).
+
 ## Introduction
 
 Large language model inference is fast enough to demo and slow enough to hurt.
@@ -19,8 +23,6 @@ However, two parts of this pipeline are still potentially inefficient:
 - Every speculative token writes to KV cache, even when it was never likely to survive verification.
 
 In this post, we introduce **Elastic Speculation**: a small control layer on top of EAGLE that makes speculative decoding adaptive instead of static.
-
-> **The TL;DR:** Adaptive draft length delivers **20-50% latency reduction** over fixed-length speculation. Confidence-based early exit **cuts speculative KV writes by ~50% at a 1-3% latency cost**. Both methods **preserve semantic quality** at multiple scales (BERTScore >0.9, cosine similarity >0.95, equivalent reward model scoring).
 
 ## Why spec decode leaves performance on the table
 
@@ -35,7 +37,9 @@ Elastic Speculation treats speculative decoding as a **runtime control problem**
 
 We do this without changing model weights or the verification rule. Our reference implementation is for EAGLE in vLLM, but the same control-plane ideas apply to other speculative decoding methods.
 
-![Figure 1: Elastic Speculation overview](/assets/images/elastic-speculation/elastic_spec_overview_mod.svg)
+| **Elastic Speculation Overview** |
+|:---:|
+| ![Figure 1: Elastic Speculation overview](/assets/images/elastic-speculation/elastic_spec_overview_mod.svg) | 
 
 > **Figure 1** illustrates this design: speculative decoding with a dynamic _K_, plus a separate control that can gate KV writes.
 
@@ -58,16 +62,16 @@ We evaluated adaptive draft length on `Llama-3.1-8B-Instruct` target and draft m
 
 - `Alpaca` - Instruction-following tasks spanning creative writing, QA, and general task completion. Representative of typical chat assistant workloads.
 - `SQuAD` - Reading comprehension requiring extractive answers. Short, factual outputs with high determinism ideal for testing speculation on low-entropy tasks.
-- `Long` - Document summarization, essays, and narratives requiring 256+ tokens. Stresses sustained speculation quality over extended generations.
-- `Coding` - Code completion, bug fixing, and algorithm implementation. Highly structured outputs with strict syntactic constraints test adaptive tuning limits.
+- `CNN DailyMail` (aka long) - Document summarization, essays, and narratives requiring 256+ tokens. Stresses sustained speculation quality over extended generations.
+- `BigCodeBench` (aka coding) - Code completion, bug fixing, and algorithm implementation. Highly structured outputs with strict syntactic constraints test adaptive tuning limits.
 
 Across workloads ranging from short bursts (`12 requests x 64 tokens`) to long-form generation (`36 x 256`), adaptive draft length cuts latency substantially. Figure 2 breaks down these gains at draft length `d=10` across the four datasets. The short-context benchmarks - Alpaca, SQuAD, and Coding - deliver consistent **35–45%** speedups under both greedy (`temp=0`) and stochastic sampling decoding (`temp=0.7`, not shown). For the long-form dataset, while adaptive still provides sizeable gains, the savings drop to **~16–30%**.
 
 Why the gap? Speculative decoding fundamentally relies on the draft model tracking the target model's distribution. As sequences grow longer, this alignment degrades. Our long-form benchmark averages 487 tokens per output (vs 128–256 for other datasets). The longer the context, the more cumulative errors compound, and acceptance rates fall accordingly[^seqlen]. 
 
-| | **Llama 3.1 8B @ k=10** | | 
+| | **Latency** | | 
 |:---:|:---:|:---:|
-| | ![Figure 2](/assets/images/elastic-speculation/latency_adaptive_d10.png) | |
+| ![Spacer](/assets/images/elastic-speculation/spacer.png) | ![Figure 2](/assets/images/elastic-speculation/latency_adaptive_d10.png) | ![Spacer](/assets/images/elastic-speculation/spacer.png) |
 
 > **Figure 2** Adaptive draft length (d=10) achieves 35-55% latency reduction across datasets with Llama-3.1-8B-Instruct.
 
@@ -104,13 +108,13 @@ All sequences still execute the same control flow and only the data (which slots
 
 Early exit functions as a **bandwidth control knob**: terminate low-confidence  speculations before writing full draft sequences to KV cache, trading local  compute overhead for reduced memory pressure.
 
-This matters because KV cache dominates production inference. At scale (large  batches, long contexts), the decode phase is memory-bandwidth bound: research  shows KV cache accounts for up to 73% of total memory in LLaMA-7B at batch=32[^sheng], and over 50% of attention kernel cycles stall on data access  delays[^memorygap]. Techniques that reduce KV cache bandwidth  show 1.5-3.7× latency improvements in production (RocketKV, SQuat, Async KV  prefetch).
+This matters because KV cache dominates production inference. At scale (large  batches, long contexts), the decode phase is memory-bandwidth bound: research shows KV cache accounts for up to 73% of total memory in `LLaMA-7B` at `batch=32`[^sheng], and over 50% of attention kernel cycles stall on data access delays[^memorygap]. Techniques that reduce KV cache bandwidth show 1.5-3.7× latency improvements in production (RocketKV, SQuat, Async KV  prefetch).
 
-Our early exit mechanism cuts DRAM writes by stopping speculation when confidence  drops below threshold—fewer draft tokens generated means fewer KV cache entries  written. In bandwidth-limited stacks (large models, long contexts, multi-tenant  serving), this enables higher batch throughput and prevents OOM conditions. The  1-5% per-request latency cost translates to net system-level gains when memory  bandwidth, not compute, is the bottleneck.
+Our early exit mechanism cuts DRAM writes by stopping speculation when confidence drops below threshold—fewer draft tokens generated means fewer KV cache entries written. In bandwidth-limited stacks (large models, long contexts, multi-tenant serving), this enables higher batch throughput and prevents OOM conditions. The 1-5% per-request latency cost translates to net system-level gains when memory bandwidth, not compute, is the bottleneck.
 
 ### Bandwidth vs latency trade-off
 
-Figure 4 shows the bandwidth-latency trade-off across thresholds 0.3, 0.5, and 0.7. At threshold=0.5, early exit stops 50-65% of speculative tokens before KV cache writes, translating to roughly 50% fewer DRAM write operations in our NCU profiles. The cost: 1-3% higher end-to-end latency compared to no early exit.
+Figure 4 shows the bandwidth-latency trade-off across thresholds `0.3`, `0.5`, and `0.7`. At `threshold=0.5`, early exit stops 50-65% of speculative tokens before KV cache writes, translating to roughly 50% fewer DRAM write operations in our NCU profiles. The cost: 1-3% higher end-to-end latency compared to no early exit.
 
 This latency penalty emerges from the mechanics of speculation. When early exit terminates a draft sequence, fewer tokens are available for verification. Lower acceptance per round means more speculation rounds to generate the same output — and each additional round invokes the target model. On our compute-bound test hardware, this overhead dominates. But production deployments are bandwidth-bound at scale[^sheng], where 50% DRAM savings enables higher batch throughput. The mechanism is the same — and production regimes are precisely where bandwidth constraints bite.
 
@@ -120,15 +124,15 @@ This latency penalty emerges from the mechanics of speculation. When early exit 
 
 > **Figure 4** Early exit stops a threshold-proportional % of speculative tokens before KV cache writes.  trades 1-3% latency for ~50% bandwidth reduction; coding shows steepest penalty (-5.4%) at threshold=0.7.
 
-Figure 5 visualizes this relationship: higher stop rates correlate with larger latency penalties. Coding exhibits the steepest degradation at threshold=0.7(73.7% stop rate, -5.4% latency), while other datasets show smaller penalties — structured generation suffers most when speculation is aggressively curtailed.
+Figure 5 visualizes this relationship: higher stop rates correlate with larger latency penalties. Coding exhibits the steepest degradation at threshold=`0.7` (73.7% stop rate, -5.4% latency), while other datasets show smaller penalties — structured generation suffers most when speculation is aggressively curtailed.
 
-The optimal threshold will ultimately depend on deployment context. Bandwidth-limited production stacks benefit from aggressive early exit (threshold=0.5-0.7) to prevent OOM and enable larger batches. Compute-bound scenarios favor conservative thresholds (0.3) or disabling early exit entirely. Our implementation exposes threshold as a tunable parameter for operators to match their hardware constraints.
+The optimal threshold will ultimately depend on deployment context. Bandwidth-limited production stacks benefit from aggressive early exit (threshold=`0.5-0.7`) to prevent OOM and enable larger batches. Compute-bound scenarios favor conservative thresholds (`0.3`) or disabling early exit entirely. Our implementation exposes threshold as a tunable parameter for operators to match their hardware constraints.
 
-| | **Llama 3.2 8B @ k=10** | |
+| | **Latency vs Bandwidth Trade-Off** | |
 |:---:|:---:|:---:|
 | ![Spacer](/assets/images/elastic-speculation/spacer.png) | ![Figure 5](/assets/images/elastic-speculation/lat_tok_scatter.png) | ![Spacer](/assets/images/elastic-speculation/spacer.png) |
 
-> **Figure 5** Higher stop rates correlate with larger latency penalties on compute-bound hardware; optimal threshold depends on deployment context.
+> **Figure 5** Higher stop rates correlate with larger latency penalties on compute-bound hardware; optimal threshold depends on deployment context (Llama-3.1-8B-Instruct @ k=10). 
 
 ## Maintaining output semantics and quality
 
@@ -137,9 +141,9 @@ Elastic Speculation necessarily changes which speculative tokens are proposed an
 To quantify this difference, we systematically evaluated the exact outputs from adaptive draft length and early exit on (elastic speculation) against standard speculative decoding (fixed-length k). We also compared both against vLLM's no-spec target model only to understand the relative semantic similarity and to ensure elastic speculation keeps our outputs in the same **semantic regime**. 
 
 Specifically, we evaluated the outputs under the following three criteria: 
-- BERTScore F1 (token-level semantic similarity)
-- cosine similarity (sentence-level via Sentence-BERT similarity)
-- and a reward model quality score (human preference alignment)
+- `BERTScore F1` (token-level semantic similarity)
+- `cosine similarity` (sentence-level via Sentence-BERT similarity)
+- and a `reward model quality score` (human preference alignment)
 
 ### BERTScore F1 (Context-aware token alignment)
 
@@ -152,7 +156,7 @@ embeddings from *microsoft/deberta-large-mnli*[^bertscore], then aggregates via 
 
 Both adaptive draft length and early exit maintain semantic fidelity: BERTScore F1 ranges from ~0.89 to 0.94 across all experiments. This places outputs well into the semantic equivalence regime—above the 0.90 threshold where texts convey identical meaning. For context, scores of 0.85-0.90 indicate paraphrase-level similarity, while values below 0.80 signal semantically different content.
 
-| **Adaptive Draft Length** | **Early Exit** |
+| **Adaptive (BERTScore F1)** | **Early Exit (BERTScore F1)** |
 |:---:|:---:|
 | ![Figure 6a](/assets/images/elastic-speculation/bert_adaptive.png) | ![Figure 6b](/assets/images/elastic-speculation/bert_early.png) | 
 
@@ -177,7 +181,7 @@ where $u = \text{SentenceBERT}(\text{text}_1)$, $v =
 
 For reference, scores of 0.70-0.85 indicate paraphrases with similar meaning, while values below 0.60 signal semantically divergent content. Our results demonstrate that neither elastic technique introduces meaningful semantic drift.
 
-| **Adaptive Draft Length** | **Early Exit** |
+| **Adaptive (Cosine)** | **Early Exit (Cosine)** |
 |:---:|:---:|
 | ![Figure 7a](/assets/images/elastic-speculation/cosine_adaptive.png) | ![Figure 7b](/assets/images/elastic-speculation/cosine_early.png) | 
 
@@ -195,7 +199,7 @@ This particular model scores outputs on helpfulness, correctness, and coherence 
 
 Figure 8 plots the quality score delta: elastic speculation minus baseline speculation, with both compared against no-speculation runs. Values hovering near zero indicate equivalent quality. Adaptive draft length shows deltas within ±0.15 across all datasets, while early exit maintains ±0.2 across thresholds. Paired t-tests confirm no statistically significant difference (p > 0.85 across experiments). Mean absolute scores are baseline = -2.505, adaptive = -2.513 — both producing equivalently high-quality outputs from a human preference perspective. 
 
-| **Adaptive Draft Length** | **Early Exit** |
+| **Adaptive (Quality ∆)** | **Early Exit (Quality ∆)** |
 |:---:|:---:|
 | ![Figure 8a](/assets/images/elastic-speculation/reward_adaptive.png) | ![Figure 8b](/assets/images/elastic-speculation/reward_early.png) | 
 
@@ -205,7 +209,7 @@ Across all three metrics, elastic speculation preserves semantic quality. BERTSc
 
 To understand what "acceptable drift" looks like, we measured how much baseline speculation diverges from no-speculation runs. This gives us a reference: if speculation itself introduces some semantic variance, elastic variants should stay within that same range. They do — elastic spec vs. no-spec shows comparable deltas to baseline spec vs. no-spec (*not shown*). Our optimizations don't add drift beyond what standard speculation already introduces. Finally, the 3B model replicates these findings across all metrics and conditions (not shown).  
 
-Note that the results shown use temperature=0.0. At temperature=0.7, scores drop for both baseline and elastic variants to similar degrees (*not shown*) — that's just the nature of making using sampling based generation. Your outputs get a little _spicy_ but elastic is no worse than baseline speculation. 
+Note that the results shown use temperature=`0.0`. At temperature=`0.7`, scores drop for both baseline and elastic variants to similar degrees (*not shown*) — that's just the nature of making using sampling based generation. Your outputs get a little _spicy_ but elastic is no worse than baseline speculation. 
 
 ## Concluding Remarks
 
@@ -235,7 +239,7 @@ Confidence-Based Early Exit", Iluvatar Labs Blog, Nov 2025.
 
 [^sbert]: Reimers, N., & Gurevych, I. (2019). "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks". *Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing (EMNLP-IJCNLP)*, 3982-3992. arXiv:1908.10084
 
-[^rewardmodel]: OpenAssistant/reward-model-deberta-v3-large-v2. Available at [https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2)
+[^rewardmodel]: OpenAssistant/reward-model-deberta-v3-large-v2. Available at [https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2](https://huggingface.co/OpenAssistant/reward-model-deberta-v3-large-v2). 
 
 [^chen]: Chen, C., Borgeaud, S., Irving, G., Lespiau, J.-B., Sifre, L., & Jumper, J. (2023). "Accelerating Large Language Model Decoding with Speculative Sampling". arXiv:2302.01318
 
