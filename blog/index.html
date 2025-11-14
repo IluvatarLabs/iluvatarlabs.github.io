@@ -27,13 +27,28 @@ title: blog.
     }
 
     .post-item {
-        margin-bottom: 3rem;
-        padding-bottom: 3rem;
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
         border-bottom: 1px solid #222;
     }
 
     .post-item:last-child {
         border-bottom: none;
+    }
+
+    .post-date-col {
+        flex-shrink: 0;
+        width: 80px;
+        color: #888;
+        font-size: 0.9rem;
+        padding-top: 0.2rem;
+    }
+
+    .post-content-col {
+        flex: 1;
+        min-width: 0;
     }
 
     .post-link {
@@ -52,14 +67,14 @@ title: blog.
         transition: opacity 0.2s;
     }
 
-    .post-item-date {
-        color: #666;
-        font-size: 0.85rem;
-        margin-bottom: 1rem;
+    .post-item-author {
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
     }
 
     .post-item-excerpt {
-        color: #ccc;
+        color: #aaa;
         line-height: 1.6;
         font-size: 0.95rem;
     }
@@ -73,6 +88,15 @@ title: blog.
     @media (max-width: 768px) {
         .blog-title {
             font-size: 1.8rem;
+        }
+
+        .post-item {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .post-date-col {
+            width: auto;
         }
 
         .post-item-title {
@@ -91,17 +115,24 @@ title: blog.
         <ul class="post-list">
             {% for post in site.posts %}
             <li class="post-item">
-                <a href="{{ post.url }}" class="post-link">
-                    <h2 class="post-item-title">{{ post.title }}</h2>
-                    <time class="post-item-date" datetime="{{ post.date | date_to_xmlschema }}">
-                        {{ post.date | date: "%B %d, %Y" }}
+                <div class="post-date-col">
+                    <time datetime="{{ post.date | date_to_xmlschema }}">
+                        {{ post.date | date: "%b %-d" }}
                     </time>
-                    {% if post.excerpt %}
-                    <div class="post-item-excerpt">
-                        {{ post.excerpt | strip_html | truncate: 200 }}
-                    </div>
-                    {% endif %}
-                </a>
+                </div>
+                <div class="post-content-col">
+                    <a href="{{ post.url }}" class="post-link">
+                        <h2 class="post-item-title">{{ post.title }}</h2>
+                        {% if post.author %}
+                        <div class="post-item-author">{{ post.author }}</div>
+                        {% endif %}
+                        {% if post.excerpt %}
+                        <div class="post-item-excerpt">
+                            {{ post.excerpt | strip_html | truncate: 200 }}
+                        </div>
+                        {% endif %}
+                    </a>
+                </div>
             </li>
             {% endfor %}
         </ul>
