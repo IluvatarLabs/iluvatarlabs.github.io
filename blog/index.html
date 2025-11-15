@@ -40,9 +40,9 @@ title: blog.
 
     .post-date-col {
         flex-shrink: 0;
-        width: 80px;
+        width: 100px;
         color: #888;
-        font-size: 0.9rem;
+        font-size: 1rem;
         padding-top: 0.2rem;
     }
 
@@ -107,7 +107,7 @@ title: blog.
 
 <div class="blog-header">
     <h1 class="blog-title">Blog</h1>
-    <p class="blog-subtitle">Research Papers, Technical Reports, and Thoughts.</p>
+    <p class="blog-subtitle">Research, Announcements, and Editorials.</p>
 </div>
 
 <div class="posts">
@@ -117,7 +117,7 @@ title: blog.
             <li class="post-item">
                 <div class="post-date-col">
                     <time datetime="{{ post.date | date_to_xmlschema }}">
-                        {{ post.date | date: "%b %-d" }}
+                        {{ post.date | date: "%b %-d, %Y" }}
                     </time>
                 </div>
                 <div class="post-content-col">
