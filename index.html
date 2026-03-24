@@ -431,16 +431,18 @@ function drawDAG() {
     const colCount = columnCounts.length;
     const colSpacing = dagW / (colCount - 1);
 
-    const bw = 50, bh = 22;
+    const scale = Math.min(1, w / 800);
+    const bw = 50 * scale, bh = 22 * scale;
+    const vGap = 28 * scale;
 
     const columns = columnCounts.map((count, ci) => {
         const nodes = [];
-        const totalH = (count - 1) * (bh + 28);
+        const totalH = (count - 1) * (bh + vGap);
         const startY = (dagH - totalH) / 2;
         for (let n = 0; n < count; n++) {
             nodes.push({
                 x: offsetX + ci * colSpacing,
-                y: offsetY + startY + n * (bh + 28),
+                y: offsetY + startY + n * (bh + vGap),
                 ci, ni: n,
             });
         }
@@ -500,7 +502,7 @@ function drawDAG() {
         ctx.fillStyle = bright ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.04)';
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.roundRect(n.x - bw / 2, n.y - bh / 2, bw, bh, 4);
+        ctx.roundRect(n.x - bw / 2, n.y - bh / 2, bw, bh, 4 * scale);
         ctx.fill();
         ctx.stroke();
     });
