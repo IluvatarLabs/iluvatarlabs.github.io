@@ -209,6 +209,18 @@ layout: default
         .post-content {
             font-size: 0.95rem;
         }
+
+        .toc {
+            display: none;
+        }
+
+        .sidenote {
+            display: none;
+        }
+
+        .back-link {
+            font-size: 1rem;
+        }
     }
 </style>
 
@@ -285,8 +297,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Hide the original footnotes section
-        footnotes.style.display = 'none';
+        // Hide the original footnotes section on desktop only
+        // On mobile, sidenotes are hidden via CSS and footnotes stay visible at the bottom
+        if (window.innerWidth > 768) {
+            footnotes.style.display = 'none';
+        }
     }
 });
 </script>
