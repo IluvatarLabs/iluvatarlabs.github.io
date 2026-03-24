@@ -127,7 +127,54 @@
             opacity: 0.8;
         }
 
+        /* ── Hamburger button ── */
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            z-index: 10;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #999;
+            margin: 5px 0;
+            transition: all 0.2s;
+        }
+
+        .nav-hamburger:hover span {
+            background: #fff;
+        }
+
         @media (max-width: 768px) {
+            .nav {
+                padding: 2rem 1.5rem;
+                position: relative;
+            }
+
+            .nav-hamburger { display: block; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 1.5rem;
+                background: #111;
+                border: 1px solid #222;
+                border-radius: 6px;
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+                min-width: 180px;
+                z-index: 10;
+            }
+
+            .nav-links.open { display: flex; }
+
             .container {
                 padding: 1rem;
             }
@@ -143,6 +190,9 @@
 <body>
     <nav class="nav">
         <a href="/" class="nav-title">iluvatar labs.</a>
+        <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
         <div class="nav-links">
             <a href="#" class="product-link"><svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg> Actuator</a>
             <a href="/blog/2026/03/introducing-marvin/" class="product-link"><svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg> Marvin</a>
