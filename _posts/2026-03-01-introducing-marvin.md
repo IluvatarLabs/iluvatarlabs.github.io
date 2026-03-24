@@ -73,7 +73,6 @@ Marvin takes the information overload and busywork out of research. It does deep
 ## Get started
 
 <div class="code-block">
-    <div><span style="color: #444;">$</span> pip install marvin-research</div>
     <div><span style="color: #444;">$</span> marvin init</div>
     <div><span style="color: #444;">$</span> marvin plan <span style="color: #333;"># scope your research interactively</span></div>
     <div><span style="color: #444;">$</span> marvin run  <span style="color: #333;"># autonomous research loop</span></div>
