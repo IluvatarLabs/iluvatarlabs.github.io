@@ -80,4 +80,4 @@ Marvin takes the information overload and busywork out of research. It does deep
 
 ## What's next
 
-Marvin is in active development. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, reach out. We'd love to hear about your project's needs and discuss if Marvin can help.
+Marvin is in active development. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, please reach out to [marvin@iluvatarlabs.com](mailto:marvin@iluvatarlabs.com). We'd love to hear about your project's needs and discuss if Marvin can help.
