@@ -1,0 +1,84 @@
+---
+layout: product
+title: "Introducing Marvin: Autonomous ML Research Agent"
+date: 2026-03-01
+category: Product
+author: "Iluvatar Labs"
+product_name: "Marvin"
+product_subtitle: "The fully <u>autonomous</u> scientist agent."
+product_tagline: "Define a research mission and Marvin will take care of the rest — reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis — end to end."
+product_logo: '<svg width="130" height="90" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><mask id="visor-eyes"><rect x="0" y="0" width="64" height="44" fill="white"/><circle cx="22" cy="22" r="6.5" fill="black"/><circle cx="42" cy="22" r="6.5" fill="black"/></mask></defs><path d="M 14 2 L 8 2 Q 4 2 4 6 L 4 16 Q 4 22 0 22 Q 4 22 4 28 L 4 38 Q 4 42 8 42 L 14 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 50 2 L 56 2 Q 60 2 60 6 L 60 16 Q 60 22 64 22 Q 60 22 60 28 L 60 38 Q 60 42 56 42 L 50 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="10" y="12" width="44" height="20" rx="10" fill="#fff" mask="url(#visor-eyes)"/></svg>'
+backdrop: "constellation"
+excerpt: "Autonomous ML research agent that conducts rigorous scientific research end-to-end: literature review, hypothesis generation, experiment design, execution, analysis, and documentation."
+---
+
+## Why we built this
+
+The bottleneck in ML research today isn't compute or data. It's the preparation. More research is being produced now than at any point in history, and the pace is only increasing. Researchers must ingest and synthesize growing volumes of information before they can actually start their research. And even once they start, a lot of the research cycle is still spent on logistics rather than the science itself.
+
+We built Marvin because nothing out there worked well enough for our own research. The existing options were either too dumb (chasing red herrings down rabbit holes or proposing smart-sounding ideas that were anything but), too wasteful (channeling Ralph Wiggum on experiments that were never going to work), or too opaque (poor documentation, no reasoning traces or "logic trail" that forms the bedrock of scientific reproducibility.)
+
+Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses, and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system. Designed for ML research teams by ML researchers.
+
+## The research cycle, automated
+
+<div class="timeline">
+    <div class="timeline-line"></div>
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Search</div>
+        <div class="timeline-desc">Retrieve and cross-check across relevant scientific databases, prior art, and published methodologies.</div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Hypothesize</div>
+        <div class="timeline-desc">Marvin synthesizes literature with experimental findings to generate truly novel but plausible hypotheses.</div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Design</div>
+        <div class="timeline-desc">Experiment in batches with scenario trees by asking the right questions.</div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Execute</div>
+        <div class="timeline-desc">Agents build, audit, review, and execute the plan. Scalable from local, hybrid, and cloud compute infrastructure.</div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Analyze</div>
+        <div class="timeline-desc">Marvin analyzes the entire data corpus to extract actionable insights with the rigor expected of a PhD-level researcher.</div>
+    </div>
+    <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-title">Document</div>
+        <div class="timeline-desc">Track not just the paper trail, but the <i>logic trail</i>. Every iteration, every interpretation, every decision.</div>
+    </div>
+</div>
+
+## Your repo's "logic trail"
+
+<div class="output-tree">
+    <div style="color: #999;">my-project/</div>
+    <div>&nbsp;&nbsp;├── <span style="color: #888;">research_state.md</span> <span style="color: #333;">— goals, status, findings</span></div>
+    <div>&nbsp;&nbsp;├── docs/</div>
+    <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span style="color: #666;">iteration_001.md</span> <span style="color: #333;">— scoreboard, analysis, lessons</span></div>
+    <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span style="color: #666;">iteration_002.md</span></div>
+    <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span style="color: #aaa; font-weight: 500;">handoff.md</span> <span style="color: #333;">— structured summary for the paper</span></div>
+    <div>&nbsp;&nbsp;├── experiments/</div>
+    <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span style="color: #666;">batch_001/</span></div>
+    <div>&nbsp;&nbsp;└── literature/</div>
+</div>
+
+## Get started
+
+<div class="code-block">
+    <div><span style="color: #444;">$</span> pip install marvin-research</div>
+    <div><span style="color: #444;">$</span> marvin init</div>
+    <div><span style="color: #444;">$</span> marvin plan <span style="color: #333;"># scope your research interactively</span></div>
+    <div><span style="color: #444;">$</span> marvin run  <span style="color: #333;"># autonomous research loop</span></div>
+</div>
+
+## What's next
+
+Marvin is in active development. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, reach out. We'd love to hear about your project's needs and discuss if Marvin can help.
