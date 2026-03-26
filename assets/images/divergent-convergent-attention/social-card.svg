@@ -1,0 +1,79 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Divergent-Convergent Attention social card</title>
+  <desc id="desc">Black social card with title and text on the left and a large oscillation diagram on the right.</desc>
+
+  <defs>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#000000"/>
+
+  <text x="64" y="92" fill="#7f7f7f" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="600" letter-spacing="2.4">ILUVATAR LABS • PREPRINT</text>
+
+  <text x="64" y="146" fill="#ffffff" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700">Divergent-Convergent Attention</text>
+
+  <text x="64" y="234" fill="#d8d8d8" font-family="Inter, system-ui, sans-serif" font-size="23" font-weight="500">
+    <tspan x="64" dy="0">Inspired by brain waves in biology,</tspan>
+    <tspan x="64" dy="36">DCA uses parallel perspectives and</tspan>
+    <tspan x="64" dy="36">periodic consensus to improve</tspan>
+    <tspan x="64" dy="36">compositional reasoning.</tspan>
+    <tspan x="64" dy="50">On HotpotQA, it achieves up to 5.4x</tspan>
+    <tspan x="64" dy="36">higher exact match and assigns higher</tspan>
+    <tspan x="64" dy="36">gold-answer probability on 98% of</tspan>
+    <tspan x="64" dy="36">examples, with gains that scale</tspan>
+    <tspan x="64" dy="36">sharply with difficulty.</tspan>
+  </text>
+
+  <g transform="translate(548 160) scale(0.91)">
+    <style>
+      .th { font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 500; fill: #e8e8e8; }
+      .ts { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 400; fill: #b0b0b0; }
+    </style>
+
+    <text class="th" x="54" y="72" text-anchor="end" dominant-baseline="central" fill="#E8734A">γ gamma</text>
+    <text class="ts" x="54" y="90" text-anchor="end" dominant-baseline="central" opacity="0.7">30–100 Hz</text>
+    <text class="ts" x="54" y="106" text-anchor="end" dominant-baseline="central" opacity="0.7">Local binding</text>
+
+    <text class="th" x="54" y="202" text-anchor="end" dominant-baseline="central" fill="#9B93EE">β beta</text>
+    <text class="ts" x="54" y="220" text-anchor="end" dominant-baseline="central" opacity="0.7">13–30 Hz</text>
+    <text class="ts" x="54" y="236" text-anchor="end" dominant-baseline="central" opacity="0.7">Regional</text>
+
+    <text class="th" x="54" y="332" text-anchor="end" dominant-baseline="central" fill="#5AA0EE">θ theta</text>
+    <text class="ts" x="54" y="350" text-anchor="end" dominant-baseline="central" opacity="0.7">4–8 Hz</text>
+    <text class="ts" x="54" y="366" text-anchor="end" dominant-baseline="central" opacity="0.7">Global sync</text>
+
+    <rect x="70" y="36" width="540" height="108" rx="6" fill="#2a2a2a" opacity="0.3"/>
+    <rect x="70" y="166" width="540" height="108" rx="6" fill="#2a2a2a" opacity="0.3"/>
+    <rect x="70" y="296" width="540" height="108" rx="6" fill="#2a2a2a" opacity="0.3"/>
+
+    <path d="M70 82 Q77.5 52, 85 82 Q92.5 112, 100 82 Q107.5 52, 115 82 Q122.5 112, 130 82 Q137.5 52, 145 82 Q152.5 112, 160 82 Q167.5 52, 175 82 Q182.5 112, 190 82 Q197.5 52, 205 82 Q212.5 112, 220 82 Q227.5 52, 235 82 Q242.5 112, 250 82 Q257.5 52, 265 82 Q272.5 112, 280 82 Q287.5 52, 295 82 Q302.5 112, 310 82 Q317.5 52, 325 82 Q332.5 112, 340 82 Q347.5 52, 355 82 Q362.5 112, 370 82 Q377.5 52, 385 82 Q392.5 112, 400 82 Q407.5 52, 415 82 Q422.5 112, 430 82 Q437.5 52, 445 82 Q452.5 112, 460 82 Q467.5 52, 475 82 Q482.5 112, 490 82 Q497.5 52, 505 82 Q512.5 112, 520 82 Q527.5 52, 535 82 Q542.5 112, 550 82 Q557.5 52, 565 82 Q572.5 112, 580 82 Q587.5 52, 595 82 Q602.5 112, 610 82" fill="none" stroke="#E8734A" stroke-width="2.5" opacity="0.95" filter="url(#softGlow)"/>
+
+    <path d="M70 212 Q87 172, 104 212 Q121 252, 138 212 Q155 172, 172 212 Q189 252, 206 212 Q223 172, 240 212 Q257 252, 274 212 Q291 172, 308 212 Q325 252, 342 212 Q359 172, 376 212 Q393 252, 410 212 Q427 172, 444 212 Q461 252, 478 212 Q495 172, 512 212 Q529 252, 546 212 Q563 172, 580 212 Q597 252, 610 212" fill="none" stroke="#9B93EE" stroke-width="2.5" opacity="0.95" filter="url(#softGlow)"/>
+
+    <path d="M70 342 Q115 282, 160 342 Q205 402, 250 342 Q295 282, 340 342 Q385 402, 430 342 Q475 282, 520 342 Q565 402, 610 342" fill="none" stroke="#5AA0EE" stroke-width="2.8" opacity="0.95" filter="url(#softGlow)"/>
+
+    <rect x="156" y="36" width="12" height="368" rx="2" fill="#EF9F27" opacity="0.2"/>
+    <line x1="162" y1="36" x2="162" y2="404" stroke="#EF9F27" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6"/>
+    <rect x="336" y="36" width="12" height="368" rx="2" fill="#EF9F27" opacity="0.2"/>
+    <line x1="342" y1="36" x2="342" y2="404" stroke="#EF9F27" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6"/>
+    <rect x="516" y="36" width="12" height="368" rx="2" fill="#EF9F27" opacity="0.2"/>
+    <line x1="522" y1="36" x2="522" y2="404" stroke="#EF9F27" stroke-width="0.8" stroke-dasharray="3 4" opacity="0.6"/>
+
+    <text class="ts" x="162" y="420" text-anchor="middle" fill="#DBA030">couple</text>
+    <text class="ts" x="342" y="420" text-anchor="middle" fill="#DBA030">couple</text>
+    <text class="ts" x="522" y="420" text-anchor="middle" fill="#DBA030">couple</text>
+
+    <text class="ts" x="622" y="72" text-anchor="start" opacity="0.7">DCA</text>
+    <text class="ts" x="622" y="86" text-anchor="start" opacity="0.7">local</text>
+    <text class="ts" x="622" y="206" text-anchor="start" opacity="0.7">DCA</text>
+    <text class="ts" x="622" y="220" text-anchor="start" opacity="0.7">medium</text>
+    <text class="ts" x="622" y="336" text-anchor="start" opacity="0.7">DCA</text>
+    <text class="ts" x="622" y="350" text-anchor="start" opacity="0.7">global</text>
+  </g>
+</svg>

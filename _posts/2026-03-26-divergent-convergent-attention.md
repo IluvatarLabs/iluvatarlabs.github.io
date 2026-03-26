@@ -4,6 +4,7 @@ title: "Divergent-Convergent Attention: Parallel Perspectives for Compositional 
 date: 2026-03-26
 author: "Ben Zhao · Jenhan Tao"
 excerpt: "We introduce Divergent-Convergent Attention (DCA), a transformer primitive that maintains parallel attention streams at different window sizes and reconciles them through learned periodic consensus."
+image: /assets/images/divergent-convergent-attention/social-card.png
 ---
 
 > **The TL;DR:** Divergent-Convergent Attention (DCA) improves compositional reasoning by maintaining multiple parallel attention perspectives before periodic learned consensus. On HotpotQA[^hotpotqa], DCA achieves **5.4x higher exact match** than a parameter-matched 90M baseline, and a **215M DCA model outperforms a 355M standard transformer by 1.54x** with fewer parameters and lower memory. 
