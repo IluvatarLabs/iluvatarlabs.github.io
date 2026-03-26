@@ -32,7 +32,7 @@ Marvin takes the information overload and busywork out of research. It does deep
     <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-title">Hypothesize</div>
-        <div class="timeline-desc">Marvin synthesizes literature with experimental findings (and the help of special agent Vera) to generate truly novel but plausible hypotheses.</div>
+        <div class="timeline-desc">Marvin synthesizes literature with experimental findings (and the help of special agent **Vera**) to generate truly novel but plausible hypotheses.</div>
     </div>
     <div class="timeline-item">
         <div class="timeline-dot"></div>
@@ -80,4 +80,4 @@ Marvin takes the information overload and busywork out of research. It does deep
 
 ## What's next
 
-Marvin is in active development. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, please reach out to [marvin@iluvatarlabs.com](mailto:marvin@iluvatarlabs.com). We'd love to hear about your project's needs and discuss if Marvin can help.
+Marvin is in active development. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, please reach out to [marvin@iluvatarlabs.com](mailto:marvin@iluvatarlabs.com). We'd love to hear about your project's needs and discuss how Marvin can help.

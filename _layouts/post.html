@@ -158,6 +158,43 @@ layout: default
         margin: 2rem 0;
     }
 
+    .post-content table.data-table {
+        width: 100%;
+        max-width: 100%;
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        border: 1px solid #2a2a2a;
+        border-radius: 8px;
+        background: #111;
+    }
+
+    .post-content table.data-table th,
+    .post-content table.data-table td {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid #2a2a2a;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    .post-content table.data-table th {
+        background: #161616;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .post-content table.data-table td:first-child,
+    .post-content table.data-table th:first-child {
+        text-align: left;
+    }
+
+    .post-content table.data-table tr:last-child td {
+        border-bottom: none;
+    }
+
     .post-content .katex-display {
         margin: 2rem 0;
         overflow-x: auto;
@@ -220,6 +257,12 @@ layout: default
 
         .back-link {
             font-size: 1rem;
+        }
+
+        .post-content table.data-table th,
+        .post-content table.data-table td {
+            padding: 0.65rem 0.8rem;
+            font-size: 0.9rem;
         }
     }
 </style>
