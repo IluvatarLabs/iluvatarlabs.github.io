@@ -32,7 +32,7 @@ Marvin takes the information overload and busywork out of research. It does deep
     <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-title">Hypothesize</div>
-        <div class="timeline-desc">Marvin synthesizes literature with experimental findings to generate truly novel but plausible hypotheses.</div>
+        <div class="timeline-desc">Marvin synthesizes literature with experimental findings (and the help of special agent Vera) to generate truly novel but plausible hypotheses.</div>
     </div>
     <div class="timeline-item">
         <div class="timeline-dot"></div>
