@@ -1,0 +1,76 @@
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; padding: 24px; max-width: 720px; background: #fff; color: #1a1a1a; }
+@media (prefers-color-scheme: dark) { body { background: #1a1a1a; color: #e8e8e8; } }
+.title { font-size: 17px; font-weight: 600; text-align: center; margin-bottom: 2px; }
+.subtitle { font-size: 12px; color: #888; text-align: center; margin-bottom: 16px; }
+.stack { display: flex; flex-direction: column; gap: 4px; }
+.dist-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.para { display: flex; border-radius: 5px; overflow: hidden; }
+.para-body { flex: 1; padding: 8px 14px; font-size: 12px; line-height: 1.5; border: 1px solid #e0e0e0; border-right: none; border-radius: 5px 0 0 5px; background: #fafafa; color: #555; }
+@media (prefers-color-scheme: dark) { .para-body { border-color: #333; background: #222; color: #aaa; } }
+.para-body b { font-weight: 600; color: #1a1a1a; }
+@media (prefers-color-scheme: dark) { .para-body b { color: #e0e0e0; } }
+.para.gold .para-body { border-color: #0F6E56; background: rgba(93,202,165,0.06); }
+@media (prefers-color-scheme: dark) { .para.gold .para-body { background: rgba(93,202,165,0.04); } }
+.para.gold .para-body .evidence { font-weight: 600; color: #0F6E56; }
+@media (prefers-color-scheme: dark) { .para.gold .para-body .evidence { color: #5DCAA5; } }
+.tag { width: 32px; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; writing-mode: vertical-rl; text-orientation: mixed; flex-shrink: 0; border-radius: 0 5px 5px 0; }
+.tag.dist { background: #e8e8e8; color: #999; }
+@media (prefers-color-scheme: dark) { .tag.dist { background: #333; color: #666; } }
+.tag.gold-tag { background: #0F6E56; color: #d4f5e9; }
+.qa { margin-top: 16px; padding: 16px; border-radius: 8px; border: 1px solid #d0d0d0; }
+@media (prefers-color-scheme: dark) { .qa { border-color: #444; } }
+.qa-label { font-size: 14px; font-weight: 600; }
+.qa-q { font-size: 14px; font-weight: 400; display: inline; line-height: 1.4; }
+.qa-a-row { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; }
+.qa-a-label { font-size: 14px; font-weight: 600; }
+.qa-a { font-size: 14px; font-weight: 400; color: #0F6E56; }
+@media (prefers-color-scheme: dark) { .qa-a { color: #5DCAA5; } }
+.qa-a-detail { font-size: 13px; color: #888; }
+.legend { display: flex; gap: 20px; justify-content: center; margin-top: 14px; font-size: 11px; color: #999; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+.dot-gold { background: #0F6E56; }
+.dot-dist { background: #e0e0e0; }
+@media (prefers-color-scheme: dark) { .dot-dist { background: #444; } }
+.note { margin-top: 14px; font-size: 11.5px; color: #999; line-height: 1.6; text-align: center; font-style: italic; }
+.connector { position: relative; }
+</style>
+
+
+<div class="stack">
+<div class="dist-row">
+<div class="para"><div class="para-body"><b>The Hurt Locker</b> — A 2008 war thriller about an Iraq War EOD team, directed by Kathryn Bigelow...</div><div class="tag dist">distract</div></div>
+<div class="para"><div class="para-body"><b>Kathryn Bigelow</b> — An American filmmaker known for directing horror, action, and thriller films...</div><div class="tag dist">distract</div></div>
+</div>
+
+<div class="para gold"><div class="para-body"><b>Zero Dark Thirty</b> — A 2012 action thriller directed by Kathryn Bigelow dramatizing the decade-long manhunt for Osama bin Laden. <span class="evidence">It received five Academy Award nominations</span>, including Best Picture and Best Actress.</div><div class="tag gold-tag">gold</div></div>
+
+<div class="dist-row">
+<div class="para"><div class="para-body"><b>Jessica Chastain</b> — An American actress and film producer, studied at the Juilliard School...</div><div class="tag dist">distract</div></div>
+<div class="para"><div class="para-body"><b>Mark Boal</b> — An American screenwriter and journalist. Best known for writing "The Hurt Locker"...</div><div class="tag dist">distract</div></div>
+</div>
+
+<div class="dist-row">
+<div class="para"><div class="para-body"><b>Argo (2012 film)</b> — A 2012 historical drama directed by Ben Affleck about the rescue of six U.S. diplomats...</div><div class="tag dist">distract</div></div>
+<div class="para"><div class="para-body"><b>Denis Villeneuve</b> — A Canadian filmmaker acclaimed for "Prisoners," "Sicario," and "Dune"...</div><div class="tag dist">distract</div></div>
+</div>
+
+<div class="para gold"><div class="para-body"><b>Arrival (film)</b> — A 2016 science fiction drama directed by Denis Villeneuve, adapted from Ted Chiang's "Story of Your Life." <span class="evidence">It received eight Academy Award nominations</span>, including Best Picture and Best Director, winning Best Sound Editing.</div><div class="tag gold-tag">gold</div></div>
+
+<div class="dist-row">
+<div class="para"><div class="para-body"><b>Ted Chiang</b> — An American science fiction writer whose work has won four Nebula and four Hugo Awards...</div><div class="tag dist">distract</div></div>
+<div class="para"><div class="para-body"><b>Eric Heisserer</b> — An American screenwriter who adapted "Story of Your Life" into "Arrival"...</div><div class="tag dist">distract</div></div>
+</div>
+</div>
+
+<div class="qa">
+<div><span class="qa-label">Question (requires both gold paragraphs): <br></span><span class="qa-q">Which film received more Academy Award nominations, Zero Dark Thirty or Arrival?</span></div>
+<div class="qa-a-row">
+<span class="qa-a-label">Answer: </span>
+<span class="qa-a">Arrival</span>
+<span class="qa-a-detail">(8 nominations vs 5)</span>
+</div>
+</div>
+
+

@@ -1,0 +1,74 @@
+<svg width="100%" viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg">
+<style>
+:root {
+  --p: #d3d1c7; --s: #b4b2a9;
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+text { font-family: var(--font-sans); }
+</style>
+
+<!-- Legend -->
+<rect x="20" y="2" width="14" height="14" rx="3" fill="#E8734A"/>
+<text x="40" y="9" font-size="14" fill="var(--s)" dominant-baseline="central">Local (w=32)</text>
+<rect x="155" y="2" width="14" height="14" rx="3" fill="#9B93EE"/>
+<text x="175" y="9" font-size="14" fill="var(--s)" dominant-baseline="central">Medium (w=128)</text>
+<rect x="310" y="2" width="14" height="14" rx="3" fill="#5AA0EE"/>
+<text x="330" y="9" font-size="14" fill="var(--s)" dominant-baseline="central">Global (full)</text>
+<rect x="430" y="2" width="14" height="14" rx="3" fill="#8A8A8A"/>
+<text x="450" y="9" font-size="14" fill="var(--s)" dominant-baseline="central">Baseline</text>
+
+<!-- "DCR perspective range" bracket -->
+<line x1="107" y1="48" x2="367" y2="48" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+<line x1="107" y1="43" x2="107" y2="53" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+<line x1="367" y1="43" x2="367" y2="53" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+<text x="237" y="40" text-anchor="middle" font-size="14" font-weight="500" fill="var(--p)">DCR perspective range</text>
+
+<!-- Chart area: x 70-500, y 60-350 -->
+<!-- Scale: 0.0 at y=350, 0.8 at y=60. 0.1 = (350-60)/8 = 36.25px -->
+
+<!-- Y-axis label -->
+<text x="14" y="205" text-anchor="middle" font-size="13" fill="var(--s)" transform="rotate(-90 14 205)">Cross-document attention fraction</text>
+
+<!-- Y-axis gridlines and labels (0.0 to 0.8, step 0.2) -->
+<line x1="70" y1="350" x2="500" y2="350" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
+<text x="62" y="350" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">0.0</text>
+<line x1="70" y1="278" x2="500" y2="278" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
+<text x="62" y="278" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">0.2</text>
+<line x1="70" y1="205" x2="500" y2="205" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
+<text x="62" y="205" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">0.4</text>
+<line x1="70" y1="133" x2="500" y2="133" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
+<text x="62" y="133" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">0.6</text>
+<line x1="70" y1="60" x2="500" y2="60" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
+<text x="62" y="60" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">0.8</text>
+
+<!-- Bar positions: 4 bars centered at x=107, 217, 327, 437. Width=70 -->
+
+<!-- Local (w=32): 0.04 = 0.04/0.8 * 290 = 14.5px -->
+<rect x="72" y="336" width="70" height="14" rx="6" fill="#E8734A" opacity="0.85"/>
+<text x="107" y="324" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">0.04</text>
+
+<!-- Medium (w=128): 0.39 = 0.39/0.8 * 290 = 141.4px. Top at 350-141=209 -->
+<rect x="182" y="209" width="70" height="141" rx="6" fill="#9B93EE" opacity="0.85"/>
+<text x="217" y="197" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">0.39</text>
+
+<!-- Global (full): 0.68 = 0.68/0.8 * 290 = 246.5px. Top at 350-247=103 -->
+<rect x="292" y="103" width="70" height="247" rx="6" fill="#5AA0EE" opacity="0.85"/>
+<text x="327" y="91" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">0.68</text>
+
+<!-- Baseline: 0.34 = 0.34/0.8 * 290 = 123.3px. Top at 350-123=227 -->
+<rect x="402" y="227" width="70" height="123" rx="6" fill="#8A8A8A" opacity="0.85"/>
+<text x="437" y="215" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">0.34</text>
+
+<!-- "single-stream" annotation on baseline bar -->
+<text x="437" y="191" text-anchor="middle" font-size="13" font-weight="400" fill="#AAAAAA">single-stream</text>
+
+<!-- X-axis labels -->
+<text x="107" y="370" text-anchor="middle" font-size="15" font-weight="500" fill="var(--p)">Local</text>
+<text x="107" y="386" text-anchor="middle" font-size="13" fill="var(--s)">(w=32)</text>
+<text x="217" y="370" text-anchor="middle" font-size="15" font-weight="500" fill="var(--p)">Medium</text>
+<text x="217" y="386" text-anchor="middle" font-size="13" fill="var(--s)">(w=128)</text>
+<text x="327" y="370" text-anchor="middle" font-size="15" font-weight="500" fill="var(--p)">Global</text>
+<text x="327" y="386" text-anchor="middle" font-size="13" fill="var(--s)">(full)</text>
+<text x="437" y="370" text-anchor="middle" font-size="15" font-weight="500" fill="var(--p)">Baseline</text>
+
+</svg>
