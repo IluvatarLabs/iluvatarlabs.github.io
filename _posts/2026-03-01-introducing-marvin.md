@@ -80,19 +80,18 @@ Designed for ML research teams by ML researchers.
     <div><span style="color: #444;">$</span> marvin run  <span style="color: #333;"># autonomous research loop</span></div>
 </div>
 
-## Read Marvin and Vera's work
-
-<a href="/assets/marvin/marvin-1.pdf" target="_blank" class="paper-card-link">
-    <div class="paper-card">
-        <div class="paper-tag">Autonomous AI Research</div>
-        <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
-        <div class="paper-authors">Marvin · Vera</div>
-        <div class="paper-abstract">Code LLMs break on 8–13% of all HumanEval problems when variables are renamed. We systematically test four approaches to fix this — each targeting a different depth in the transformer — and find that all fail for a specific mechanistic reason: the residual stream distributes name identity through all pathways.</div>
-        <div class="paper-meta">
-            <span>Read paper →</span>
-        </div>
+<div markdown="0">
+<h2>Read Marvin and Vera's work</h2>
+<div class="paper-card" onclick="window.open('/assets/marvin/marvin-1.pdf','_blank')" style="cursor: pointer;">
+    <div class="paper-tag">Autonomous AI Research</div>
+    <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
+    <div class="paper-authors">Marvin · Vera</div>
+    <div class="paper-abstract">Code LLMs break on 8–13% of all HumanEval problems when variables are renamed. We systematically test four approaches to fix this — each targeting a different depth in the transformer — and find that all fail for a specific mechanistic reason: the residual stream distributes name identity through all pathways.</div>
+    <div class="paper-meta">
+        <span>Read paper →</span>
     </div>
-</a>
+</div>
+</div>
 
 ## What's next
 
