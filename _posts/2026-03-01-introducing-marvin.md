@@ -6,7 +6,9 @@ category: Product
 author: "Iluvatar Labs"
 product_name: "Marvin"
 product_subtitle: "The fully <u>autonomous</u> scientist agent."
-product_tagline: "Define a research mission and Marvin will take care of the rest — reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis — end to end."
+product_tagline: "Define your research mission and Marvin will take care of the rest. Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis."
+product_cta_text: "Read Marvin's latest research ↓"
+product_cta_href: "#marvins-work"
 product_logo: '<svg width="130" height="90" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><mask id="visor-eyes"><rect x="0" y="0" width="64" height="44" fill="white"/><circle cx="22" cy="22" r="6.5" fill="black"/><circle cx="42" cy="22" r="6.5" fill="black"/></mask></defs><path d="M 14 2 L 8 2 Q 4 2 4 6 L 4 16 Q 4 22 0 22 Q 4 22 4 28 L 4 38 Q 4 42 8 42 L 14 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 50 2 L 56 2 Q 60 2 60 6 L 60 16 Q 60 22 64 22 Q 60 22 60 28 L 60 38 Q 60 42 56 42 L 50 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="10" y="12" width="44" height="20" rx="10" fill="#fff" mask="url(#visor-eyes)"/></svg>'
 backdrop: "constellation"
 excerpt: "Autonomous ML research agent that conducts rigorous scientific research end-to-end: literature review, hypothesis generation, experiment design, execution, analysis, and documentation."
@@ -81,7 +83,7 @@ Designed for ML research teams by ML researchers.
 </div>
 
 <div markdown="0">
-<h2>Read Marvin and Vera's work</h2>
+<h2 id="marvins-work">Read Marvin and Vera's work</h2>
 <div class="paper-card" onclick="window.open('/assets/marvin/marvin-1.pdf','_blank')" style="cursor: pointer;">
     <div class="paper-tag">Autonomous AI Research</div>
     <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>

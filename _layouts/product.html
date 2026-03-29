@@ -18,11 +18,9 @@
 
         /* ── Splash ── */
         .splash {
-            min-height: 70vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding: 3rem 3rem;
+            padding: 3rem 3rem 1.5rem;
             max-width: 1100px;
             margin: 0 auto;
             position: relative;
@@ -88,10 +86,9 @@
         .splash-center {
             position: relative;
             z-index: 2;
-            flex: 1;
             display: flex;
             align-items: center;
-            padding-top: 8%;
+            padding-top: 9vh;
         }
 
         .splash-hero {
@@ -125,6 +122,19 @@
             font-size: 1.25rem;
             color: #bbb;
             line-height: 1.7;
+        }
+
+        .hero-cta {
+            color: #888;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .hero-cta:hover {
+            color: #fff;
+            border-color: #999;
         }
 
         /* ── Canvas backdrop ── */
@@ -470,6 +480,9 @@
             {% endif %}
             {% if page.product_tagline %}
             <p>{{ page.product_tagline }}</p>
+            {% endif %}
+            {% if page.product_cta_text %}
+            <p style="margin-top: 1.5rem;"><a href="{{ page.product_cta_href }}" class="hero-cta">{{ page.product_cta_text }}</a></p>
             {% endif %}
         </div>
     </div>
