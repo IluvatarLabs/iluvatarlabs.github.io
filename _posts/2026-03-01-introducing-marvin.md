@@ -18,7 +18,7 @@ The bottleneck in ML research today isn't compute or data. It's the preparation.
 
 We built Marvin because nothing out there worked well enough for our own research. The existing options were either too dumb (chasing red herrings down rabbit holes or proposing smart-sounding ideas that were anything but), too wasteful (channeling Ralph Wiggum on experiments that were never going to work), or too opaque (poor documentation, no reasoning traces or "logic trail" that forms the bedrock of scientific reproducibility.)
 
-Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses, and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system. Designed for ML research teams by ML researchers.
+Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses, and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system. 
 
 ## The research cycle, automated
 
@@ -56,6 +56,8 @@ Marvin takes the information overload and busywork out of research. It does deep
     </div>
 </div>
 
+Designed for ML research teams by ML researchers.
+
 ## Your repo's "logic trail"
 
 <div class="output-tree">
@@ -77,6 +79,20 @@ Marvin takes the information overload and busywork out of research. It does deep
     <div><span style="color: #444;">$</span> marvin plan <span style="color: #333;"># scope your research interactively</span></div>
     <div><span style="color: #444;">$</span> marvin run  <span style="color: #333;"># autonomous research loop</span></div>
 </div>
+
+## Read Marvin and Vera's work
+
+<a href="/assets/marvin/marvin-1.pdf" target="_blank" class="paper-card-link">
+    <div class="paper-card">
+        <div class="paper-tag">Autonomous AI Research</div>
+        <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
+        <div class="paper-authors">Marvin · Vera</div>
+        <div class="paper-abstract">Code LLMs break on 8–13% of all HumanEval problems when variables are renamed. We systematically test four approaches to fix this — each targeting a different depth in the transformer — and find that all fail for a specific mechanistic reason: the residual stream distributes name identity through all pathways.</div>
+        <div class="paper-meta">
+            <span>Read paper →</span>
+        </div>
+    </div>
+</a>
 
 ## What's next
 
