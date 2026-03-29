@@ -20,7 +20,7 @@ The bottleneck in ML research today isn't compute or data. It's the preparation.
 
 We built Marvin because nothing out there worked well enough for our own research. The existing options were either too dumb (chasing red herrings down rabbit holes or proposing smart-sounding ideas that were anything but), too wasteful (channeling Ralph Wiggum on experiments that were never going to work), or too opaque (poor documentation, no reasoning traces or "logic trail" that forms the bedrock of scientific reproducibility.)
 
-Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses, and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system. 
+Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses (with the help of **Vera**, our Visionary Exploration Research Agent), and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system. 
 
 ## The research cycle, automated
 
@@ -83,7 +83,7 @@ Designed for ML research teams by ML researchers.
 </div>
 
 <div markdown="0">
-<h2 id="marvins-work">Read Marvin and Vera's work</h2>
+<h2 id="marvins-work">Read Marvin and Vera's latest work</h2>
 <div class="paper-card" onclick="window.open('/assets/marvin/marvin-1.pdf','_blank')" style="cursor: pointer;">
     <div class="paper-tag">Autonomous AI Research</div>
     <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
