@@ -64,9 +64,9 @@ text { font-family: var(--font-sans); }
 <line x1="420" y1="60" x2="660" y2="60" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
 <text x="412" y="60" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">10%</text>
 
-<!-- Baseline bar: 4.3% = 4.3 * 25 = 107.5px. Top at 310 - 108 = 202 -->
-<rect x="485" y="202" width="50" height="108" rx="6" fill="#8A8A8A" opacity="0.85"/>
-<text x="510" y="190" text-anchor="middle" font-size="17" font-weight="500" fill="var(--p)">4.3%</text>
+<!-- Baseline bar: 4.2% = 4.2 * 25 = 105px. Top at 310 - 105 = 205 -->
+<rect x="485" y="205" width="50" height="105" rx="6" fill="#8A8A8A" opacity="0.85"/>
+<text x="510" y="193" text-anchor="middle" font-size="17" font-weight="500" fill="var(--p)">4.2%</text>
 
 <!-- DCR bar: 8.2% = 8.2 * 25 = 205px. Top at 310 - 205 = 105 -->
 <rect x="545" y="105" width="50" height="205" rx="6" fill="#5DCAA5" opacity="0.85"/>

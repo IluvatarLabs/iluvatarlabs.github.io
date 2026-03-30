@@ -9,7 +9,7 @@ image: /assets/images/divergent-convergent-attention/social-card.png
 
 > **The TL;DR:** Divergent-Convergent Attention (DCA) improves compositional reasoning by maintaining multiple parallel attention perspectives before periodic learned consensus. On HotpotQA[^hotpotqa], DCA achieves **5.4x higher exact match** than a parameter-matched 90M baseline, and a **215M DCA model outperforms a 355M standard transformer by 1.54x** with fewer parameters and lower memory. 
 > 
-> Most notably, DCA assigns higher probability to the correct answer tokens on **98% of examples**, with the advantage sharply **correlated with question difficulty**, suggesting that DCA's magic is in how distributed evidence is internally composed before decoding.
+> Most notably, DCA assigns higher probability to the correct answer tokens on **97.8% of examples**, with the advantage sharply **correlated with question difficulty**, suggesting that DCA's magic is in how distributed evidence is internally composed before decoding.
 >
 > (Note: This blog post is the current preprint version of this work.)
 
@@ -25,7 +25,7 @@ DCA is inspired by an organizational principle in neuroscience: the brain concur
 
 > **Figure 1a** Biological multi-scale oscillations. Gamma, beta, and theta bands process at different scales and periodically couple to coordinate information. DCA maps these to three attention horizons.
 
-In controlled experiments, DCA achieves 5.4x higher exact match on multi-hop QA at 90M parameters (p<10^-6, 3 seeds). At 215M, DCA beats a 355M baseline by 1.54x with fewer parameters, approximately matched FLOPs, and less memory. We characterized the consensus mechanism through causal interventions at both scales. Despite the small capacity of these models, our force-decode analysis shows an unambiguous representational advantage in multi-document composition. DCA assigns higher probability to the correct answer tokens on 98% of all examples, and the advantage scales with difficulty, with 8x larger gains on the hardest examples.
+In controlled experiments, DCA achieves 5.4x higher exact match on multi-hop QA at 90M parameters (p<10^-6, 3 seeds). At 215M, DCA beats a 355M baseline by 1.54x with fewer parameters, approximately matched FLOPs, and less memory. We characterized the consensus mechanism through causal interventions at both scales. Despite the small capacity of these models, our force-decode analysis shows an unambiguous representational advantage in multi-document composition. DCA assigns higher probability to the correct answer tokens on 97.8% of all examples at 90M, with 7.7x larger gains on the hardest questions (r=-0.888).
 
 ## The Architecture
 
@@ -235,7 +235,7 @@ To calibrate the effect of pretraining domain, we also trained DCA 90M on PG-19 
 
 | Model | Params | FLOP ratio | VRAM | EM% | F1% |
 |---|---|---|---|---|---|
-| Baseline 90M | 90M | ~1.0x | ~4 GB | 0.29 | 7.84 |
+| Baseline 90M | 90M | ~1.0x | ~4 GB | 0.29 | 7.77 |
 | DCA 90M | 89M | ~1.56x | ~8 GB | 1.56 | 14.40 |
 {: .data-table}
 
@@ -252,7 +252,7 @@ To calibrate the effect of pretraining domain, we also trained DCA 90M on PG-19 
 
 Scaling also provided an opportunity to test which components of DCA are essential and explore practical tradeoffs. The biggest disadvantage of full-fat DCA at baseline width (K=3 at d=1024) is cost: 3x VRAM and ~2.7x FLOPs. A narrower variant at d=768 (323M params) achieved only EM=0.57%, undertrained at 6.2 tokens per parameter because FLOP matching compressed it to 15K steps. A variant without per-perspective MLP (302M params, 1.07x FLOPs) achieved EM=1.21% (1.30x over baseline), indicating the per-perspective MLP is important for the mechanism. Separate MLP weights (139M params, same FLOPs) achieved PPL=20.45 (beating baseline for the first time) but EM=0.80%, half the shared MLP's 1.56%, confirming the shared MLP acts as a regularizer.
 
-We also evaluated DCA's core architectural hypothesis. The natural alternative to parallel streams is per-head window assignment. We tested this (baseline_mixed: heads 0-2 at w=32, heads 3-5 at w=128, heads 6-7 full causal). It achieves the best perplexity of any model (20.79) but only 0.29% EM on HotpotQA. A factorial experiment confirmed parallel streams are the primary mechanism; multi-scale windows are secondary. Two other architectural properties proved essential. Shared QKV weights collapse perspective diversity (cosine similarity 0.95 vs 0.14 with separate weights). Consensus at every layer (k=1) drops EM to 1.05% vs 1.59% with consensus every 6 layers (k=6). This suggests that perspectives need both separate weights to specialize and time between consensus points to diverge.
+We also evaluated DCA's core architectural hypothesis. The natural alternative to parallel streams is per-head window assignment. We tested this (baseline_mixed: heads 0-2 at w=32, heads 3-5 at w=128, heads 6-7 full causal). It achieves the best perplexity among baselines (20.79) but only 0.29% EM on HotpotQA. A factorial experiment confirmed parallel streams are the primary mechanism; multi-scale windows are secondary. Two other architectural properties proved essential. Shared QKV weights collapse perspective diversity (cosine similarity >0.9 vs 0.2-0.4 with separate weights). Consensus at every layer (k=1) drops EM to 1.05% vs 1.59% with consensus every 6 layers (k=6). This suggests that perspectives need both separate weights to specialize and time between consensus points to diverge.
 
 These results are what motivated the aforementioned DCA-215M design. Bottleneck projections let perspectives operate at d_lane=512 inside d_model=1024. Since 3 x 512^2 < 1024^2, K=3 perspectives at d=512 are cheaper per layer than a single stream at d=1024. This replaces the role that global tokens play in Longformer and BigBird[^longformer][^bigbird] in a causal-compatible way. Global tokens in causal decoders are functionally vacuous since position 0 can only attend to itself. Per-perspective gradient checkpointing reduces activation memory from ~3x baseline to below baseline levels. We scale by adding layers (30L) at the cheap d=512 perspective width rather than widening to d=1024.
 
@@ -297,42 +297,42 @@ DCA helps when relevant information is distributed across structurally independe
 
 To separate representation quality from generation dynamics, we feed the context to both models and force-decode the gold answer tokens (teacher-forcing), recording each model's log-probability of the correct token at each position. If a model's representations encode the answer well, it will assign high probability to the gold tokens regardless of whether it generates them correctly during free generation. For each of 6,359 validation examples, we compare which model assigns higher probability to the gold answer. This is a paired comparison across all examples, not just the small fraction where EM=1.
 
-**Table 4: Force-decode results.** Paired comparison across all 6,359 HotpotQA validation examples. Wilcoxon signed-rank p < 10^-300 at both scales.
+**Table 4: Force-decode results (90M, WT103).** Paired comparison across all 6,359 HotpotQA validation examples. Wilcoxon signed-rank p < 10^-300.
 
-| | 90M DCA vs 90M baseline | 215M DCA vs 350M baseline |
-|---|---|---|
-| DCA assigns higher probability | 97.8% (6,217/6,359) | 98.3% (6,248/6,359) |
-| Average advantage | +6.25 nats (~520x) | +8.76 nats (~6,400x) |
+| | 90M DCA vs 90M baseline |
+|---|---|
+| DCA assigns higher probability | 97.8% (6,217/6,359) |
+| Average advantage | +6.25 nats (~520x) |
 {: .data-table}
 
-The nats advantage translates to probability: +8.76 nats means DCA assigns roughly 6,400x higher probability to the correct token at each position on average (nats use natural log; e^8.76 ≈ 6,400). The representation advantage is near-universal and strengthens as param count doubles, implying structural benefits intrinsic to DCA that might also manifest in EM should we scale up further. At 215M, a model with 39% fewer parameters produces better internal representations than the baseline on 98.3% of examples. Notably, advantage is also correlated with baseline difficulty. We binned examples by how well the baseline encodes the gold answer (baseline log-prob quintiles) and measured DCA's advantage in each bin (r=-0.896).
+The nats advantage translates to probability: +6.25 nats means DCA assigns roughly 520x higher probability to the correct token at each position on average (nats use natural log; e^6.25 ≈ 520). The representation advantage is near-universal: DCA produces better internal representations on 97.8% of all examples, not just the 1.6% where EM=1. The advantage is also correlated with baseline difficulty. We binned examples by how well the baseline encodes the gold answer (baseline log-prob quintiles) and measured DCA's advantage in each bin (r=-0.888).
 
-**Table 5: Force-decode advantage by baseline difficulty quintile (215M).**
+**Table 5: Force-decode advantage by baseline difficulty quintile (90M, WT103).**
 
 | Baseline difficulty percentile | Mean DCA advantage | DCA win rate |
 |---|---|---|
-| 0-20% (easiest) | +2.29 nats | 96.9% |
-| 20-40% | +4.84 nats | 98.3% |
-| 40-60% | +7.28 nats | 96.2% |
-| 60-80% | +10.80 nats | 99.8% |
-| 80-100% (hardest) | +18.58 nats | 100% |
+| 0-20% (easiest) | +1.84 nats | 96.5% |
+| 20-40% | +3.20 nats | 96.2% |
+| 40-60% | +4.75 nats | 96.5% |
+| 60-80% | +7.25 nats | 99.6% |
+| 80-100% (hardest) | +14.23 nats | 100% |
 {: .data-table}
 
-DCA helps on every quintile, but the advantage is 8x larger on the hardest examples than the easiest (Table 5, Figure 4). The harder an example is for a standard transformer, the more DCA's multi-perspective consensus improves the representation. 
+DCA helps on every quintile, but the advantage is 7.7x larger on the hardest examples than the easiest (Table 5, Figure 4). The harder an example is for a standard transformer, the more DCA's multi-perspective consensus improves the representation.
 
 ![Figure 4: Force-decode advantage by baseline difficulty quintile](/assets/images/divergent-convergent-attention/fig5_difficulty_scaling.svg)
 
-> **Figure 4** DCA-215M vs Baseline 350M (both PG-19). DCA's representational advantage scales with example difficulty. On the hardest quintile (where the baseline assigns the lowest probability to the correct answer), DCA's advantage is +18.58 nats. On the easiest, +2.29 nats. r=-0.896.
+> **Figure 4** DCA 90M vs Baseline 90M (both WT103). DCA's representational advantage scales with example difficulty. On the hardest quintile (where the baseline assigns the lowest probability to the correct answer), DCA's advantage is +14.23 nats. On the easiest, +1.84 nats. r=-0.888.
 
 ### Same retrieval, better composition
 
-Next, we investigated if and how DCA's superior representations manifest in the model's output. We measured Token Recall and Token Precision on generated predictions (90M, WT103) to differentiate between retrieval and composition. Token Recall (fraction of gold answer tokens appearing anywhere in the prediction) is identical at 57.5% for both models. Token Precision (fraction of the prediction consisting of gold tokens) shows the full advantage: 8.2% vs 4.3% (1.9x). DCA does not find more information, but rather composes the same information more precisely.
+Next, we investigated if and how DCA's superior representations manifest in the model's output. We computed mean token recall and derived an approximate token precision from aggregate F1 and recall on generated predictions (90M, WT103, pooled across seeds 137 and 2024). Token Recall (SQuAD-style normalized token overlap) is essentially identical (~57.5% in both models). Token Precision, derived from aggregate F1 and recall via P = F1·R / (2R - F1), shows the full advantage: ~8.2% vs ~4.2% (~2.0x). DCA does not find more information, but rather composes the same information more precisely.
 
-> **Figure 5** DCA 90M vs Baseline 90M (both WT103). Token Recall is identical (57.5%). The entire advantage is in Token Precision (8.2% vs 4.3%).
+> **Figure 5** DCA 90M vs Baseline 90M (both WT103). Token Recall is essentially identical (~57.5%). Token Precision (derived from aggregate F1 and recall) shows the full advantage (~8.2% vs ~4.2%).
 
 ![Figure 5: Token Recall/Precision](/assets/images/divergent-convergent-attention/fig3_token_recall_precision.svg)
 
-First-sentence extraction decomposes this further. By taking only the first sentence of each model's output, we isolate the initial answer attempt from subsequent generation quality. Compositional integration (~1.2-1.5x) is the advantage that survives this extraction, reflecting cleaner internal representations at the point of first output. Generation coherence (~2-3x) is the additional advantage from maintaining quality over subsequent tokens, where the baseline degenerates into repetition, and it scales with answer length (3x at 1 token, 12.8x at 4+ tokens). This decomposition also explains the null results on single-source tasks like TriviaQA and LAMBADA: when all relevant information is at a single location, all perspectives see the same content and consensus has nothing to integrate.
+First-sentence extraction approximately decomposes this into two components. By taking only the first sentence of each model's output, we isolate the initial answer attempt from subsequent generation quality. The advantage that survives this extraction (~1.2-1.5x) reflects compositional integration at the representation level. The remaining multiplier (~2-3x) reflects generation coherence, where the baseline degenerates into repetition over subsequent tokens, and it scales with answer length (3x at 1 token, 12.8x at 4+ tokens). These ranges are inferred from comparing first-sentence and full-output EM ratios, not independently measured. This decomposition also explains the null results on single-source tasks like TriviaQA and LAMBADA: when all relevant information is at a single location, all perspectives see the same content and consensus has nothing to integrate.
 
 ### Gate ablation: consensus is essential and precisely tuned
 
@@ -344,7 +344,7 @@ We force the consensus gate to fixed values during full QA evaluation using forw
 |---|---|---|
 | Learned gates | 101 | 91 |
 | Gate=1 (force full) | 18 | 0 |
-| Baseline | 12 | 12 |
+| Baseline | 12 | 59 |
 | Gate=0 (bypass) | 2 | 2 |
 {: .data-table}
 
@@ -373,13 +373,13 @@ Next, we evaluated whether the perspectives actually develop distinct, complemen
 
 ![Figure 6: Cross-document attention fraction](/assets/images/divergent-convergent-attention/fig4_cross_doc_attention.svg)
 
-Attention measurements confirm the specialization. The local perspective keeps 96% of attention within paragraphs (cross-document fraction 0.04), while the global perspective distributes 68% across documents. In contrast, the dense transformer baseline sits at 0.34. With DCA, local perspectives extract precise within-document content, global perspectives maintain cross-document context, and consensus integrates both. The baseline cannot simultaneously attend locally and globally, and is forced to compromise. Together, the gate ablation and attention analyses demonstrate that DCA's diverse perspectives specialize by scale and combine through learned periodic consensus to produce superior representations for long reasoning.
+Attention measurements (computed on EM=1 examples, n=101) confirm the specialization. The local perspective keeps 96% of attention within paragraphs (cross-document fraction 0.04), while the global perspective distributes 68% across documents. In contrast, the dense transformer baseline sits at 0.34. With DCA, local perspectives extract precise within-document content, global perspectives maintain cross-document context, and consensus integrates both. The baseline attends at multiple scales within a single residual stream but cannot develop independent representations at each scale before integrating them. Together, the gate ablation and attention analyses demonstrate that DCA's diverse perspectives specialize by scale and combine through learned periodic consensus to produce superior representations for long reasoning.
 
 ## Discussion
 
 Multi-document composition is a documented bottleneck for production LLMs. RAG pipelines retrieve relevant documents but fail to synthesize across them[^rag]. Models fail to use information in the middle of long contexts[^lostmiddle]. Multi-hop reasoning requires 30-70B parameters to emerge in standard transformers[^steelekatz]. With DCA, we sought to demonstrate that parallel multi-scale perspectives with periodic late consensus can improve on these deficiencies. 
 
-Despite the limited capacity of our models, extensive benchmarking demonstrated a consistent advantage on distributed-source tasks (5.4x EM at 90M, 1.54x at 215M FLOP-comparable) and no advantage on sequential, single-source, or capacity-limited tasks. Investigation of the mechanism revealed that both the late consensus gate and diversity in perspective specialization are essential features of DCA's architecture. The resulting representations encode multi-document relationships better than a standard transformer on 98% of examples, with 8x larger gains on the hardest examples, reflecting an advantage in composition rather than simply retrieval. DCA's demonstrated strength on distributed-source tasks aligns with the aforementioned failure modes of contemporary LLMs. 
+Despite the limited capacity of our models, extensive benchmarking demonstrated a consistent advantage on distributed-source tasks (5.4x EM at 90M, 1.54x at 215M FLOP-comparable) and no advantage on sequential, single-source, or capacity-limited tasks. Investigation of the mechanism revealed that both the late consensus gate and diversity in perspective specialization are essential features of DCA's architecture. The resulting representations encode multi-document relationships better than a standard transformer on 97.8% of examples, with 7.7x larger gains on the hardest examples, reflecting an advantage in composition rather than retrieval. DCA's demonstrated strength on distributed-source tasks aligns with the aforementioned failure modes of contemporary LLMs. 
 
 ### Open questions and future directions
 
@@ -393,14 +393,14 @@ We believe this work represents an exciting start, but there are still many aven
 
 ![Appendix Figure: Force-decode advantage vs baseline difficulty](/assets/images/divergent-convergent-attention/fig5_scatter_reference.png)
 
-> **Appendix Figure** Per-example force-decode advantage (DCA log-prob minus baseline log-prob) plotted against baseline log-prob (215M DCA vs 350M baseline). Each point is one of 6,359 HotpotQA validation examples. r=-0.896. The harder an example is for the baseline (more negative log-prob), the larger DCA's representational advantage.
+> **Appendix Figure** Per-example force-decode advantage (DCA log-prob minus baseline log-prob) plotted against baseline log-prob (90M DCA vs 90M baseline, both WT103). Each point is one of 6,359 HotpotQA validation examples. r=-0.888. The harder an example is for the baseline (more negative log-prob), the larger DCA's representational advantage.
 
 ---
 
 ### Published "mid-size" decoder-only models
 
 
-| Architecture | Params | HotpotQA EM | Notes |
+| Architecture | Params | HotpotQA EM or F1 | Notes |
 |---|---|---|---|
 | DCA 90M | 89M | 1.56% | Decoder-only, WT103, fine-tuned |
 | Baseline 90M | 90M | 0.29% | Decoder-only, WT103, fine-tuned |

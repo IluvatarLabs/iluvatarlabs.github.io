@@ -8,17 +8,17 @@ text { font-family: var(--font-sans); }
 </style>
 
 <!-- Title -->
-<text x="260" y="24" text-anchor="middle" font-size="17" font-weight="600" fill="var(--p)">DCR's advantage scales with difficulty</text>
-<text x="260" y="46" text-anchor="middle" font-size="17" fill="var(--s)">r = −0.896</text>
+<text x="260" y="24" text-anchor="middle" font-size="17" font-weight="600" fill="var(--p)">DCA's advantage scales with difficulty</text>
+<text x="260" y="46" text-anchor="middle" font-size="17" fill="var(--s)">90M DCA vs 90M Baseline (WT103) · r = −0.888</text>
 
 <!-- Y-axis label -->
-<text x="14" y="220" text-anchor="middle" font-size="17" fill="var(--s)" transform="rotate(-90 14 220)">Mean DCR advantage (nats)</text>
+<text x="14" y="220" text-anchor="middle" font-size="17" fill="var(--s)" transform="rotate(-90 14 220)">Mean DCA advantage (nats)</text>
 
 <!-- X-axis label -->
 <text x="285" y="412" text-anchor="middle" font-size="15" fill="var(--s)">Baseline difficulty percentile</text>
 
 <!-- Chart area: x 70-500, y 60-360 -->
-<!-- Scale: 0 at y=360, 20 at y=60. 1 nat = (360-60)/20 = 15px -->
+<!-- Scale: 0 at y=360, 15 at y=135. 1 nat = (360-60)/20 = 15px -->
 
 <!-- Y-axis gridlines and labels -->
 <line x1="70" y1="360" x2="500" y2="360" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
@@ -29,31 +29,29 @@ text { font-family: var(--font-sans); }
 <text x="62" y="210" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">10</text>
 <line x1="70" y1="135" x2="500" y2="135" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
 <text x="62" y="135" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">15</text>
-<line x1="70" y1="60" x2="500" y2="60" stroke="var(--s)" stroke-width="0.3" opacity="0.3"/>
-<text x="62" y="60" text-anchor="end" font-size="14" fill="var(--s)" dominant-baseline="central">20</text>
 
-<!-- Bars: reversed order, easiest (left) to hardest (right) -->
+<!-- Bars: easiest (left) to hardest (right) -->
 <!-- 5 bars centered at x=107, 193, 279, 365, 451. Width=60 -->
 
-<!-- 0-20% (easiest): 2.29 nats = 2.29 * 15 = 34.4px. Top at 360-34=326 -->
-<rect x="77" y="326" width="60" height="34" rx="6" fill="#E8734A" opacity="0.30"/>
-<text x="107" y="314" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+2.3</text>
+<!-- 0-20% (easiest): 1.84 nats = 1.84 * 15 = 27.6px. Top at 360-28=332 -->
+<rect x="77" y="332" width="60" height="28" rx="6" fill="#E8734A" opacity="0.30"/>
+<text x="107" y="320" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+1.8</text>
 
-<!-- 20-40%: 4.84 nats = 4.84 * 15 = 72.6px. Top at 360-73=287 -->
-<rect x="163" y="287" width="60" height="73" rx="6" fill="#E8734A" opacity="0.40"/>
-<text x="193" y="275" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+4.8</text>
+<!-- 20-40%: 3.20 nats = 3.20 * 15 = 48px. Top at 360-48=312 -->
+<rect x="163" y="312" width="60" height="48" rx="6" fill="#E8734A" opacity="0.40"/>
+<text x="193" y="300" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+3.2</text>
 
-<!-- 40-60%: 7.28 nats = 7.28 * 15 = 109.2px. Top at 360-109=251 -->
-<rect x="249" y="251" width="60" height="109" rx="6" fill="#E8734A" opacity="0.55"/>
-<text x="279" y="239" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+7.3</text>
+<!-- 40-60%: 4.75 nats = 4.75 * 15 = 71.3px. Top at 360-71=289 -->
+<rect x="249" y="289" width="60" height="71" rx="6" fill="#E8734A" opacity="0.55"/>
+<text x="279" y="277" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+4.8</text>
 
-<!-- 60-80%: 10.80 nats = 10.80 * 15 = 162px. Top at 360-162=198 -->
-<rect x="335" y="198" width="60" height="162" rx="6" fill="#E8734A" opacity="0.70"/>
-<text x="365" y="186" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+10.8</text>
+<!-- 60-80%: 7.25 nats = 7.25 * 15 = 108.8px. Top at 360-109=251 -->
+<rect x="335" y="251" width="60" height="109" rx="6" fill="#E8734A" opacity="0.70"/>
+<text x="365" y="239" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+7.3</text>
 
-<!-- 80-100% (hardest): 18.58 nats = 18.58 * 15 = 278.7px. Top at 360-279=81 -->
-<rect x="421" y="81" width="60" height="279" rx="6" fill="#E8734A" opacity="0.85"/>
-<text x="451" y="69" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+18.6</text>
+<!-- 80-100% (hardest): 14.23 nats = 14.23 * 15 = 213.5px. Top at 360-214=146 -->
+<rect x="421" y="146" width="60" height="214" rx="6" fill="#E8734A" opacity="0.85"/>
+<text x="451" y="134" text-anchor="middle" font-size="16" font-weight="500" fill="var(--p)">+14.2</text>
 
 <!-- X-axis labels -->
 <text x="107" y="382" text-anchor="middle" font-size="13" fill="var(--s)">0-20%</text>
