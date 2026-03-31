@@ -91,12 +91,47 @@
             padding-top: 9vh;
         }
 
+        {% if page.hero_centered %}
+        .splash {
+            min-height: 64vh;
+            justify-content: space-between;
+        }
+        .splash-center {
+            justify-content: center;
+            text-align: center;
+            padding-top: 5.5%;
+            flex: 1;
+        }
+        {% endif %}
+
         .splash-hero {
-            max-width: 750px;
+            max-width: {% if page.hero_centered %}900px{% else %}750px{% endif %};
         }
 
         .splash-hero-logo {
             margin-bottom: 2rem;
+        }
+
+        .splash-hero-lockup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .splash-hero-lockup img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: -1.5rem;
+        }
+
+        .splash-hero-lockup h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
         }
 
         .splash-hero h1 {
@@ -432,7 +467,20 @@
 
             .splash-center { padding-top: 15vh; }
         }
+        {% if page.hero_centered %}
+        .splash-hero h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.75rem;
+        }
+
+        .splash-hero strong { color: #fff; }
+        {% endif %}
     </style>
+    {% if page.extra_head %}{{ page.extra_head }}{% endif %}
 </head>
 <body>
 
@@ -454,8 +502,8 @@
             <span></span><span></span><span></span>
         </button>
         <div class="splash-nav-links">
-            <a href="#" class="product-link"><svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg> Actuator</a>
-            <a href="{{ page.url }}" class="product-link active"><svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg> Marvin</a>
+            <a href="/blog/2026/04/introducing-actuator/" class="product-link{% if page.product_name == 'Actuator' %} active{% endif %}"><svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg> Actuator</a>
+            <a href="/blog/2026/03/introducing-marvin/" class="product-link{% if page.product_name == 'Marvin' %} active{% endif %}"><svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg> Marvin</a>
             <a href="/blog/">Discover</a>
             <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer">
                 <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
@@ -469,12 +517,19 @@
     <!-- Hero -->
     <div class="splash-center">
         <div class="splash-hero">
-            {% if page.product_logo %}
+            {% if page.product_logo_img %}
+            <div class="splash-hero-lockup">
+                <img src="{{ page.product_logo_img }}" alt="{{ page.product_name }} logo">
+                <h1>{{ page.product_name | default: page.title }}</h1>
+            </div>
+            {% elsif page.product_logo %}
             <div class="splash-hero-logo">
                 {{ page.product_logo }}
             </div>
-            {% endif %}
             <h1>{{ page.product_name | default: page.title }}</h1>
+            {% else %}
+            <h1>{{ page.product_name | default: page.title }}</h1>
+            {% endif %}
             {% if page.product_subtitle %}
             <h2>{{ page.product_subtitle }}</h2>
             {% endif %}
@@ -489,11 +544,15 @@
 
 </div>
 
+{% if page.content_fullwidth %}
+{{ content }}
+{% else %}
 <!-- Article -->
 <div class="product-article">
     <hr class="product-article-divider">
     {{ content }}
 </div>
+{% endif %}
 
 {% if page.backdrop == "constellation" %}
 <script>
