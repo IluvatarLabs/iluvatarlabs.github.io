@@ -326,7 +326,7 @@ DCA helps on every quintile, but the advantage is 7.7x larger on the hardest exa
 
 ### Same retrieval, better composition
 
-Next, we investigated if and how DCA's superior representations manifest in the model's output. We computed mean token recall and derived an approximate token precision from aggregate F1 and recall on generated predictions (90M, WT103, pooled across seeds 137 and 2024). Token Recall (SQuAD-style normalized token overlap) is essentially identical (~57.5% in both models). Token Precision, derived from aggregate F1 and recall via P = F1·R / (2R - F1), shows the full advantage: ~8.2% vs ~4.2% (~2.0x). DCA does not find more information, but rather composes the same information more precisely.
+Next, we investigated if and how DCA's superior representations manifest in the model's output. We computed mean token recall and derived an approximate token precision from aggregate F1 and recall on generated predictions (90M, WT103, pooled across seeds 137 and 2024). Token Recall (SQuAD-style normalized token overlap) is essentially identical (~57.5% in both models). Token Precision, derived from aggregate F1 and recall via P = F1·R / (2R - F1), shows the full advantage: ~8.2% vs ~4.2% (~2.0x). The advantage appears to come primarily from composition rather than token-level recall.
 
 > **Figure 5** DCA 90M vs Baseline 90M (both WT103). Token Recall is essentially identical (~57.5%). Token Precision (derived from aggregate F1 and recall) shows the full advantage (~8.2% vs ~4.2%).
 
@@ -373,7 +373,7 @@ Next, we evaluated whether the perspectives actually develop distinct, complemen
 
 ![Figure 6: Cross-document attention fraction](/assets/images/divergent-convergent-attention/fig4_cross_doc_attention.svg)
 
-Attention measurements (computed on EM=1 examples, n=101) confirm the specialization. The local perspective keeps 96% of attention within paragraphs (cross-document fraction 0.04), while the global perspective distributes 68% across documents. In contrast, the dense transformer baseline sits at 0.34. With DCA, local perspectives extract precise within-document content, global perspectives maintain cross-document context, and consensus integrates both. The baseline attends at multiple scales within a single residual stream but cannot develop independent representations at each scale before integrating them. Together, the gate ablation and attention analyses demonstrate that DCA's diverse perspectives specialize by scale and combine through learned periodic consensus to produce superior representations for long reasoning.
+Attention measurements (computed on EM=1 examples, n=101) confirm the specialization. The local perspective keeps 96% of attention within paragraphs (cross-document fraction 0.04), while the global perspective distributes 68% across documents. In contrast, the dense transformer baseline sits at 0.34. With DCA, local perspectives extract precise within-document content, global perspectives maintain cross-document context, and consensus integrates both. The baseline attends at multiple scales within a single residual stream, but must reconcile those scales within one shared representation. Together, the gate ablation and attention analyses demonstrate that DCA's diverse perspectives specialize by scale and combine through learned periodic consensus to produce superior representations for long reasoning.
 
 ## Discussion
 
