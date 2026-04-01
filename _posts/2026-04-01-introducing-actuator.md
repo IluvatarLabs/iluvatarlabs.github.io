@@ -588,9 +588,9 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 </nav>
 
 <!-- Architecture diagram -->
-<div id="how-it-works" class="arch-section">
+<div class="arch-section">
     <div class="editorial-inner">
-        <h2 style="font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;">How it works</h2>
+        <h2 id="how-it-works" style="font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;">How it works</h2>
         <div class="arch-diagram">
             <div class="arch-stages">
                 <div class="arch-stage-group">
@@ -638,10 +638,10 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 <!-- ═══════════════════════════════════════════════════ -->
 
 <!-- Results header -->
-<hr id="results" class="section-divider">
+<hr class="section-divider">
 <div class="result-panel" style="padding-bottom: 1rem;">
     <div class="editorial-inner" style="padding-bottom: 0;">
-        <h2 style="font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;">Better control, better models</h2>
+        <h2 id="results" style="font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;">Better control, better models</h2>
         <p style="font-size: 1rem; color: #bbb; line-height: 1.8; max-width: 750px;">Today's post-training stack is a fragmented, open-loop affair. Teams pull together multiple tools, set knobs, run blind, eval after, and repeat. Actuator replaces that process with continuous live monitoring, automatic training-time adjustments, and guardrails to keep your model transformations on track. Quality in, quality out.</p>
     </div>
 </div>
@@ -885,9 +885,9 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 
 <!-- Code snippet -->
 <hr class="section-divider">
-<div id="get-started" class="code-section">
+<div class="code-section">
     <div class="editorial-inner">
-        <h2>Plug and play</h2>
+        <h2 id="get-started">Plug and play</h2>
         <p style="font-size: 1rem; color: #bbb; line-height: 1.8; max-width: 750px; margin-bottom: 1.5rem;">Actuator makes post-training <b>easy</b>. It drops right in to your existing stack and provides the unified end-to-end software layer you need to ship better models while skipping the pain.</p>
 
         <div class="code-block">
@@ -907,9 +907,9 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 </div>
 
 <!-- CTA -->
-<div id="get-access" class="cta-section">
+<div class="cta-section">
     <div class="cta-inner">
-        <h2>Get early access</h2>
+        <h2 id="get-access">Get early access</h2>
         <p>Actuator is currently in closed testing with our early design partners. If your team is running serious post-training and want to do it a better way, please reach out! We're excited to hear about what your team is working on and open to potential pilots or partnerships.</p>
         <p><a href="mailto:actuator@iluvatarlabs.com" class="cta-email">actuator@iluvatarlabs.com</a></p>
     </div>
