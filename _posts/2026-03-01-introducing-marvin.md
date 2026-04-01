@@ -23,7 +23,7 @@ The bottleneck in ML research today isn't compute or data. It's the preparation.
 
 We built Marvin because nothing out there worked well enough for our own research. The existing options were either too dumb (chasing red herrings down rabbit holes or proposing smart-sounding ideas that were anything but), too wasteful (channeling Ralph Wiggum on experiments that were never going to work), or too opaque (poor documentation, no reasoning traces or "logic trail" that forms the bedrock of scientific reproducibility.)
 
-Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses (with the help of **[Vera](#vera)**, our Visionary Exploration Research Agent), and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system, **[Silmaril](#lorien)**.
+Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses (with the help of **[Vera](#dream-big-with-vera)**, our Visionary Exploration Research Agent), and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system, **[Silmaril](#silmaril-persistent-memory-system)**.
 
 ## The research cycle, automated
 
