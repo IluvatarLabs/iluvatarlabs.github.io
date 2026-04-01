@@ -577,16 +577,6 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
         }
 </style>
 
-<nav class="product-toc">
-    <div class="product-toc-title">Actuator</div>
-    <ul>
-        <li><a href="#how-it-works">How it works</a></li>
-        <li><a href="#results">Better control, better models</a></li>
-        <li><a href="#get-started">Plug and play</a></li>
-        <li><a href="#get-access">Get early access</a></li>
-    </ul>
-</nav>
-
 <!-- Architecture diagram -->
 <div class="arch-section">
     <div class="editorial-inner">
