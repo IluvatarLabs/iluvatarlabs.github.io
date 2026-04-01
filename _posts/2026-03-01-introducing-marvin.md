@@ -5,7 +5,7 @@ date: 2026-03-01
 category: Product
 author: "Iluvatar Labs"
 product_name: "Marvin"
-product_subtitle: "The fully <u>autonomous</u> scientist agent."
+product_subtitle: "The fully <u>autonomous</u> scientist agent"
 product_tagline: "Define your research mission and Marvin will take care of the rest. Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis."
 product_cta_text: "Read Marvin's latest research ↓"
 product_cta_href: "#marvins-work"
