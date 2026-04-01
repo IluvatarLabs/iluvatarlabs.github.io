@@ -6,7 +6,7 @@ category: Product
 author: "Iluvatar Labs"
 product_name: "Actuator"
 product_subtitle: "The end-to-end control layer for model transformation"
-product_tagline: "Post-training is where differentiation and value are created &mdash; and quality is destroyed. Actuator changes this equation. By monitoring and adjusting training dynamics to course-correct when quality drifts, Actuator preserves what makes your models smart, before the damage is done."
+product_tagline: "Post-training is where differentiation and value are created &mdash; and quality is destroyed. By monitoring and adjusting training dynamics to course-correct when quality drifts, Actuator preserves what makes your models smart, before the damage is done."
 product_logo_img: "/favicon.svg"
 hero_centered: true
 content_fullwidth: true
