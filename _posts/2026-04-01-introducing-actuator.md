@@ -516,7 +516,7 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .splash-hero-lockup h1 { font-size: 2.5rem; }
-            .splash-hero-lockup img { width: 72px; height: 72px; }
+            .splash-hero-lockup img { width: 120px; height: 120px; margin-bottom: -0.75rem; }
             .splash-hero-lockup { gap: 0.6rem; margin-bottom: 1rem; }
 
             .arch-stages { gap: 0.55rem; margin-bottom: 0; }
@@ -577,9 +577,20 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
         }
 </style>
 
+<nav class="product-toc">
+    <div class="product-toc-title">Actuator</div>
+    <ul>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#results">Better control, better models</a></li>
+        <li><a href="#get-started">Plug and play</a></li>
+        <li><a href="#get-access">Get early access</a></li>
+    </ul>
+</nav>
+
 <!-- Architecture diagram -->
-<div class="arch-section">
+<div id="how-it-works" class="arch-section">
     <div class="editorial-inner">
+        <h2 style="font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;">How it works</h2>
         <div class="arch-diagram">
             <div class="arch-stages">
                 <div class="arch-stage-group">
@@ -627,7 +638,7 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 <!-- ═══════════════════════════════════════════════════ -->
 
 <!-- Results header -->
-<hr class="section-divider">
+<hr id="results" class="section-divider">
 <div class="result-panel" style="padding-bottom: 1rem;">
     <div class="editorial-inner" style="padding-bottom: 0;">
         <h2 style="font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1.25rem;">Better control, better models</h2>
@@ -874,7 +885,7 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 
 <!-- Code snippet -->
 <hr class="section-divider">
-<div class="code-section">
+<div id="get-started" class="code-section">
     <div class="editorial-inner">
         <h2>Plug and play</h2>
         <p style="font-size: 1rem; color: #bbb; line-height: 1.8; max-width: 750px; margin-bottom: 1.5rem;">Actuator makes post-training <b>easy</b>. It drops right in to your existing stack and provides the unified end-to-end software layer you need to ship better models while skipping the pain.</p>
@@ -896,7 +907,7 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 </div>
 
 <!-- CTA -->
-<div class="cta-section">
+<div id="get-access" class="cta-section">
     <div class="cta-inner">
         <h2>Get early access</h2>
         <p>Actuator is currently in closed testing with our early design partners. If your team is running serious post-training and want to do it a better way, please reach out! We're excited to hear about what your team is working on and open to potential pilots or partnerships.</p>

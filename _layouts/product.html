@@ -439,9 +439,12 @@
         @media (max-width: 768px) {
             .splash { padding: 2rem 1.5rem; min-height: 50vh; }
             .splash-hero h1 { font-size: 2.5rem; }
-            .splash-hero h2 { font-size: 1.2rem; }
+            .splash-hero h2 { font-size: {% if page.hero_centered %}1.4rem{% else %}1.2rem{% endif %}; }
             .splash-hero p { font-size: 1rem; }
             .splash-hero-logo svg { width: 80px; height: 55px; }
+            .splash-hero-lockup h1 { font-size: 2.5rem; }
+            .splash-hero-lockup img { width: 120px; height: 120px; margin-bottom: -0.75rem; }
+            .splash-hero-lockup { gap: 0.6rem; margin-bottom: 1rem; }
             .product-article { padding: 2rem 1.5rem 4rem; }
 
             .splash-hamburger { display: block; }
@@ -479,6 +482,51 @@
 
         .splash-hero strong { color: #fff; }
         {% endif %}
+
+        /* ── Floating ToC ── */
+        .product-toc {
+            position: fixed;
+            left: max(2.5rem, calc(50% - 650px));
+            top: 50%;
+            transform: translateY(-50%);
+            width: 140px;
+        }
+
+        .product-toc-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1.25rem;
+        }
+
+        .product-toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .product-toc li {
+            margin-bottom: 1.25rem;
+        }
+
+        .product-toc a {
+            font-size: 1.15rem;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.2s;
+            line-height: 1.3;
+            display: block;
+        }
+
+        .product-toc a:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 1300px) {
+            .product-toc {
+                display: none;
+            }
+        }
     </style>
     {% if page.extra_head %}{{ page.extra_head }}{% endif %}
 </head>
