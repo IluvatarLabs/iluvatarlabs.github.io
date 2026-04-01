@@ -592,6 +592,11 @@
 
 </div>
 
+<nav class="product-toc">
+    <div class="product-toc-title">{{ page.product_name }}</div>
+    <ul id="product-toc-links"></ul>
+</nav>
+
 {% if page.content_fullwidth %}
 {{ content }}
 {% else %}
@@ -666,6 +671,23 @@ window.addEventListener('load', () => setTimeout(drawConstellation, 50));
 window.addEventListener('resize', drawConstellation);
 </script>
 {% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toc = document.getElementById('product-toc-links');
+    const container = document.querySelector('.product-article') || document.body;
+    const headings = container.querySelectorAll('h2[id]');
+
+    headings.forEach(heading => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = '#' + heading.id;
+        a.textContent = heading.textContent;
+        li.appendChild(a);
+        toc.appendChild(li);
+    });
+});
+</script>
 
 </body>
 </html>
