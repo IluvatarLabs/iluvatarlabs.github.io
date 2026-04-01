@@ -23,7 +23,7 @@ The bottleneck in ML research today isn't compute or data. It's the preparation.
 
 We built Marvin because nothing out there worked well enough for our own research. The existing options were either too dumb (chasing red herrings down rabbit holes or proposing smart-sounding ideas that were anything but), too wasteful (channeling Ralph Wiggum on experiments that were never going to work), or too opaque (poor documentation, no reasoning traces or "logic trail" that forms the bedrock of scientific reproducibility.)
 
-Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses (with the help of **Vera**, our Visionary Exploration Research Agent), and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system, **Silmaril**.
+Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses (with the help of **[Vera](#vera)**, our Visionary Exploration Research Agent), and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system, **[Silmaril](#lorien)**.
 
 ## The research cycle, automated
 
@@ -61,9 +61,7 @@ Marvin takes the information overload and busywork out of research. It does deep
     </div>
 </div>
 
-Designed for ML research teams by ML researchers.
-
-## Dreaming with Vera
+## Dream big with Vera
 
 **Vera** is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Vera can operate as part of Marvin's standard research loop, dream independently while Marvin waits on experimental results, or be invoked manually when you need a brainstorm partner. Every hypothesis is grounded in evidence and scored for novelty, plausibility, tractability, impact, and scope, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.
 
@@ -80,6 +78,8 @@ Research doesn't happen in a single session. **Silmaril** is Marvin's persistent
 </div>
 
 ## Your repo's "logic trail"
+
+Designed for ML research teams by ML researchers.
 
 <div class="output-tree">
     <div style="color: #dcdcaa;">my-project/</div>
