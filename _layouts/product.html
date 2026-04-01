@@ -106,6 +106,7 @@
 
         .splash-hero {
             max-width: {% if page.hero_centered %}900px{% else %}750px{% endif %};
+            {% if page.hero_offset %}margin-left: {{ page.hero_offset }}px;{% endif %}
         }
 
         .splash-hero-logo {
@@ -450,6 +451,7 @@
             .splash-hero-lockup h1 { font-size: 2.5rem; }
             .splash-hero-lockup img { width: 120px; height: 120px; margin-bottom: -0.75rem; }
             .splash-hero-lockup { gap: 0.6rem; margin-bottom: 1rem; }
+            .splash-hero { margin-left: 0 !important; }
             .product-article { padding: 2rem 1.5rem 4rem; }
 
             .splash-hamburger { display: block; }

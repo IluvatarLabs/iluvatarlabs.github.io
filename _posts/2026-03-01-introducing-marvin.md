@@ -9,6 +9,7 @@ product_subtitle: "The fully <u>autonomous</u> scientist agent."
 product_tagline: "Define your research mission and Marvin will take care of the rest. Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis."
 product_cta_text: "Read Marvin's latest research ↓"
 product_cta_href: "#marvins-work"
+hero_offset: 60
 product_logo: '<svg width="130" height="90" viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><mask id="visor-eyes"><rect x="0" y="0" width="64" height="44" fill="white"/><circle cx="22" cy="22" r="6.5" fill="black"/><circle cx="42" cy="22" r="6.5" fill="black"/></mask></defs><path d="M 14 2 L 8 2 Q 4 2 4 6 L 4 16 Q 4 22 0 22 Q 4 22 4 28 L 4 38 Q 4 42 8 42 L 14 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 50 2 L 56 2 Q 60 2 60 6 L 60 16 Q 60 22 64 22 Q 60 22 60 28 L 60 38 Q 60 42 56 42 L 50 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="10" y="12" width="44" height="20" rx="10" fill="#fff" mask="url(#visor-eyes)"/></svg>'
 backdrop: "constellation"
 has_radar: true
@@ -67,7 +68,7 @@ Designed for ML research teams by ML researchers.
 **Vera** is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Vera can operate as part of Marvin's standard research loop, dream independently while Marvin waits on experimental results, or be invoked manually when you need a brainstorm partner. Every hypothesis is grounded in evidence and scored for novelty, plausibility, tractability, impact, and scope, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.
 
 <div style="display: flex; justify-content: center; margin: 2.5rem 0;">
-    <canvas id="radarCanvas" width="800" height="760" style="width: 400px; height: 380px;"></canvas>
+    <canvas id="radarCanvas" width="800" height="760" style="width: 100%; max-width: 400px; height: auto; aspect-ratio: 400/380;"></canvas>
 </div>
 
 ## Silmaril persistent memory system
@@ -75,7 +76,7 @@ Designed for ML research teams by ML researchers.
 Research doesn't happen in a single session. **Silmaril** is Marvin's persistent memory system — a living knowledge base that spans all sessions to preserve the results, findings, decisions, and the connections between them. With intelligent depth, agents share context at whatever granularity their task demands, as efficiently as possible. Whether it's Marvin, Vera, or a swarm of sub-agents, they all pick up exactly where the collective left off.
 
 <div style="display: flex; justify-content: center; margin: 2.5rem 0;">
-    <canvas id="graphCanvas" width="1400" height="700" style="width: 700px; height: 350px;"></canvas>
+    <canvas id="graphCanvas" width="1400" height="700" style="width: 100%; max-width: 700px; height: auto; aspect-ratio: 2/1;"></canvas>
 </div>
 
 ## Your repo's "logic trail"
@@ -92,9 +93,9 @@ Research doesn't happen in a single session. **Silmaril** is Marvin's persistent
     <div>&nbsp;&nbsp;└── <span style="color: #dcdcaa;">literature/</span></div>
 </div>
 
-Every iteration, every interpretation, every decision — traceable and reproducible.
+Every iteration, every interpretation, and every decision is traceable and reproducible with an auditable git history.
 
-Three commands to go from zero to autonomous research.
+From zero to autonomous research in just three steps.
 
 <div class="code-block">
     <div><span style="color: #666;">$</span> <span style="color: #dcdcaa;">marvin</span> <span style="color: #9cdcfe;">init</span></div>
