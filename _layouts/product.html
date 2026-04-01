@@ -108,14 +108,6 @@
             max-width: {% if page.hero_centered %}900px{% else %}750px{% endif %};
         }
 
-        {% unless page.hero_centered %}
-        @media (min-width: 1301px) {
-            .splash {
-                padding-left: max(3rem, calc(50% - 650px + 180px));
-            }
-        }
-        {% endunless %}
-
         .splash-hero-logo {
             margin-bottom: 2rem;
         }
@@ -498,6 +490,7 @@
             top: 50%;
             transform: translateY(-50%);
             width: 140px;
+            z-index: 30;
         }
 
         .product-toc-title {
