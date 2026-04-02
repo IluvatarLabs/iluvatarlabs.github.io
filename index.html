@@ -110,12 +110,12 @@
         }
 
         .hero {
-            max-width: 560px;
+            max-width: 620px;
         }
 
         .hero h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 3.2rem;
+            font-size: 3.8rem;
             font-weight: 700;
             line-height: 1.2;
             letter-spacing: -0.02em;
@@ -123,7 +123,7 @@
         }
 
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             color: #999;
             line-height: 1.7;
             margin-bottom: 0.875rem;
@@ -147,43 +147,6 @@
         .hero-link:hover {
             color: #fff;
             border-color: #999;
-        }
-
-        /* ── Stat grid ── */
-        .stat-grid {
-            display: grid;
-            grid-template-columns: repeat(4, auto);
-            gap: 2rem;
-            width: fit-content;
-            margin-top: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.6rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.02em;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-pill {
-            background: #111;
-            border: 1px solid #444;
-            border-radius: 20px;
-            padding: 4px 14px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #bbb;
-            white-space: nowrap;
         }
 
         /* ── Canvas graphic ── */
@@ -387,15 +350,6 @@
                 font-size: 1.1rem;
             }
 
-            .stat-grid {
-                grid-template-columns: repeat(2, auto);
-                gap: 1.5rem;
-            }
-
-            .stat-number {
-                font-size: 2.2rem;
-            }
-
             .research-section {
                 margin-top: 2rem;
             }
@@ -447,24 +401,6 @@
             <h2>Closing the loop on post-training.</h2>
             <p>Introducing <b>Actuator</b>: a closed-loop control layer for supervised fine-tuning, compression, and reinforcement learning.</p>
             <p>Plug it right into your existing stack, monitor what you care about, and adapt automatically when training drifts.</p>
-            <div class="stat-grid">
-                <div class="stat-item">
-                    <span class="stat-number">+56.9pp</span>
-                    <span class="stat-pill">Safety</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">+13.1pp</span>
-                    <span class="stat-pill">Compression</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">+7.8%</span>
-                    <span class="stat-pill">Serving</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">+15.8pp</span>
-                    <span class="stat-pill">Capability</span>
-                </div>
-            </div>
             <a href="/blog/2026/04/introducing-actuator/" class="hero-link">Learn more &rarr;</a>
         </div>
     </div>
