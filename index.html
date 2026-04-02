@@ -375,7 +375,7 @@
     <!-- Nav -->
     <nav class="nav">
         <span class="nav-title">iluvatar labs.</span>
-        <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+        <button class="nav-hamburger" type="button" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
         <div class="nav-links">
@@ -430,6 +430,38 @@
     </div>
     {% endif %}
 
+<script>
+(function() {
+    const nav = document.querySelector('.nav');
+    const button = nav ? nav.querySelector('.nav-hamburger') : null;
+    const links = nav ? nav.querySelector('.nav-links') : null;
+
+    if (!nav || !button || !links) return;
+
+    button.addEventListener('click', function(event) {
+        event.stopPropagation();
+        links.classList.toggle('open');
+    });
+
+    links.addEventListener('click', function(event) {
+        if (event.target.closest('a')) {
+            links.classList.remove('open');
+        }
+    });
+
+    document.addEventListener('click', function(event) {
+        if (links.classList.contains('open') && !nav.contains(event.target)) {
+            links.classList.remove('open');
+        }
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            links.classList.remove('open');
+        }
+    });
+})();
+</script>
 <script>
 (function() {
     const canvas = document.getElementById('dagCanvas');
