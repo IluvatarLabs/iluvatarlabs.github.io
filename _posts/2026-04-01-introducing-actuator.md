@@ -516,9 +516,12 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
-            .splash-hero-lockup h1 { font-size: 2.5rem; }
-            .splash-hero-lockup img { width: 120px; height: 120px; margin-bottom: -0.75rem; }
-            .splash-hero-lockup { gap: 0.6rem; margin-bottom: 1rem; }
+            .splash-hero-lockup h1 { font-size: 3.1rem; }
+            .splash-hero-lockup img,
+            .splash-hero-lockup > svg { width: 148px; height: 148px; margin-bottom: -0.9rem; }
+            .splash-hero-lockup { gap: 0.35rem; margin-bottom: 0.85rem; }
+            .splash-hero h2 { font-size: 1.15rem; margin-bottom: 1.25rem; }
+            .splash-hero p { font-size: 0.95rem; line-height: 1.65; }
 
             .arch-stages { gap: 0.55rem; margin-bottom: 0; }
             .arch-stage-group { gap: 0; }
