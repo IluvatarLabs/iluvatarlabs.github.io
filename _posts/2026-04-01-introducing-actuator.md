@@ -1,6 +1,6 @@
 ---
 layout: product
-title: "Introducing Actuator: Making Model Transformation Easy"
+title: "Introducing Actuator"
 date: 2026-04-01
 category: Product
 author: "Iluvatar Labs"

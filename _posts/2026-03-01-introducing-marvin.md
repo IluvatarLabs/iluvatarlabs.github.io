@@ -1,6 +1,6 @@
 ---
 layout: product
-title: "Meet Marvin: the Autonomous ML Research Agent"
+title: "Meet Marvin, the Autonomous ML Research Agent"
 date: 2026-03-01
 category: Product
 author: "Iluvatar Labs"
