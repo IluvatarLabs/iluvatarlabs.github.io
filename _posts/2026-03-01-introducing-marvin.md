@@ -14,6 +14,7 @@ product_logo: '<svg width="130" height="90" viewBox="0 0 64 44" fill="none" xmln
 backdrop: "constellation"
 has_radar: true
 has_knowledge_graph: true
+image: /assets/images/introducing-marvin/social-card.png
 excerpt: "Autonomous ML research agent that conducts rigorous scientific research end-to-end: literature review, hypothesis generation, experiment design, execution, analysis, and documentation."
 ---
 
