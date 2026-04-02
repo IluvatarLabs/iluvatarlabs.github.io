@@ -1,6 +1,6 @@
 ---
 layout: product
-title: "Actuator: The End-to-End Control Layer for Model Transformation"
+title: "Introducing Actuator: Making Model Transformation Easy"
 date: 2026-04-01
 category: Product
 author: "Iluvatar Labs"
