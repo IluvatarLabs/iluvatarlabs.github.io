@@ -523,11 +523,12 @@ excerpt: "A closed-loop control layer for model transformation. Actuator monitor
             .splash-hero h2 { font-size: 1.15rem; margin-bottom: 1.25rem; }
             .splash-hero p { font-size: 0.95rem; line-height: 1.65; }
 
-            .arch-stages { gap: 0.55rem; margin-bottom: 0; }
+            .arch-diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .arch-stages { gap: 0.55rem; margin-bottom: 0.65rem; flex-wrap: nowrap; width: max-content; min-width: 100%; }
             .arch-stage-group { gap: 0; }
             .arch-stage { font-size: 0.85rem; }
             .arch-loop { font-size: 1rem; margin-top: 0.35rem; margin-bottom: 0.35rem; }
-            .arch-control { padding: 1rem; overflow-x: auto; }
+            .arch-control { padding: 1rem; overflow-x: visible; min-width: max-content; }
             .arch-control-label { font-size: 0.7rem; }
             .arch-control-flow { min-width: max-content; }
             .arch-control-grid { --arch-end-stage-width: 5.55rem; column-gap: 0.35rem; row-gap: 0.08rem; }
