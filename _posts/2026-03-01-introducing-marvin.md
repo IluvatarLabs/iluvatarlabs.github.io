@@ -66,7 +66,7 @@ Marvin takes the information overload and busywork out of research. It does deep
 **Vera** is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Vera can operate as part of Marvin's standard research loop, dream independently while Marvin waits on experimental results, or be invoked manually when you need a brainstorm partner. Every hypothesis is grounded in evidence and scored for novelty, plausibility, tractability, impact, and scope, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.
 
 <div style="display: flex; justify-content: center; margin: 2.5rem 0;">
-    <canvas id="radarCanvas" width="800" height="760" style="width: 100%; max-width: 400px; height: auto; aspect-ratio: 400/380;"></canvas>
+    <canvas id="radarCanvas" width="920" height="840" style="width: 100%; max-width: 460px; height: auto; aspect-ratio: 460/420;"></canvas>
 </div>
 
 ## Silmaril persistent memory system
