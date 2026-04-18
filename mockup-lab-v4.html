@@ -1,22 +1,10 @@
----
-layout: null
-title: Iluvatar Labs
-description: A post-training & research lab. Closing the loop on post-training, scientific research, compression, drug discovery, reinforcement learning, materials science, distillation, self-evolving AI, and computational biology.
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iluvatar Labs</title>
-
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
-    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
-
-    {% seo %}
-
+    <title>Iluvatar Labs — Lab mockup v4</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -467,13 +455,6 @@ description: A post-training & research lab. Closing the loop on post-training, 
                 radial-gradient(ellipse 80% 70% at 20% 80%, rgba(120,75,55,0.65) 0%, transparent 60%),
                 #3A2A20;
         }
-        /* Fallback gradient for posts without a thumbnail declared */
-        .lab-thumb-indigo {
-            background:
-                radial-gradient(ellipse 60% 80% at 75% 25%, rgba(140,110,220,0.5) 0%, transparent 55%),
-                radial-gradient(ellipse 70% 70% at 20% 85%, rgba(30,27,75,0.9) 0%, transparent 60%),
-                #1A1D3E;
-        }
         .lab-thumb-grain {
             position: absolute; inset: 0;
             background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/></svg>");
@@ -614,6 +595,8 @@ description: A post-training & research lab. Closing the loop on post-training, 
             .lab-grid { grid-template-columns: 1fr; gap: 2rem; }
             .lab-card-visual { aspect-ratio: 16 / 9; }
 
+            .footer .section-inner { justify-content: flex-start; gap: 1rem; }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -690,7 +673,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         </div>
     </section>
 
-    <!-- Actuator: cream, DAG visual -->
+    <!-- Actuator: atmospheric indigo, visual right -->
     <section class="product actuator section" id="actuator">
         <div class="grain" style="opacity: 0.05;"></div>
         <div class="section-inner">
@@ -706,7 +689,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         </div>
     </section>
 
-    <!-- Marvin: dark, constellation visual -->
+    <!-- Marvin: light blue -->
     <section class="product marvin section" id="marvin">
         <div class="grain" style="opacity: 0.06;"></div>
         <div class="section-inner">
@@ -722,7 +705,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         </div>
     </section>
 
-    <!-- From the team -->
+    <!-- From the lab -->
     <section class="lab section" id="lab">
         <div class="grain" style="opacity: 0.05;"></div>
         <div class="section-inner">
@@ -731,58 +714,69 @@ description: A post-training & research lab. Closing the loop on post-training, 
                 <a href="/blog/" class="lab-all">Discover more <span>&rarr;</span></a>
             </div>
 
-            {% assign featured = site.posts | where_exp: "p", "p.featured == true" | first | default: site.posts.first %}
-            {% if featured %}
-            <a href="{{ featured.url }}" class="lab-featured">
+            <!-- Featured -->
+            <a href="/blog/2026/04/introducing-actuator/" class="lab-featured">
                 <div class="lab-featured-visual">
-                    {% if site.data.thumbs[featured.slug] %}
-                        <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[featured.slug] }}); background-size: cover; background-position: center;"></div>
-                    {% else %}
-                        <div class="lab-thumb lab-thumb-{{ featured.thumbnail | default: 'indigo' }}"></div>
-                    {% endif %}
+                    <div class="lab-thumb lab-thumb-actuator"></div>
                     <div class="lab-thumb-grain"></div>
                 </div>
                 <div class="lab-featured-content">
                     <div class="lab-meta">
-                        <span class="lab-cat">{{ featured.category | default: "Research" }}</span>
-                        <span>{{ featured.date | date: "%b %Y" }}</span>
+                        <span class="lab-cat">Product</span>
+                        <span>Apr 2026</span>
                     </div>
-                    <h3>{{ featured.title }}</h3>
-                    {% if featured.excerpt %}<p class="lab-excerpt">{{ featured.excerpt | strip_html | truncate: 240 }}</p>{% endif %}
-                    {% if featured.author %}<div class="lab-authors">By {{ featured.author }}</div>{% endif %}
+                    <h3>Introducing Actuator — closing the loop on post-training quality.</h3>
+                    <p class="lab-excerpt">A closed-loop control layer that streams reward and eval signals through live training, adapts pressure when quality drifts, and halts before damage is done. Plug it into your existing stack; stop burning GPU-months on doomed runs.</p>
+                    <div class="lab-authors">By Iluvatar Labs</div>
                 </div>
             </a>
-            {% endif %}
 
-            <!-- Secondary grid: next 3 posts (excluding featured) -->
-            {% assign rest = site.posts | where_exp: "p", "p.url != featured.url" | slice: 0, 3 %}
+            <!-- Secondary grid -->
             <div class="lab-grid">
-                {% for post in rest %}
-                <a href="{{ post.url }}" class="lab-card">
+                <a href="/blog/2026/03/divergent-convergent-attention/" class="lab-card">
                     <div class="lab-card-visual">
-                        {% if site.data.thumbs[post.slug] %}
-                            <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[post.slug] }}); background-size: cover; background-position: center;"></div>
-                        {% else %}
-                            <div class="lab-thumb lab-thumb-{{ post.thumbnail | default: 'indigo' }}"></div>
-                        {% endif %}
+                        <div class="lab-thumb lab-thumb-dca"></div>
                         <div class="lab-thumb-grain"></div>
                     </div>
                     <div class="lab-meta">
-                        <span class="lab-cat">{{ post.category | default: "Research" }}</span>
-                        <span>{{ post.date | date: "%b %Y" }}</span>
+                        <span class="lab-cat">Research</span>
+                        <span>Mar 2026</span>
                     </div>
-                    <h4>{{ post.title }}</h4>
-                    {% if post.author %}<div class="lab-authors">{{ post.author }}</div>{% endif %}
+                    <h4>Divergent-Convergent Attention: parallel perspectives for compositional reasoning.</h4>
+                    <div class="lab-authors">Ben Zhao · Jenhan Tao</div>
                 </a>
-                {% endfor %}
+                <a href="/blog/2026/03/introducing-marvin/" class="lab-card">
+                    <div class="lab-card-visual">
+                        <div class="lab-thumb lab-thumb-marvin"></div>
+                        <div class="lab-thumb-grain"></div>
+                    </div>
+                    <div class="lab-meta">
+                        <span class="lab-cat">Product</span>
+                        <span>Mar 2026</span>
+                    </div>
+                    <h4>Meet Marvin — the autonomous ML research agent.</h4>
+                    <div class="lab-authors">By Iluvatar Labs</div>
+                </a>
+                <a href="/blog/2025/11/elastic-speculation/" class="lab-card">
+                    <div class="lab-card-visual">
+                        <div class="lab-thumb lab-thumb-elastic"></div>
+                        <div class="lab-thumb-grain"></div>
+                    </div>
+                    <div class="lab-meta">
+                        <span class="lab-cat">Research</span>
+                        <span>Nov 2025</span>
+                    </div>
+                    <h4>Elastic Speculation: adaptive draft length and confidence-based early exit.</h4>
+                    <div class="lab-authors">Ben Zhao · Roy Zhao · Justin Huang</div>
+                </a>
             </div>
 
-            <div class="lab-copy">&copy; {{ "now" | date: "%Y" }} Iluvatar Labs</div>
+            <div class="lab-copy">© 2026 Iluvatar Labs</div>
         </div>
     </section>
 
 <!-- ──────────────────────────────────────────────── -->
-<!-- Actuator DAG on cream                             -->
+<!-- Actuator DAG on atmospheric indigo               -->
 <!-- ──────────────────────────────────────────────── -->
 <script>
 (function() {
@@ -1090,7 +1084,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
 </script>
 
 <!-- ──────────────────────────────────────────────── -->
-<!-- Marvin constellation on dark (cream nodes)       -->
+<!-- Marvin constellation on peach bg (dark ink)      -->
 <!-- ──────────────────────────────────────────────── -->
 <script>
 (function() {

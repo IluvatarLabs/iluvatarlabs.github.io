@@ -3,6 +3,7 @@ layout: product
 title: "Introducing Actuator"
 date: 2026-04-01
 category: Product
+thumbnail: actuator
 author: "Iluvatar Labs"
 product_name: "Actuator"
 product_subtitle: "The end-to-end control layer for model transformation"

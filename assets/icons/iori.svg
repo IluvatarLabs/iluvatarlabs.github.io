@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IORI — nav / small scale (64x64 viewBox, typical render 20–32px).
+     Paper body fill driven by --iori-bg CSS variable; defaults to the
+     dark hero/nav background. Override with style="--iori-bg:#F1ECE2"
+     when placed on a cream / light surface. -->
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <style>svg { --iori-bg: #14141A; }</style>
+    <g stroke="currentColor" stroke-width="1.6" fill="var(--iori-bg, #14141A)"
+       stroke-linecap="round" stroke-linejoin="round">
+        <rect x="22" y="10" width="28" height="38" rx="1.5"/>
+        <rect x="16" y="14" width="28" height="38" rx="1.5"/>
+        <rect x="10" y="18" width="28" height="38" rx="1.5"/>
+    </g>
+    <g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round">
+        <line x1="14" y1="27" x2="28" y2="27"/>
+        <line x1="14" y1="32" x2="34" y2="32"/>
+        <line x1="14" y1="37" x2="30" y2="37"/>
+        <line x1="14" y1="42" x2="32" y2="42"/>
+        <line x1="14" y1="47" x2="26" y2="47"/>
+    </g>
+</svg>

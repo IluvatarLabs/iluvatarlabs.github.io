@@ -2,6 +2,8 @@
 layout: post
 title: "Elastic Speculation: Adaptive Draft Length and Confidence-Based Early Exit"
 date: 2025-11-11
+category: Research
+thumbnail: elastic
 author: "Ben Zhao · Roy Zhao · Justin Huang"
 math: true
 excerpt: "Elastic speculation delivers 30–50% lower latency and up to ~50% fewer speculative KV writes in our experiments, while preserving output quality."

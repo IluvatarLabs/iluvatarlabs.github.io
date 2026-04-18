@@ -3,6 +3,7 @@ layout: product
 title: "Meet Marvin, the Autonomous ML Research Agent"
 date: 2026-03-01
 category: Product
+thumbnail: marvin
 author: "Iluvatar Labs"
 product_name: "Marvin"
 product_subtitle: "The fully <u>autonomous</u> scientist agent"

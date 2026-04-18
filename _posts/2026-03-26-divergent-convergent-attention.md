@@ -2,6 +2,8 @@
 layout: post
 title: "Divergent-Convergent Attention: Parallel Perspectives for Compositional Reasoning"
 date: 2026-03-26
+category: Research
+thumbnail: dca
 author: "Ben Zhao · Jenhan Tao"
 excerpt: "We introduce Divergent-Convergent Attention (DCA), a transformer primitive that maintains parallel attention streams at different window sizes and reconciles them through learned periodic consensus."
 image: /assets/images/divergent-convergent-attention/social-card.png
