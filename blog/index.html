@@ -1,143 +1,414 @@
 ---
-layout: default
-title: blog.
+layout: null
+title: Discover
+description: Research, announcements, and field reports from Iluvatar Labs.
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover — Iluvatar Labs</title>
+    {% seo %}
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-<style>
-    .blog-header {
-        margin-bottom: 3rem;
-    }
+        :root {
+            --max-content: 1280px;
+            --edge-pad: 3rem;
 
-    .blog-title {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 3rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 1rem;
-        letter-spacing: -0.02em;
-    }
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.68);
+            --ink-cream-mute: rgba(245,241,235,0.42);
 
-    .blog-subtitle {
-        font-size: 1rem;
-        color: #888;
-        line-height: 1.5;
-    }
+            --ink-dark:       #14141A;
 
-    .post-list {
-        list-style: none;
-    }
-
-    .post-item {
-        display: flex;
-        gap: 2rem;
-        margin-bottom: 2.5rem;
-        padding-bottom: 2.5rem;
-        border-bottom: 1px solid #222;
-    }
-
-    .post-item:last-child {
-        border-bottom: none;
-    }
-
-    .post-date-col {
-        flex-shrink: 0;
-        width: 100px;
-        color: #888;
-        font-size: 1rem;
-        padding-top: 0.2rem;
-    }
-
-    .post-content-col {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .post-link {
-        text-decoration: none;
-        display: block;
-    }
-
-    .post-link:hover .post-item-title {
-        opacity: 0.8;
-    }
-
-    .post-item-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-        transition: opacity 0.2s;
-    }
-
-    .post-item-author {
-        color: #888;
-        font-size: 0.9rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .post-item-excerpt {
-        color: #aaa;
-        line-height: 1.6;
-        font-size: 0.95rem;
-    }
-
-    .empty-state {
-        color: #666;
-        font-style: italic;
-        margin-top: 3rem;
-    }
-
-    @media (max-width: 768px) {
-        .blog-title {
-            font-size: 1.8rem;
+            --accent:         #E97B6A;
+            --accent-deep:    #CC6A5B;
         }
 
-        .post-item {
-            flex-direction: column;
-            gap: 0.5rem;
+        html, body { background: #14141A; }
+        body {
+            color: var(--ink-cream);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .post-date-col {
-            width: auto;
+        .grain {
+            position: absolute; inset: 0;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.6'/></svg>");
+            mix-blend-mode: overlay;
+            z-index: 5;
         }
 
-        .post-item-title {
+        /* ── Nav ── */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30; display: flex; justify-content: center;
+            --nav-ink: var(--ink-cream);
+            --nav-ink-soft: var(--ink-cream-soft);
+        }
+        .nav {
+            width: 100%; max-width: var(--max-content);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 3rem var(--edge-pad) 0;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--nav-ink);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink);
+            text-decoration: none;
             font-size: 1.1rem;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s, font-weight 0.2s;
         }
-    }
-</style>
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active {
+            font-weight: 700;
+            border-bottom-color: var(--nav-ink);
+        }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg {
+            width: 100%; height: 100%;
+            fill: var(--nav-ink);
+            transition: fill 0.2s;
+        }
+        a:hover .social-icon svg { fill: var(--nav-ink); }
+        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
+        .nav-hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--nav-ink-soft); margin: 5px 0;
+        }
+        .nav-hamburger:hover span { background: var(--nav-ink); }
 
-<div class="blog-header">
-    <h1 class="blog-title">Discover</h1>
-    <p class="blog-subtitle">Research, announcements, and more from our team.</p>
-</div>
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse 70% 90% at 92% 18%, rgba(233,143,102,0.22) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 70% at 12% 85%, rgba(105,82,160,0.25) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 60% at 58% 55%, rgba(40,33,70,0.4) 0%, transparent 70%),
+                #14141A;
+        }
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: var(--max-content);
+            margin: 0 auto;
+            padding: 11rem var(--edge-pad) 5rem;
+        }
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1.04;
+            letter-spacing: -0.033em;
+            font-weight: 600;
+            color: var(--ink-cream);
+            margin-bottom: 1.25rem;
+        }
+        .hero p {
+            font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+            color: var(--ink-cream-soft);
+            max-width: 38rem;
+            line-height: 1.45;
+        }
 
-<div class="posts">
-    {% if site.posts.size > 0 %}
-        <ul class="post-list">
-            {% for post in site.posts %}
-            <li class="post-item">
-                <div class="post-date-col">
-                    <time datetime="{{ post.date | date_to_xmlschema }}">
-                        {{ post.date | date: "%b %-d, %Y" }}
-                    </time>
+        /* ── Listing ── */
+        .listing {
+            position: relative;
+            background: #1C1C28;
+            padding: 4rem 0 7rem;
+            overflow: hidden;
+        }
+        .listing-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            padding: 0 var(--edge-pad);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Featured */
+        .lab-featured {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            column-gap: 3rem;
+            align-items: stretch;
+            padding: 2.25rem 0;
+            border-top: 1px solid rgba(245,241,235,0.12);
+            border-bottom: 1px solid rgba(245,241,235,0.12);
+            text-decoration: none;
+            color: inherit;
+            margin-bottom: 3.5rem;
+            transition: background 0.2s;
+        }
+        .lab-featured:hover { background: rgba(245,241,235,0.02); }
+
+        .lab-featured-visual {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            min-height: 18rem;
+        }
+        .lab-thumb { position: absolute; inset: 0; }
+        .lab-thumb-actuator {
+            background:
+                radial-gradient(ellipse 70% 80% at 25% 30%, rgba(233,123,106,0.5) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 70% at 80% 75%, rgba(75,65,140,0.7) 0%, transparent 60%),
+                #241F4A;
+        }
+        .lab-thumb-dca {
+            background:
+                radial-gradient(ellipse 60% 80% at 75% 25%, rgba(140,110,220,0.55) 0%, transparent 55%),
+                radial-gradient(ellipse 70% 70% at 20% 85%, rgba(30,27,75,0.9) 0%, transparent 60%),
+                #1A1D3E;
+        }
+        .lab-thumb-marvin {
+            background:
+                radial-gradient(ellipse 70% 70% at 70% 30%, rgba(58,74,70,0.65) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 80% at 20% 80%, rgba(20,20,26,0.8) 0%, transparent 60%),
+                #2E3A38;
+        }
+        .lab-thumb-elastic {
+            background:
+                radial-gradient(ellipse 70% 70% at 80% 30%, rgba(230,170,120,0.55) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 70% at 20% 80%, rgba(120,75,55,0.65) 0%, transparent 60%),
+                #3A2A20;
+        }
+        .lab-thumb-indigo {
+            background:
+                radial-gradient(ellipse 60% 80% at 75% 25%, rgba(140,110,220,0.5) 0%, transparent 55%),
+                radial-gradient(ellipse 70% 70% at 20% 85%, rgba(30,27,75,0.9) 0%, transparent 60%),
+                #1A1D3E;
+        }
+        .lab-thumb-grain {
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/></svg>");
+            opacity: 0.12;
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
+        .lab-featured-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem 2rem 1rem 0;
+        }
+        .lab-meta {
+            display: flex; align-items: center; gap: 1rem;
+            margin-bottom: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+        }
+        .lab-cat {
+            color: var(--accent);
+            border: 1px solid rgba(233,123,106,0.45);
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+        }
+        .lab-featured h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.022em;
+            margin-bottom: 1rem;
+            color: var(--ink-cream);
+            max-width: 36ch;
+        }
+        .lab-excerpt {
+            font-size: 1.05rem;
+            color: var(--ink-cream-soft);
+            line-height: 1.55;
+            margin-bottom: 1.5rem;
+            max-width: 34rem;
+        }
+        .lab-authors {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--ink-cream-soft);
+        }
+
+        /* Grid */
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem 1.25rem;
+        }
+        .lab-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+        .lab-card:hover { transform: translateY(-3px); }
+        .lab-card-visual {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+        .lab-card h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.25;
+            letter-spacing: -0.018em;
+            margin-bottom: 0.9rem;
+            color: var(--ink-cream);
+        }
+        .lab-card .lab-meta { margin-bottom: 0.9rem; }
+        .lab-card .lab-authors { font-size: 1.05rem; margin: 0; }
+
+        .empty-state {
+            color: var(--ink-cream-mute);
+            font-style: italic;
+            padding: 3rem 0;
+        }
+
+        .lab-copy {
+            margin-top: 8rem;
+            font-size: 1rem;
+            color: var(--ink-cream-mute);
+            letter-spacing: -0.005em;
+        }
+
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+
+            .hero-inner { padding: 9rem var(--edge-pad) 4rem; }
+            .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
+
+            .lab-featured {
+                grid-template-columns: 1fr;
+                row-gap: 1.25rem;
+                padding: 1.5rem 0 2rem;
+            }
+            .lab-featured-visual { min-height: 14rem; aspect-ratio: 16/10; }
+            .lab-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .lab-card-visual { aspect-ratio: 16 / 9; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: #1A1A22;
+                border: 1px solid rgba(245,241,235,0.1);
+                border-radius: 10px;
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                gap: 1rem;
+                min-width: 200px;
+            }
+            .nav-links.open { display: flex; }
+            .nav-hamburger { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+{% include nav.html active="discover" %}
+
+<section class="hero">
+    <div class="grain" style="opacity: 0.08;"></div>
+    <div class="hero-inner">
+        <h1>Discover.</h1>
+        <p>Research, announcements, and field reports from the lab.</p>
+    </div>
+</section>
+
+<section class="listing">
+    <div class="grain" style="opacity: 0.05;"></div>
+    <div class="listing-inner">
+        {% assign featured = site.posts | where_exp: "p", "p.featured == true" | first | default: site.posts.first %}
+        {% if featured %}
+        <a href="{{ featured.url }}" class="lab-featured">
+            <div class="lab-featured-visual">
+                {% if site.data.thumbs[featured.slug] %}
+                    <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[featured.slug] }}); background-size: cover; background-position: center;"></div>
+                {% else %}
+                    <div class="lab-thumb lab-thumb-{{ featured.thumbnail | default: 'indigo' }}"></div>
+                {% endif %}
+                <div class="lab-thumb-grain"></div>
+            </div>
+            <div class="lab-featured-content">
+                <div class="lab-meta">
+                    <span class="lab-cat">{{ featured.category | default: "Research" }}</span>
+                    <span>{{ featured.date | date: "%b %Y" }}</span>
                 </div>
-                <div class="post-content-col">
-                    <a href="{{ post.url }}" class="post-link">
-                        <h2 class="post-item-title">{{ post.title }}</h2>
-                        {% if post.author %}
-                        <div class="post-item-author">{{ post.author }}</div>
-                        {% endif %}
-                        {% if post.excerpt %}
-                        <div class="post-item-excerpt">
-                            {{ post.excerpt | strip_html | truncate: 200 }}
-                        </div>
-                        {% endif %}
-                    </a>
+                <h2>{{ featured.title }}</h2>
+                {% if featured.excerpt %}<p class="lab-excerpt">{{ featured.excerpt | strip_html | truncate: 240 }}</p>{% endif %}
+                {% if featured.author %}<div class="lab-authors">By {{ featured.author }}</div>{% endif %}
+            </div>
+        </a>
+        {% endif %}
+
+        {% assign rest = site.posts | where_exp: "p", "p.url != featured.url" %}
+        {% if rest.size > 0 %}
+        <div class="lab-grid">
+            {% for post in rest %}
+            <a href="{{ post.url }}" class="lab-card">
+                <div class="lab-card-visual">
+                    {% if site.data.thumbs[post.slug] %}
+                        <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[post.slug] }}); background-size: cover; background-position: center;"></div>
+                    {% else %}
+                        <div class="lab-thumb lab-thumb-{{ post.thumbnail | default: 'indigo' }}"></div>
+                    {% endif %}
+                    <div class="lab-thumb-grain"></div>
                 </div>
-            </li>
+                <div class="lab-meta">
+                    <span class="lab-cat">{{ post.category | default: "Research" }}</span>
+                    <span>{{ post.date | date: "%b %Y" }}</span>
+                </div>
+                <h3>{{ post.title }}</h3>
+                {% if post.author %}<div class="lab-authors">{{ post.author }}</div>{% endif %}
+            </a>
             {% endfor %}
-        </ul>
-    {% else %}
+        </div>
+        {% endif %}
+
+        {% if site.posts.size == 0 %}
         <p class="empty-state">First post coming soon.</p>
-    {% endif %}
-</div>
+        {% endif %}
+
+        <div class="lab-copy">&copy; {{ "now" | date: "%Y" }} Iluvatar Labs</div>
+    </div>
+</section>
+
+</body>
+</html>
