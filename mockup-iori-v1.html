@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IORI — Iluvatar Open Research Initiative</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1200px;
+            --edge-pad: 3rem;
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.72);
+            --ink-cream-dim:  rgba(245,241,235,0.55);
+            --ink-cream-mute: rgba(245,241,235,0.38);
+            --ink-cream-faint: rgba(245,241,235,0.08);
+            --hairline:       rgba(245,241,235,0.10);
+            --hairline-strong: rgba(245,241,235,0.16);
+            --bg:             #14141A;
+            --bg-surface:     #1A1A22;
+            /* IORI palette — restrained. Sage primary, amber for "seeking",
+               violet for "validating" status only. */
+            --accent:         #6FA488;
+            --accent-deep:    #4F8470;
+            --accent-warm:    #C89A5D;
+            --accent-warm-deep: #A88246;
+            --accent-violet:  #9B7DC2;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--ink-cream);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* NAV — structurally identical to homepage; cream-ink for dark page */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30; display: flex; justify-content: center;
+            --nav-ink: var(--ink-cream);
+            --nav-ink-soft: var(--ink-cream-soft);
+        }
+        .nav {
+            width: 100%; max-width: var(--max-content);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 3rem var(--edge-pad) 0;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem; font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--nav-ink);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink);
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s, font-weight 0.2s;
+        }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active { font-weight: 700; border-bottom-color: var(--nav-ink); }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg { width: 100%; height: 100%; fill: var(--nav-ink); transition: fill 0.2s; }
+        /* ────────────────────────────────────────────────────────────── */
+        /* Shared section chrome                                           */
+        /* ────────────────────────────────────────────────────────────── */
+        .section {
+            padding: 3rem var(--edge-pad);
+            border-bottom: 1px solid var(--hairline);
+            position: relative;
+        }
+        .section-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+        }
+        /* Primary section heading — matches about page h2 exactly
+           (Space Grotesk 1.65rem / 600 / -0.018em). Count rides as a
+           smaller mono sibling. */
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 600;
+            letter-spacing: -0.018em;
+            line-height: 1.1;
+            color: var(--ink-cream);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+        .section-label .count {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 400;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+            text-transform: uppercase;
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* HERO — short editorial opener. Narrow max-width, left-aligned. */
+        /* No big marketing slab; just identity + loop + two links.        */
+        /* ────────────────────────────────────────────────────────────── */
+        .hero {
+            padding: 8rem var(--edge-pad) 3.5rem;
+            border-bottom: 1px solid var(--hairline);
+            position: relative;
+            overflow: hidden;
+            background: var(--bg);
+        }
+        .hero-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+            color: var(--ink-cream);
+            margin-bottom: 1.25rem;
+            max-width: 44rem;
+        }
+        .hero .lead {
+            font-size: 1.2rem;
+            line-height: 1.65;
+            color: var(--ink-cream-soft);
+            max-width: 44rem;
+            margin-bottom: 1.75rem;
+        }
+        .hero .lead strong { color: var(--ink-cream); font-weight: 500; }
+        .hero-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .hero-link {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: gap 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .hero-link:hover {
+            gap: 0.65rem;
+            color: var(--ink-cream);
+            border-color: var(--ink-cream);
+        }
+        .hero-link.secondary {
+            color: var(--ink-cream-dim);
+            border-color: var(--hairline-strong);
+        }
+        .hero-link.secondary:hover {
+            color: var(--ink-cream);
+            border-color: var(--ink-cream);
+        }
+
+        /* Project-row stat cells (reused across project rows) */
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .stat-n {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            color: var(--ink-cream);
+        }
+        .stat-l {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.64rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            margin-top: 0.15rem;
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* ACTIVE PROJECTS — dense editorial rows with stat strip right.   */
+        /* ────────────────────────────────────────────────────────────── */
+        .projects .section-inner > .filter-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.76rem;
+            letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+            flex-wrap: wrap;
+        }
+        .filter-row a {
+            color: var(--ink-cream-mute);
+            text-decoration: none;
+            padding-bottom: 3px;
+            border-bottom: 1px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .filter-row a:hover { color: var(--ink-cream-soft); }
+        .filter-row a.active {
+            color: var(--ink-cream);
+            border-bottom-color: var(--accent);
+        }
+        .filter-row .count { opacity: 0.6; margin-left: 0.35rem; }
+
+        .project {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 2rem 1.5rem;
+            margin: 0 -1.5rem;
+            border-top: 1px solid var(--hairline);
+            transition: background 0.18s ease;
+        }
+        .project:last-child { border-bottom: 1px solid var(--hairline); }
+        .project:hover { background: rgba(245,241,235,0.04); }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: start;
+        }
+        .project-meta-row {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.73rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.9rem;
+            flex-wrap: wrap;
+        }
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+        }
+        .status::before {
+            content: "";
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 0 3px rgba(111,164,136,0.18);
+        }
+        .status.seeking {
+            color: var(--accent-warm);
+        }
+        .status.seeking::before { box-shadow: 0 0 0 3px rgba(200,154,93,0.18); }
+        .status.validating {
+            color: var(--accent-violet);
+        }
+        .status.validating::before { box-shadow: 0 0 0 3px rgba(155,125,194,0.18); }
+
+        .track {
+            color: var(--ink-cream-dim);
+        }
+        .meta-date {
+            color: var(--ink-cream-mute);
+        }
+
+        .project h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            color: var(--ink-cream);
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+        .project:hover h3 { color: var(--accent); }
+        .project-pi {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--ink-cream-dim);
+            margin-bottom: 0.75rem;
+        }
+        .project-pi .label { color: var(--ink-cream-mute); margin-right: 0.4rem; }
+        .project-scope {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--ink-cream-soft);
+            max-width: 44rem;
+            margin-bottom: 1rem;
+        }
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.9rem;
+        }
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-dim);
+            border: 1px solid var(--hairline-strong);
+            padding: 0.25rem 0.55rem;
+            border-radius: 2px;
+        }
+        .project-view {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s, color 0.2s;
+        }
+        .project:hover .project-view { gap: 0.6rem; }
+
+        .project-stats {
+            display: flex;
+            gap: 1.85rem;
+            padding-top: 2rem;
+            flex-shrink: 0;
+        }
+        .project-stats .stat { text-align: right; }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* ACTIVITY FEED — living initiative cadence.                      */
+        /* ────────────────────────────────────────────────────────────── */
+        .activity .activity-row {
+            display: grid;
+            grid-template-columns: 6rem 10rem 1fr;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--hairline);
+            align-items: baseline;
+        }
+        .activity .activity-row:last-child { border-bottom: 1px solid var(--hairline); }
+        .activity-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.73rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+        }
+        .activity-project {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        .activity-project.seeking { color: var(--accent-warm); }
+        .activity-project.validating { color: var(--accent-violet); }
+        .activity-text {
+            font-size: 0.98rem;
+            line-height: 1.55;
+            color: var(--ink-cream-soft);
+        }
+        .activity-text strong { color: var(--ink-cream); font-weight: 500; }
+        .activity-all {
+            display: inline-block;
+            margin-top: 1.75rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--ink-cream-dim);
+            text-decoration: none;
+            border-bottom: 1px solid var(--hairline-strong);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s, gap 0.2s;
+        }
+        .activity-all:hover {
+            color: var(--ink-cream);
+            border-color: var(--ink-cream);
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* CONTRIBUTE — 4 paths, editorial list, arrow CTAs.              */
+        /* ────────────────────────────────────────────────────────────── */
+        .contribute .contribute-row {
+            display: grid;
+            grid-template-columns: 3rem 1fr auto;
+            gap: 2rem;
+            padding: 1.75rem 0;
+            border-top: 1px solid var(--hairline);
+            align-items: baseline;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s;
+        }
+        .contribute .contribute-row:last-child { border-bottom: 1px solid var(--hairline); }
+        .contribute .contribute-row:hover { background: rgba(245,241,235,0.015); }
+        .contribute-n {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--ink-cream-mute);
+            letter-spacing: 0.1em;
+        }
+        .contribute-body h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            color: var(--ink-cream);
+            margin-bottom: 0.35rem;
+            transition: color 0.2s;
+        }
+        .contribute-row:hover .contribute-body h4 { color: var(--accent); }
+        .contribute-body p {
+            font-size: 0.95rem;
+            color: var(--ink-cream-soft);
+            line-height: 1.55;
+            max-width: 42rem;
+        }
+        .contribute-cta {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s, color 0.2s;
+        }
+        .contribute-row:hover .contribute-cta { gap: 0.6rem; }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* OPENNESS — two-col OPEN / NOT OPEN list                         */
+        /* ────────────────────────────────────────────────────────────── */
+        .openness .openness-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        .openness h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+        .openness .open-col h4 { color: var(--accent); }
+        .openness .closed-col h4 { color: var(--accent-warm); }
+        .openness ul {
+            list-style: none;
+            padding: 0;
+        }
+        .openness li {
+            font-size: 1rem;
+            line-height: 1.55;
+            color: var(--ink-cream-soft);
+            padding: 0.55rem 0;
+            border-top: 1px solid var(--hairline);
+        }
+        .openness li:last-child { border-bottom: 1px solid var(--hairline); }
+        .openness li strong { color: var(--ink-cream); font-weight: 500; }
+        .openness-footnote {
+            margin-top: 2rem;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--ink-cream-dim);
+            max-width: 48rem;
+        }
+        .openness-footnote strong { color: var(--ink-cream); font-weight: 500; }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* FOOTER                                                           */
+        /* ────────────────────────────────────────────────────────────── */
+        .footer {
+            padding: 3rem var(--edge-pad);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--ink-cream-mute);
+            letter-spacing: 0.04em;
+        }
+        .footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .footer a {
+            color: var(--ink-cream-dim);
+            text-decoration: none;
+            border-bottom: 1px solid var(--hairline-strong);
+            padding-bottom: 1px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .footer a:hover { color: var(--ink-cream); border-color: var(--ink-cream); }
+        .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* Responsive                                                       */
+        /* ────────────────────────────────────────────────────────────── */
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+            .hero { padding: 6rem var(--edge-pad) 2.5rem; }
+            .stats-inner { gap: 2rem; }
+            .cohort-inner { grid-template-columns: 1fr; }
+            .cohort-ctas { justify-content: flex-start; }
+            .project-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .project-stats { flex-wrap: wrap; gap: 1.5rem; padding-top: 0.5rem; }
+            .project-stats .stat { text-align: left; }
+            .activity .activity-row { grid-template-columns: 1fr; gap: 0.25rem; }
+            .contribute .contribute-row { grid-template-columns: 2rem 1fr; }
+            .contribute-cta { grid-column: 2; margin-top: 0.25rem; }
+            .openness .openness-inner { grid-template-columns: 1fr; gap: 2.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV — IORI link is active -->
+<div class="nav-bar">
+    <nav class="nav">
+        <a href="/" class="nav-title">iluvatar labs.</a>
+        <div class="nav-links">
+            <a href="/actuator/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </a>
+            <a href="/marvin/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </a>
+            <a href="/iori/" class="product-link active">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-nav-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-nav-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI
+            </a>
+            <a href="/blog/" class="nav-text">Discover</a>
+            <a href="/about/" class="nav-text">About</a>
+            <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer">
+                <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+            </a>
+            <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer">
+                <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- HERO: short editorial opener, left-aligned, no marketing body -->
+<section class="hero">
+    <div class="hero-inner">
+        <span class="hero-eyebrow">Iluvatar Open Research Initiative</span>
+        <h1>Open computational biology, reviewed openly.</h1>
+        <p class="lead"><strong>Submit a biological question.</strong> Marvin runs the computational analysis on public data. Iluvatar PhDs vet the outputs. Findings publish as preprints with full reproducible pipelines — free to critique, extend, and validate.</p>
+        <div class="hero-links">
+            <a href="mockup-iori-submit.html" class="hero-link">Submit for Cohort 3 <span>&rarr;</span></a>
+            <a href="#projects" class="hero-link secondary">Active projects <span>&darr;</span></a>
+            <a href="mockup-iori-about.html" class="hero-link secondary">About IORI <span>&rarr;</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- ACTIVE PROJECTS -->
+<section class="section projects" id="projects">
+    <div class="section-inner">
+        <div class="section-label">Active projects <span class="count">4</span></div>
+        <div class="filter-row">
+            <a href="#" class="active" data-filter="all">All <span class="count">(4)</span></a>
+            <a href="#" data-filter="showcase">Showcase <span class="count">(2)</span></a>
+            <a href="#" data-filter="community">Community <span class="count">(2)</span></a>
+        </div>
+
+        <a class="project" href="mockup-iori-project.html" data-track="showcase">
+            <div class="project-grid">
+                <div class="project-main">
+                    <div class="project-meta-row">
+                        <span class="status">Active analysis</span>
+                        <span class="track">Showcase</span>
+                        <span class="meta-date">· Updated Apr 20, 2026</span>
+                    </div>
+                    <h3>Multi-omic target prioritization in pediatric high-grade glioma</h3>
+                    <p class="project-scope">Integrating transcriptomic, proteomic, and methylation data across 14 public datasets (2,660 pediatric brain tumor samples) to identify novel therapeutic targets in a disease with a 5-year survival under 20% and no approved targeted therapies.</p>
+                    <div class="project-tags">
+                        <span class="tag">Oncology</span>
+                        <span class="tag">Pediatric</span>
+                        <span class="tag">Multi-omic</span>
+                    </div>
+                    <span class="project-view">View project <span>&rarr;</span></span>
+                </div>
+                <div class="project-stats">
+                    <div class="stat"><span class="stat-n">3</span><span class="stat-l">Hypoth.</span></div>
+                    <div class="stat"><span class="stat-n">14</span><span class="stat-l">Datasets</span></div>
+                    <div class="stat"><span class="stat-n">2,660</span><span class="stat-l">Samples</span></div>
+                    <div class="stat"><span class="stat-n">7</span><span class="stat-l">Contribs.</span></div>
+                    <div class="stat"><span class="stat-n">2</span><span class="stat-l">Iter.</span></div>
+                </div>
+            </div>
+        </a>
+
+        <a class="project" href="mockup-iori-project.html" data-track="community">
+            <div class="project-grid">
+                <div class="project-main">
+                    <div class="project-meta-row">
+                        <span class="status seeking">Awaiting validation</span>
+                        <span class="track">Community · Cohort 1</span>
+                        <span class="meta-date">· Updated Apr 18, 2026</span>
+                    </div>
+                    <h3>Fibroblast subpopulation markers of cardiac fibrosis progression</h3>
+                    <div class="project-pi"><span class="label">Submitted by</span>Dr. Sarah Chen · Stanford</div>
+                    <p class="project-scope">Meta-analysis across 8 public scRNA-seq datasets (1,240 samples) to identify fibroblast subpopulation markers predictive of fibrosis progression and to propose a validation panel for patient stratification.</p>
+                    <div class="project-tags">
+                        <span class="tag">Cardiology</span>
+                        <span class="tag">scRNA-seq</span>
+                        <span class="tag">Biomarkers</span>
+                    </div>
+                    <span class="project-view">View project <span>&rarr;</span></span>
+                </div>
+                <div class="project-stats">
+                    <div class="stat"><span class="stat-n">5</span><span class="stat-l">Hypoth.</span></div>
+                    <div class="stat"><span class="stat-n">8</span><span class="stat-l">Datasets</span></div>
+                    <div class="stat"><span class="stat-n">1,240</span><span class="stat-l">Samples</span></div>
+                    <div class="stat"><span class="stat-n">12</span><span class="stat-l">Contribs.</span></div>
+                    <div class="stat"><span class="stat-n">3</span><span class="stat-l">Iter.</span></div>
+                </div>
+            </div>
+        </a>
+
+        <a class="project" href="mockup-iori-project.html" data-track="showcase">
+            <div class="project-grid">
+                <div class="project-main">
+                    <div class="project-meta-row">
+                        <span class="status validating">Validation in progress</span>
+                        <span class="track">Showcase</span>
+                        <span class="meta-date">· Updated Apr 15, 2026</span>
+                    </div>
+                    <h3>Drug repurposing candidates for MECP2-related disorders</h3>
+                    <p class="project-scope">Network pharmacology combining protein interaction graphs, gene expression, and known drug targets to identify repurposing candidates for Rett syndrome. Two candidates in wet-lab validation at Emory (H1 preliminary data positive; H2 protocol starting).</p>
+                    <div class="project-tags">
+                        <span class="tag">Rare disease</span>
+                        <span class="tag">Drug repurposing</span>
+                        <span class="tag">Network pharmacology</span>
+                    </div>
+                    <span class="project-view">View project <span>&rarr;</span></span>
+                </div>
+                <div class="project-stats">
+                    <div class="stat"><span class="stat-n">2</span><span class="stat-l">Hypoth.</span></div>
+                    <div class="stat"><span class="stat-n">11</span><span class="stat-l">Datasets</span></div>
+                    <div class="stat"><span class="stat-n">890</span><span class="stat-l">Samples</span></div>
+                    <div class="stat"><span class="stat-n">4</span><span class="stat-l">Contribs.</span></div>
+                    <div class="stat"><span class="stat-n">4</span><span class="stat-l">Iter.</span></div>
+                </div>
+            </div>
+        </a>
+
+        <a class="project" href="mockup-iori-project.html" data-track="community">
+            <div class="project-grid">
+                <div class="project-main">
+                    <div class="project-meta-row">
+                        <span class="status">Active analysis</span>
+                        <span class="track">Community · Cohort 1</span>
+                        <span class="meta-date">· Updated Apr 8, 2026</span>
+                    </div>
+                    <h3>Gut microbiome signatures in treatment-resistant depression</h3>
+                    <div class="project-pi"><span class="label">Submitted by</span>Dr. Marcus Webb · Johns Hopkins</div>
+                    <p class="project-scope">Cross-cohort meta-analysis of 6 shotgun metagenomic studies (420 subjects) to identify reproducible microbial signatures differentiating treatment-responsive from treatment-resistant major depressive disorder.</p>
+                    <div class="project-tags">
+                        <span class="tag">Psychiatry</span>
+                        <span class="tag">Microbiome</span>
+                        <span class="tag">Meta-analysis</span>
+                    </div>
+                    <span class="project-view">View project <span>&rarr;</span></span>
+                </div>
+                <div class="project-stats">
+                    <div class="stat"><span class="stat-n">1</span><span class="stat-l">Hypoth.</span></div>
+                    <div class="stat"><span class="stat-n">6</span><span class="stat-l">Datasets</span></div>
+                    <div class="stat"><span class="stat-n">420</span><span class="stat-l">Samples</span></div>
+                    <div class="stat"><span class="stat-n">3</span><span class="stat-l">Contribs.</span></div>
+                    <div class="stat"><span class="stat-n">1</span><span class="stat-l">Iter.</span></div>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- RECENT ACTIVITY -->
+<section class="section activity">
+    <div class="section-inner">
+        <div class="section-label">Living projects <span class="count">Recent updates</span></div>
+
+        <div class="activity-row">
+            <span class="activity-date">Apr 20</span>
+            <span class="activity-project">Pediatric GBM</span>
+            <span class="activity-text"><strong>Iteration 2 complete.</strong> 3 hypotheses formalized; v1 preprint posted to bioRxiv.</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Apr 18</span>
+            <span class="activity-project seeking">Cardiac fibrosis</span>
+            <span class="activity-text">New contributor: Dr. Singh (UCSF) suggested Tucker et al. 2023 dataset. Added to next iteration.</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Apr 15</span>
+            <span class="activity-project validating">Rett syndrome</span>
+            <span class="activity-text">H2 validation underway at Emory (dose-response in SH-SY5Y, protocol starting).</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Apr 11</span>
+            <span class="activity-project">Pediatric GBM</span>
+            <span class="activity-text">Internal review flagged batch effect in CPTAC proteomics. Marvin re-running with correction.</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Apr 8</span>
+            <span class="activity-project">Gut / MDD</span>
+            <span class="activity-text"><strong>Project initiated.</strong> Literature synthesis began across 6 metagenomic studies.</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Apr 5</span>
+            <span class="activity-project">Pediatric GBM</span>
+            <span class="activity-text">Community contribution: Dr. Patel (UCL) added HERBY trial transcriptomic data.</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Apr 2</span>
+            <span class="activity-project seeking">Cardiac fibrosis</span>
+            <span class="activity-text">Iteration 3: fibroblast subtype F7 identified as strongest CAF progression marker (5/8 datasets).</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Mar 28</span>
+            <span class="activity-project">Pediatric GBM</span>
+            <span class="activity-text">Initial integration complete. 2,340 DEGs across 14 datasets; 247 pass network centrality filtering.</span>
+        </div>
+        <div class="activity-row">
+            <span class="activity-date">Mar 26</span>
+            <span class="activity-project validating">Rett syndrome</span>
+            <span class="activity-text">H1 preliminary validation positive at Emory. Moving to full dose-response characterization.</span>
+        </div>
+
+        <a href="https://github.com/iluvatar-open-research" class="activity-all">Full changelog on GitHub &rarr;</a>
+    </div>
+</section>
+
+<!-- CONTRIBUTE -->
+<section class="section contribute">
+    <div class="section-inner">
+        <div class="section-label">Contribute</div>
+
+        <a class="contribute-row" href="mockup-iori-submit.html">
+            <span class="contribute-n">01</span>
+            <div class="contribute-body">
+                <h4>Submit a biological question</h4>
+                <p>For PIs with a well-defined question and limited computational bandwidth. Marvin runs the analysis on public data; you lead the science. Cohort 3 deadline: July 15, 2026.</p>
+            </div>
+            <span class="contribute-cta">Open submission form <span>&rarr;</span></span>
+        </a>
+        <a class="contribute-row" href="https://github.com/iluvatar-open-research">
+            <span class="contribute-n">02</span>
+            <div class="contribute-body">
+                <h4>Review a project</h4>
+                <p>Browse active project repos on GitHub. Challenge assumptions, flag methodological concerns, critique hypotheses. All discussion is public and attributable.</p>
+            </div>
+            <span class="contribute-cta">Browse repos <span>&rarr;</span></span>
+        </a>
+        <a class="contribute-row" href="mockup-iori-about.html#contributing">
+            <span class="contribute-n">03</span>
+            <div class="contribute-body">
+                <h4>Suggest data or literature</h4>
+                <p>Know a dataset Marvin missed or a paper worth integrating? Open an issue on the relevant project. Contributions credited via CRediT.</p>
+            </div>
+            <span class="contribute-cta">Contribution guide <span>&rarr;</span></span>
+        </a>
+        <a class="contribute-row" href="#projects">
+            <span class="contribute-n">04</span>
+            <div class="contribute-body">
+                <h4>Validate in the lab</h4>
+                <p>Each project produces specific, experimentally-scoped hypotheses with proposed protocols. If you have the experimental system, pick one up — co-authorship on resulting publications.</p>
+            </div>
+            <span class="contribute-cta">Open hypotheses <span>&rarr;</span></span>
+        </a>
+    </div>
+</section>
+
+<!-- OPENNESS -->
+<section class="section openness">
+    <div class="section-inner">
+        <div class="section-label">How open</div>
+        <div class="openness-inner">
+            <div class="open-col">
+                <h4>Open</h4>
+                <ul>
+                    <li>Research outputs — hypotheses, analysis summaries, evidence</li>
+                    <li>Computational pipelines <strong>(Apache 2.0)</strong></li>
+                    <li>Data sources — public repositories and accessions</li>
+                    <li>Preprints on bioRxiv <strong>(CC-BY 4.0)</strong></li>
+                    <li>Selection criteria and cohort decisions</li>
+                    <li>GitHub discussion and review history</li>
+                </ul>
+            </div>
+            <div class="closed-col">
+                <h4>Not open</h4>
+                <ul>
+                    <li>Marvin's core architecture and training methodology</li>
+                    <li>Internal review deliberations (outputs are public; process is not)</li>
+                    <li>Submission details for unselected projects</li>
+                </ul>
+            </div>
+        </div>
+        <p class="openness-footnote"><strong>Iluvatar takes no IP on findings produced through the initiative.</strong> Outputs belong to the scientific commons. The line is at outputs vs. engine: everything Marvin produces is open; how Marvin works internally is commercial.</p>
+    </div>
+</section>
+
+<script>
+/* Project filter — toggles visibility by data-track. */
+(function() {
+    const filters = document.querySelectorAll('.filter-row a[data-filter]');
+    const projects = document.querySelectorAll('.project[data-track]');
+    filters.forEach(f => {
+        f.addEventListener('click', (e) => {
+            e.preventDefault();
+            const track = f.dataset.filter;
+            filters.forEach(x => x.classList.toggle('active', x === f));
+            projects.forEach(p => {
+                p.style.display = (track === 'all' || p.dataset.track === track) ? '' : 'none';
+            });
+        });
+    });
+})();
+</script>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>Iluvatar Open Research Initiative — part of Iluvatar Labs.</div>
+        <div class="footer-links">
+            <a href="https://github.com/iluvatar-open-research">github.com/iluvatar-open-research</a>
+            <a href="mailto:iori@iluvatarlabs.com">iori@iluvatarlabs.com</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
