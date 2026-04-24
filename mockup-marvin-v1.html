@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvin — v1</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1280px;
+            --edge-pad: 3rem;
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.68);
+            --ink-cream-mute: rgba(245,241,235,0.42);
+            --ink-dark:       #14141A;
+            --ink-dark-soft:  rgba(20,20,26,0.68);
+            --ink-dark-mute:  rgba(20,20,26,0.42);
+            --panel-cream:    #F1ECE2;
+            --body-cream:     #EDEBF2; /* cool off-white — slight lavender undertone to match the indigo/cyan hero */
+            /* Marvin palette — indigo primary, cyan secondary, violet mid */
+            --accent:         #4F46E5;
+            --accent-deep:    #3730A3;
+            --accent-cyan:    #06B6D4;
+            --accent-violet:  #7B5FE8;
+        }
+
+        html, body { background: var(--body-cream); }
+        body {
+            color: var(--ink-dark);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: subpixel-antialiased;
+            -moz-osx-font-smoothing: auto;
+        }
+
+        /* NAV — structurally identical to homepage; cream-ink variant for dark hero */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30; display: flex; justify-content: center;
+            --nav-ink: var(--ink-cream);
+            --nav-ink-soft: var(--ink-cream-soft);
+        }
+        .nav {
+            width: 100%; max-width: var(--max-content);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 3rem var(--edge-pad) 0;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--nav-ink);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink);
+            text-decoration: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s, font-weight 0.2s;
+        }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active {
+            font-weight: 700;
+            border-bottom-color: var(--nav-ink);
+        }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg {
+            width: 100%; height: 100%;
+            fill: var(--nav-ink);
+            transition: fill 0.2s;
+        }
+        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
+        .nav-hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--nav-ink-soft); margin: 5px 0;
+        }
+        .nav-hamburger:hover span { background: var(--nav-ink); }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* HERO — dark base with cool-palette radial washes + grain. Same */
+        /* film-grain recipe as Actuator, inverted for dark bg (pale      */
+        /* lavender speckles on dark instead of dark-rose on cream).      */
+        /* ────────────────────────────────────────────────────────────── */
+        .hero {
+            position: relative;
+            min-height: 72vh;
+            background:
+                radial-gradient(ellipse 70% 85% at 92% 18%, rgba(79,70,229,0.30) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 70% at 8% 82%, rgba(6,182,212,0.22) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 55% at 50% 55%, rgba(40,33,80,0.45) 0%, transparent 70%),
+                #0B0B10;
+            color: var(--ink-cream);
+            padding: 7.5rem var(--edge-pad) 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Grain — deep teal rgb(25,125,155). Picked from the cyan/blue
+           side of Marvin's palette (the .accent-cyan family) so the
+           speckles read as blue-green texture inside the palette, same
+           trick capable.png uses where the grain hue IS part of the
+           gradient vocabulary. Same alpha threshold recipe. */
+        .grain {
+            position: absolute; inset: 0; pointer-events: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.098  0 0 0 0 0.49  0 0 0 0 0.608  1.3 1.3 1.3 0 -2.15'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+            opacity: 1;
+            z-index: 1;
+        }
+        .hero-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+        }
+        .hero-lockup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin-bottom: 2rem;
+        }
+        .hero-lockup svg {
+            width: 220px;
+            height: auto;
+            margin-bottom: 0.5rem;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 9vw, 7.5rem);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            font-weight: 700;
+            color: var(--ink-cream);
+        }
+        .hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.3rem, 1.9vw, 1.75rem);
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            font-weight: 600;
+            color: var(--ink-cream);
+            margin: 0 auto 1.5rem;
+            max-width: 56rem;
+        }
+        .hero .subtitle u {
+            text-decoration: none;
+            border-bottom: 2px solid var(--accent-cyan);
+            padding-bottom: 2px;
+        }
+        .hero .tagline {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--ink-cream-soft);
+            max-width: 56rem;
+            margin: 0 auto 2rem;
+        }
+        .hero .tagline strong { color: var(--ink-cream); font-weight: 500; }
+        .hero-cta {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.25rem, 1.5vw, 1.45rem);
+            font-weight: 600;
+            letter-spacing: -0.012em;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent-cyan);
+            padding-bottom: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            transition: color 0.2s, border-color 0.2s, gap 0.2s;
+        }
+        .hero-cta:hover {
+            color: #4BE0F0;
+            border-color: #4BE0F0;
+            gap: 0.85rem;
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* BODY — cream; centered 900px article column, sticky TOC floats  */
+        /* left at wide viewports (≥1400px), same pattern as Actuator v6. */
+        /* ────────────────────────────────────────────────────────────── */
+        .body {
+            background: var(--body-cream);
+            color: var(--ink-dark);
+            padding: 7rem 0 0;
+        }
+        .body-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--edge-pad);
+        }
+        .toc {
+            position: sticky;
+            top: 3rem;
+            align-self: start;
+        }
+        .toc-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--ink-dark);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .toc ol { list-style: none; }
+        .toc li { margin-bottom: 1rem; }
+        .toc a {
+            text-decoration: none;
+            color: var(--ink-dark-mute);
+            display: block;
+            font-size: 1.05rem;
+            line-height: 1.3;
+            transition: color 0.2s;
+        }
+        .toc a:hover,
+        .toc a.active { color: var(--ink-dark); }
+
+        @media (min-width: 1400px) {
+            .body-inner {
+                display: grid;
+                grid-template-columns: 12rem 1fr 12rem;
+                column-gap: 3rem;
+                max-width: calc(900px + 24rem + 6rem);
+            }
+            .toc { grid-column: 1; }
+            .read { grid-column: 2; }
+        }
+
+        .read {
+            padding-bottom: 8rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .read h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin: 5rem 0 1.5rem;
+            color: var(--ink-dark);
+        }
+        .read h2:first-child { margin-top: 0; }
+        .read > p {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: var(--ink-dark-soft);
+            margin-bottom: 1.25rem;
+            max-width: 48rem;
+        }
+        .read > p strong { color: var(--ink-dark); font-weight: 500; }
+        .read > p em { font-style: italic; color: var(--accent); font-weight: 500; }
+        .read > p a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(79,70,229,0.35);
+            transition: border-color 0.2s;
+        }
+        .read > p a:hover { border-color: var(--accent); }
+
+        .section-divider {
+            border: none;
+            border-top: 1px solid rgba(20,20,26,0.12);
+            margin: 0;
+        }
+
+        /* Timeline — research cycle steps on cream body */
+        .timeline {
+            position: relative;
+            padding-left: 2.5rem;
+            margin: 2.25rem 0;
+            max-width: 48rem;
+        }
+        .timeline-line {
+            position: absolute;
+            left: 0.55rem;
+            top: 0.6rem;
+            bottom: 0.6rem;
+            width: 2px;
+            background: linear-gradient(to bottom,
+                rgba(20,20,26,0.2),
+                rgba(20,20,26,0.2) 85%,
+                transparent);
+        }
+        .timeline-item { position: relative; margin-bottom: 1.75rem; }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -2.15rem;
+            top: 0.45rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79,70,229,0.18);
+        }
+        .timeline-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ink-dark);
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.01em;
+        }
+        .timeline-desc {
+            font-size: 0.98rem;
+            color: var(--ink-dark-soft);
+            line-height: 1.6;
+        }
+        .timeline-desc strong { color: var(--ink-dark); font-weight: 500; }
+
+        /* Canvas visuals (radar + knowledge graph) — dark-on-cream variants */
+        .visual-block {
+            display: flex;
+            justify-content: center;
+            margin: 2.5rem 0 3rem;
+        }
+        .visual-block canvas {
+            width: 100%;
+            max-width: 460px;
+            height: auto;
+            aspect-ratio: 460/420;
+        }
+        .visual-block.wide canvas {
+            max-width: 720px;
+            aspect-ratio: 2/1;
+        }
+
+        /* Output tree — cool-tinted light bg to match body palette. Syntax
+           colors stay in the violet/teal/magenta family so nothing reads
+           out-of-palette like a generic blue. */
+        .output-tree {
+            background: #E0DDE8;
+            border: 1px solid rgba(20,20,26,0.12);
+            border-radius: 8px;
+            padding: 1.5rem 1.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 2;
+            margin: 1.75rem 0;
+            color: rgba(20,20,26,0.78);
+            overflow-x: auto;
+        }
+        .output-tree .dir { color: #5B3AA8; font-weight: 500; }
+        .output-tree .file { color: #0E5F72; }
+        .output-tree .cm { color: rgba(20,20,26,0.48); }
+        .output-tree .handoff { color: #A0246A; font-weight: 600; }
+
+        /* CLI block — same cool-tinted bg + palette-consistent syntax. */
+        .cli-block {
+            background: #E0DDE8;
+            border: 1px solid rgba(20,20,26,0.12);
+            border-radius: 8px;
+            padding: 1.5rem 1.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 2;
+            margin: 1.5rem 0 2rem;
+            color: rgba(20,20,26,0.82);
+        }
+        .cli-block .prompt { color: rgba(20,20,26,0.42); }
+        .cli-block .bin { color: #5B3AA8; font-weight: 500; }
+        .cli-block .cmd { color: #0E5F72; }
+        .cli-block .cm { color: rgba(20,20,26,0.48); }
+
+        /* Paper card — adapted for cream body */
+        .paper-card {
+            display: block;
+            background: #F5F3F9;
+            border: 1px solid rgba(20,20,26,0.12);
+            border-radius: 8px;
+            padding: 1.9rem 2.1rem;
+            margin: 1.75rem 0;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .paper-card:hover {
+            border-color: rgba(79,70,229,0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(20,20,26,0.06);
+        }
+        .paper-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(79,70,229,0.07);
+            border: 1px solid rgba(79,70,229,0.22);
+            padding: 0.25rem 0.6rem;
+            border-radius: 3px;
+            margin-bottom: 1rem;
+        }
+        .paper-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--ink-dark);
+            line-height: 1.3;
+            letter-spacing: -0.015em;
+            margin-bottom: 0.4rem;
+        }
+        .paper-authors {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--ink-dark-mute);
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.04em;
+        }
+        .paper-abstract {
+            font-size: 1rem;
+            color: var(--ink-dark-soft);
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+        .paper-cta {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s;
+        }
+        .paper-card:hover .paper-cta { gap: 0.65rem; }
+
+        /* Try Marvin */
+        .access { margin-top: 5rem; padding-top: 3rem; border-top: 1px solid rgba(20,20,26,0.15); }
+        .access h2 { margin-top: 0; }
+        .access .mail {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 4px;
+            margin-top: 0.75rem;
+        }
+        .access .mail:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
+
+        /* Responsive */
+        @media (max-width: 1399px) {
+            .toc { display: none; }
+        }
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+            .hero { padding: 6rem var(--edge-pad) 4rem; min-height: auto; }
+            .hero-lockup svg { width: 180px; }
+            .read h2 { font-size: 1.85rem; margin: 4rem 0 1.25rem; }
+            .timeline { padding-left: 2rem; }
+            .timeline-dot { left: -1.65rem; }
+            .nav-hamburger { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute; top: 100%; right: 1rem;
+                background: #14141A;
+                border: 1px solid rgba(245,241,235,0.1);
+                border-radius: 10px;
+                padding: 1rem 1.5rem;
+                flex-direction: column; gap: 1rem;
+                min-width: 200px;
+            }
+            .nav-links.open { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV — cream-ink variant (hero is dark) -->
+<div class="nav-bar">
+    <nav class="nav">
+        <a href="/" class="nav-title">iluvatar labs.</a>
+        <button class="nav-hamburger" type="button" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="/actuator/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </a>
+            <a href="/marvin/" class="product-link active">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </a>
+            <a href="/iori/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-nav-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-nav-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI
+            </a>
+            <a href="/blog/" class="nav-text">Discover</a>
+            <a href="/about/" class="nav-text">About</a>
+            <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer">
+                <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+            </a>
+            <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer">
+                <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- HERO: dark with cool-palette washes + pale lavender grain; visor SVG copied EXACTLY from the Marvin post frontmatter. -->
+<section class="hero">
+    <div class="grain"></div>
+    <div class="hero-inner">
+        <div class="hero-lockup">
+            <svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                    <mask id="visor-eyes">
+                        <rect x="0" y="0" width="64" height="44" fill="white"/>
+                        <circle cx="22" cy="22" r="6.5" fill="black"/>
+                        <circle cx="42" cy="22" r="6.5" fill="black"/>
+                    </mask>
+                </defs>
+                <path d="M 14 2 L 8 2 Q 4 2 4 6 L 4 16 Q 4 22 0 22 Q 4 22 4 28 L 4 38 Q 4 42 8 42 L 14 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M 50 2 L 56 2 Q 60 2 60 6 L 60 16 Q 60 22 64 22 Q 60 22 60 28 L 60 38 Q 60 42 56 42 L 50 42" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <rect x="10" y="12" width="44" height="20" rx="10" fill="#fff" mask="url(#visor-eyes)"/>
+            </svg>
+            <h1>Marvin</h1>
+        </div>
+        <p class="subtitle">The fully <u>autonomous</u> scientist agent.</p>
+        <p class="tagline"><strong>Define your research mission and Marvin will take care of the rest.</strong> Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis.</p>
+        <a href="#research" class="hero-cta">Read Marvin's latest research <span>&darr;</span></a>
+    </div>
+</section>
+
+<!-- BODY: cream; centered article + sticky TOC (wide only) -->
+<section class="body">
+    <div class="body-inner">
+        <aside class="toc">
+            <span class="toc-label">Contents</span>
+            <ol>
+                <li><a href="#why">Why we built this</a></li>
+                <li><a href="#cycle">The research cycle</a></li>
+                <li><a href="#vera">Dream big with Vera</a></li>
+                <li><a href="#memory">Silmaril memory</a></li>
+                <li><a href="#trail">Logic trail</a></li>
+                <li><a href="#research">Latest research</a></li>
+                <li><a href="#access">Try Marvin</a></li>
+            </ol>
+        </aside>
+
+        <article class="read">
+            <h2 id="why">Why we built this</h2>
+            <p>The bottleneck in ML research today isn't compute or data. It's the preparation. More research is being produced now than at any point in history, and the pace is only increasing. Researchers must ingest and synthesize growing volumes of information before they can actually start their research. And even once they start, a lot of the research cycle is still spent on logistics rather than the science itself.</p>
+            <p>We built Marvin because nothing out there worked well enough for our own research. The existing options were either <em>too dumb</em> (chasing red herrings down rabbit holes or proposing smart-sounding ideas that were anything but), <em>too wasteful</em> (channeling Ralph Wiggum on experiments that were never going to work), or <em>too opaque</em> (poor documentation, no reasoning traces or "logic trail" that forms the bedrock of scientific reproducibility).</p>
+            <p>Marvin takes the information overload and busywork out of research. It does deep research, generates and tests novel and plausible hypotheses (with the help of <strong><a href="#vera">Vera</a></strong>, our Visionary Exploration Research Agent), and documents every actionable step with a full logic trail with minimal to no human supervision. Context is kept fresh and up-to-date between all sessions and agents with our custom memory management system, <strong><a href="#memory">Silmaril</a></strong>.</p>
+
+            <hr class="section-divider" style="margin-top: 5rem;">
+            <h2 id="cycle" style="margin-top: 2.5rem;">The research cycle, automated</h2>
+            <p>Every step of the loop, run by Marvin and its sub-agents. Humans stay in the driver's seat for the mission; Marvin handles the logistics.</p>
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Search</div>
+                    <div class="timeline-desc">Retrieve and cross-check across relevant scientific databases, prior art, and published methodologies.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Hypothesize</div>
+                    <div class="timeline-desc">Marvin synthesizes literature with experimental findings (and the help of special agent <strong>Vera</strong>) to generate truly novel but plausible hypotheses.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Design</div>
+                    <div class="timeline-desc">Experiment in batches with scenario trees by asking the right questions.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Execute</div>
+                    <div class="timeline-desc">Agents build, audit, review, and execute the plan. Scalable from local, hybrid, and cloud compute infrastructure.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Analyze</div>
+                    <div class="timeline-desc">Marvin analyzes the entire data corpus to extract actionable insights with the rigor expected of a PhD-level researcher.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Document</div>
+                    <div class="timeline-desc">Track not just the paper trail, but the <em>logic trail</em>. Every iteration, every interpretation, every decision.</div>
+                </div>
+            </div>
+
+            <hr class="section-divider" style="margin-top: 5rem;">
+            <h2 id="vera" style="margin-top: 2.5rem;">Dream big with Vera</h2>
+            <p><strong>Vera</strong> is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Vera can operate as part of Marvin's standard research loop, dream independently while Marvin waits on experimental results, or be invoked manually when you need a brainstorm partner. Every hypothesis is grounded in evidence and scored for <strong>novelty, plausibility, tractability, impact, and scope</strong>, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.</p>
+            <div class="visual-block">
+                <canvas id="radarCanvas" width="920" height="840"></canvas>
+            </div>
+
+            <hr class="section-divider" style="margin-top: 5rem;">
+            <h2 id="memory" style="margin-top: 2.5rem;">Silmaril persistent memory</h2>
+            <p>Research doesn't happen in a single session. <strong>Silmaril</strong> is Marvin's persistent memory system — a living knowledge base that spans all sessions to preserve results, findings, decisions, and the connections between them. With intelligent depth, agents share context at whatever granularity their task demands, as efficiently as possible. Whether it's Marvin, Vera, or a swarm of sub-agents, they all pick up exactly where the collective left off.</p>
+            <div class="visual-block wide">
+                <canvas id="graphCanvas" width="1440" height="720"></canvas>
+            </div>
+
+            <hr class="section-divider" style="margin-top: 5rem;">
+            <h2 id="trail" style="margin-top: 2.5rem;">Your repo's "logic trail"</h2>
+            <p>Designed for ML research teams by ML researchers. Every iteration, every interpretation, and every decision is traceable and reproducible with an auditable git history.</p>
+            <div class="output-tree">
+<div><span class="dir">my-project/</span></div>
+<div>&nbsp;&nbsp;├── <span class="file">research_state.md</span> <span class="cm">— goals, status, findings</span></div>
+<div>&nbsp;&nbsp;├── <span class="dir">docs/</span></div>
+<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">iteration_001.md</span> <span class="cm">— scoreboard, analysis, lessons</span></div>
+<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">iteration_002.md</span></div>
+<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="handoff">handoff.md</span> <span class="cm">— structured summary for the paper</span></div>
+<div>&nbsp;&nbsp;├── <span class="dir">experiments/</span></div>
+<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="cm">batch_001/</span></div>
+<div>&nbsp;&nbsp;└── <span class="dir">literature/</span></div>
+            </div>
+            <p>From zero to autonomous research in just three steps.</p>
+            <div class="cli-block">
+<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">init</span></div>
+<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">plan</span>  <span class="cm"># scope your research interactively</span></div>
+<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">run</span>   <span class="cm"># autonomous research loop</span></div>
+<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">write</span></div>
+            </div>
+
+            <hr class="section-divider" style="margin-top: 5rem;">
+            <h2 id="research" style="margin-top: 2.5rem;">Latest research</h2>
+            <p>A selection of recent work produced end-to-end by Marvin and Vera, with full logic trails.</p>
+            <a class="paper-card" href="/assets/marvin/marvin-1.pdf" target="_blank" rel="noopener noreferrer">
+                <span class="paper-tag">Autonomous AI Research</span>
+                <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
+                <div class="paper-authors">Marvin · Vera</div>
+                <div class="paper-abstract">Code LLMs break on 8&ndash;13% of all HumanEval problems when variables are renamed. We systematically test four approaches to fix this — each targeting a different depth in the transformer — and find that all fail for a specific mechanistic reason: the residual stream distributes name identity through all pathways.</div>
+                <div class="paper-cta">Read paper <span>&rarr;</span></div>
+            </a>
+
+            <div class="access" id="access">
+                <h2>Try Marvin</h2>
+                <p>Marvin is in active development and designed for AI research by AI researchers. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, please reach out. We'd love to hear about your project's needs and discuss how Marvin can help.</p>
+                <a class="mail" href="mailto:marvin@iluvatarlabs.com">marvin@iluvatarlabs.com</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<script>
+/* TOC scroll-tracking — same recipe as Actuator v6/v7. */
+(function() {
+    const tocLinks = Array.from(document.querySelectorAll('.toc a'));
+    const targets = tocLinks
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+    if (!targets.length) return;
+
+    const active = new Set();
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) active.add(e.target); else active.delete(e.target);
+        });
+        let chosen = null;
+        targets.forEach(t => { if (active.has(t) && !chosen) chosen = t; });
+        tocLinks.forEach(a => {
+            const match = chosen && a.getAttribute('href') === '#' + chosen.id;
+            a.classList.toggle('active', !!match);
+        });
+    }, { rootMargin: '-25% 0px -60% 0px' });
+
+    targets.forEach(t => observer.observe(t));
+})();
+</script>
+
+<script>
+/* Radar — Vera's hypothesis scoring. Dark strokes on cream body. */
+window.addEventListener('load', function() {
+    var canvas = document.getElementById('radarCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var dpr = 2;
+    var W = 460, H = 420;
+    var cx = W / 2, cy = H / 2 + 10;
+    var R = 140;
+    var labels = ['Novelty', 'Plausibility', 'Tractability', 'Impact', 'Scope'];
+    var N = labels.length;
+
+    function angleFor(i) { return (Math.PI * 2 * i / N) - Math.PI / 2; }
+    function pt(i, val) {
+        var a = angleFor(i);
+        return [cx + Math.cos(a) * R * val, cy + Math.sin(a) * R * val];
+    }
+
+    var profiles = [];
+    for (var p = 0; p < 8; p++) {
+        var vals = [];
+        for (var i = 0; i < N; i++) vals.push(0.6 + Math.random() * 0.38);
+        profiles.push(vals);
+    }
+
+    var current = profiles[0].slice();
+    var target = profiles[1].slice();
+    var profileIdx = 1;
+    var morphT = 0;
+    var morphSpeed = 0.003;
+
+    function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+    function draw() {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, W, H);
+
+        for (var ring = 1; ring <= 4; ring++) {
+            var r = R * ring / 4;
+            ctx.strokeStyle = 'rgba(20,20,26,0.22)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (var i = 0; i <= N; i++) {
+                var a = angleFor(i % N);
+                var x = cx + Math.cos(a) * r;
+                var y = cy + Math.sin(a) * r;
+                if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        for (var i = 0; i < N; i++) {
+            var a = angleFor(i);
+            ctx.strokeStyle = 'rgba(20,20,26,0.26)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R);
+            ctx.stroke();
+        }
+
+        ctx.font = '15px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(20,20,26,0.7)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        for (var i = 0; i < N; i++) {
+            var a = angleFor(i);
+            ctx.fillText(labels[i], cx + Math.cos(a) * (R + 32), cy + Math.sin(a) * (R + 32));
+        }
+
+        var eased = ease(morphT);
+        var vals = [];
+        for (var i = 0; i < N; i++) vals.push(current[i] + (target[i] - current[i]) * eased);
+
+        ctx.beginPath();
+        for (var i = 0; i <= N; i++) {
+            var p = pt(i % N, vals[i % N]);
+            if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(79,70,229,0.15)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(79,70,229,0.85)';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        for (var i = 0; i < N; i++) {
+            var p = pt(i, vals[i]);
+            ctx.beginPath();
+            ctx.arc(p[0], p[1], 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#4F46E5';
+            ctx.fill();
+        }
+
+        morphT += morphSpeed;
+        if (morphT >= 1) {
+            morphT = 0;
+            current = target.slice();
+            profileIdx = (profileIdx + 1) % profiles.length;
+            target = profiles[profileIdx];
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+});
+</script>
+
+<script>
+/* Knowledge graph — Silmaril clusters. Dark nodes on cream. */
+window.addEventListener('load', function() {
+    var canvas = document.getElementById('graphCanvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(2, 0, 0, 2, 0, 0);
+    var W = 720, H = 360;
+
+    var clusters = [
+        { cx: W * 0.42, cy: H * 0.45, count: 78, spread: 92 },
+        { cx: W * 0.10, cy: H * 0.28, count: 24, spread: 45 },
+        { cx: W * 0.82, cy: H * 0.22, count: 22, spread: 42 },
+        { cx: W * 0.78, cy: H * 0.75, count: 20, spread: 40 },
+        { cx: W * 0.15, cy: H * 0.80, count: 18, spread: 38 },
+        { cx: W * 0.55, cy: H * 0.10, count: 15, spread: 35 },
+    ];
+
+    var nodes = [];
+    clusters.forEach(function(cl, ci) {
+        for (var i = 0; i < cl.count; i++) {
+            var angle = Math.random() * Math.PI * 2;
+            var dist = Math.random() * cl.spread;
+            nodes.push({
+                x: cl.cx + Math.cos(angle) * dist,
+                y: cl.cy + Math.sin(angle) * dist,
+                cluster: ci,
+                size: 1.8 + Math.random() * 2.6,
+                brightness: 0.25 + Math.random() * 0.4
+            });
+        }
+    });
+
+    var edges = [];
+    var maxIntra = 72;
+    var maxInter = 260;
+
+    for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+            var dx = nodes[i].x - nodes[j].x;
+            var dy = nodes[i].y - nodes[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            var sameCluster = nodes[i].cluster === nodes[j].cluster;
+
+            if (sameCluster && dist < maxIntra && Math.random() < 0.45) {
+                edges.push({ from: nodes[i], to: nodes[j], dist: dist, type: 'intra' });
+            } else if (!sameCluster && dist < maxInter && Math.random() < 0.035) {
+                edges.push({ from: nodes[i], to: nodes[j], dist: dist, type: 'inter' });
+            }
+        }
+    }
+
+    edges.forEach(function(e) {
+        if (e.type === 'intra') {
+            var alpha = 0.18 + (1 - e.dist / maxIntra) * 0.28;
+            ctx.strokeStyle = 'rgba(55,48,110,' + alpha + ')';
+            ctx.lineWidth = 0.5 + (1 - e.dist / maxIntra) * 0.5;
+        } else {
+            ctx.strokeStyle = 'rgba(160,36,106,0.32)';
+            ctx.lineWidth = 0.6;
+        }
+        ctx.beginPath();
+        ctx.moveTo(e.from.x, e.from.y);
+        ctx.lineTo(e.to.x, e.to.y);
+        ctx.stroke();
+    });
+
+    nodes.forEach(function(n) {
+        ctx.fillStyle = 'rgba(35,30,70,' + (n.brightness + 0.15) + ')';
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+    /* Halo highlights — deep magenta (matches .handoff accent) for palette
+       consistency; cyan was out of family and read as "light blue." */
+    for (var k = 0; k < 6; k++) {
+        var n = nodes[Math.floor(Math.random() * nodes.length)];
+        ctx.strokeStyle = 'rgba(160,36,106,0.7)';
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.size + 5, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+});
+</script>
+
+</body>
+</html>

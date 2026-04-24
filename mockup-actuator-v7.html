@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actuator — v6</title>
+    <title>Actuator — v7</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -119,7 +119,7 @@
            speckles read as their actual color, not a tinted multiply. ── */
         .grain {
             position: absolute; inset: 0; pointer-events: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.647  0 0 0 0 0.294  0 0 0 0 0.471  1.3 1.3 1.3 0 -2.15'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.165  0 0 0 0 0.102  0 0 0 0 0.42  1.3 1.3 1.3 0 -2.15'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
             opacity: 1;
             z-index: 1;
         }
@@ -139,13 +139,13 @@
                big (100–130% axes) and high-alpha (0.45+) so the hero reads
                as a colored field, not a tinted neutral.                   */
             background:
-                radial-gradient(ellipse 110% 95% at 98% 8%, rgba(245,145,95,0.26) 0%, rgba(245,145,95,0) 58%),
-                radial-gradient(ellipse 100% 90% at 2% 100%, rgba(200,95,150,0.22) 0%, rgba(200,95,150,0) 62%),
-                radial-gradient(ellipse 75% 65% at 55% 62%, rgba(255,190,160,0.10) 0%, rgba(255,190,160,0) 70%),
-                radial-gradient(ellipse 140% 100% at 50% 50%, rgba(245,220,200,0.12) 0%, rgba(245,220,200,0) 75%),
-                /* Truly off-white now. Blooms are accents on a paper-white
-                   canvas, not the main event. */
-                #FAFAF5;
+                radial-gradient(ellipse 110% 95% at 98% 8%, rgba(79,70,229,0.22) 0%, rgba(79,70,229,0) 58%),
+                radial-gradient(ellipse 100% 90% at 2% 100%, rgba(6,182,212,0.22) 0%, rgba(6,182,212,0) 62%),
+                radial-gradient(ellipse 75% 65% at 55% 62%, rgba(123,95,232,0.10) 0%, rgba(123,95,232,0) 70%),
+                radial-gradient(ellipse 140% 100% at 50% 50%, rgba(220,222,245,0.20) 0%, rgba(220,222,245,0) 75%),
+                /* Cool atmosphere — indigo TR, cyan BL, violet bloom, cool
+                   off-white wash. Same recipe as v6, cool palette. */
+                #F7F7FA;
             padding: 8rem var(--edge-pad) 5rem;
             display: flex;
             flex-direction: column;
