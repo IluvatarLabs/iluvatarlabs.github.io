@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
-        onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}] });"></script>
+        onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}] });"></script>
     {% endif %}
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -113,17 +113,17 @@
         }
         .post-meta {
             display: inline-flex;
-            gap: 2rem;
+            gap: 0.5rem 2.25rem;
             justify-content: center;
             flex-wrap: wrap;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
             line-height: 1.5;
             color: var(--ink-cream-soft);
         }
-        .post-meta .field { display: inline-flex; gap: 0.65rem; align-items: baseline; }
+        .post-meta .field { display: inline-flex; gap: 0.75rem; align-items: baseline; }
         .post-meta .label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
+            font-size: 0.95rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: var(--ink-cream-mute);
@@ -133,14 +133,14 @@
         /* POST BODY */
         .post-body { padding: 2rem var(--edge-pad) 10rem; }
         .post-body-inner {
-            max-width: 1280px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr minmax(0, 40rem) 1fr;
+            grid-template-columns: 1fr minmax(0, 52rem) 1fr;
             gap: 4rem;
             align-items: start;
         }
-        .post-content { grid-column: 2; max-width: 40rem; }
+        .post-content { grid-column: 2; max-width: 52rem; }
         .post-sidebar {
             grid-column: 1;
             justify-self: end;
@@ -153,22 +153,22 @@
         .sidebar-block:last-child { margin-bottom: 0; }
         .sidebar-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.66rem;
+            font-size: 0.95rem;
             letter-spacing: 0.22em;
             text-transform: uppercase;
             color: var(--ink-cream-mute);
-            margin-bottom: 0.85rem;
+            margin-bottom: 1.1rem;
         }
         .post-toc ol { list-style: none; }
         .post-toc li {
-            margin-bottom: 0.7rem;
-            padding-left: 0.9rem;
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
             border-left: 1px solid var(--hairline);
             transition: border-color 0.15s;
         }
         .post-toc li.active { border-left-color: var(--accent); }
         .post-toc a {
-            font-size: 0.88rem;
+            font-size: 1.05rem;
             line-height: 1.4;
             color: var(--ink-cream-mute);
             text-decoration: none;
@@ -177,7 +177,10 @@
         }
         .post-toc a:hover, .post-toc li.active a { color: var(--ink-cream); }
 
-        /* Sidenote — floats into right gutter */
+        /* Sidenote — floats into right gutter. Reset font properties
+           explicitly because some refs land inside blockquotes (e.g.
+           "How it works" boxes) and would otherwise inherit the
+           blockquote's italic Space Grotesk styling. */
         .sidenote {
             float: right;
             clear: right;
@@ -187,17 +190,25 @@
             margin-bottom: 1rem;
             padding-left: 1rem;
             border-left: 1px solid var(--hairline-strong);
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: normal;
             font-size: 0.85rem;
-            line-height: 1.55;
+            line-height: 1.5;
             color: var(--ink-cream-mute);
         }
-        .sidenote strong { color: var(--ink-cream-soft); font-weight: 500; }
+        .sidenote em, .sidenote i, .sidenote cite { font-style: italic; }
+        .sidenote strong, .sidenote b { color: var(--ink-cream-soft); font-weight: 500; }
         .sidenote .num {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.74rem;
+            font-size: 1rem;
             color: var(--accent);
-            letter-spacing: 0.05em;
-            margin-right: 0.35rem;
+            letter-spacing: 0.04em;
+            margin-right: 0.45rem;
+            font-weight: 500;
+            line-height: 1;
+            font-style: normal;
         }
 
         /* Article body */
@@ -268,28 +279,87 @@
         .post-deck strong { font-weight: 500; }
         .post-deck .deck-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem; letter-spacing: 0.22em;
+            font-size: 0.95rem; letter-spacing: 0.22em;
             text-transform: uppercase;
             color: var(--accent);
             display: block;
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.95rem;
             font-weight: 500;
         }
 
-        /* Pull-quote blockquote */
+        /* Callout blockquote — used for "How it works" boxes, emphasis
+           lists, etc. Reads as a soft callout box, not an italic pull-
+           quote. Bold lead-ins (e.g. "**How it works:**") still pop. */
         .post-content blockquote {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.2rem;
-            line-height: 1.45;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
             font-weight: 400;
-            font-style: italic;
-            letter-spacing: -0.015em;
-            color: var(--ink-cream);
-            padding: 1.75rem 0 1.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.65;
+            letter-spacing: -0.005em;
+            color: var(--ink-cream-soft);
+            padding: 1.25rem 1.5rem;
             border-left: 2px solid var(--accent);
-            margin: 2.75rem 0;
+            background: rgba(245,241,235,0.03);
+            border-radius: 0 4px 4px 0;
+            margin: 1.75rem 0;
         }
-        .post-content blockquote p { font-size: inherit; line-height: inherit; color: inherit; margin: 0; }
+        .post-content blockquote p {
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            margin: 0 0 0.75rem;
+        }
+        .post-content blockquote p:last-child { margin-bottom: 0; }
+        .post-content blockquote ul,
+        .post-content blockquote ol {
+            margin: 0.4rem 0 0.4rem 1.4rem;
+            color: inherit;
+        }
+        .post-content blockquote li { margin-bottom: 0.35rem; }
+        .post-content blockquote strong {
+            color: var(--ink-cream);
+            font-weight: 500;
+        }
+        .post-content blockquote em, .post-content blockquote i {
+            font-style: italic;
+        }
+
+        /* Caption-style blockquotes: applied via JS to blockquotes that
+           start with "**Figure N**" / "**Table N**" — overrides the
+           pull-quote treatment with the figure-caption look.
+           Padding-top creates real space (margins collapse with the
+           preceding figure's bottom margin and would otherwise vanish). */
+        .post-content blockquote.caption-quote {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: normal;
+            color: var(--ink-cream-mute);
+            line-height: 1.6;
+            padding: 1.4rem 1.75rem;
+            border-left: none;
+            margin: 1.25rem auto 4rem;
+            max-width: 38rem;
+            text-align: center;
+        }
+        .post-content blockquote.caption-quote p {
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            margin: 0;
+        }
+        .post-content blockquote.caption-quote strong {
+            font-family: 'JetBrains Mono', monospace;
+            font-style: normal;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-dim);
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
 
         /* Lists */
         .post-content ul, .post-content ol {
@@ -309,6 +379,38 @@
             padding: 0.1rem 0.35rem;
             border-radius: 3px;
             color: var(--ink-cream);
+        }
+
+        /* Figure-row: side-by-side figures with optional column labels.
+           Cells are flex items whose flex-grow is set by JS to the image's
+           aspect ratio so all panels render at the SAME HEIGHT (variable
+           widths). Falls back to equal width if JS hasn't run. */
+        .post-content figure.figure-row {
+            display: flex;
+            gap: 1.25rem;
+            margin: 3rem 0 1rem;
+            padding: 0;
+            align-items: stretch;
+        }
+        .post-content figure.figure-row > div {
+            margin: 0;
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .post-content figure.figure-row img {
+            width: 100%; height: auto; display: block;
+            border-radius: 3px;
+        }
+        .post-content figure.figure-row figcaption {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: var(--ink-cream-dim);
+            margin-top: 0.85rem;
         }
 
         /* Figure */
@@ -337,7 +439,7 @@
         .post-figure-caption strong {
             font-family: 'JetBrains Mono', monospace;
             font-style: normal;
-            font-size: 0.74rem;
+            font-size: 0.95rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--ink-cream-dim);
@@ -345,25 +447,36 @@
             font-weight: 500;
         }
 
-        /* Inline images (from markdown ![]()) — center, no chrome */
+        /* Inline images (from markdown ![]()) — center, no chrome.
+           Cap at 80% so single figures don't span the full reading column. */
         .post-content > p > img {
             display: block;
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
             margin: 2.5rem auto;
             border-radius: 3px;
         }
+        /* Catch-all so images inside layout tables don't blow out cell width */
+        .post-content img { max-width: 100%; height: auto; }
 
-        /* Data table */
-        .post-content table {
+        /* Data table — scope to top-level kramdown tables only so KaTeX's
+           internal layout tables (.katex *) aren't clobbered. */
+        .post-content > table {
             width: 100%;
             border-collapse: collapse;
             margin: 3.5rem 0;
             font-size: 0.95rem;
         }
-        .post-content thead th {
+        /* Tables that hold figures (kramdown markdown tables w/ images) need
+           fixed layout so images can shrink to cell width. Data tables stay
+           on auto layout so numeric columns sit tight. */
+        .post-content > table:has(td img) { table-layout: fixed; }
+        .post-content > table:has(td img) th,
+        .post-content > table:has(td img) td { padding: 0.6rem 0.5rem; }
+        .post-content > table img { display: block; margin: 0 auto; }
+        .post-content > table thead th {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem; letter-spacing: 0.12em;
+            font-size: 0.95rem; letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--ink-cream-mute);
             text-align: left;
@@ -371,14 +484,14 @@
             border-bottom: 1px solid var(--hairline-strong);
             font-weight: 500;
         }
-        .post-content tbody td {
+        .post-content > table tbody td {
             padding: 1rem 1rem 1rem 0;
             border-bottom: 1px solid var(--hairline);
             color: var(--ink-cream-soft);
             line-height: 1.5;
         }
-        .post-content tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
-        .post-content tbody td.num {
+        .post-content > table tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
+        .post-content > table tbody td.num {
             font-family: 'JetBrains Mono', monospace;
             font-variant-numeric: tabular-nums;
             font-size: 0.92rem;
@@ -438,7 +551,7 @@
         .post-content .footnotes li { margin-bottom: 0.75rem; }
 
         /* Responsive */
-        @media (max-width: 1180px) {
+        @media (max-width: 1380px) {
             .sidenote {
                 float: none;
                 width: auto;
@@ -446,8 +559,8 @@
                 padding-left: 1rem;
             }
             .post-body-inner {
-                grid-template-columns: 12rem minmax(0, 40rem);
-                max-width: 1000px;
+                grid-template-columns: 12rem minmax(0, 52rem);
+                max-width: 1100px;
             }
         }
         @media (max-width: 960px) {
@@ -555,6 +668,44 @@
     first.replaceWith(deck);
 })();
 
+// Equal-height figure rows. For each .figure-row, set each cell's
+// flex-grow to the image's aspect ratio (w/h) so cells render at the
+// same height with widths proportional to image aspect. Wider images
+// take more horizontal room; narrower ones less.
+(function() {
+    document.querySelectorAll('.post-content figure.figure-row').forEach(row => {
+        const cells = Array.from(row.children);
+        const imgs = cells.map(c => c.querySelector('img')).filter(Boolean);
+        if (imgs.length < 2) return;
+        const apply = () => {
+            const ready = imgs.every(i => i.naturalWidth && i.naturalHeight);
+            if (!ready) return;
+            imgs.forEach((img, i) => {
+                const ar = img.naturalWidth / img.naturalHeight;
+                cells[i].style.flexGrow = ar.toFixed(4);
+                cells[i].style.flexBasis = '0';
+            });
+        };
+        if (imgs.every(i => i.complete)) apply();
+        else imgs.forEach(img => img.addEventListener('load', apply, { once: true }));
+    });
+})();
+
+// Tag blockquotes that begin with "**Figure N**" or "**Table N**" as
+// captions so they render with the small italic caption style instead
+// of the big pull-quote.
+(function() {
+    document.querySelectorAll('.post-content blockquote').forEach(bq => {
+        const firstP = bq.querySelector('p');
+        const firstStrong = firstP ? firstP.querySelector('strong') : null;
+        if (!firstStrong) return;
+        const txt = firstStrong.textContent.trim();
+        if (/^(figure|fig|table|tab)\.?\s*\d/i.test(txt)) {
+            bq.classList.add('caption-quote');
+        }
+    });
+})();
+
 // Build TOC from h2s in the article. Auto-hides if no h2s.
 (function() {
     const toc = document.querySelector('.post-toc ol');
@@ -590,9 +741,15 @@
     const noteMap = new Map();
     footnotes.querySelectorAll('li[id^="fn:"]').forEach(li => {
         const key = li.id.replace('fn:', '');
-        const html = li.innerHTML
-            .replace(/<a[^>]*class="reversefootnote"[^>]*>[\s\S]*?<\/a>/, '')
+        let html = li.innerHTML
+            .replace(/<a[^>]*class="reversefootnote"[^>]*>[\s\S]*?<\/a>/g, '')
             .trim();
+        // Strip the wrapping <p>...</p> kramdown adds. Otherwise the inner
+        // <p> picks up body or blockquote paragraph styles (whichever wins
+        // by specificity for that ref's location), causing inconsistent
+        // sizing between sidenotes inside vs outside blockquotes.
+        const m = html.match(/^<p>([\s\S]*)<\/p>$/);
+        if (m) html = m[1].trim();
         noteMap.set(key, html);
     });
     document.querySelectorAll('.post-content sup[id^="fnref:"]').forEach(ref => {
