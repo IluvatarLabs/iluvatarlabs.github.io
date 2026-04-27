@@ -30,13 +30,14 @@ permalink: /iori/
             --surface-deep:     #0A1A18;   /* near-black green — thesis */
             --surface-light:    #E8DCC0;   /* warm hay cream — how-it-works */
 
-            /* Cream-ink family for the dark surfaces */
-            --ink-cream:        #ECE6D5;
-            --ink-cream-soft:   rgba(236,230,213,0.72);
-            --ink-cream-mute:   rgba(236,230,213,0.46);
-            --ink-cream-faint:  rgba(236,230,213,0.28);
-            --hair-cream:       rgba(236,230,213,0.12);
-            --hair-cream-strong: rgba(236,230,213,0.22);
+            /* Cream-ink family for the dark surfaces — slightly brighter
+               cream + bumped soft alpha for legibility on forest green. */
+            --ink-cream:        #F5EFE0;
+            --ink-cream-soft:   rgba(245,239,224,0.85);
+            --ink-cream-mute:   rgba(245,239,224,0.58);
+            --ink-cream-faint:  rgba(245,239,224,0.32);
+            --hair-cream:       rgba(245,239,224,0.14);
+            --hair-cream-strong: rgba(245,239,224,0.24);
 
             /* Dark-ink family for the light-cream section */
             --ink-dark:         #1F2A1E;
@@ -285,10 +286,19 @@ permalink: /iori/
             letter-spacing: 0.06em;
             text-transform: uppercase;
             padding: 0.28rem 0.65rem;
-            border: 1px solid var(--hair-cream-strong);
+            border: 1px solid currentColor;
             border-radius: 2px;
-            color: var(--ink-cream-mute);
+            background: rgba(0,0,0,0.18);
         }
+        /* Colored tag palette — cycled across tags so they pop and stand
+           out as discrete labels rather than uniform chrome. */
+        .project-tags .tag-coral  { color: #F0A48F; }
+        .project-tags .tag-cyan   { color: #7BD9E8; }
+        .project-tags .tag-amber  { color: #E8C376; }
+        .project-tags .tag-moss   { color: #9DD6B8; }
+        .project-tags .tag-violet { color: #C8B5F2; }
+        .project-tags .tag-rust   { color: #F0A678; }
+        .project-tags .tag-sky    { color: #98C8E8; }
         .project-arrow {
             font-family: 'Inter', sans-serif;
             font-size: 1.05rem;
@@ -491,49 +501,28 @@ permalink: /iori/
     <div class="projects-inner">
         <h2>Active projects.</h2>
 
-        <a class="project" href="mockup-iori-project.html">
+        {% assign sorted_projects = site.projects | sort: "updated" | reverse %}
+        {% assign tag_palette = "coral,cyan,amber,moss,violet,rust,sky" | split: "," %}
+        {% for project in sorted_projects %}
+        <a class="project" href="{{ project.url }}">
             <div class="project-grid">
                 <div class="project-main">
-                    <div class="project-meta">
-                        <span class="status">Active analysis</span>
-                        <span class="sep">·</span>
-                        <span>Iteration 2</span>
-                        <span class="sep">·</span>
-                        <span>Updated Apr 20, 2026</span>
-                    </div>
-                    <h3>Multi-omic target prioritization in pediatric high-grade glioma</h3>
-                    <p class="project-scope">Integrating transcriptomic, proteomic, and methylation data across 14 public datasets (2,660 pediatric brain tumor samples) to identify therapeutic targets for a disease with a 5-year survival under 20% and no approved targeted therapies. Three hypotheses formalized; preprint v1 on bioRxiv.</p>
+                    <h3>{{ project.title }}</h3>
+                    {% if project.summary %}<p class="project-scope">{{ project.summary }}</p>{% endif %}
+                    {% if project.tags %}
                     <div class="project-tags">
-                        <span class="tag">Oncology</span>
-                        <span class="tag">Pediatric</span>
-                        <span class="tag">Multi-omic</span>
+                        {% for tag in project.tags %}
+                            {% assign palette_index = forloop.index0 | modulo: tag_palette.size %}
+                            {% assign palette_color = tag_palette[palette_index] %}
+                        <span class="tag tag-{{ palette_color }}">{{ tag }}</span>
+                        {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
                 <span class="project-arrow">Read project <span>&rarr;</span></span>
             </div>
         </a>
-
-        <a class="project" href="mockup-iori-project.html">
-            <div class="project-grid">
-                <div class="project-main">
-                    <div class="project-meta">
-                        <span class="status warn">Validation in progress</span>
-                        <span class="sep">·</span>
-                        <span>Iteration 4</span>
-                        <span class="sep">·</span>
-                        <span>Updated Apr 15, 2026</span>
-                    </div>
-                    <h3>Drug repurposing candidates for MECP2-related disorders</h3>
-                    <p class="project-scope">Network pharmacology combining protein interaction graphs, gene expression, and known drug targets to identify repurposing candidates for Rett syndrome. Two candidates in wet-lab validation at Emory: H1 preliminary data positive, H2 protocol starting.</p>
-                    <div class="project-tags">
-                        <span class="tag">Rare disease</span>
-                        <span class="tag">Drug repurposing</span>
-                        <span class="tag">Network pharmacology</span>
-                    </div>
-                </div>
-                <span class="project-arrow">Read project <span>&rarr;</span></span>
-            </div>
-        </a>
+        {% endfor %}
     </div>
 </section>
 
