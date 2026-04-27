@@ -34,7 +34,7 @@ permalink: /marvin/
             --hair-dark:         rgba(20,20,26,0.12);
             --hair-dark-strong:  rgba(20,20,26,0.22);
             --panel-cream:    #F1ECE2;
-            --body-cream:     #EDEBF2; /* cool off-white — slight lavender undertone to match the indigo/cyan hero */
+            --body-cream:     #FAFAF5;
             /* Marvin palette — indigo primary, cyan secondary, violet mid */
             --accent:         #4F46E5;
             --accent-deep:    #3730A3;
@@ -54,14 +54,15 @@ permalink: /marvin/
         /* NAV — structurally identical to homepage; cream-ink variant for dark hero */
         .nav-bar {
             position: absolute; top: 0; left: 0; right: 0;
-            z-index: 30; display: flex; justify-content: center;
+            z-index: 30;
+            padding: 3rem var(--edge-pad) 0;
             --nav-ink: var(--ink-cream);
             --nav-ink-soft: var(--ink-cream-soft);
         }
         .nav {
-            width: 100%; max-width: var(--max-content);
+            max-width: var(--max-content);
+            margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 3rem var(--edge-pad) 0;
         }
         .nav-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -170,9 +171,9 @@ permalink: /marvin/
         }
         .hero .subtitle {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.3rem, 1.9vw, 1.75rem);
-            line-height: 1.35;
-            letter-spacing: -0.015em;
+            font-size: clamp(2rem, 3vw, 2.75rem);
+            line-height: 1.25;
+            letter-spacing: -0.02em;
             font-weight: 600;
             color: var(--ink-cream);
             margin: 0 auto 1.5rem;
@@ -183,14 +184,17 @@ permalink: /marvin/
             border-bottom: 2px solid var(--accent-cyan);
             padding-bottom: 2px;
         }
-        .hero .tagline {
-            font-size: 1.15rem;
-            line-height: 1.7;
+        .hero .text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+            line-height: 1.55;
+            letter-spacing: -0.012em;
+            font-weight: 400;
             color: var(--ink-cream-soft);
             max-width: 56rem;
             margin: 0 auto 2rem;
         }
-        .hero .tagline strong { color: var(--ink-cream); font-weight: 500; }
+        .hero .text strong { color: var(--ink-cream); font-weight: 500; }
         .hero-cta {
             font-family: 'Inter', sans-serif;
             font-size: clamp(1.25rem, 1.5vw, 1.45rem);
@@ -526,7 +530,7 @@ permalink: /marvin/
             <h1>Marvin</h1>
         </div>
         <p class="subtitle">The fully <u>autonomous</u> scientist agent.</p>
-        <p class="tagline"><strong>Define your research mission and Marvin will take care of the rest.</strong> Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis.</p>
+        <p class="text"><strong>Define your research mission and Marvin will take care of the rest.</strong> Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis.</p>
         <a href="#research" class="hero-cta">Read Marvin's latest research <span>&darr;</span></a>
     </div>
 </section>

@@ -67,14 +67,15 @@ permalink: /actuator/
         /* ────────────────────────────────────────────────────────────── */
         .nav-bar {
             position: absolute; top: 0; left: 0; right: 0;
-            z-index: 30; display: flex; justify-content: center;
+            z-index: 30;
+            padding: 3rem var(--edge-pad) 0;
             --nav-ink: var(--ink-dark);
             --nav-ink-soft: var(--ink-dark-soft);
         }
         .nav {
-            width: 100%; max-width: var(--max-content);
+            max-width: var(--max-content);
+            margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 3rem var(--edge-pad) 0;
         }
         .nav-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -200,23 +201,25 @@ permalink: /actuator/
         }
         .hero .subtitle {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.3rem, 1.9vw, 1.75rem);
-            line-height: 1.35;
-            letter-spacing: -0.015em;
+            font-size: clamp(2rem, 3vw, 2.75rem);
+            line-height: 1.25;
+            letter-spacing: -0.02em;
             font-weight: 600;
             color: var(--ink-dark);
             margin: 0 auto 1.5rem;
-            /* ~900px — matches the blog post hero text block. */
             max-width: 56rem;
         }
-        .hero .tagline {
-            font-size: 1.15rem;
-            line-height: 1.7;
+        .hero .text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+            line-height: 1.55;
+            letter-spacing: -0.012em;
+            font-weight: 400;
             color: var(--ink-dark-soft);
             max-width: 56rem;
             margin: 0 auto 2rem;
         }
-        .hero .tagline strong { color: var(--ink-dark); font-weight: 500; }
+        .hero .text strong { color: var(--ink-dark); font-weight: 500; }
         .hero-cta {
             font-family: 'Inter', sans-serif;
             font-size: clamp(1.25rem, 1.5vw, 1.45rem);
@@ -659,7 +662,7 @@ permalink: /actuator/
             <h1>Actuator</h1>
         </div>
         <p class="subtitle">The end-to-end control layer for model transformation.</p>
-        <p class="tagline"><strong>Post-training is where differentiation and value are created &mdash; and quality is destroyed.</strong> By monitoring and adjusting training dynamics to course-correct when quality drifts, Actuator preserves what makes your models smart, before the damage is done.</p>
+        <p class="text"><strong>Post-training is where differentiation and value are created &mdash; and quality is destroyed.</strong> By monitoring and adjusting training dynamics to course-correct when quality drifts, Actuator preserves what makes your models smart, before the damage is done.</p>
         <a href="#access" class="hero-cta">Get early access <span>&rarr;</span></a>
     </div>
 </section>

@@ -1,0 +1,578 @@
+---
+layout: null
+title: IORI
+description: Open computational biology, run on public data, reviewed in public, free to validate.
+permalink: /iori/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IORI — Iluvatar Labs</title>
+    {% seo %}
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1280px;
+            --edge-pad: 3rem;
+
+            /* Cream paper palette — warm off-white body, deeper warm cream
+               for the alternating "contrast" sections (thesis + how).
+               Reads as an open-research archive / journal, not a product
+               page. Distinct from Actuator (#FAFAF5 nearly-white) and
+               Discover (also near-white) because both creams here are
+               warmer + more saturated. */
+            --bg:               #F4EFE3;   /* light warm cream — hero, projects, footer */
+            --surface-deep:     #E8DFCE;   /* deeper warm cream — thesis, how */
+
+            --ink-dark:         #1A1A20;
+            --ink-dark-soft:    rgba(26,26,32,0.72);
+            --ink-dark-mute:    rgba(26,26,32,0.46);
+            --ink-dark-faint:   rgba(26,26,32,0.28);
+
+            --hair-dark:         rgba(26,26,32,0.12);
+            --hair-dark-strong:  rgba(26,26,32,0.22);
+
+            /* Accent: deep moss green. Subdued, ink-like, reads
+               biology/journal rather than SaaS-mascot. Distinct from the
+               site's coral (Actuator/About) and indigo/cyan (Marvin). */
+            --accent:           #3F6B4F;
+            --accent-deep:      #2D5239;
+            --status-warn:      #9B5A2F;   /* rust — "validation in progress" only */
+        }
+
+        html, body { background: var(--bg); }
+        body {
+            color: var(--ink-dark);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: subpixel-antialiased;
+            -moz-osx-font-smoothing: auto;
+            overflow-x: hidden;
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* NAV — dark-ink variant for cream hero. Same structure as the   */
+        /* shared site include.                                           */
+        /* ────────────────────────────────────────────────────────────── */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30;
+            padding: 3rem var(--edge-pad) 0;
+            --nav-ink: var(--ink-dark);
+            --nav-ink-soft: var(--ink-dark-soft);
+        }
+        .nav {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;
+            color: var(--nav-ink); text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink); text-decoration: none;
+            font-size: 1.1rem;
+            border-bottom: 1px solid transparent; padding-bottom: 2px;
+            transition: border-color 0.2s, font-weight 0.2s;
+        }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active { font-weight: 700; border-bottom-color: var(--nav-ink); }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+            display: flex; align-items: center; gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg { width: 100%; height: 100%; fill: var(--nav-ink); transition: fill 0.2s; }
+        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
+        .nav-hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--nav-ink-soft); margin: 5px 0;
+        }
+        .nav-hamburger:hover span { background: var(--nav-ink); }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* HERO — Discover-style on cream: corner glows in moss + rust    */
+        /* tints, clean H1 + subtitle, no rule.                            */
+        /* ────────────────────────────────────────────────────────────── */
+        .hero {
+            position: relative;
+            padding: 7.5rem var(--edge-pad) 4rem;
+            min-height: 42vh;
+            background:
+                radial-gradient(ellipse 90% 90% at 95% 10%, rgba(63,107,79,0.10) 0%, rgba(63,107,79,0) 60%),
+                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(155,90,47,0.08) 0%, rgba(155,90,47,0) 65%),
+                var(--bg);
+            color: var(--ink-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            max-width: var(--max-content);
+            margin: 0 auto;
+            width: 100%;
+        }
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            font-weight: 600;
+            color: var(--ink-dark);
+            margin-bottom: 1.25rem;
+        }
+        .hero .text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+            line-height: 1.4;
+            letter-spacing: -0.012em;
+            font-weight: 400;
+            color: var(--ink-dark-soft);
+            max-width: 46rem;
+        }
+        .hero .text strong { color: var(--ink-dark); font-weight: 500; }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* THESIS — deeper cream surface. Big multi-line claim, then 4    */
+        /* line-separated body paragraphs.                                */
+        /* ────────────────────────────────────────────────────────────── */
+        .thesis {
+            background: var(--surface-deep);
+            padding: 7rem var(--edge-pad) 7rem;
+        }
+        .thesis-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+        }
+        .thesis h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--ink-dark);
+            max-width: 38ch;
+            margin-bottom: 5rem;
+        }
+        .thesis-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+        .thesis-grid > div {
+            padding: 0 1.5rem;
+            border-left: 1px solid var(--hair-dark-strong);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: var(--ink-dark-soft);
+        }
+        .thesis-grid > div:first-child {
+            padding-left: 0;
+            border-left: none;
+        }
+        .thesis-grid > div:last-child {
+            padding-right: 0;
+        }
+        .thesis-grid strong {
+            color: var(--ink-dark);
+            font-weight: 500;
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* PROJECTS — back to lighter cream. Minimal cards. No stat       */
+        /* strip, no eyebrow, no filter chips.                            */
+        /* ────────────────────────────────────────────────────────────── */
+        .projects {
+            background: var(--bg);
+            padding: 6.5rem var(--edge-pad) 7rem;
+        }
+        .projects-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+        }
+        .projects h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2rem, 3.2vw, 2.75rem);
+            font-weight: 500;
+            letter-spacing: -0.022em;
+            line-height: 1.1;
+            color: var(--ink-dark);
+            margin-bottom: 3.5rem;
+        }
+        .project {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 2.75rem 0;
+            border-top: 1px solid var(--hair-dark);
+            transition: background 0.18s;
+        }
+        .project:last-child {
+            border-bottom: 1px solid var(--hair-dark);
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3rem;
+            align-items: start;
+        }
+        .project-meta {
+            display: flex;
+            gap: 0.65rem;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.86rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink-dark-faint);
+            margin-bottom: 1.1rem;
+        }
+        .project-meta .status {
+            color: var(--accent);
+        }
+        .project-meta .status.warn {
+            color: var(--status-warn);
+        }
+        .project-meta .sep {
+            color: var(--ink-dark-faint);
+        }
+        .project h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.5rem, 2.1vw, 1.85rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: var(--ink-dark);
+            margin-bottom: 1rem;
+            transition: color 0.2s;
+            max-width: 40ch;
+        }
+        .project:hover h3 { color: var(--accent); }
+        .project-scope {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--ink-dark-soft);
+            margin-bottom: 1.4rem;
+            max-width: 56rem;
+        }
+        .project-tags {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .project-tags .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.28rem 0.65rem;
+            border: 1px solid var(--hair-dark-strong);
+            border-radius: 2px;
+            color: var(--ink-dark-mute);
+        }
+        .project-arrow {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--ink-dark-soft);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            white-space: nowrap;
+            padding-top: 0.35rem;
+            transition: gap 0.2s, color 0.2s;
+        }
+        .project:hover .project-arrow {
+            color: var(--accent);
+            gap: 0.7rem;
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* HOW IT WORKS — deeper cream. Numbered steps, plain language.  */
+        /* Submit link absorbed into step 01.                             */
+        /* ────────────────────────────────────────────────────────────── */
+        .how {
+            background: var(--surface-deep);
+            padding: 6.5rem var(--edge-pad) 7rem;
+        }
+        .how-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+        }
+        .how h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2rem, 3.2vw, 2.75rem);
+            font-weight: 500;
+            letter-spacing: -0.022em;
+            line-height: 1.1;
+            color: var(--ink-dark);
+            margin-bottom: 4rem;
+        }
+        .how-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            border-top: 1px solid var(--hair-dark-strong);
+        }
+        .how-step {
+            display: grid;
+            grid-template-columns: 4rem 14rem 1fr;
+            gap: 2.5rem;
+            align-items: baseline;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--hair-dark-strong);
+        }
+        .how-step .step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            font-weight: 500;
+        }
+        .how-step .step-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            letter-spacing: -0.018em;
+            line-height: 1.25;
+        }
+        .how-step .step-body {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--ink-dark-soft);
+            max-width: 38rem;
+        }
+        .how-step .step-body a {
+            color: var(--ink-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 1px;
+            transition: color 0.2s;
+        }
+        .how-step .step-body a:hover { color: var(--accent); }
+        .step-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-top: 1rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 2px;
+            transition: color 0.2s, gap 0.2s;
+        }
+        .step-cta:hover {
+            color: var(--accent);
+            gap: 0.7rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg);
+            padding: 3rem var(--edge-pad);
+            border-top: 1px solid var(--hair-dark);
+        }
+        .footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            font-size: 0.92rem;
+            color: var(--ink-dark-mute);
+        }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+
+            .hero { padding: 8rem var(--edge-pad) 4.5rem; }
+            .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: none; }
+
+            .thesis { padding: 5rem var(--edge-pad); }
+            .thesis h2 { font-size: clamp(1.85rem, 7vw, 2.5rem); margin-bottom: 3rem; }
+            .thesis-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .thesis-grid > div {
+                border-left: none;
+                border-top: 1px solid var(--hair-dark-strong);
+                padding: 1.5rem 0 0;
+            }
+            .thesis-grid > div:first-child {
+                border-top: none;
+                padding-top: 0;
+            }
+
+            .projects { padding: 5rem var(--edge-pad); }
+            .project-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            .project-arrow { padding-top: 0; }
+
+            .how { padding: 5rem var(--edge-pad); }
+            .how-step {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                padding: 1.75rem 0;
+            }
+
+            .nav-hamburger { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute; top: 100%; right: 1rem;
+                background: var(--surface-deep);
+                border: 1px solid var(--hair-dark-strong);
+                border-radius: 10px;
+                padding: 1rem 1.5rem;
+                flex-direction: column; gap: 1rem;
+                min-width: 200px;
+            }
+            .nav-links.open { display: flex; }
+        }
+    </style>
+</head>
+<body>
+
+{% include nav.html active="iori" %}
+
+<!-- 1. HERO — Discover-style: corner glows on cream, clean H1 + subtitle. -->
+<section class="hero">
+    <div class="hero-inner">
+        <h1>Iluvatar Open Research Initiative.</h1>
+        <p class="text">Open computational biology, run on public data, reviewed in public, free to validate.</p>
+    </div>
+</section>
+
+<!-- 2. THESIS — big claim + four line-separated body paragraphs. -->
+<section class="thesis">
+    <div class="thesis-inner">
+        <h2>We run computational biology projects on public data, publish every iteration as it happens, and invite the field to critique, extend, and validate.</h2>
+        <div class="thesis-grid">
+            <div>
+                <strong>Pipelines and data are public.</strong> Every project starts from a question a PI couldn't answer because of computational bandwidth. Marvin synthesizes the literature, integrates the relevant public datasets, and produces a full logic trail. Pipelines are reproducible end-to-end and licensed Apache 2.0.
+            </div>
+            <div>
+                <strong>Findings are reviewed before they ship.</strong> Iluvatar PhDs vet every output. Each claim carries an explicit confidence tier, including a tier for what we did not measure. Failures and downgrades log alongside positive results, with the same visibility.
+            </div>
+            <div>
+                <strong>Outputs belong to the commons.</strong> Hypotheses, evidence, datasets, and pipelines publish under open licenses. Iluvatar takes no IP on findings produced through the initiative. Marvin's underlying architecture and training stay commercial; everything Marvin produces is open.
+            </div>
+            <div>
+                <strong>Submitting PIs keep the science.</strong> Marvin runs the analysis on public data. You lead the project. Co-authorship follows on resulting publications. Wet-lab researchers who pick up a published hypothesis get the same offer, with credit logged via CRediT.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 3. ACTIVE PROJECTS — minimal cards, no stat strip, no chrome. -->
+<section class="projects">
+    <div class="projects-inner">
+        <h2>Active projects.</h2>
+
+        <a class="project" href="mockup-iori-project.html">
+            <div class="project-grid">
+                <div class="project-main">
+                    <div class="project-meta">
+                        <span class="status">Active analysis</span>
+                        <span class="sep">·</span>
+                        <span>Iteration 2</span>
+                        <span class="sep">·</span>
+                        <span>Updated Apr 20, 2026</span>
+                    </div>
+                    <h3>Multi-omic target prioritization in pediatric high-grade glioma</h3>
+                    <p class="project-scope">Integrating transcriptomic, proteomic, and methylation data across 14 public datasets (2,660 pediatric brain tumor samples) to identify therapeutic targets for a disease with a 5-year survival under 20% and no approved targeted therapies. Three hypotheses formalized; preprint v1 on bioRxiv.</p>
+                    <div class="project-tags">
+                        <span class="tag">Oncology</span>
+                        <span class="tag">Pediatric</span>
+                        <span class="tag">Multi-omic</span>
+                    </div>
+                </div>
+                <span class="project-arrow">Read project <span>&rarr;</span></span>
+            </div>
+        </a>
+
+        <a class="project" href="mockup-iori-project.html">
+            <div class="project-grid">
+                <div class="project-main">
+                    <div class="project-meta">
+                        <span class="status warn">Validation in progress</span>
+                        <span class="sep">·</span>
+                        <span>Iteration 4</span>
+                        <span class="sep">·</span>
+                        <span>Updated Apr 15, 2026</span>
+                    </div>
+                    <h3>Drug repurposing candidates for MECP2-related disorders</h3>
+                    <p class="project-scope">Network pharmacology combining protein interaction graphs, gene expression, and known drug targets to identify repurposing candidates for Rett syndrome. Two candidates in wet-lab validation at Emory: H1 preliminary data positive, H2 protocol starting.</p>
+                    <div class="project-tags">
+                        <span class="tag">Rare disease</span>
+                        <span class="tag">Drug repurposing</span>
+                        <span class="tag">Network pharmacology</span>
+                    </div>
+                </div>
+                <span class="project-arrow">Read project <span>&rarr;</span></span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- 4. HOW IT WORKS — numbered steps. Step 01 absorbs the submit CTA. -->
+<section class="how">
+    <div class="how-inner">
+        <h2>How it works.</h2>
+        <div class="how-steps">
+            <div class="how-step">
+                <span class="step-num">01</span>
+                <span class="step-title">Submit a question</span>
+                <div class="step-body">
+                    A PI proposes a computational biology question that's answerable from existing public data. We accept submissions on a rolling basis and select cohorts quarterly.
+                    <a href="mockup-iori-submit.html" class="step-cta">Submit a question <span>&rarr;</span></a>
+                </div>
+            </div>
+            <div class="how-step">
+                <span class="step-num">02</span>
+                <span class="step-title">Marvin runs the analysis</span>
+                <div class="step-body">
+                    Literature synthesis across the relevant corpus. Dataset integration with quality control, batch correction, and cross-platform normalization. Hypothesis generation with a full logic trail. Every decision and parameter choice is logged.
+                </div>
+            </div>
+            <div class="how-step">
+                <span class="step-num">03</span>
+                <span class="step-title">PhDs vet</span>
+                <div class="step-body">
+                    Internal review by Iluvatar's research team. Confidence tiers applied to every finding. Methodological concerns flagged and routed back into the next iteration. Rejected hypotheses are kept in the project's permanent record.
+                </div>
+            </div>
+            <div class="how-step">
+                <span class="step-num">04</span>
+                <span class="step-title">Publish open</span>
+                <div class="step-body">
+                    Preprint to bioRxiv. Repository public on GitHub. Iterations continue. Anyone can extend the analysis, critique a hypothesis, or volunteer to validate one in the lab.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-inner">&copy; 2026 Iluvatar Labs · IORI</div>
+</footer>
+
+</body>
+</html>

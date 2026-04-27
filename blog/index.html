@@ -53,14 +53,15 @@ description: Dispatches from the lab — product announcements, research notes, 
         /* NAV — cream-ink for dark hero */
         .nav-bar {
             position: absolute; top: 0; left: 0; right: 0;
-            z-index: 30; display: flex; justify-content: center;
+            z-index: 30;
+            padding: 3rem var(--edge-pad) 0;
             --nav-ink: var(--ink-cream);
             --nav-ink-soft: var(--ink-cream-soft);
         }
         .nav {
-            width: 100%; max-width: var(--max-content);
+            max-width: var(--max-content);
+            margin: 0 auto;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 3rem var(--edge-pad) 0;
         }
         .nav-title {
             font-family: 'Space Grotesk', sans-serif;
@@ -122,7 +123,8 @@ description: Dispatches from the lab — product announcements, research notes, 
             color: var(--ink-cream);
             margin-bottom: 1.25rem;
         }
-        .hero .subtitle {
+        .hero .text {
+            font-family: 'Inter', sans-serif;
             font-size: clamp(1.2rem, 1.7vw, 1.5rem);
             line-height: 1.4;
             letter-spacing: -0.012em;
@@ -130,7 +132,7 @@ description: Dispatches from the lab — product announcements, research notes, 
             font-weight: 400;
             max-width: 46rem;
         }
-        .hero .subtitle strong { color: var(--ink-cream); font-weight: 500; }
+        .hero .text strong { color: var(--ink-cream); font-weight: 500; }
 
         /* FILTER STRIP */
         .filters {
@@ -373,7 +375,7 @@ description: Dispatches from the lab — product announcements, research notes, 
 <section class="hero">
     <div class="hero-inner">
         <h1>Discover</h1>
-        <p class="subtitle">Dispatches from the lab — <strong>product announcements, research notes, and field reports</strong> on what we're building and what we're learning.</p>
+        <p class="text">Dispatches from the lab — <strong>product announcements, research notes, and field reports</strong> on what we're building and what we're learning.</p>
     </div>
 </section>
 
