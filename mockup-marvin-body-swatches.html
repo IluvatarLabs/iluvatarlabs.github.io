@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvin body swatches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1280px;
+            --edge-pad: 3rem;
+            --ink-cream: #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.72);
+            --ink-cream-mute: rgba(245,241,235,0.46);
+            --ink-cream-faint: rgba(245,241,235,0.28);
+            --hair-cream: rgba(245,241,235,0.12);
+            --hair-cream-strong: rgba(245,241,235,0.22);
+            --accent: #4F46E5;
+            --accent-cyan: #06B6D4;
+            --accent-violet: #7B5FE8;
+        }
+
+        html, body {
+            background: #14141A;
+            color: var(--ink-cream);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Page header */
+        .page-head {
+            background: #14141A;
+            padding: 4rem var(--edge-pad) 3rem;
+            border-bottom: 1px solid var(--hair-cream);
+        }
+        .page-head-inner { max-width: var(--max-content); margin: 0 auto; }
+        .page-head h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem; font-weight: 600;
+            letter-spacing: -0.022em;
+            margin-bottom: 0.6rem;
+        }
+        .page-head p {
+            color: var(--ink-cream-soft);
+            font-size: 1.1rem;
+            max-width: 50rem;
+        }
+        .page-head .legend {
+            margin-top: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+        }
+
+        /* Hero (Marvin's actual hero, scaled down for preview) */
+        .hero-preview {
+            position: relative;
+            background:
+                radial-gradient(ellipse 70% 85% at 92% 18%, rgba(79,70,229,0.30) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 70% at 8% 82%, rgba(6,182,212,0.22) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 55% at 50% 55%, rgba(40,33,80,0.45) 0%, transparent 70%),
+                #0B0B10;
+            color: var(--ink-cream);
+            padding: 5rem var(--edge-pad) 4rem;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-preview::before {
+            content: "";
+            position: absolute; inset: 0; pointer-events: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.098  0 0 0 0 0.49  0 0 0 0 0.608  1.3 1.3 1.3 0 -2.15'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+            z-index: 1;
+        }
+        .hero-preview-inner {
+            position: relative; z-index: 2;
+            max-width: var(--max-content); margin: 0 auto;
+        }
+        .hero-preview h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 600;
+            letter-spacing: -0.035em;
+            line-height: 1.02;
+            margin-bottom: 1rem;
+        }
+        .hero-preview .subtitle {
+            font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin: 0 auto 1rem;
+            max-width: 56rem;
+        }
+        .hero-preview .text {
+            font-size: 1.2rem;
+            line-height: 1.55;
+            color: var(--ink-cream-soft);
+            max-width: 52rem;
+            margin: 0 auto;
+        }
+
+        /* Each candidate body section */
+        .candidate {
+            position: relative;
+            padding: 5rem var(--edge-pad) 6rem;
+        }
+        .candidate-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 14rem 1fr;
+            gap: 3rem;
+        }
+        .swatch-meta { position: sticky; top: 2rem; align-self: start; }
+        .swatch-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem; font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .swatch-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            margin-bottom: 1rem;
+        }
+        .swatch-rationale {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.25rem;
+        }
+        .swatch-chip {
+            width: 100%; aspect-ratio: 3/2;
+            border-radius: 4px;
+            border: 1px solid var(--hair-cream);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Sample body content (mimics Marvin's body sections) */
+        .sample {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .sample-section {
+            border-top: 1px solid var(--hair-cream);
+            padding-top: 1.5rem;
+        }
+        .sample-toc-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            margin-bottom: 0.75rem;
+        }
+        .sample h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 600;
+            letter-spacing: -0.022em;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .sample p {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--ink-cream-soft);
+            max-width: 42rem;
+        }
+        .sample p strong { color: var(--ink-cream); font-weight: 500; }
+        .sample p em { color: var(--ink-cream); font-style: italic; }
+        .sample-paper {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border: 1px solid var(--hair-cream-strong);
+            border-radius: 4px;
+        }
+        .sample-paper-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            padding: 0.25rem 0.55rem;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 2px;
+        }
+        .sample-paper-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--ink-cream);
+        }
+        .sample-paper-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--ink-cream-mute);
+        }
+        .sample-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+            background: rgba(245,241,235,0.06);
+            color: var(--ink-cream);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+        .sample-pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--hair-cream);
+            border-radius: 4px;
+            padding: 1rem 1.25rem;
+            color: var(--ink-cream);
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .accent-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.7rem;
+            border-radius: 2px;
+            margin-right: 0.4rem;
+        }
+        .accent-tag.indigo { background: rgba(79,70,229,0.18); color: #A8A2F2; border: 1px solid rgba(79,70,229,0.35); }
+        .accent-tag.cyan   { background: rgba(6,182,212,0.15); color: #5BD5E8; border: 1px solid rgba(6,182,212,0.35); }
+        .accent-tag.violet { background: rgba(123,95,232,0.18); color: #B7A4F2; border: 1px solid rgba(123,95,232,0.35); }
+
+        /* The candidates — values defined inline per section */
+        .c1 { background: #0F1118; }
+        .c2 { background: #191634; }
+        .c3 { background: #1A1D3E; }
+        .c4 { background: #1E1532; }
+        .c5 { background: #0F1820; }
+        .c6 { background: #15193A; }
+        .c7 { background: #1B1B28; }
+
+        .c1 .swatch-chip { background: #0F1118; }
+        .c2 .swatch-chip { background: #191634; }
+        .c3 .swatch-chip { background: #1A1D3E; }
+        .c4 .swatch-chip { background: #1E1532; }
+        .c5 .swatch-chip { background: #0F1820; }
+        .c6 .swatch-chip { background: #15193A; }
+        .c7 .swatch-chip { background: #1B1B28; }
+
+        @media (max-width: 960px) {
+            .candidate-inner { grid-template-columns: 1fr; }
+            .swatch-meta { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-head">
+    <div class="page-head-inner">
+        <h1>Marvin body color — pick one.</h1>
+        <p>Each candidate section below shows the same Marvin body content (TOC label, H2, paragraph, paper card, code, accent tags) on a different proposed body color. The hero at the top is Marvin's current hero, unchanged. Compare readability, mood, and how the transition from hero feels for each.</p>
+        <div class="legend">7 candidates · all in the indigo / violet / cyan family · cream text on dark</div>
+    </div>
+</div>
+
+<!-- Marvin's actual hero, for reference -->
+<div class="hero-preview">
+    <div class="hero-preview-inner">
+        <h2>Marvin</h2>
+        <p class="subtitle">The fully autonomous scientist agent.</p>
+        <p class="text"><strong>Define your research mission and Marvin will take care of the rest.</strong> Marvin automates the workflow end-to-end: literature, hypotheses, experiments, analysis.</p>
+    </div>
+</div>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c1">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Midnight ink</div>
+            <div class="swatch-tag">Option 1 · #0F1118</div>
+            <p class="swatch-rationale">The most subtle transition. Almost the same as the hero base, with a faint blue lift. Reads as "the atmosphere settles." Risk: too close to the hero, page feels monotone.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c2">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Deep violet-indigo</div>
+            <div class="swatch-tag">Option 2 · #191634</div>
+            <p class="swatch-rationale">Lighter than the hero, pulls toward violet rather than pure blue. Reads as a dedicated study room — saturated enough to be a color, not a neutral. Distinct from About's indigo.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c3">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Twilight indigo</div>
+            <div class="swatch-tag">Option 3 · #1A1D3E</div>
+            <p class="swatch-rationale">Cooler, more blue, less violet. Closest to About's mid-indigo but slightly more saturated. Conservative. Risk: starts to feel like About.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c4">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Aubergine</div>
+            <div class="swatch-tag">Option 4 · #1E1532</div>
+            <p class="swatch-rationale">Most violet, slight warmth. Almost a deep eggplant. Reads as rich and editorial. The cyan accent pops harder against this. Boldest choice.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c5">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Deep teal-slate</div>
+            <div class="swatch-tag">Option 5 · #0F1820</div>
+            <p class="swatch-rationale">Pulls from the cyan/teal grain of the hero. Pure dark blue-green. Feels like deep ocean. Very distinct from About. Risk: violet accent reads less harmonious.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c6">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Indigo wash</div>
+            <div class="swatch-tag">Option 6 · #15193A</div>
+            <p class="swatch-rationale">Balanced blue-violet, mid-saturation. Splits the difference between Twilight indigo and Deep violet-indigo. Quietly confident, won't fight the accents.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ────────────────────────────────────────────────────────────── -->
+<section class="candidate c7">
+    <div class="candidate-inner">
+        <aside class="swatch-meta">
+            <div class="swatch-chip"></div>
+            <div class="swatch-name">Slate plum</div>
+            <div class="swatch-tag">Option 7 · #1B1B28</div>
+            <p class="swatch-rationale">Warmer, near-neutral with a violet undertone. Not aggressively colored. Reads as restrained luxury. Doesn't compete with the hero's atmosphere.</p>
+        </aside>
+        <div class="sample">
+            <div class="sample-section">
+                <div class="sample-toc-label">Why we built this</div>
+                <h2>The research cycle, automated.</h2>
+                <p>Marvin synthesizes the relevant literature, integrates the public datasets, and produces a <strong>full logic trail</strong>. Pipelines are reproducible end-to-end and licensed Apache 2.0.</p>
+                <p>Each <em>hypothesis</em> carries a confidence tier, including a tier for what we did not measure. The <span class="sample-code">--accent</span> primitive renders identically on every body color.</p>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Recent paper</div>
+                <div class="sample-paper">
+                    <span class="sample-paper-tag">Vera</span>
+                    <span class="sample-paper-title">Compositional reasoning across structurally independent documents</span>
+                    <span class="sample-paper-meta">Mar 2026</span>
+                </div>
+            </div>
+            <div class="sample-section">
+                <div class="sample-toc-label">Accents</div>
+                <p>
+                    <span class="accent-tag indigo">indigo</span>
+                    <span class="accent-tag cyan">cyan</span>
+                    <span class="accent-tag violet">violet</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
