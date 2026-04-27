@@ -398,17 +398,18 @@ permalink: /iori/
             gap: 0.7rem;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--surface-deep);
-            padding: 3rem var(--edge-pad);
-            border-top: 1px solid var(--hair-cream);
+        /* Footer — sits on the last section's surface (warm white "How
+           it works"), no separator. Dark ink to match that section. */
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+            background: var(--surface-light);
         }
-        .footer-inner {
+        .site-footer-inner {
             max-width: var(--max-content);
             margin: 0 auto;
-            font-size: 0.92rem;
-            color: var(--ink-cream-mute);
+            font-size: 1rem;
+            color: var(--ink-dark-mute);
+            letter-spacing: -0.005em;
         }
 
         /* Responsive */
@@ -564,9 +565,7 @@ permalink: /iori/
     </div>
 </section>
 
-<footer class="footer">
-    <div class="footer-inner">&copy; 2026 Iluvatar Labs · IORI</div>
-</footer>
+{% include footer.html %}
 
 </body>
 </html>

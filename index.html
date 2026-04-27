@@ -581,17 +581,19 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .lab-card .lab-meta { margin-bottom: 0.9rem; }
         .lab-card .lab-authors { font-size: 1.05rem; margin: 0; }
 
-        /* ── Footer: blends into the lab section, just a © ── */
-        .lab-copy {
-            margin-top: 8rem;
-            font-family: 'Inter', sans-serif;
+        /* ── Footer — uniform across all pages, sits on the last
+           section's surface (the lab section's slightly indigo
+           charcoal). No separator. ── */
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+            background: #1C1C28;
+        }
+        .site-footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
             font-size: 1rem;
-            font-weight: 400;
             color: var(--ink-cream-mute);
             letter-spacing: -0.005em;
-            text-align: left;
-            position: relative;
-            z-index: 2;
         }
 
         /* ── Responsive ── */
@@ -758,8 +760,6 @@ description: A post-training & research lab. Closing the loop on post-training, 
                 </a>
                 {% endfor %}
             </div>
-
-            <div class="lab-copy">&copy; {{ "now" | date: "%Y" }} Iluvatar Labs</div>
         </div>
     </section>
 
@@ -1225,6 +1225,8 @@ description: A post-training & research lab. Closing the loop on post-training, 
     window.addEventListener('resize', () => { clearTimeout(window._marResize); window._marResize = setTimeout(init, 150); });
 })();
 </script>
+
+{% include footer.html %}
 
 </body>
 </html>

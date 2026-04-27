@@ -345,6 +345,18 @@ description: Dispatches from the lab — product announcements, research notes, 
             padding: 3rem 0;
         }
 
+        /* Footer — sits on cream body bg (matches last section). */
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+        }
+        .site-footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            font-size: 1rem;
+            color: var(--ink-dark-mute);
+            letter-spacing: -0.005em;
+        }
+
         @media (max-width: 960px) {
             :root { --edge-pad: 1.5rem; }
             .hero { padding: 6rem var(--edge-pad) 3rem; min-height: auto; }
@@ -461,6 +473,8 @@ description: Dispatches from the lab — product announcements, research notes, 
     });
 })();
 </script>
+
+{% include footer.html %}
 
 </body>
 </html>

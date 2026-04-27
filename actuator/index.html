@@ -586,6 +586,21 @@ permalink: /actuator/
         @media (max-width: 1399px) {
             .toc { display: none; }
         }
+
+        /* Footer — sits on the dark .body surface (the last section is
+           inside it), no separator. */
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+            background: var(--ink-dark);
+        }
+        .site-footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            font-size: 1rem;
+            color: var(--ink-cream-mute);
+            letter-spacing: -0.005em;
+        }
+
         @media (max-width: 960px) {
             :root { --edge-pad: 1.5rem; }
             .hero { padding: 6rem var(--edge-pad) 3rem; min-height: auto; }
@@ -970,6 +985,8 @@ permalink: /actuator/
     targets.forEach(t => observer.observe(t));
 })();
 </script>
+
+{% include footer.html %}
 
 </body>
 </html>

@@ -493,6 +493,18 @@ permalink: /marvin/
         }
         .access .mail:hover { color: var(--accent); border-color: var(--accent); }
 
+        /* Footer — sits on body bg (matches last section), no separator. */
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+        }
+        .site-footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            font-size: 1rem;
+            color: var(--ink-cream-mute);
+            letter-spacing: -0.005em;
+        }
+
         /* Responsive */
         @media (max-width: 1399px) {
             .toc { display: none; }
@@ -889,6 +901,8 @@ window.addEventListener('load', function() {
     }
 });
 </script>
+
+{% include footer.html %}
 
 </body>
 </html>

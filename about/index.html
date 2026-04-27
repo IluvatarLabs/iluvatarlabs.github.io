@@ -452,16 +452,18 @@ permalink: /about/
         }
 
         /* ────────────────────────────────────────────────────────────── */
-        /* FOOTER — same minimal treatment on every page.                  */
+        /* FOOTER — uniform across all pages, no separator, sits on the
+           last section's background.                                     */
         /* ────────────────────────────────────────────────────────────── */
-        .footer {
-            padding: 2rem var(--edge-pad);
-            background: var(--bg-deep);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.74rem;
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+        }
+        .site-footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            font-size: 1rem;
             color: var(--ink-cream-mute);
-            letter-spacing: 0.06em;
-            text-align: center;
+            letter-spacing: -0.005em;
         }
 
         @media (max-width: 960px) {
@@ -602,10 +604,7 @@ permalink: /about/
     <a class="read-link" href="/blog/">Read the archives <span>&rarr;</span></a>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-    &copy; 2026 Iluvatar Labs.
-</footer>
+{% include footer.html %}
 
 </body>
 </html>
