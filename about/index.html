@@ -19,26 +19,33 @@ permalink: /about/
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --max-content: 1200px;
+            --max-content: 1280px;
             --edge-pad: 3rem;
             --ink-cream:      #F5F1EB;
             --ink-cream-soft: rgba(245,241,235,0.72);
-            --ink-cream-dim:  rgba(245,241,235,0.55);
-            --ink-cream-mute: rgba(245,241,235,0.38);
+            --ink-cream-mute: rgba(245,241,235,0.46);
+            --ink-cream-faint: rgba(245,241,235,0.28);
             --ink-dark:       #14141A;
-            --ink-dark-soft:  rgba(20,20,26,0.68);
-            --hair-cream:     rgba(245,241,235,0.18);
-            --hair-dark:      rgba(20,20,26,0.12);
+            --ink-dark-soft:  rgba(20,20,26,0.72);
+            --ink-dark-mute:  rgba(20,20,26,0.46);
+            --ink-dark-faint: rgba(20,20,26,0.28);
+            --hair-cream:        rgba(245,241,235,0.12);
+            --hair-cream-strong: rgba(245,241,235,0.22);
+            --hair-dark:         rgba(20,20,26,0.12);
+            --hair-dark-strong:  rgba(20,20,26,0.22);
 
-            /* Indigo/purple panel — meh_alt2 vibe, stays in site palette */
+            /* Indigo/purple panel — page-specific palette */
             --indigo-top:     #2A2960;
             --indigo-mid:     #1E1D44;
             --indigo-deep:    #16162E;
             --bg:             #14141A;
             --bg-deep:        #0E0E14;
 
-            --coral:          #E97B6A;
-            --coral-deep:     #CC6A5B;
+            --accent:         #E97B6A;
+            --accent-deep:    #CC6A5B;
+            /* Legacy aliases — keep until rules below are migrated */
+            --coral:          var(--accent);
+            --coral-deep:     var(--accent-deep);
             --panel-warm:     #E8D8C4;
             --panel-warm-2:   #DFC8AB;
         }
@@ -113,13 +120,12 @@ permalink: /about/
             max-width: var(--max-content);
             margin: 0 auto;
         }
-        /* Marvin's h1 spec exactly. */
         .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(4rem, 9vw, 7.5rem);
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 6.25rem);
             line-height: 1.02;
-            letter-spacing: -0.04em;
-            font-weight: 700;
+            letter-spacing: -0.035em;
+            font-weight: 600;
             color: var(--ink-cream);
             margin-bottom: 1.25rem;
         }
@@ -263,11 +269,11 @@ permalink: /about/
         }
         .card h3 {
             position: relative; z-index: 2;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: clamp(2rem, 3vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -0.035em;
-            line-height: 1;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
             color: var(--ink-cream);
             margin-bottom: 1.1rem;
         }
@@ -315,9 +321,9 @@ permalink: /about/
             margin-bottom: 0.4rem;
         }
         .iori-tile h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.4rem; font-weight: 700; letter-spacing: -0.025em;
-            line-height: 1.1;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem; font-weight: 600; letter-spacing: -0.022em;
+            line-height: 1.15;
             margin-bottom: 0.4rem;
             color: var(--ink-cream);
         }

@@ -22,12 +22,17 @@ description: Dispatches from the lab — product announcements, research notes, 
             --max-content: 1280px;
             --edge-pad: 3rem;
             --ink-cream:      #F5F1EB;
-            --ink-cream-soft: rgba(245,241,235,0.68);
-            --ink-cream-mute: rgba(245,241,235,0.42);
+            --ink-cream-soft: rgba(245,241,235,0.72);
+            --ink-cream-mute: rgba(245,241,235,0.46);
+            --ink-cream-faint: rgba(245,241,235,0.28);
             --ink-dark:       #14141A;
-            --ink-dark-soft:  rgba(20,20,26,0.68);
-            --ink-dark-mute:  rgba(20,20,26,0.42);
-            --ink-dark-faint: rgba(20,20,26,0.08);
+            --ink-dark-soft:  rgba(20,20,26,0.72);
+            --ink-dark-mute:  rgba(20,20,26,0.46);
+            --ink-dark-faint: rgba(20,20,26,0.28);
+            --hair-cream:        rgba(245,241,235,0.12);
+            --hair-cream-strong: rgba(245,241,235,0.22);
+            --hair-dark:         rgba(20,20,26,0.12);
+            --hair-dark-strong:  rgba(20,20,26,0.22);
             --page-bg:        #FAFAF5;
             --hero-bg:        #0E0E14;
             --accent:         #E97B6A;
@@ -109,11 +114,11 @@ description: Dispatches from the lab — product announcements, research notes, 
             width: 100%;
         }
         .hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
-            line-height: 1;
-            letter-spacing: -0.04em;
-            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            font-weight: 600;
             color: var(--ink-cream);
             margin-bottom: 1.25rem;
         }
@@ -129,8 +134,8 @@ description: Dispatches from the lab — product announcements, research notes, 
 
         /* FILTER STRIP */
         .filters {
-            border-top: 1px solid var(--ink-dark-faint);
-            border-bottom: 1px solid var(--ink-dark-faint);
+            border-top: 1px solid var(--hair-dark);
+            border-bottom: 1px solid var(--hair-dark);
             padding: 1.5rem var(--edge-pad);
             background: var(--page-bg);
         }
@@ -281,13 +286,13 @@ description: Dispatches from the lab — product announcements, research notes, 
         /* POST LIST */
         .posts {
             padding: 2rem var(--edge-pad) 8rem;
-            border-top: 1px solid var(--ink-dark-faint);
+            border-top: 1px solid var(--hair-dark);
         }
         .posts-inner { max-width: var(--max-content); margin: 0 auto; }
         .post {
             display: block;
             padding: 2.5rem 0;
-            border-bottom: 1px solid var(--ink-dark-faint);
+            border-bottom: 1px solid var(--hair-dark);
             text-decoration: none;
             color: inherit;
         }
