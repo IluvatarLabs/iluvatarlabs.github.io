@@ -158,9 +158,10 @@ permalink: /about/
         /* Same indigo surface as hero, just shifted darker.               */
         /* ────────────────────────────────────────────────────────────── */
         .thesis {
-            background: linear-gradient(180deg, var(--indigo-mid) 0%, var(--indigo-deep) 100%);
+            background: var(--indigo-mid);
             color: var(--ink-cream);
-            padding: 7rem var(--edge-pad) 9rem;
+            padding: 7rem var(--edge-pad) 7rem;
+            border-top: 1px solid var(--hair-cream);
         }
         .thesis-inner {
             max-width: var(--max-content);
@@ -207,154 +208,81 @@ permalink: /about/
         .thesis-col p strong { color: var(--ink-cream); font-weight: 500; }
 
         /* ────────────────────────────────────────────────────────────── */
-        /* 3. PRODUCTS — dark, two gradient cards + IORI tile.             */
+        /* 3. TEAM — placeholder cards on the same indigo surface, with    */
+        /* a hairline separator from the section above.                    */
         /* ────────────────────────────────────────────────────────────── */
-        .products {
-            background: var(--bg);
+        .team {
+            background: var(--indigo-mid);
             color: var(--ink-cream);
-            padding: 7rem var(--edge-pad) 6rem;
+            padding: 7rem var(--edge-pad) 7rem;
+            border-top: 1px solid var(--hair-cream);
         }
-        .products-head {
-            max-width: var(--max-content);
-            margin: 0 auto 3rem;
-            text-align: center;
-        }
-        .products-head h2 {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.85rem, 3.2vw, 2.65rem);
-            font-weight: 600;
-            letter-spacing: -0.028em;
-            line-height: 1;
-            color: var(--ink-cream);
-        }
-        .products-grid {
+        .team-inner {
             max-width: var(--max-content);
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
         }
-        .card {
-            position: relative;
-            border-radius: 14px;
-            padding: 2.25rem 2.25rem 2rem;
-            overflow: hidden;
-            min-height: 20rem;
+        .team h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            color: var(--ink-cream);
+            margin-bottom: 4rem;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+        .team-card {
             display: flex;
             flex-direction: column;
-            color: var(--ink-cream);
-            text-decoration: none;
-            transition: transform 0.2s;
         }
-        .card:hover { transform: translateY(-3px); }
-        .card.actuator {
+        .team-photo {
+            aspect-ratio: 4 / 5;
+            border-radius: 10px;
+            margin-bottom: 1.6rem;
             background:
-                radial-gradient(ellipse 95% 95% at 88% 8%, rgba(233,143,102,0.45) 0%, transparent 55%),
-                radial-gradient(ellipse 85% 85% at 8% 110%, rgba(60,45,140,0.72) 0%, transparent 58%),
-                linear-gradient(135deg, #2A1F5E 0%, #1C1738 100%);
+                radial-gradient(ellipse 100% 90% at 70% 20%, rgba(233,123,106,0.35) 0%, transparent 55%),
+                radial-gradient(ellipse 90% 90% at 20% 100%, rgba(40,33,80,0.65) 0%, transparent 60%),
+                #2C2754;
         }
-        .card.marvin {
+        .team-photo-b {
             background:
-                radial-gradient(ellipse 95% 85% at 12% 8%, rgba(255,180,140,0.28) 0%, transparent 55%),
-                radial-gradient(ellipse 85% 85% at 92% 110%, rgba(140,40,80,0.6) 0%, transparent 58%),
-                linear-gradient(135deg, #4E2032 0%, #2D1420 100%);
+                radial-gradient(ellipse 100% 90% at 30% 25%, rgba(120,200,180,0.22) 0%, transparent 55%),
+                radial-gradient(ellipse 90% 90% at 80% 100%, rgba(40,33,80,0.65) 0%, transparent 60%),
+                #1F2050;
         }
-        .card-grain {
-            position: absolute; inset: 0; pointer-events: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.05' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.45'/></svg>");
-            opacity: 0.18;
-            mix-blend-mode: overlay;
-        }
-        .card-tag {
-            position: relative; z-index: 2;
+        .team-role {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem; letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: rgba(245,241,235,0.6);
-            margin-bottom: 1.75rem;
-        }
-        .card h3 {
-            position: relative; z-index: 2;
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(2rem, 3vw, 2.5rem);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            color: var(--ink-cream);
-            margin-bottom: 1.1rem;
-        }
-        .card-body {
-            position: relative; z-index: 2;
-            font-size: 0.98rem;
-            line-height: 1.6;
-            color: rgba(245,241,235,0.82);
-            margin-bottom: auto;
-            max-width: 26rem;
-        }
-        .card-cta {
-            position: relative; z-index: 2;
-            margin-top: 2rem;
             font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--ink-cream);
-            display: inline-flex; align-items: center; gap: 0.45rem;
-            transition: gap 0.2s;
-        }
-        .card:hover .card-cta { gap: 0.7rem; }
-
-        .iori-tile {
-            grid-column: 1 / -1;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 1.75rem;
-            align-items: center;
-            background:
-                radial-gradient(ellipse 80% 180% at 100% 50%, rgba(111,164,136,0.48) 0%, transparent 55%),
-                linear-gradient(135deg, #1E3228 0%, #14221B 100%);
-            border-radius: 12px;
-            padding: 1.65rem 2.25rem;
-            color: var(--ink-cream);
-            text-decoration: none;
-            position: relative; overflow: hidden;
-            transition: transform 0.2s;
-        }
-        .iori-tile:hover { transform: translateY(-2px); }
-        .iori-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem; letter-spacing: 0.22em;
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: rgba(245,241,235,0.6);
-            margin-bottom: 0.4rem;
+            color: var(--ink-cream-mute);
+            margin-bottom: 0.6rem;
         }
-        .iori-tile h3 {
+        .team-card h3 {
             font-family: 'Inter', sans-serif;
-            font-size: 1.4rem; font-weight: 600; letter-spacing: -0.022em;
-            line-height: 1.15;
-            margin-bottom: 0.4rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.018em;
             color: var(--ink-cream);
+            margin-bottom: 0.85rem;
         }
-        .iori-tile p {
-            font-size: 0.93rem;
-            color: rgba(245,241,235,0.8);
-            line-height: 1.5;
-            max-width: 38rem;
+        .team-bio {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--ink-cream-soft);
+            max-width: 32rem;
         }
-        .iori-cta {
-            font-size: 0.95rem; font-weight: 500;
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            color: var(--ink-cream);
-            transition: gap 0.2s;
-            white-space: nowrap;
-        }
-        .iori-tile:hover .iori-cta { gap: 0.65rem; }
-        .iori-svg { flex-shrink: 0; opacity: 0.85; }
 
         /* ────────────────────────────────────────────────────────────── */
         /* 4. OUTREACH — same dark indigo as the rest of the page;         */
         /* hairline separator at top, larger body text.                    */
         /* ────────────────────────────────────────────────────────────── */
         .outreach {
-            background: var(--indigo-deep);
+            background: var(--indigo-mid);
             color: var(--ink-cream);
             padding: 7rem var(--edge-pad);
             border-top: 1px solid var(--hair-cream);
@@ -387,25 +315,25 @@ permalink: /about/
         }
         .route-label {
             font-family: 'Inter', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.012em;
             color: var(--ink-cream);
-            margin-bottom: 0.55rem;
+            margin-bottom: 0.65rem;
         }
         .route-desc {
-            font-size: 1.05rem;
+            font-size: 1.2rem;
             line-height: 1.55;
             color: var(--ink-cream-soft);
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.85rem;
         }
         .route-email {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             color: var(--ink-cream);
             text-decoration: none;
             border-bottom: 1px solid var(--hair-cream-strong);
-            padding-bottom: 1px;
+            padding-bottom: 2px;
             transition: border-color 0.2s;
         }
         .route-email:hover { border-color: var(--ink-cream); }
@@ -415,7 +343,7 @@ permalink: /about/
         /* IORI hero h1 size).                                              */
         /* ────────────────────────────────────────────────────────────── */
         .archives {
-            background: var(--indigo-deep);
+            background: var(--indigo-mid);
             color: var(--ink-cream);
             padding: 8rem var(--edge-pad);
             text-align: center;
@@ -435,11 +363,11 @@ permalink: /about/
         }
         .archives .read-link {
             display: inline-flex;
-            align-items: center; gap: 0.5rem;
-            padding: 0.65rem 1.25rem;
+            align-items: center; gap: 0.55rem;
+            padding: 0.85rem 1.6rem;
             border: 1px solid var(--hair-cream);
             border-radius: 999px;
-            font-size: 0.9rem;
+            font-size: 1.15rem;
             font-weight: 500;
             color: var(--ink-cream);
             text-decoration: none;
@@ -486,15 +414,11 @@ permalink: /about/
             .hero { padding: 8rem var(--edge-pad) 4rem; }
             .thesis { padding: 5rem var(--edge-pad) 6rem; }
             .thesis-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .products { padding: 5rem var(--edge-pad); }
-            .products-grid { grid-template-columns: 1fr; }
-            .iori-tile { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem 1.75rem; }
-            .iori-cta { justify-self: start; }
-            .iori-svg { display: none; }
+            .team { padding: 5rem var(--edge-pad); }
+            .team-grid { grid-template-columns: 1fr; gap: 2.25rem; }
             .outreach { padding: 5rem var(--edge-pad); }
             .outreach-routes { grid-template-columns: 1fr; gap: 0; }
             .archives { padding: 4rem var(--edge-pad); }
-            .card { padding: 1.75rem; min-height: 17rem; }
         }
     </style>
 </head>
@@ -528,39 +452,24 @@ permalink: /about/
     </div>
 </section>
 
-<!-- 3. PRODUCTS: dark, gradient cards, IORI tile -->
-<section class="products" id="products">
-    <div class="products-head">
-        <h2>Our products.</h2>
-    </div>
-    <div class="products-grid">
-
-        <a class="card actuator" href="/actuator/">
-            <div class="card-grain"></div>
-            <span class="card-tag">Control</span>
-            <h3>Actuator.</h3>
-            <p class="card-body">A patent-pending closed-loop control layer for model transformation. Live training-time monitoring and in-flight adjustments, so post-training stops quietly losing the capabilities teams started with. Built for small and mid-size post-training teams, and for regulated verticals like finance, medical, and legal.</p>
-            <span class="card-cta">Read about Actuator <span>&rarr;</span></span>
-        </a>
-
-        <a class="card marvin" href="/marvin/">
-            <div class="card-grain"></div>
-            <span class="card-tag">Auditability</span>
-            <h3>Marvin.</h3>
-            <p class="card-body">An autonomous scientist with a complete logic trail. PhD-level research end-to-end: literature synthesis, hypothesis generation, experiment design, execution, analysis. Every result and decision versioned and reviewable, backed by a persistent memory system. Built for research teams, academic labs, and graduate students.</p>
-            <span class="card-cta">Read about Marvin <span>&rarr;</span></span>
-        </a>
-
-        <a class="iori-tile" href="/iori/">
-            <svg class="iori-svg" width="48" height="48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-about-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-about-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="#F5F1EB" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-about-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-about-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="#F5F1EB" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
-            <div>
-                <div class="iori-tag">Open research program</div>
-                <h3>Iluvatar Open Research Initiative.</h3>
-                <p>A public test of the thesis. Computational biology projects done openly by Marvin, reviewed by Iluvatar scientists, advanced with the research community.</p>
+<!-- 3. TEAM — placeholder cards, two to start. -->
+<section class="team" id="team">
+    <div class="team-inner">
+        <h2>Team.</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo team-photo-a"></div>
+                <div class="team-role">Founder & CEO</div>
+                <h3>Ben Zhao</h3>
+                <p class="team-bio">Placeholder bio. ML researcher and engineer; founded Iluvatar Labs to close the loop between post-training and trust.</p>
             </div>
-            <span class="iori-cta">Visit IORI <span>&rarr;</span></span>
-        </a>
-
+            <div class="team-card">
+                <div class="team-photo team-photo-b"></div>
+                <div class="team-role">Placeholder</div>
+                <h3>Name forthcoming</h3>
+                <p class="team-bio">Placeholder bio. Brief sentence about the role and background goes here.</p>
+            </div>
+        </div>
     </div>
 </section>
 
