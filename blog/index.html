@@ -34,7 +34,7 @@ description: Dispatches from the lab — product announcements, research notes, 
             --hair-dark:         rgba(20,20,26,0.12);
             --hair-dark-strong:  rgba(20,20,26,0.22);
             --page-bg:        #FAFAF5;
-            --hero-bg:        #0E0E14;
+            --hero-bg:        #14141A;
             --accent:         #E97B6A;
             --accent-deep:    #CC6A5B;
         }
@@ -142,7 +142,7 @@ description: Dispatches from the lab — product announcements, research notes, 
             background: var(--page-bg);
         }
         .filters-inner {
-            max-width: 1080px;
+            max-width: var(--max-content);
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -190,7 +190,7 @@ description: Dispatches from the lab — product announcements, research notes, 
 
         /* FEATURED POST */
         .featured { padding: 3.5rem var(--edge-pad) 3rem; }
-        .featured-inner { max-width: 1080px; margin: 0 auto; }
+        .featured-inner { max-width: var(--max-content); margin: 0 auto; }
         .featured-post {
             display: grid;
             grid-template-columns: 1fr 1.5fr;
@@ -290,7 +290,7 @@ description: Dispatches from the lab — product announcements, research notes, 
             padding: 1.5rem var(--edge-pad) 6rem;
             border-top: 1px solid var(--hair-dark);
         }
-        .posts-inner { max-width: 1080px; margin: 0 auto; }
+        .posts-inner { max-width: var(--max-content); margin: 0 auto; }
         .post {
             display: block;
             padding: 1.85rem 0;
