@@ -149,17 +149,13 @@ permalink: /actuator/
         .hero {
             position: relative;
             min-height: 65vh;
-            /* Silver-gray base + cool radial atmosphere on top. The base
-               (#D5D7DC) leans monochrome silver / industrial — distinct
-               from the cream body that follows. Atmospheric washes are
-               kept in the same indigo / cyan / violet family as before
-               but re-tuned slightly for the gray base. */
+            /* Warm white (matches Discover body) + corner glows in the
+               coral / indigo accent family. Same shape as the other
+               page heroes — no silver-gray base anymore. */
             background:
-                radial-gradient(ellipse 110% 95% at 98% 8%, rgba(79,70,229,0.20) 0%, rgba(79,70,229,0) 58%),
-                radial-gradient(ellipse 100% 90% at 2% 100%, rgba(6,182,212,0.18) 0%, rgba(6,182,212,0) 62%),
-                radial-gradient(ellipse 75% 65% at 55% 62%, rgba(123,95,232,0.10) 0%, rgba(123,95,232,0) 70%),
-                radial-gradient(ellipse 140% 100% at 50% 50%, rgba(220,222,232,0.18) 0%, rgba(220,222,232,0) 75%),
-                #D5D7DC;
+                radial-gradient(ellipse 100% 90% at 95% 8%, rgba(233,123,106,0.18) 0%, rgba(233,123,106,0) 60%),
+                radial-gradient(ellipse 95% 85% at 5% 100%, rgba(79,70,229,0.14) 0%, rgba(79,70,229,0) 65%),
+                #FAFAF5;
             padding: 7.5rem var(--edge-pad) 4rem;
             display: flex;
             flex-direction: column;
