@@ -800,163 +800,207 @@ window.addEventListener('load', function() {
 </script>
 
 <script>
-/* Knowledge graph — layered memory ontology. Four tiers, top-down:
-   Mission → Hypotheses → Experiments → Literature. Edges run mostly
-   between adjacent tiers; sparse skip edges (warm-orange) connect
-   high-level intent directly to evidence. */
-window.addEventListener('load', function() {
-    var canvas = document.getElementById('graphCanvas');
+/* Mithril memory ontology — animated constellation. Same proximity-
+   based edge logic as the homepage Marvin panel, but a chosen set of
+   nodes carries explicit memory-ontology labels (Mission, Hypotheses,
+   Experiments, Findings, citation refs) that drift with the rest of
+   the field. Reads as a living memory graph, not a hierarchy. */
+(function() {
+    const canvas = document.getElementById('graphCanvas');
     if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    ctx.setTransform(2, 0, 0, 2, 0, 0);
-    var W = 720, H = 360;
+    const container = canvas.parentElement;
+    let w, h, nodes, halos, ripples, labeled, animId;
 
-    var tiers = [
-        { label: 'Mission',     y: 50,  count: 2,  spread: 0.30, size: [4.2, 5.6] },
-        { label: 'Hypotheses',  y: 135, count: 5,  spread: 0.62, size: [3.0, 4.4] },
-        { label: 'Experiments', y: 220, count: 11, spread: 0.84, size: [2.4, 3.6] },
-        { label: 'Literature',  y: 305, count: 22, spread: 0.94, size: [1.8, 2.8] },
+    const INK = '245,241,235';
+    const ACCENT = '224,129,74';   /* warm orange — Marvin's secondary accent */
+    const MAX_DIST = 82;
+    const TARGET_AREA_PER_NODE = 1100;
+
+    /* Sample of what Mithril actually stores. Drawn from these slots
+       in priority order; spaced apart in setup() so labels don't pile
+       on top of each other. */
+    const LABEL_SPECS = [
+        { text: 'Mission',          size: 4.6, accent: true  },
+        { text: 'Hypothesis #2',    size: 3.7, accent: true  },
+        { text: 'Hypothesis #5',    size: 3.5, accent: false },
+        { text: 'Experiment #1',    size: 3.1, accent: false },
+        { text: 'Experiment #4',    size: 3.1, accent: false },
+        { text: 'Finding #3',       size: 3.0, accent: true  },
+        { text: 'Finding #7',       size: 3.0, accent: false },
+        { text: 'arXiv:2401.15077', size: 2.5, accent: false },
+        { text: 'PMID 38421155',    size: 2.5, accent: false },
     ];
 
-    var nodes = [];
-    tiers.forEach(function(tier, ti) {
-        var pad = (1 - tier.spread) / 2 * W;
-        var span = W - 2 * pad;
-        for (var i = 0; i < tier.count; i++) {
-            var x = pad + ((i + 0.5) / tier.count) * span + (Math.random() - 0.5) * (span / tier.count) * 0.55;
-            var y = tier.y + (Math.random() - 0.5) * 14;
-            var size = tier.size[0] + Math.random() * (tier.size[1] - tier.size[0]);
-            nodes.push({ x: x, y: y, tier: ti, size: size });
-        }
-    });
+    function setup() {
+        const rect = container.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return false;
+        canvas.width = rect.width * 2; canvas.height = rect.height * 2;
+        w = rect.width; h = rect.height;
 
-    /* Edges form a connected graph, not a strict tree. Three families:
-       (1) inter-tier edges between adjacent layers (each node to 2–4
-           nearest neighbors), (2) lateral edges within a tier between
-           neighboring siblings, and (3) skip edges that jump multiple
-           tiers in either direction (feedback included). */
-    var edges = [];
-    var seen = {};
-    function addEdge(from, to, type) {
-        if (from === to) return;
-        var k1 = nodes.indexOf(from), k2 = nodes.indexOf(to);
-        var key = Math.min(k1, k2) + '_' + Math.max(k1, k2);
-        if (seen[key]) return;
-        seen[key] = true;
-        edges.push({ from: from, to: to, type: type });
+        const nodeCount = Math.max(120, Math.min(320, Math.floor((w * h) / TARGET_AREA_PER_NODE)));
+        nodes = [];
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * 0.14,
+                vy: (Math.random() - 0.5) * 0.14,
+                size: 1.0 + Math.random() * 2.2,
+                brightness: 0.25 + Math.random() * 0.55,
+                pulsePhase: Math.random() * Math.PI * 2,
+                pulseSpeed: 0.008 + Math.random() * 0.014,
+                accent: Math.random() < 0.10,
+            });
+        }
+
+        /* Promote a well-spaced subset of nodes to "labeled" status —
+           larger, brighter, drawn with a halo, and tagged with text. */
+        labeled = [];
+        const pool = nodes.slice();
+        for (let i = 0; i < LABEL_SPECS.length && pool.length > 0; i++) {
+            let bestIdx = 0, bestScore = -1;
+            for (let p = 0; p < pool.length; p++) {
+                let minD = Infinity;
+                for (let j = 0; j < labeled.length; j++) {
+                    const dx = pool[p].x - labeled[j].node.x;
+                    const dy = pool[p].y - labeled[j].node.y;
+                    const d = Math.sqrt(dx*dx + dy*dy);
+                    if (d < minD) minD = d;
+                }
+                if (minD > bestScore) { bestScore = minD; bestIdx = p; }
+            }
+            const node = pool[bestIdx];
+            const spec = LABEL_SPECS[i];
+            node.size = spec.size;
+            node.brightness = 0.95;
+            node.accent = spec.accent;
+            labeled.push({ node: node, text: spec.text });
+            pool.splice(bestIdx, 1);
+        }
+
+        halos = labeled.map(L => ({ node: L.node, phase: Math.random() * Math.PI * 2, speed: 0.012 + Math.random() * 0.01 }));
+        ripples = [];
+        return true;
     }
 
-    /* Inter-tier — wider fanout (2-5) so the graph is dense. */
-    nodes.forEach(function(n) {
-        var below = nodes.filter(function(m) { return m.tier === n.tier + 1; });
-        if (below.length === 0) return;
-        below.sort(function(a, b) { return Math.abs(a.x - n.x) - Math.abs(b.x - n.x); });
-        var k = 2 + Math.floor(Math.random() * 4);
-        for (var j = 0; j < Math.min(k, below.length); j++) {
-            addEdge(n, below[j], 'tier');
-        }
-    });
-
-    /* Lateral — within-tier sibling edges. Each node hooks to its 1–2
-       nearest neighbors in the same tier. */
-    tiers.forEach(function(_, ti) {
-        var row = nodes.filter(function(m) { return m.tier === ti; });
-        row.sort(function(a, b) { return a.x - b.x; });
-        row.forEach(function(n, i) {
-            if (i + 1 < row.length && Math.random() < 0.7) addEdge(n, row[i + 1], 'lateral');
-            if (i + 2 < row.length && Math.random() < 0.30) addEdge(n, row[i + 2], 'lateral');
+    function tick() {
+        nodes.forEach(n => {
+            n.x += n.vx; n.y += n.vy;
+            if (n.x < 2)     { n.x = 2;     n.vx = Math.abs(n.vx); }
+            if (n.x > w - 2) { n.x = w - 2; n.vx = -Math.abs(n.vx); }
+            if (n.y < 2)     { n.y = 2;     n.vy = Math.abs(n.vy); }
+            if (n.y > h - 2) { n.y = h - 2; n.vy = -Math.abs(n.vy); }
+            n.pulsePhase += n.pulseSpeed;
         });
-    });
-
-    /* Skip — both directions. Forward jumps (high-level → evidence) and
-       backward jumps (findings refining a hypothesis or mission). */
-    for (var s = 0; s < 14; s++) {
-        var a = Math.floor(Math.random() * tiers.length);
-        var b = Math.floor(Math.random() * tiers.length);
-        if (Math.abs(a - b) < 2) continue;
-        var fromPool = nodes.filter(function(m) { return m.tier === a; });
-        var toPool = nodes.filter(function(m) { return m.tier === b; });
-        if (fromPool.length && toPool.length) {
-            addEdge(
-                fromPool[Math.floor(Math.random() * fromPool.length)],
-                toPool[Math.floor(Math.random() * toPool.length)],
-                a < b ? 'skip-fwd' : 'skip-back'
-            );
+        if (Math.random() < 0.016 && ripples.length < 5) {
+            const bright = nodes.filter(n => n.brightness > 0.55);
+            if (bright.length > 0) {
+                const n = bright[Math.floor(Math.random() * bright.length)];
+                ripples.push({ x: n.x, y: n.y, r: n.size + 2, maxR: 34 + Math.random() * 28, alpha: 0.34, accent: n.accent });
+            }
         }
+        ripples.forEach(rp => { rp.r += 0.65; rp.alpha -= 0.006; });
+        ripples = ripples.filter(rp => rp.alpha > 0 && rp.r < rp.maxR);
     }
 
-    edges.forEach(function(e) {
-        if (e.type === 'tier') {
-            ctx.strokeStyle = 'rgba(110,200,230,0.34)';
-            ctx.lineWidth = 0.7;
-        } else if (e.type === 'lateral') {
-            ctx.strokeStyle = 'rgba(220,225,235,0.18)';
-            ctx.lineWidth = 0.55;
-        } else {
-            /* skip-fwd / skip-back — warm orange */
-            ctx.strokeStyle = 'rgba(224,129,74,0.42)';
-            ctx.lineWidth = 0.65;
+    function render() {
+        const ctx = canvas.getContext('2d');
+        ctx.setTransform(2, 0, 0, 2, 0, 0);
+        ctx.clearRect(0, 0, w, h);
+
+        const cell = MAX_DIST;
+        const cols = Math.ceil(w / cell), rows = Math.ceil(h / cell);
+        const grid = Array(cols * rows).fill(null).map(() => []);
+        nodes.forEach((n, idx) => {
+            const cx = Math.min(cols - 1, Math.max(0, Math.floor(n.x / cell)));
+            const cy = Math.min(rows - 1, Math.max(0, Math.floor(n.y / cell)));
+            grid[cy * cols + cx].push(idx);
+        });
+        for (let cy = 0; cy < rows; cy++) {
+            for (let cx = 0; cx < cols; cx++) {
+                const bucket = grid[cy * cols + cx];
+                for (let dy = 0; dy <= 1; dy++) {
+                    for (let dx = -1; dx <= 1; dx++) {
+                        if (dy === 0 && dx < 0) continue;
+                        const nx = cx + dx, ny = cy + dy;
+                        if (nx < 0 || nx >= cols || ny >= rows) continue;
+                        const nb = grid[ny * cols + nx];
+                        for (let i = 0; i < bucket.length; i++) {
+                            for (let j = 0; j < nb.length; j++) {
+                                if (bucket === nb && nb[j] <= bucket[i]) continue;
+                                const a = nodes[bucket[i]], b = nodes[nb[j]];
+                                const ddx = a.x - b.x, ddy = a.y - b.y;
+                                const dist = Math.sqrt(ddx*ddx + ddy*ddy);
+                                if (dist < MAX_DIST) {
+                                    const t = 1 - dist / MAX_DIST;
+                                    const alpha = 0.05 + t * 0.14;
+                                    ctx.strokeStyle = `rgba(${INK},${alpha.toFixed(3)})`;
+                                    ctx.lineWidth = 0.45 + t * 0.55;
+                                    ctx.beginPath();
+                                    ctx.moveTo(a.x, a.y);
+                                    ctx.lineTo(b.x, b.y);
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-        ctx.beginPath();
-        ctx.moveTo(e.from.x, e.from.y);
-        ctx.lineTo(e.to.x, e.to.y);
-        ctx.stroke();
-    });
 
-    nodes.forEach(function(n) {
-        ctx.fillStyle = 'rgba(220,225,235,0.88)';
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
-        ctx.fill();
-    });
-
-    /* Per-node labels on a sample of nodes — examples of what the
-       memory actually stores. Drawn as small mono caps next to the
-       node, offset above or below so they don't collide with edges. */
-    var labelTemplates = [
-        ['Mission'],
-        ['Hypothesis #1', 'Hypothesis #2', 'Hypothesis #3'],
-        ['Experiment #1', 'Experiment #2', 'Finding #4', 'Finding #7'],
-        ['arXiv:2401.15077', 'PMID 38421155', 'Dataset #12']
-    ];
-    ctx.fillStyle = 'rgba(220,225,235,0.62)';
-    ctx.font = "8.5px 'JetBrains Mono', monospace";
-    ctx.textBaseline = 'middle';
-    tiers.forEach(function(tier, ti) {
-        var row = nodes.filter(function(m) { return m.tier === ti; });
-        var templates = labelTemplates[ti];
-        var picks = Math.min(templates.length, row.length);
-        for (var i = 0; i < picks; i++) {
-            var n = row[Math.floor(i * row.length / picks)];
-            var label = templates[i];
-            var aboveTier = ti < 2;
-            ctx.textAlign = 'center';
-            ctx.fillText(label, n.x, n.y + (aboveTier ? -(n.size + 9) : n.size + 9));
-        }
-    });
-
-    /* Tier labels on the left margin — small mono caps. */
-    ctx.fillStyle = 'rgba(220,225,235,0.42)';
-    ctx.font = "9px 'JetBrains Mono', monospace";
-    ctx.textAlign = 'left';
-    tiers.forEach(function(tier) {
-        ctx.fillText(tier.label.toUpperCase(), 14, tier.y);
-    });
-
-    /* Halo a couple key nodes per tier — warm-orange accent. */
-    [0, 1, 2, 3].forEach(function(ti) {
-        var pool = nodes.filter(function(m) { return m.tier === ti; });
-        var picks = ti === 0 ? 1 : (ti === 3 ? 2 : 1);
-        for (var k = 0; k < picks; k++) {
-            var n = pool[Math.floor(Math.random() * pool.length)];
-            ctx.strokeStyle = 'rgba(224,129,74,0.78)';
-            ctx.lineWidth = 1.0;
+        nodes.forEach(n => {
+            const pulse = 1 + Math.sin(n.pulsePhase) * 0.16;
+            const color = n.accent ? ACCENT : INK;
+            ctx.fillStyle = `rgba(${color},${(n.brightness * pulse).toFixed(3)})`;
             ctx.beginPath();
-            ctx.arc(n.x, n.y, n.size + 4.5, 0, Math.PI * 2);
+            ctx.arc(n.x, n.y, n.size * pulse, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        halos.forEach(hl => {
+            hl.phase += hl.speed;
+            const size = hl.node.size + 5 + Math.sin(hl.phase) * 2.5;
+            const alpha = 0.14 + (Math.sin(hl.phase) + 1) * 0.07;
+            const color = hl.node.accent ? ACCENT : INK;
+            ctx.strokeStyle = `rgba(${color},${alpha.toFixed(3)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(hl.node.x, hl.node.y, size, 0, Math.PI * 2);
             ctx.stroke();
-        }
-    });
-});
+        });
+
+        ripples.forEach(rp => {
+            const color = rp.accent ? ACCENT : INK;
+            ctx.strokeStyle = `rgba(${color},${rp.alpha.toFixed(3)})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+            ctx.stroke();
+        });
+
+        /* Labels last — drift with their nodes. */
+        ctx.fillStyle = `rgba(${INK},0.78)`;
+        ctx.font = "10px 'JetBrains Mono', monospace";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        labeled.forEach(L => {
+            ctx.fillText(L.text, L.node.x, L.node.y - L.node.size - 10);
+        });
+
+        tick();
+        animId = requestAnimationFrame(render);
+    }
+
+    function init() {
+        if (animId) cancelAnimationFrame(animId);
+        const ok = setup();
+        if (!ok) { animId = requestAnimationFrame(init); return; }
+        render();
+    }
+
+    window.addEventListener('load', () => setTimeout(init, 50));
+    window.addEventListener('resize', () => { clearTimeout(window._mithrilResize); window._mithrilResize = setTimeout(init, 150); });
+})();
 </script>
 
 {% include footer.html %}
