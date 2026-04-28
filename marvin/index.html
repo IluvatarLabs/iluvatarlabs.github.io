@@ -900,9 +900,10 @@ window.addEventListener('load', function() {
         ripples = [];
 
         /* Spokes: each labeled node is a hub. Connects to (a) all other
-           labeled nodes (the backbone of the ontology) and (b) a number
-           of nearest non-labeled neighbors. Mission gets the most. */
-        const spokeCounts = [16, 9, 9, 8, 8, 8, 8, 5, 5];
+           labeled nodes (the backbone of the ontology) and (b) a large
+           number of nearby non-labeled neighbors. Each spoke is drawn
+           lightly; density is what reads, not individual lines. */
+        const spokeCounts = [34, 22, 22, 18, 18, 18, 18, 12, 12];
         labeled.forEach((L, idx) => {
             L.spokes = [];
             labeled.forEach(other => {
@@ -1000,13 +1001,13 @@ window.addEventListener('load', function() {
         }
 
         /* Hub spokes — drawn after ambient proximity edges, before
-           nodes. More visible than ambient so labeled nodes read as
-           the hubs of the ontology. */
+           nodes. Each individual spoke is light; the hub structure
+           reads through density, not line strength. */
+        ctx.strokeStyle = `rgba(${INK},0.08)`;
+        ctx.lineWidth = 0.45;
         labeled.forEach(L => {
             if (!L.spokes) return;
             L.spokes.forEach(target => {
-                ctx.strokeStyle = `rgba(${INK},0.22)`;
-                ctx.lineWidth = 0.7;
                 ctx.beginPath();
                 ctx.moveTo(L.node.x, L.node.y);
                 ctx.lineTo(target.x, target.y);
