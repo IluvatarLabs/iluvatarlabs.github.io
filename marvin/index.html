@@ -406,22 +406,6 @@ permalink: /marvin/
         .output-tree .cm { color: var(--ink-cream-mute); }
         .output-tree .handoff { color: var(--accent-warm); font-weight: 600; }
 
-        /* CLI block — same raised dark surface + palette-consistent syntax. */
-        .cli-block {
-            background: var(--body-surface);
-            border: 1px solid var(--hair-cream);
-            border-radius: 8px;
-            padding: 1.5rem 1.75rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.88rem;
-            line-height: 2;
-            margin: 1.5rem 0 2rem;
-            color: var(--ink-cream-soft);
-        }
-        .cli-block .prompt { color: var(--ink-cream-mute); }
-        .cli-block .bin { color: var(--accent-warm); font-weight: 500; }
-        .cli-block .cmd { color: #5BD5E8; }
-        .cli-block .cm { color: var(--ink-cream-mute); }
 
         /* Paper card — raised surface on the deep teal-slate body */
         .paper-card {
@@ -631,7 +615,7 @@ permalink: /marvin/
 
             <hr class="section-divider" style="margin-top: 5rem;">
             <h2 id="vera">Dream big with Vera.</h2>
-            <p><strong>Vera</strong> is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Vera can operate as part of Marvin's standard research loop, dream independently while Marvin waits on experimental results, or be invoked manually when you need a brainstorm partner. Every hypothesis is grounded in evidence and scored for <strong>novelty, plausibility, tractability, impact, and scope</strong>, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.</p>
+            <p><strong>Vera</strong> is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Every hypothesis is grounded in evidence and scored for <strong>novelty, plausibility, tractability, impact, and scope</strong>, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.</p>
             <div class="visual-block">
                 <canvas id="radarCanvas" width="920" height="840"></canvas>
             </div>
@@ -656,13 +640,6 @@ permalink: /marvin/
 <div>&nbsp;&nbsp;├── <span class="dir">experiments/</span></div>
 <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="cm">batch_001/</span></div>
 <div>&nbsp;&nbsp;└── <span class="dir">literature/</span></div>
-            </div>
-            <p>From zero to autonomous research in just three steps.</p>
-            <div class="cli-block">
-<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">init</span></div>
-<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">plan</span>  <span class="cm"># scope your research interactively</span></div>
-<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">run</span>   <span class="cm"># autonomous research loop</span></div>
-<div><span class="prompt">$</span> <span class="bin">marvin</span> <span class="cmd">write</span></div>
             </div>
 
             <hr class="section-divider" style="margin-top: 5rem;">
@@ -823,7 +800,10 @@ window.addEventListener('load', function() {
 </script>
 
 <script>
-/* Knowledge graph — Silmaril clusters. Dark nodes on cream. */
+/* Knowledge graph — layered memory ontology. Four tiers, top-down:
+   Mission → Hypotheses → Experiments → Literature. Edges run mostly
+   between adjacent tiers; sparse skip edges (warm-orange) connect
+   high-level intent directly to evidence. */
 window.addEventListener('load', function() {
     var canvas = document.getElementById('graphCanvas');
     if (!canvas) return;
@@ -831,57 +811,61 @@ window.addEventListener('load', function() {
     ctx.setTransform(2, 0, 0, 2, 0, 0);
     var W = 720, H = 360;
 
-    var clusters = [
-        { cx: W * 0.42, cy: H * 0.45, count: 78, spread: 92 },
-        { cx: W * 0.10, cy: H * 0.28, count: 24, spread: 45 },
-        { cx: W * 0.82, cy: H * 0.22, count: 22, spread: 42 },
-        { cx: W * 0.78, cy: H * 0.75, count: 20, spread: 40 },
-        { cx: W * 0.15, cy: H * 0.80, count: 18, spread: 38 },
-        { cx: W * 0.55, cy: H * 0.10, count: 15, spread: 35 },
+    var tiers = [
+        { label: 'Mission',     y: 50,  count: 2,  spread: 0.30, size: [4.2, 5.6] },
+        { label: 'Hypotheses',  y: 135, count: 5,  spread: 0.62, size: [3.0, 4.4] },
+        { label: 'Experiments', y: 220, count: 11, spread: 0.84, size: [2.4, 3.6] },
+        { label: 'Literature',  y: 305, count: 22, spread: 0.94, size: [1.8, 2.8] },
     ];
 
     var nodes = [];
-    clusters.forEach(function(cl, ci) {
-        for (var i = 0; i < cl.count; i++) {
-            var angle = Math.random() * Math.PI * 2;
-            var dist = Math.random() * cl.spread;
-            nodes.push({
-                x: cl.cx + Math.cos(angle) * dist,
-                y: cl.cy + Math.sin(angle) * dist,
-                cluster: ci,
-                size: 1.8 + Math.random() * 2.6,
-                brightness: 0.25 + Math.random() * 0.4
-            });
+    tiers.forEach(function(tier, ti) {
+        var pad = (1 - tier.spread) / 2 * W;
+        var span = W - 2 * pad;
+        for (var i = 0; i < tier.count; i++) {
+            var x = pad + ((i + 0.5) / tier.count) * span + (Math.random() - 0.5) * (span / tier.count) * 0.55;
+            var y = tier.y + (Math.random() - 0.5) * 14;
+            var size = tier.size[0] + Math.random() * (tier.size[1] - tier.size[0]);
+            nodes.push({ x: x, y: y, tier: ti, size: size });
         }
     });
 
+    /* Edges between adjacent tiers — each node connects to its 2–4
+       nearest neighbors in the tier below. */
     var edges = [];
-    var maxIntra = 72;
-    var maxInter = 260;
+    nodes.forEach(function(n) {
+        var below = nodes.filter(function(m) { return m.tier === n.tier + 1; });
+        if (below.length === 0) return;
+        below.sort(function(a, b) { return Math.abs(a.x - n.x) - Math.abs(b.x - n.x); });
+        var k = 2 + Math.floor(Math.random() * 3);
+        for (var j = 0; j < Math.min(k, below.length); j++) {
+            edges.push({ from: n, to: below[j], type: 'tier' });
+        }
+    });
 
-    for (var i = 0; i < nodes.length; i++) {
-        for (var j = i + 1; j < nodes.length; j++) {
-            var dx = nodes[i].x - nodes[j].x;
-            var dy = nodes[i].y - nodes[j].y;
-            var dist = Math.sqrt(dx * dx + dy * dy);
-            var sameCluster = nodes[i].cluster === nodes[j].cluster;
-
-            if (sameCluster && dist < maxIntra && Math.random() < 0.45) {
-                edges.push({ from: nodes[i], to: nodes[j], dist: dist, type: 'intra' });
-            } else if (!sameCluster && dist < maxInter && Math.random() < 0.035) {
-                edges.push({ from: nodes[i], to: nodes[j], dist: dist, type: 'inter' });
-            }
+    /* Sparse skip edges — Mission/Hypotheses → Experiments/Literature
+       directly. Models how high-level intent stays linked to evidence. */
+    for (var s = 0; s < 7; s++) {
+        var startT = Math.floor(Math.random() * 2);
+        var endT = startT + 2 + Math.floor(Math.random() * (3 - startT - 1));
+        var fromPool = nodes.filter(function(m) { return m.tier === startT; });
+        var toPool = nodes.filter(function(m) { return m.tier === endT; });
+        if (fromPool.length && toPool.length) {
+            edges.push({
+                from: fromPool[Math.floor(Math.random() * fromPool.length)],
+                to: toPool[Math.floor(Math.random() * toPool.length)],
+                type: 'skip'
+            });
         }
     }
 
     edges.forEach(function(e) {
-        if (e.type === 'intra') {
-            var alpha = 0.22 + (1 - e.dist / maxIntra) * 0.32;
-            ctx.strokeStyle = 'rgba(120,200,220,' + alpha + ')';
-            ctx.lineWidth = 0.5 + (1 - e.dist / maxIntra) * 0.5;
+        if (e.type === 'tier') {
+            ctx.strokeStyle = 'rgba(110,200,230,0.34)';
+            ctx.lineWidth = 0.7;
         } else {
-            ctx.strokeStyle = 'rgba(224,129,74,0.42)';
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = 'rgba(224,129,74,0.40)';
+            ctx.lineWidth = 0.65;
         }
         ctx.beginPath();
         ctx.moveTo(e.from.x, e.from.y);
@@ -890,21 +874,34 @@ window.addEventListener('load', function() {
     });
 
     nodes.forEach(function(n) {
-        ctx.fillStyle = 'rgba(220,225,235,' + (n.brightness + 0.15) + ')';
+        ctx.fillStyle = 'rgba(220,225,235,0.88)';
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.size, 0, Math.PI * 2);
         ctx.fill();
     });
 
-    /* Halo highlights — sunset orange (sea-shore warm pop). */
-    for (var k = 0; k < 6; k++) {
-        var n = nodes[Math.floor(Math.random() * nodes.length)];
-        ctx.strokeStyle = 'rgba(224,129,74,0.85)';
-        ctx.lineWidth = 1.1;
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.size + 5, 0, Math.PI * 2);
-        ctx.stroke();
-    }
+    /* Tier labels on the left margin — small mono caps. */
+    ctx.fillStyle = 'rgba(220,225,235,0.42)';
+    ctx.font = "9px 'JetBrains Mono', monospace";
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    tiers.forEach(function(tier) {
+        ctx.fillText(tier.label.toUpperCase(), 14, tier.y);
+    });
+
+    /* Halo a couple key nodes per tier — warm-orange accent. */
+    [0, 1, 2, 3].forEach(function(ti) {
+        var pool = nodes.filter(function(m) { return m.tier === ti; });
+        var picks = ti === 0 ? 1 : (ti === 3 ? 2 : 1);
+        for (var k = 0; k < picks; k++) {
+            var n = pool[Math.floor(Math.random() * pool.length)];
+            ctx.strokeStyle = 'rgba(224,129,74,0.78)';
+            ctx.lineWidth = 1.0;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.size + 4.5, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+    });
 });
 </script>
 
