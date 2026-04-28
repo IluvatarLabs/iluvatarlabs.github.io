@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Divergent-Convergent Attention"
-subtitle: "Parallel perspectives for compositional reasoning in transformers."
+subtitle: "Parallel Perspectives for Compositional Reasoning"
 date: 2026-03-26
 category: Research
 thumbnail: dca

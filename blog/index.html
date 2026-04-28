@@ -261,6 +261,15 @@ description: Dispatches from the lab — product announcements, research notes, 
             transition: color 0.2s;
         }
         .featured-post:hover h2 { color: var(--accent-deep); }
+        .featured-post .post-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            line-height: 1.35;
+            letter-spacing: -0.012em;
+            margin-bottom: 0.95rem;
+        }
         .featured-post .excerpt {
             font-size: 1.15rem;
             line-height: 1.65;
@@ -323,6 +332,15 @@ description: Dispatches from the lab — product announcements, research notes, 
             transition: color 0.2s;
         }
         .post:hover h3 { color: var(--accent-deep); }
+        .post .post-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--ink-dark);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.7rem;
+        }
         .post .excerpt {
             font-size: 1.02rem;
             line-height: 1.6;
@@ -417,6 +435,7 @@ description: Dispatches from the lab — product announcements, research notes, 
                     <span>{{ featured.date | date: "%B %-d, %Y" }}</span>
                 </div>
                 <h2>{{ featured.title }}</h2>
+                {% if featured.subtitle %}<p class="post-subtitle">{{ featured.subtitle }}</p>{% endif %}
                 {% if featured.excerpt %}<p class="excerpt">{{ featured.excerpt | strip_html | truncate: 260 }}</p>{% endif %}
                 <span class="read-more">Read <span>&rarr;</span></span>
             </div>
@@ -437,6 +456,7 @@ description: Dispatches from the lab — product announcements, research notes, 
                 </div>
                 <div>
                     <h3>{{ post.title }}</h3>
+                    {% if post.subtitle %}<p class="post-subtitle">{{ post.subtitle }}</p>{% endif %}
                     {% if post.author %}<div class="post-authors">{{ post.author }}</div>{% endif %}
                     {% if post.excerpt %}<p class="excerpt">{{ post.excerpt | strip_html | truncate: 260 }}</p>{% endif %}
                     <span class="read-more">Read <span>&rarr;</span></span>

@@ -509,10 +509,6 @@ description: A post-training & research lab. Closing the loop on post-training, 
             justify-content: center;
             padding: 1rem 2rem 1rem 0;
         }
-        .lab-featured h3,
-        .lab-featured .lab-excerpt {
-            max-width: 36ch;
-        }
         .lab-meta {
             display: flex; align-items: center; gap: 1rem;
             margin-bottom: 1.25rem;
@@ -543,7 +539,24 @@ description: A post-training & research lab. Closing the loop on post-training, 
             color: var(--ink-cream-soft);
             line-height: 1.55;
             margin-bottom: 1.5rem;
-            max-width: 34rem;
+        }
+        .lab-featured .lab-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--ink-cream);
+            line-height: 1.4;
+            letter-spacing: -0.012em;
+            margin-bottom: 1rem;
+        }
+        .lab-card .lab-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--ink-cream);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.7rem;
         }
         .lab-authors {
             font-family: 'Inter', sans-serif;
@@ -742,6 +755,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
                         <span>{{ featured.date | date: "%b %Y" }}</span>
                     </div>
                     <h3>{{ featured.title }}</h3>
+                    {% if featured.subtitle %}<p class="lab-subtitle">{{ featured.subtitle }}</p>{% endif %}
                     {% if featured.excerpt %}<p class="lab-excerpt">{{ featured.excerpt | strip_html | truncate: 240 }}</p>{% endif %}
                     {% if featured.author %}<div class="lab-authors">By {{ featured.author }}</div>{% endif %}
                 </div>
@@ -766,6 +780,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
                         <span>{{ post.date | date: "%b %Y" }}</span>
                     </div>
                     <h4>{{ post.title }}</h4>
+                    {% if post.subtitle %}<p class="lab-subtitle">{{ post.subtitle }}</p>{% endif %}
                     {% if post.author %}<div class="lab-authors">{{ post.author }}</div>{% endif %}
                 </a>
                 {% endfor %}

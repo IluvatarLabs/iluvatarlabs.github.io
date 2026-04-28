@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Elastic Speculation"
-subtitle: "Adaptive draft length and confidence-based early exit for faster, cheaper inference."
+subtitle: "Adaptive Draft Length and Confidence-Based Early Exit"
 date: 2025-11-11
 category: Research
 thumbnail: elastic
