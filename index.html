@@ -354,12 +354,12 @@ description: A post-training & research lab. Closing the loop on post-training, 
             );
         }
 
-        /* ── Marvin: Aegean blue (matches the Marvin product page hero) ── */
+        /* ── Marvin: Aegean blue (matches the Marvin product page hero
+           base). Flat fill — no atmospheric glows here, because the
+           canvas edge fades (.product-visual::before/::after) are solid
+           #16415A and would mismatch a gradient bg. */
         .product.marvin {
-            background:
-                radial-gradient(ellipse 92% 92% at 95% 10%, rgba(110,200,230,0.24) 0%, rgba(110,200,230,0) 62%),
-                radial-gradient(ellipse 92% 82% at 5% 100%, rgba(224,129,74,0.16) 0%, rgba(224,129,74,0) 65%),
-                #16415A;
+            background: #16415A;
             color: var(--ink-cream);
         }
         .product.marvin .product-eyebrow { color: var(--ink-cream-mute); }
