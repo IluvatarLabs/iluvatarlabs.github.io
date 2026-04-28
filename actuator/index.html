@@ -226,16 +226,19 @@ permalink: /actuator/
             letter-spacing: -0.012em;
             color: var(--accent-deep);
             text-decoration: none;
-            border-bottom: 1.5px solid var(--accent-deep);
-            padding-bottom: 4px;
+            border: 1.5px solid var(--accent-deep);
+            border-radius: 999px;
+            padding: 0.85rem 1.7rem;
+            background: rgba(204,106,91,0.10);
             display: inline-flex;
             align-items: center;
             gap: 0.55rem;
-            transition: color 0.2s, border-color 0.2s, gap 0.2s;
+            transition: color 0.2s, border-color 0.2s, background 0.2s, gap 0.2s;
         }
         .hero-cta:hover {
             color: var(--accent);
             border-color: var(--accent);
+            background: rgba(233,123,106,0.16);
             gap: 0.85rem;
         }
 

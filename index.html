@@ -191,15 +191,18 @@ description: A post-training & research lab. Closing the loop on post-training, 
             letter-spacing: -0.013em;
             color: var(--accent);
             text-decoration: none;
-            border-bottom: 1.5px solid var(--accent);
-            padding-bottom: 4px;
+            border: 1.5px solid var(--accent);
+            border-radius: 999px;
+            padding: 0.85rem 1.7rem;
+            background: rgba(233,123,106,0.10);
             margin-top: 2rem;
             display: inline-flex; align-items: center; gap: 0.55rem;
-            transition: color 0.2s, border-color 0.2s, gap 0.2s;
+            transition: color 0.2s, border-color 0.2s, background 0.2s, gap 0.2s;
         }
         .hero-about:hover {
             color: var(--accent-deep);
             border-color: var(--accent-deep);
+            background: rgba(233,123,106,0.18);
             gap: 0.85rem;
         }
 
@@ -295,12 +298,14 @@ description: A post-training & research lab. Closing the loop on post-training, 
             font-weight: 500;
             text-decoration: none;
             letter-spacing: -0.005em;
-            padding-bottom: 4px;
+            padding: 0.85rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid currentColor;
             align-self: flex-start;
-            transition: color 0.2s, border-color 0.2s, gap 0.2s;
+            transition: border-color 0.2s, background 0.2s, gap 0.2s, color 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.55rem;
         }
         .product .learn-more:hover { gap: 0.75rem; }
 
@@ -336,8 +341,8 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .product.actuator .subtitle { color: var(--ink-dark); }
         .product.actuator .subtitle i { color: var(--accent-deep); }
         .product.actuator .body { color: var(--ink-dark-soft); }
-        .product.actuator .learn-more { color: var(--ink-dark); border-bottom: 1px solid rgba(20,20,26,0.3); }
-        .product.actuator .learn-more:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
+        .product.actuator .learn-more { color: var(--ink-dark); border-color: var(--hair-dark-strong); background: rgba(20,20,26,0.04); }
+        .product.actuator .learn-more:hover { border-color: var(--ink-dark); background: rgba(20,20,26,0.09); }
         .product.actuator .product-visual::before {
             background: linear-gradient(
                 to right,
@@ -354,46 +359,45 @@ description: A post-training & research lab. Closing the loop on post-training, 
             );
         }
 
-        /* ── Marvin: Aegean blue (matches the Marvin product page hero
-           base). Flat fill — no atmospheric glows here, because the
-           canvas edge fades (.product-visual::before/::after) are solid
-           #16415A and would mismatch a gradient bg. */
+        /* ── Marvin: deep navy (#0F2240). Doesn't match the Marvin page
+           Aegean — chosen for the homepage panel specifically. Flat
+           fill so the canvas edge fades line up. */
         .product.marvin {
-            background: #16415A;
+            background: #0F2240;
             color: var(--ink-cream);
         }
         .product.marvin .product-eyebrow { color: var(--ink-cream-mute); }
         .product.marvin .subtitle { color: var(--ink-cream); }
         .product.marvin .subtitle i { color: var(--accent); }
         .product.marvin .body { color: var(--ink-cream-soft); }
-        .product.marvin .learn-more { color: var(--ink-cream); border-bottom: 1px solid rgba(245,241,235,0.3); }
-        .product.marvin .learn-more:hover { border-color: var(--accent); color: var(--accent); }
+        .product.marvin .learn-more { color: var(--ink-cream); border-color: var(--hair-cream-strong); background: rgba(245,241,235,0.05); }
+        .product.marvin .learn-more:hover { border-color: var(--ink-cream); background: rgba(245,241,235,0.11); }
         /* Asymmetric horizontal fade: heavier on the left (toward text),
            softer on the other edges. Pulled farther inward so the rectangle
-           boundary isn't visible. Tinted to match panel bg #16415A so the
+           boundary isn't visible. Tinted to match panel bg #0F2240 so the
            canvas edges fade into the section, not into a dark rectangle. */
         .product.marvin .product-visual::before {
             background: linear-gradient(
                 to right,
-                rgba(22,65,90,1)    0%,
-                rgba(22,65,90,0.75) 10%,
-                rgba(22,65,90,0.35) 22%,
-                rgba(22,65,90,0.08) 32%,
-                rgba(22,65,90,0)    40%,
-                rgba(22,65,90,0)    74%,
-                rgba(22,65,90,0.4)  88%,
-                rgba(22,65,90,1)    100%
+                rgba(15,34,64,1)    0%,
+                rgba(15,34,64,0.75) 10%,
+                rgba(15,34,64,0.35) 22%,
+                rgba(15,34,64,0.08) 32%,
+                rgba(15,34,64,0)    40%,
+                rgba(15,34,64,0)    74%,
+                rgba(15,34,64,0.4)  88%,
+                rgba(15,34,64,1)    100%
             );
         }
         .product.marvin .product-visual::after {
             background: linear-gradient(
                 to bottom,
-                rgba(22,65,90,1)    0%,
-                rgba(22,65,90,0.5)  12%,
-                rgba(22,65,90,0)    26%,
-                rgba(22,65,90,0)    74%,
-                rgba(22,65,90,0.5)  88%,
-                rgba(22,65,90,1)    100%
+                rgba(15,34,64,1)    0%,
+                rgba(15,34,64,0.5)  12%,
+                rgba(15,34,64,0)    26%,
+                rgba(15,34,64,0)    74%,
+                rgba(15,34,64,0.5)  88%,
+                rgba(15,34,64,1)    100%
             );
         }
 
@@ -424,12 +428,14 @@ description: A post-training & research lab. Closing the loop on post-training, 
             letter-spacing: -0.01em;
             text-decoration: none;
             color: var(--ink-cream);
-            border-bottom: 1px solid rgba(245,241,235,0.35);
-            padding-bottom: 4px;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            transition: gap 0.2s, border-color 0.2s, color 0.2s;
+            border: 1px solid var(--hair-cream-strong);
+            border-radius: 999px;
+            padding: 0.85rem 1.6rem;
+            background: rgba(245,241,235,0.05);
+            display: inline-flex; align-items: center; gap: 0.55rem;
+            transition: gap 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
         }
-        .lab-all:hover { border-color: var(--accent); color: var(--accent); gap: 0.75rem; }
+        .lab-all:hover { border-color: var(--ink-cream); background: rgba(245,241,235,0.11); gap: 0.75rem; }
 
         /* Featured article */
         .lab-featured {
