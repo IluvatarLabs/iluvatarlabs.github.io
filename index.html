@@ -104,7 +104,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
             color: var(--nav-ink);
             text-decoration: none;
             font-size: 1.1rem;
-            border-bottom: 1px solid transparent;
+            border-bottom: 2px solid transparent;
             padding-bottom: 2px;
             transition: border-color 0.2s, font-weight 0.2s;
         }
@@ -265,7 +265,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .product h2 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(3.5rem, 6.5vw, 6.5rem);
-            font-weight: 500;
+            font-weight: 700;
             letter-spacing: -0.035em;
             line-height: 0.98;
             margin-bottom: 1rem;
@@ -354,9 +354,12 @@ description: A post-training & research lab. Closing the loop on post-training, 
             );
         }
 
-        /* ── Marvin: lighter teal-slate (matches the Marvin product page hero) ── */
+        /* ── Marvin: Aegean blue (matches the Marvin product page hero) ── */
         .product.marvin {
-            background: #1A2C3A;
+            background:
+                radial-gradient(ellipse 92% 92% at 95% 10%, rgba(110,200,230,0.24) 0%, rgba(110,200,230,0) 62%),
+                radial-gradient(ellipse 92% 82% at 5% 100%, rgba(224,129,74,0.16) 0%, rgba(224,129,74,0) 65%),
+                #16415A;
             color: var(--ink-cream);
         }
         .product.marvin .product-eyebrow { color: var(--ink-cream-mute); }
@@ -367,30 +370,30 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .product.marvin .learn-more:hover { border-color: var(--accent); color: var(--accent); }
         /* Asymmetric horizontal fade: heavier on the left (toward text),
            softer on the other edges. Pulled farther inward so the rectangle
-           boundary isn't visible. Tinted to match panel bg #1A2C3A so the
+           boundary isn't visible. Tinted to match panel bg #16415A so the
            canvas edges fade into the section, not into a dark rectangle. */
         .product.marvin .product-visual::before {
             background: linear-gradient(
                 to right,
-                rgba(26,44,58,1)    0%,
-                rgba(26,44,58,0.75) 10%,
-                rgba(26,44,58,0.35) 22%,
-                rgba(26,44,58,0.08) 32%,
-                rgba(26,44,58,0)    40%,
-                rgba(26,44,58,0)    74%,
-                rgba(26,44,58,0.4)  88%,
-                rgba(26,44,58,1)    100%
+                rgba(22,65,90,1)    0%,
+                rgba(22,65,90,0.75) 10%,
+                rgba(22,65,90,0.35) 22%,
+                rgba(22,65,90,0.08) 32%,
+                rgba(22,65,90,0)    40%,
+                rgba(22,65,90,0)    74%,
+                rgba(22,65,90,0.4)  88%,
+                rgba(22,65,90,1)    100%
             );
         }
         .product.marvin .product-visual::after {
             background: linear-gradient(
                 to bottom,
-                rgba(26,44,58,1)    0%,
-                rgba(26,44,58,0.5)  12%,
-                rgba(26,44,58,0)    26%,
-                rgba(26,44,58,0)    74%,
-                rgba(26,44,58,0.5)  88%,
-                rgba(26,44,58,1)    100%
+                rgba(22,65,90,1)    0%,
+                rgba(22,65,90,0.5)  12%,
+                rgba(22,65,90,0)    26%,
+                rgba(22,65,90,0)    74%,
+                rgba(22,65,90,0.5)  88%,
+                rgba(22,65,90,1)    100%
             );
         }
 

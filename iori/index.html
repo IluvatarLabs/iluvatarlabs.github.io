@@ -26,8 +26,9 @@ permalink: /iori/
                tile (#1E3228), deeper near-black green for the contrast
                band, warm hay cream for the light "release" section.
                Rust accent. Field-biology / naturalist territory. */
-            --bg:               #1E3228;   /* primary forest — hero, projects */
-            --surface-deep:     #0A1A18;   /* near-black green — thesis */
+            --bg:               #1F3D2C;   /* pine — hero (lightest tier) */
+            --surface-mid:      #15322A;   /* mid pine — thesis (one step darker than hero) */
+            --surface-deep:     #0A1A18;   /* near-black green — active projects (deepest tier) */
             --surface-light:    #FAFAF5;   /* warm white (matches Discover body) — how-it-works */
 
             /* Cream-ink family for the dark surfaces — slightly brighter
@@ -87,7 +88,7 @@ permalink: /iori/
         .nav-links a {
             color: var(--nav-ink); text-decoration: none;
             font-size: 1.1rem;
-            border-bottom: 1px solid transparent; padding-bottom: 2px;
+            border-bottom: 2px solid transparent; padding-bottom: 2px;
             transition: border-color 0.2s, font-weight 0.2s;
         }
         .nav-links a:hover { border-bottom-color: var(--nav-ink); }
@@ -151,13 +152,15 @@ permalink: /iori/
             max-width: 46rem;
         }
         .hero .text strong { color: var(--ink-cream); font-weight: 500; }
+        /* Keyword emphasis in hero copy — color in place of underline. */
+        .hero-em { color: var(--accent); }
 
         /* ────────────────────────────────────────────────────────────── */
         /* THESIS — deeper cream surface. Big multi-line claim, then 4    */
         /* line-separated body paragraphs.                                */
         /* ────────────────────────────────────────────────────────────── */
         .thesis {
-            background: var(--surface-deep);
+            background: var(--surface-mid);
             padding: 7rem var(--edge-pad) 7rem;
         }
         .thesis-inner {
@@ -203,7 +206,7 @@ permalink: /iori/
         /* strip, no eyebrow, no filter chips.                            */
         /* ────────────────────────────────────────────────────────────── */
         .projects {
-            background: var(--bg);
+            background: var(--surface-deep);
             padding: 6.5rem var(--edge-pad) 7rem;
         }
         .projects-inner {
@@ -471,7 +474,7 @@ permalink: /iori/
 <!-- 1. HERO — Discover-style: corner glows on cream, clean H1 + subtitle. -->
 <section class="hero">
     <div class="hero-inner">
-        <h1>Iluvatar Open Research Initiative.</h1>
+        <h1>Iluvatar <span class="hero-em">Open Research</span> Initiative.</h1>
         <p class="text">Open computational biology, run on public data, reviewed in public, free to validate.</p>
     </div>
 </section>
