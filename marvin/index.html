@@ -830,32 +830,58 @@ window.addEventListener('load', function() {
         }
     });
 
-    /* Edges between adjacent tiers — each node connects to its 2–4
-       nearest neighbors in the tier below. */
+    /* Edges form a connected graph, not a strict tree. Three families:
+       (1) inter-tier edges between adjacent layers (each node to 2–4
+           nearest neighbors), (2) lateral edges within a tier between
+           neighboring siblings, and (3) skip edges that jump multiple
+           tiers in either direction (feedback included). */
     var edges = [];
+    var seen = {};
+    function addEdge(from, to, type) {
+        if (from === to) return;
+        var k1 = nodes.indexOf(from), k2 = nodes.indexOf(to);
+        var key = Math.min(k1, k2) + '_' + Math.max(k1, k2);
+        if (seen[key]) return;
+        seen[key] = true;
+        edges.push({ from: from, to: to, type: type });
+    }
+
+    /* Inter-tier — wider fanout (2-5) so the graph is dense. */
     nodes.forEach(function(n) {
         var below = nodes.filter(function(m) { return m.tier === n.tier + 1; });
         if (below.length === 0) return;
         below.sort(function(a, b) { return Math.abs(a.x - n.x) - Math.abs(b.x - n.x); });
-        var k = 2 + Math.floor(Math.random() * 3);
+        var k = 2 + Math.floor(Math.random() * 4);
         for (var j = 0; j < Math.min(k, below.length); j++) {
-            edges.push({ from: n, to: below[j], type: 'tier' });
+            addEdge(n, below[j], 'tier');
         }
     });
 
-    /* Sparse skip edges — Mission/Hypotheses → Experiments/Literature
-       directly. Models how high-level intent stays linked to evidence. */
-    for (var s = 0; s < 7; s++) {
-        var startT = Math.floor(Math.random() * 2);
-        var endT = startT + 2 + Math.floor(Math.random() * (3 - startT - 1));
-        var fromPool = nodes.filter(function(m) { return m.tier === startT; });
-        var toPool = nodes.filter(function(m) { return m.tier === endT; });
+    /* Lateral — within-tier sibling edges. Each node hooks to its 1–2
+       nearest neighbors in the same tier. */
+    tiers.forEach(function(_, ti) {
+        var row = nodes.filter(function(m) { return m.tier === ti; });
+        row.sort(function(a, b) { return a.x - b.x; });
+        row.forEach(function(n, i) {
+            if (i + 1 < row.length && Math.random() < 0.7) addEdge(n, row[i + 1], 'lateral');
+            if (i + 2 < row.length && Math.random() < 0.30) addEdge(n, row[i + 2], 'lateral');
+        });
+    });
+
+    /* Skip — both directions. Forward jumps (high-level → evidence) and
+       backward jumps (findings refining a hypothesis or mission). */
+    for (var s = 0; s < 14; s++) {
+        var a = Math.floor(Math.random() * tiers.length);
+        var b = Math.floor(Math.random() * tiers.length);
+        if (Math.abs(a - b) < 2) continue;
+        var fromPool = nodes.filter(function(m) { return m.tier === a; });
+        var toPool = nodes.filter(function(m) { return m.tier === b; });
         if (fromPool.length && toPool.length) {
-            edges.push({
-                from: fromPool[Math.floor(Math.random() * fromPool.length)],
-                to: toPool[Math.floor(Math.random() * toPool.length)],
-                type: 'skip'
-            });
+            addEdge(
+                fromPool[Math.floor(Math.random() * fromPool.length)],
+                toPool[Math.floor(Math.random() * toPool.length)],
+                a < b ? 'skip-fwd' : 'skip-back'
+            );
         }
     }
 
@@ -863,8 +889,12 @@ window.addEventListener('load', function() {
         if (e.type === 'tier') {
             ctx.strokeStyle = 'rgba(110,200,230,0.34)';
             ctx.lineWidth = 0.7;
+        } else if (e.type === 'lateral') {
+            ctx.strokeStyle = 'rgba(220,225,235,0.18)';
+            ctx.lineWidth = 0.55;
         } else {
-            ctx.strokeStyle = 'rgba(224,129,74,0.40)';
+            /* skip-fwd / skip-back — warm orange */
+            ctx.strokeStyle = 'rgba(224,129,74,0.42)';
             ctx.lineWidth = 0.65;
         }
         ctx.beginPath();
@@ -880,11 +910,35 @@ window.addEventListener('load', function() {
         ctx.fill();
     });
 
+    /* Per-node labels on a sample of nodes — examples of what the
+       memory actually stores. Drawn as small mono caps next to the
+       node, offset above or below so they don't collide with edges. */
+    var labelTemplates = [
+        ['Mission'],
+        ['Hypothesis #1', 'Hypothesis #2', 'Hypothesis #3'],
+        ['Experiment #1', 'Experiment #2', 'Finding #4', 'Finding #7'],
+        ['arXiv:2401.15077', 'PMID 38421155', 'Dataset #12']
+    ];
+    ctx.fillStyle = 'rgba(220,225,235,0.62)';
+    ctx.font = "8.5px 'JetBrains Mono', monospace";
+    ctx.textBaseline = 'middle';
+    tiers.forEach(function(tier, ti) {
+        var row = nodes.filter(function(m) { return m.tier === ti; });
+        var templates = labelTemplates[ti];
+        var picks = Math.min(templates.length, row.length);
+        for (var i = 0; i < picks; i++) {
+            var n = row[Math.floor(i * row.length / picks)];
+            var label = templates[i];
+            var aboveTier = ti < 2;
+            ctx.textAlign = 'center';
+            ctx.fillText(label, n.x, n.y + (aboveTier ? -(n.size + 9) : n.size + 9));
+        }
+    });
+
     /* Tier labels on the left margin — small mono caps. */
     ctx.fillStyle = 'rgba(220,225,235,0.42)';
     ctx.font = "9px 'JetBrains Mono', monospace";
     ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
     tiers.forEach(function(tier) {
         ctx.fillText(tier.label.toUpperCase(), 14, tier.y);
     });
