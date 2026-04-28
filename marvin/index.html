@@ -565,7 +565,7 @@ permalink: /marvin/
                 <li><a href="#meet">Meet Marvin</a></li>
                 <li><a href="#cycle">The research cycle</a></li>
                 <li><a href="#vera">Dream big with Vera</a></li>
-                <li><a href="#memory">Silmaril memory</a></li>
+                <li><a href="#memory">Mithril memory</a></li>
                 <li><a href="#trail">Logic trail</a></li>
                 <li><a href="#research">Latest research</a></li>
                 <li><a href="#access">Try Marvin</a></li>
@@ -621,8 +621,8 @@ permalink: /marvin/
             </div>
 
             <hr class="section-divider" style="margin-top: 5rem;">
-            <h2 id="memory">Silmaril persistent memory.</h2>
-            <p>Research doesn't happen in a single session. <strong>Silmaril</strong> is Marvin's persistent memory system — a living knowledge base that spans all sessions to preserve results, findings, decisions, and the connections between them. With intelligent depth, agents share context at whatever granularity their task demands, as efficiently as possible. Whether it's Marvin, Vera, or a swarm of sub-agents, they all pick up exactly where the collective left off.</p>
+            <h2 id="memory">Mithril persistent memory.</h2>
+            <p>Research doesn't happen in a single session. <strong>Mithril</strong> is Marvin's persistent memory system, a living knowledge base that spans all sessions to preserve results, findings, decisions, and the connections between them. With intelligent depth, agents share context at whatever granularity their task demands, as efficiently as possible. Whether it's Marvin, Vera, or a swarm of sub-agents, they all pick up exactly where the collective left off.</p>
             <div class="visual-block wide">
                 <canvas id="graphCanvas" width="1440" height="720"></canvas>
             </div>
@@ -632,11 +632,11 @@ permalink: /marvin/
             <p>Designed for ML research teams by ML researchers. Every iteration, every interpretation, and every decision is traceable and reproducible with an auditable git history.</p>
             <div class="output-tree">
 <div><span class="dir">my-project/</span></div>
-<div>&nbsp;&nbsp;├── <span class="file">research_state.md</span> <span class="cm">— goals, status, findings</span></div>
+<div>&nbsp;&nbsp;├── <span class="file">research_state.md</span> <span class="cm"># goals, status, findings</span></div>
 <div>&nbsp;&nbsp;├── <span class="dir">docs/</span></div>
-<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">iteration_001.md</span> <span class="cm">— scoreboard, analysis, lessons</span></div>
+<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">iteration_001.md</span> <span class="cm"># scoreboard, analysis, lessons</span></div>
 <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── <span class="file">iteration_002.md</span></div>
-<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="handoff">handoff.md</span> <span class="cm">— structured summary for the paper</span></div>
+<div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="handoff">handoff.md</span> <span class="cm"># structured summary for the paper</span></div>
 <div>&nbsp;&nbsp;├── <span class="dir">experiments/</span></div>
 <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="cm">batch_001/</span></div>
 <div>&nbsp;&nbsp;└── <span class="dir">literature/</span></div>
@@ -649,7 +649,7 @@ permalink: /marvin/
                 <span class="paper-tag">Autonomous AI Research</span>
                 <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
                 <div class="paper-authors">Marvin · Vera</div>
-                <div class="paper-abstract">Code LLMs break on 8&ndash;13% of all HumanEval problems when variables are renamed. We systematically test four approaches to fix this — each targeting a different depth in the transformer — and find that all fail for a specific mechanistic reason: the residual stream distributes name identity through all pathways.</div>
+                <div class="paper-abstract">Code LLMs break on 8&ndash;13% of all HumanEval problems when variables are renamed. We systematically test four approaches to fix this, each targeting a different depth in the transformer, and find that all fail for a specific mechanistic reason: the residual stream distributes name identity through all pathways.</div>
                 <div class="paper-cta">Read paper <span>&rarr;</span></div>
             </a>
 
@@ -831,18 +831,36 @@ window.addEventListener('load', function() {
         { text: 'PMID 38421155',    size: 2.5, accent: false },
     ];
 
+    /* Ellipse parameters — recomputed on resize so the field reads as
+       an oval, not the rectangular canvas. */
+    let cx, cy, ra, rb;
+
+    function randInEllipse() {
+        let x, y;
+        do {
+            x = Math.random() * 2 - 1;
+            y = Math.random() * 2 - 1;
+        } while (x * x + y * y > 1);
+        return { x: cx + x * ra, y: cy + y * rb };
+    }
+
     function setup() {
         const rect = container.getBoundingClientRect();
         if (rect.width === 0 || rect.height === 0) return false;
         canvas.width = rect.width * 2; canvas.height = rect.height * 2;
         w = rect.width; h = rect.height;
+        cx = w / 2; cy = h / 2;
+        ra = w / 2 - 14;
+        rb = h / 2 - 14;
 
-        const nodeCount = Math.max(120, Math.min(320, Math.floor((w * h) / TARGET_AREA_PER_NODE)));
+        const ellipseArea = Math.PI * ra * rb;
+        const nodeCount = Math.max(120, Math.min(320, Math.floor(ellipseArea / TARGET_AREA_PER_NODE)));
         nodes = [];
         for (let i = 0; i < nodeCount; i++) {
+            const p = randInEllipse();
             nodes.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
+                x: p.x,
+                y: p.y,
                 vx: (Math.random() - 0.5) * 0.14,
                 vy: (Math.random() - 0.5) * 0.14,
                 size: 1.0 + Math.random() * 2.2,
@@ -886,10 +904,21 @@ window.addEventListener('load', function() {
     function tick() {
         nodes.forEach(n => {
             n.x += n.vx; n.y += n.vy;
-            if (n.x < 2)     { n.x = 2;     n.vx = Math.abs(n.vx); }
-            if (n.x > w - 2) { n.x = w - 2; n.vx = -Math.abs(n.vx); }
-            if (n.y < 2)     { n.y = 2;     n.vy = Math.abs(n.vy); }
-            if (n.y > h - 2) { n.y = h - 2; n.vy = -Math.abs(n.vy); }
+            /* Keep node inside the ellipse: clamp to boundary along the
+               radial direction and reflect velocity across the (approx)
+               normal there. */
+            const ex = (n.x - cx) / ra;
+            const ey = (n.y - cy) / rb;
+            const r2 = ex * ex + ey * ey;
+            if (r2 > 1) {
+                const r = Math.sqrt(r2);
+                n.x = cx + (n.x - cx) / r;
+                n.y = cy + (n.y - cy) / r;
+                const nrx = ex / r, nry = ey / r;
+                const dot = n.vx * nrx + n.vy * nry;
+                n.vx -= 2 * dot * nrx;
+                n.vy -= 2 * dot * nry;
+            }
             n.pulsePhase += n.pulseSpeed;
         });
         if (Math.random() < 0.016 && ripples.length < 5) {
