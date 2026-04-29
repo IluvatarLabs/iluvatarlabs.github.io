@@ -571,6 +571,15 @@ permalink: /actuator/
         }
         .access .mail:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
 
+        /* Laptop heights (≤1399px tall, non-mobile widths): the h1 is fixed
+           at the clamp() px cap on these viewports while 65vh shrinks with
+           vh, so the text-to-hero ratio reads as squished. Bump to a fixed
+           min-height so the proportions match what taller monitors get for
+           free. Excludes 1440px+ desktops, which keep their 65vh sizing. */
+        @media (min-width: 961px) and (max-height: 1399px) {
+            .hero { min-height: 940px; }
+        }
+
         /* Wide viewports (≥1400px): body-inner becomes a 3-col grid — TOC
            on the left, 900px article in the middle, empty 12rem column on
            the right to keep the article itself centered in the viewport.   */

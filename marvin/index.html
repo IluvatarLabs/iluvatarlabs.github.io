@@ -288,6 +288,13 @@ permalink: /marvin/
             .read { grid-column: 2; }
         }
 
+        /* Laptop heights: same fix as Actuator. h1 is pinned at the px cap
+           while 65vh shrinks with vh, so the hero feels squished. Bump
+           min-height to a fixed value below the 1440p+ desktop threshold. */
+        @media (min-width: 961px) and (max-height: 1399px) {
+            .hero { min-height: 940px; }
+        }
+
         .read {
             padding-bottom: 8rem;
             font-family: 'Inter', sans-serif;

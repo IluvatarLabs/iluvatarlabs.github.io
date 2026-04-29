@@ -1,0 +1,50 @@
+{% comment %}
+    Blog post thumbnail pictograph.
+    Pass `type` matching the post's `thumbnail:` frontmatter value.
+    Supported: marvin, actuator, dca, elastic. Falls back to nothing.
+{% endcomment %}
+{% case include.type %}
+{% when 'marvin' %}
+<svg class="thumb-icon" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g transform="translate(240 180)" stroke="#6EC8E6" stroke-width="6" fill="none">
+        <ellipse cx="0" cy="0" rx="135" ry="52"/>
+        <ellipse cx="0" cy="0" rx="135" ry="52" transform="rotate(60)"/>
+        <ellipse cx="0" cy="0" rx="135" ry="52" transform="rotate(-60)"/>
+    </g>
+    <circle cx="240" cy="180" r="14" fill="#6EC8E6"/>
+</svg>
+{% when 'actuator' %}
+<svg class="thumb-icon" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M 152 283 A 125 125 0 1 1 328 283"
+          fill="none" stroke="#CC6A5B" stroke-width="14" stroke-linecap="round"/>
+    <g stroke="#CC6A5B" stroke-width="6" stroke-linecap="round">
+        <line x1="152" y1="283" x2="166" y2="269"/>
+        <line x1="115" y1="195" x2="135" y2="195"/>
+        <line x1="152" y1="107" x2="166" y2="121"/>
+        <line x1="240" y1="70"  x2="240" y2="90"/>
+        <line x1="328" y1="107" x2="314" y2="121"/>
+        <line x1="365" y1="195" x2="345" y2="195"/>
+        <line x1="328" y1="283" x2="314" y2="269"/>
+    </g>
+    <line x1="240" y1="195" x2="296" y2="98"
+          stroke="#CC6A5B" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="240" cy="195" r="15" fill="#CC6A5B"/>
+</svg>
+{% when 'dca' %}
+<svg class="thumb-icon" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M 140 80 L 340 80 L 240 180 Z M 140 280 L 340 280 L 240 180 Z"
+          fill="#B8A6FF" stroke="#B8A6FF" stroke-width="12" stroke-linejoin="round"/>
+</svg>
+{% when 'elastic' %}
+<svg class="thumb-icon" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#6EC8E6" stroke-width="14" stroke-linecap="round" fill="none">
+        <line x1="60" y1="110" x2="370" y2="110"/>
+        <line x1="60" y1="180" x2="270" y2="180"/>
+        <line x1="60" y1="250" x2="200" y2="250" stroke-dasharray="2 22"/>
+    </g>
+    <g fill="#6EC8E6">
+        <polygon points="370,90 370,130 410,110"/>
+        <polygon points="270,160 270,200 310,180"/>
+    </g>
+</svg>
+{% endcase %}
