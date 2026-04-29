@@ -1,7 +1,18 @@
 {% comment %}
     Blog post thumbnail pictograph.
+
     Pass `type` matching the post's `thumbnail:` frontmatter value.
-    Supported: marvin, actuator, dca, elastic. Falls back to nothing.
+    Supported: marvin, actuator, dca, elastic. Unknown values render
+    nothing (just the colored card behind shows through).
+
+    To add a NEW variant, read /CLAUDE.md "Thumbnail system" first —
+    there are HARD visual-language rules (4:3 viewBox, single bold
+    pictograph, two colors max, no text, no flowcharts, no
+    dots-and-edges graphs, round caps/joins). Three places need the
+    new value: this case statement, .lab-thumb-{value} CSS in
+    /index.html (homepage), and matching CSS in /blog/index.html
+    (Discover index). The post frontmatter then references it as
+    `thumbnail: <value>`.
 {% endcomment %}
 {% case include.type %}
 {% when 'marvin' %}

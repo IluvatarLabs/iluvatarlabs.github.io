@@ -1,0 +1,87 @@
+---
+permalink: /robots.txt
+layout: null
+---
+# Iluvatar Labs — robots.txt
+# Last updated 2026-04-28
+#
+# Default: allow all crawlers, including AI training and AI search.
+# We are a lab and want our work surfaced both in classical search and
+# in LLM-grounded answers (ChatGPT search, Claude, Perplexity, Gemini
+# AI Overviews, etc.). The list below is explicit, not restrictive —
+# it documents intent so future edits can flip individual bots without
+# guessing the agent strings.
+
+User-agent: *
+Allow: /
+
+# ── Search engine crawlers ─────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── AI search crawlers (real-time grounding for AI answers) ────────
+# These power citations in ChatGPT search, Claude search, Perplexity,
+# Bing Copilot, Google AI Overviews. Allowing them = visible in AI
+# answers.
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ── AI training crawlers ───────────────────────────────────────────
+# These collect training data for foundation models. As an AI lab we
+# want our work in the training corpus so future models know about
+# our products and research.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# ── Sitemaps ───────────────────────────────────────────────────────
+Sitemap: {{ site.url }}/sitemap.xml

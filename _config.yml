@@ -3,6 +3,30 @@ description: Reality-inspired AI architectures for the AGI era
 url: "https://iluvatarlabs.github.io"
 baseurl: ""
 
+# Author / org metadata used by jekyll-seo-tag for OG, Twitter, JSON-LD
+author:
+  name: Iluvatar Labs
+  email: ben@iluvatarlabs.com
+  url: "https://iluvatarlabs.github.io"
+  twitter: IluvatarLabs
+
+# Twitter / X card config. Per-post `image:` frontmatter triggers
+# summary_large_image automatically; pages without an image get the
+# fallback summary card.
+twitter:
+  username: IluvatarLabs
+  card: summary_large_image
+
+# Social profiles surfaced in JSON-LD sameAs.
+social:
+  name: Iluvatar Labs
+  links:
+    - "https://x.com/IluvatarLabs"
+    - "https://www.linkedin.com/company/iluvatarlabs/"
+
+# Logo for organization JSON-LD.
+logo: /favicon.svg
+
 # Build settings
 future: true
 markdown: kramdown
@@ -30,6 +54,10 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - CLAUDE.md
+  - mockup-*.html
+  - "index copy.html"
+  - iori_mockups
 
 # Default values
 defaults:
