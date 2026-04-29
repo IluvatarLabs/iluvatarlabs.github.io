@@ -1,352 +1,789 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% seo %}
+    <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Iluvatar Labs">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    {% if page.math %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, { delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}] });"></script>
+    {% endif %}
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-<style>
-    .post-header {
-        margin-bottom: 3rem;
-        text-align: center;
-    }
+        :root {
+            --max-content: 1280px;
+            --edge-pad: 3rem;
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.78);
+            --ink-cream-dim:  rgba(245,241,235,0.6);
+            --ink-cream-mute: rgba(245,241,235,0.42);
+            --hairline:       rgba(245,241,235,0.1);
+            --hairline-strong: rgba(245,241,235,0.16);
+            --bg:             #14141A;
+            --bg-surface:     #1A1A22;
+            --accent:         #6FA488;
+        }
 
-    .post-title {
-        font-family: 'Inter', sans-serif;
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-    }
+        html, body {
+            background: var(--bg);
+            color: var(--ink-cream);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    .post-meta {
-        color: #888;
-        font-size: 1rem;
-        text-align: center;
-    }
+        /* NAV — cream-ink for dark page */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30;
+            padding: 3rem var(--edge-pad) 0;
+            --nav-ink: var(--ink-cream);
+            --nav-ink-soft: var(--ink-cream-soft);
+        }
+        .nav {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;
+            color: var(--nav-ink); text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink); text-decoration: none; font-size: 1.1rem;
+            border-bottom: 2px solid transparent; padding-bottom: 2px;
+            transition: border-color 0.2s, font-weight 0.2s;
+        }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active { font-weight: 700; border-bottom-color: var(--nav-ink); }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+            display: flex; align-items: center; gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg { width: 100%; height: 100%; fill: var(--nav-ink); transition: fill 0.2s; }
+        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
+        .nav-hamburger span {
+            display: block; width: 22px; height: 2px;
+            background: var(--nav-ink-soft); margin: 5px 0;
+        }
+        .nav-hamburger:hover span { background: var(--nav-ink); }
 
-    .post-meta .author {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
+        /* POST HERO */
+        .post-hero {
+            padding: 15rem var(--edge-pad) 9rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .post-hero-inner { max-width: 40rem; margin: 0 auto; width: 100%; }
+        .post-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: var(--ink-cream);
+            margin-bottom: 1.75rem;
+        }
+        .post-hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+            font-weight: 400;
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+            color: var(--ink-cream-dim);
+            margin-bottom: 2.75rem;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .post-meta {
+            display: inline-flex;
+            gap: 0.5rem 2.25rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: var(--ink-cream-soft);
+        }
+        .post-meta .field { display: inline-flex; gap: 0.75rem; align-items: baseline; }
+        .post-meta .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+        }
+        .post-meta .value { font-family: 'Inter', sans-serif; }
 
-    .post-meta time {
-        display: block;
-        font-weight: 400;
-    }
+        /* POST BODY */
+        .post-body { padding: 2rem var(--edge-pad) 10rem; }
+        .post-body-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 52rem) 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .post-content { grid-column: 2; max-width: 52rem; }
+        .post-sidebar {
+            grid-column: 1;
+            justify-self: end;
+            width: 12rem;
+            position: sticky;
+            top: 3rem;
+            align-self: start;
+        }
+        .sidebar-block { margin-bottom: 2.75rem; }
+        .sidebar-block:last-child { margin-bottom: 0; }
+        .sidebar-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            margin-bottom: 1.1rem;
+        }
+        .post-toc ol { list-style: none; }
+        .post-toc li {
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--hairline);
+            transition: border-color 0.15s;
+        }
+        .post-toc li.active { border-left-color: var(--accent); }
+        .post-toc a {
+            font-size: 1.05rem;
+            line-height: 1.4;
+            color: var(--ink-cream-mute);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+        }
+        .post-toc a:hover, .post-toc li.active a { color: var(--ink-cream); }
 
-    .post-container {
-        position: relative;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .toc {
-        position: fixed;
-        left: max(2rem, calc(50% - 600px));
-        top: 8rem;
-        width: 200px;
-        font-size: 0.84rem;
-    }
-
-    .toc-title {
-        font-weight: 600;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        color: #fff;
-    }
-
-    .toc ul {
-        list-style: none;
-        padding-left: 0;
-    }
-
-    .toc li {
-        margin-bottom: 0.5rem;
-    }
-
-    .toc a {
-        color: #888;
-        text-decoration: none;
-    }
-
-    .toc a:hover {
-        color: #fff;
-    }
-
-    .post-main {
-        max-width: 800px;
-    }
-
-    .sidenote {
-        float: right;
-        clear: right;
-        width: 250px;
-        margin-right: -280px;
-        margin-top: 0;
-        margin-bottom: 1rem;
-        font-size: 0.85rem;
-        line-height: 1.4;
-        color: #888;
-        border-left: 2px solid #444;
-        padding-left: 1rem;
-    }
-
-    .post-content {
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-
-    .post-content h2 {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-top: 3rem;
-        margin-bottom: 1rem;
-    }
-
-    .post-content h3 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        margin-top: 2rem;
-        margin-bottom: 0.8rem;
-    }
-
-    .post-content p {
-        margin-bottom: 1.5rem;
-    }
-
-    .post-content ul, .post-content ol {
-        margin-bottom: 1.5rem;
-        padding-left: 2rem;
-    }
-
-    .post-content li {
-        margin-bottom: 0.5rem;
-    }
-
-    .post-content code {
-        background: #1a1a1a;
-        padding: 0.2rem 0.4rem;
-        border-radius: 3px;
-        font-family: 'Courier New', monospace;
-        font-size: 0.9em;
-        color: #9cdcfe;
-    }
-
-    .post-content pre {
-        background: #1a1a1a;
-        padding: 1.5rem;
-        border-radius: 5px;
-        overflow-x: auto;
-        margin-bottom: 1.5rem;
-    }
-
-    .post-content pre code {
-        background: none;
-        padding: 0;
-    }
-
-    .post-content blockquote {
-        border-left: 3px solid #3b82f6;
-        padding-left: 1.5rem;
-        margin: 2rem 0;
-        color: #ccc;
-    }
-
-    .post-content img {
-        max-width: 100%;
-        height: auto;
-        margin: 2rem 0;
-    }
-
-    .post-content table.data-table {
-        width: 100%;
-        max-width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
-        margin: 2rem 0;
-        border: 1px solid #2a2a2a;
-        border-radius: 8px;
-        background: #111;
-        font-size: 0.92rem;
-    }
-
-    .post-content table.data-table th,
-    .post-content table.data-table td {
-        padding: 0.7rem 0.85rem;
-        border-bottom: 1px solid #2a2a2a;
-        text-align: center;
-        vertical-align: middle;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        word-break: normal;
-        line-height: 1.4;
-    }
-
-    .post-content table.data-table th {
-        background: #161616;
-        color: #fff;
-        font-weight: 600;
-    }
-
-    .post-content table.data-table td:first-child,
-    .post-content table.data-table th:first-child {
-        text-align: left;
-    }
-
-    .post-content table.data-table tr:last-child td {
-        border-bottom: none;
-    }
-
-    .post-content .katex-display {
-        margin: 2rem 0;
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-
-    .back-link {
-        display: inline-block;
-        margin-bottom: 2rem;
-        color: #888;
-        text-decoration: none;
-        font-size: 1.2rem;
-    }
-
-    .back-link:hover {
-        color: #fff;
-    }
-
-    @media (max-width: 1400px) {
+        /* Sidenote — floats into right gutter. Reset font properties
+           explicitly because some refs land inside blockquotes (e.g.
+           "How it works" boxes) and would otherwise inherit the
+           blockquote's italic Space Grotesk styling. */
         .sidenote {
-            float: none;
-            width: 100%;
-            margin: 1rem 0;
-            margin-right: 0;
-            border-left: none;
-            border-top: 2px solid #444;
-            padding-top: 0.5rem;
-            padding-left: 0;
+            float: right;
+            clear: right;
+            width: 13rem;
+            margin-right: -14.5rem;
+            margin-top: 0.45rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--hairline-strong);
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: normal;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--ink-cream-mute);
         }
-        .post-main {
-            margin-right: 0;
+        .sidenote em, .sidenote i, .sidenote cite { font-style: italic; }
+        .sidenote strong, .sidenote b { color: var(--ink-cream-soft); font-weight: 500; }
+        .sidenote .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            margin-right: 0.45rem;
+            font-weight: 500;
+            line-height: 1;
+            font-style: normal;
         }
-    }
 
-    @media (max-width: 1200px) {
-        .toc {
-            position: relative;
-            left: auto;
-            width: 100%;
-            margin-bottom: 2rem;
+        /* Article body */
+        .post-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.35rem;
         }
-    }
+        .post-content p strong { color: var(--ink-cream); font-weight: 500; }
+        .post-content p em { color: var(--ink-cream); font-style: italic; }
+        .post-content p a {
+            color: var(--ink-cream);
+            text-decoration: none;
+            border-bottom: 1px solid var(--hairline-strong);
+            padding-bottom: 1px;
+            transition: border-color 0.2s;
+        }
+        .post-content p a:hover { border-color: var(--ink-cream); }
 
-    @media (max-width: 768px) {
-        .post-title {
+        /* Drop cap on first paragraph (auto-applies; no class needed) */
+        .post-content > p:first-of-type::first-letter {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 500;
+            line-height: 0.9;
+            float: left;
+            padding: 0.5rem 0.65rem 0 0;
+            color: var(--ink-cream);
+        }
+
+        .post-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--ink-cream);
+            line-height: 1.2;
+            margin: 4.5rem 0 1.25rem;
+            scroll-margin-top: 3rem;
+        }
+        .post-content h2:first-child { margin-top: 0; }
+        .post-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--ink-cream);
+            margin: 2.5rem 0 0.85rem;
         }
 
-        .post-content {
+        /* TL;DR deck (rendered from page.tldr or first blockquote) */
+        .post-deck {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.08rem;
+            line-height: 1.6;
+            color: var(--ink-cream);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            padding: 1.85rem 0;
+            margin-bottom: 3.25rem;
+            border-top: 1px solid var(--hairline);
+            border-bottom: 1px solid var(--hairline);
+        }
+        .post-deck > p { margin: 0 0 1rem; color: inherit; line-height: inherit; font-size: inherit; }
+        .post-deck > p:last-child { margin-bottom: 0; }
+        .post-deck strong { font-weight: 500; }
+        .post-deck .deck-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem; letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Callout blockquote — used for "How it works" boxes, emphasis
+           lists, etc. Reads as a soft callout box, not an italic pull-
+           quote. Bold lead-ins (e.g. "**How it works:**") still pop. */
+        .post-content blockquote {
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 1.65;
+            letter-spacing: -0.005em;
+            color: var(--ink-cream-soft);
+            padding: 1.25rem 1.5rem;
+            border-left: 2px solid var(--accent);
+            background: rgba(245,241,235,0.03);
+            border-radius: 0 4px 4px 0;
+            margin: 1.75rem 0;
+        }
+        .post-content blockquote p {
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            margin: 0 0 0.75rem;
+        }
+        .post-content blockquote p:last-child { margin-bottom: 0; }
+        .post-content blockquote ul,
+        .post-content blockquote ol {
+            margin: 0.4rem 0 0.4rem 1.4rem;
+            color: inherit;
+        }
+        .post-content blockquote li { margin-bottom: 0.35rem; }
+        .post-content blockquote strong {
+            color: var(--ink-cream);
+            font-weight: 500;
+        }
+        .post-content blockquote em, .post-content blockquote i {
+            font-style: italic;
+        }
+
+        /* Caption-style blockquotes: applied via JS to blockquotes that
+           start with "**Figure N**" / "**Table N**" — overrides the
+           pull-quote treatment with the figure-caption look.
+           Padding-top creates real space (margins collapse with the
+           preceding figure's bottom margin and would otherwise vanish). */
+        .post-content blockquote.caption-quote {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: normal;
+            color: var(--ink-cream-mute);
+            line-height: 1.6;
+            padding: 1.4rem 1.75rem;
+            border-left: none;
+            margin: 1.25rem auto 4rem;
+            max-width: 38rem;
+            text-align: center;
+        }
+        .post-content blockquote.caption-quote p {
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            margin: 0;
+        }
+        .post-content blockquote.caption-quote strong {
+            font-family: 'JetBrains Mono', monospace;
+            font-style: normal;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-dim);
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Lists */
+        .post-content ul, .post-content ol {
+            margin: 0.25rem 0 1.5rem 1.5rem;
+            color: var(--ink-cream-soft);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .post-content li { margin-bottom: 0.45rem; }
+        .post-content li strong { color: var(--ink-cream); font-weight: 500; }
+
+        /* Inline code */
+        .post-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92em;
+            background: rgba(245,241,235,0.06);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            color: var(--ink-cream);
+        }
+
+        /* Figure-row: side-by-side figures with optional column labels.
+           Cells are flex items whose flex-grow is set by JS to the image's
+           aspect ratio so all panels render at the SAME HEIGHT (variable
+           widths). Falls back to equal width if JS hasn't run. */
+        .post-content figure.figure-row {
+            display: flex;
+            gap: 1.25rem;
+            margin: 3rem 0 1rem;
+            padding: 0;
+            align-items: stretch;
+        }
+        .post-content figure.figure-row > div {
+            margin: 0;
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+        .post-content figure.figure-row img {
+            width: 100%; height: auto; display: block;
+            border-radius: 3px;
+        }
+        .post-content figure.figure-row figcaption {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: var(--ink-cream-dim);
+            margin-top: 0.85rem;
+        }
+
+        /* Figure */
+        .post-figure { margin: 4rem 0; }
+        .post-figure-img {
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 4px;
+            padding: 2rem;
+        }
+        .post-figure-img svg { width: 100%; height: auto; display: block; }
+        .post-figure-asset img {
+            width: 100%; height: auto; display: block;
+            background: #0E0E14;
+            border-radius: 3px;
+        }
+        .post-figure-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-style: italic;
+            color: var(--ink-cream-mute);
+            line-height: 1.6;
+            margin-top: 1.25rem;
+            max-width: 36rem;
+        }
+        .post-figure-caption strong {
+            font-family: 'JetBrains Mono', monospace;
+            font-style: normal;
+            font-size: 0.95rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-dim);
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Inline images (from markdown ![]()) — center, no chrome.
+           Cap at 80% so single figures don't span the full reading column. */
+        .post-content > p > img {
+            display: block;
+            max-width: 80%;
+            height: auto;
+            margin: 2.5rem auto;
+            border-radius: 3px;
+        }
+        /* Catch-all so images inside layout tables don't blow out cell width */
+        .post-content img { max-width: 100%; height: auto; }
+
+        /* Data table — scope to top-level kramdown tables only so KaTeX's
+           internal layout tables (.katex *) aren't clobbered. */
+        .post-content > table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 3.5rem 0;
             font-size: 0.95rem;
         }
-
-        .toc {
-            display: none;
+        /* Tables that hold figures (kramdown markdown tables w/ images) need
+           fixed layout so images can shrink to cell width. Data tables stay
+           on auto layout so numeric columns sit tight. */
+        .post-content > table:has(td img) { table-layout: fixed; }
+        .post-content > table:has(td img) th,
+        .post-content > table:has(td img) td { padding: 0.6rem 0.5rem; }
+        .post-content > table img { display: block; margin: 0 auto; }
+        .post-content > table thead th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem; letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            text-align: left;
+            padding: 0.85rem 1rem 0.85rem 0;
+            border-bottom: 1px solid var(--hairline-strong);
+            font-weight: 500;
+        }
+        .post-content > table tbody td {
+            padding: 1rem 1rem 1rem 0;
+            border-bottom: 1px solid var(--hairline);
+            color: var(--ink-cream-soft);
+            line-height: 1.5;
+        }
+        .post-content > table tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
+        .post-content > table tbody td.num {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.92rem;
         }
 
-        .sidenote {
-            display: none;
+        /* Code block */
+        .post-content pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 4px;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            color: var(--ink-cream);
+            white-space: pre;
+        }
+        .post-content pre code {
+            font-size: inherit;
+            background: none;
+            padding: 0;
+            color: inherit;
         }
 
-        .back-link {
+        /* Superscript footnote reference */
+        .post-content sup a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            padding: 0 0.15rem;
+            color: var(--accent);
+            text-decoration: none;
+            vertical-align: super;
+            line-height: 0;
+        }
+        .post-content sup a:hover { color: var(--ink-cream); }
+
+        /* KaTeX overflow handling */
+        .post-content .katex-display {
+            margin: 2rem 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        /* Original kramdown footnotes section — hidden on desktop after JS
+           pulls them into sidenotes, kept visible on narrow widths where
+           sidenotes collapse. */
+        .post-content .footnotes {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--hairline);
+            font-size: 0.9rem;
+            color: var(--ink-cream-mute);
+        }
+        .post-content .footnotes ol { margin-left: 1.25rem; }
+        .post-content .footnotes li { margin-bottom: 0.75rem; }
+
+        /* Responsive */
+        @media (max-width: 1380px) {
+            .sidenote {
+                float: none;
+                width: auto;
+                margin: 1.25rem 0;
+                padding-left: 1rem;
+            }
+            .post-body-inner {
+                grid-template-columns: 12rem minmax(0, 52rem);
+                max-width: 1100px;
+            }
+        }
+
+        /* Footer — sits on body bg (matches last section), no separator. */
+        .site-footer {
+            padding: 4rem var(--edge-pad);
+        }
+        .site-footer-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
             font-size: 1rem;
+            color: var(--ink-cream-mute);
+            letter-spacing: -0.005em;
         }
 
-        .post-content table.data-table th,
-        .post-content table.data-table td {
-            padding: 0.55rem 0.65rem;
-            font-size: 0.82rem;
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+            .post-hero { padding: 8rem var(--edge-pad) 5rem; }
+            .post-body { padding: 1rem var(--edge-pad) 6rem; }
+            .post-body-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .post-content { grid-column: auto; }
+            .post-sidebar { position: static; width: 100%; justify-self: start; }
+
+            .nav-hamburger { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute; top: 100%; right: 1rem;
+                background: #1A1A22;
+                border: 1px solid rgba(245,241,235,0.1);
+                border-radius: 10px;
+                padding: 1rem 1.5rem;
+                flex-direction: column; gap: 1rem;
+                min-width: 200px;
+            }
+            .nav-links.open { display: flex; }
         }
-    }
-</style>
+    </style>
+</head>
+<body>
+
+{% include nav.html active="discover" %}
 
 <article>
-    <a href="/blog/" class="back-link">← Back to Discover</a>
 
-    <header class="post-header">
-        <h1 class="post-title">{{ page.title }}</h1>
+<header class="post-hero">
+    <div class="post-hero-inner">
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}
+        <p class="subtitle">{{ page.subtitle }}</p>
+        {% endif %}
         <div class="post-meta">
             {% if page.author %}
-            <span class="author">{{ page.author }}</span>
+            <div class="field">
+                <span class="label">Authors</span>
+                <span class="value">{{ page.author }}</span>
+            </div>
             {% endif %}
-            <time datetime="{{ page.date | date_to_xmlschema }}">
-                {{ page.date | date: "%B %d, %Y" }}
-            </time>
-        </div>
-    </header>
-
-    <div class="post-container">
-        <nav class="toc">
-            <div class="toc-title">Contents</div>
-            <ul></ul>
-        </nav>
-
-        <div class="post-main">
-            <div class="post-content">
-                {{ content }}
+            <div class="field">
+                <span class="label">Published</span>
+                <span class="value">{{ page.date | date: "%B %-d, %Y" }}</span>
             </div>
         </div>
     </div>
+</header>
+
+<section class="post-body">
+    <div class="post-body-inner">
+
+        <aside class="post-sidebar">
+            <div class="sidebar-block post-toc">
+                <div class="sidebar-label">Contents</div>
+                <ol></ol>
+            </div>
+        </aside>
+
+        <main class="post-content">
+            {% if page.tldr %}
+            <div class="post-deck">
+                <span class="deck-label">TL;DR</span>
+                {{ page.tldr | markdownify }}
+            </div>
+            {% endif %}
+            {{ content }}
+        </main>
+
+    </div>
+</section>
+
 </article>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Generate TOC
-    const toc = document.querySelector('.toc ul');
-    const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+// Convert leading "**The TL;DR:** ..." blockquote into a styled deck so
+// existing posts get the deck without frontmatter migration. Skipped if
+// page.tldr already rendered a .post-deck.
+(function() {
+    const content = document.querySelector('.post-content');
+    if (!content || content.querySelector(':scope > .post-deck')) return;
+    const first = content.firstElementChild;
+    if (!first || first.tagName !== 'BLOCKQUOTE') return;
+    const firstP = first.querySelector('p');
+    const strongEl = firstP ? firstP.querySelector('strong') : null;
+    if (!strongEl || !/^(the\s+)?tl[;:]?dr/i.test(strongEl.textContent.trim())) return;
 
-    headings.forEach(heading => {
-        const id = heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        heading.id = id;
+    // Strip the "**The TL;DR:**" lead-in so the deck reads naturally.
+    const after = strongEl.nextSibling;
+    if (after && after.nodeType === Node.TEXT_NODE) {
+        after.nodeValue = after.nodeValue.replace(/^[\s:]+/, '');
+    }
+    strongEl.remove();
 
+    const deck = document.createElement('div');
+    deck.className = 'post-deck';
+    const label = document.createElement('span');
+    label.className = 'deck-label';
+    label.textContent = 'TL;DR';
+    deck.appendChild(label);
+    while (first.firstChild) deck.appendChild(first.firstChild);
+    first.replaceWith(deck);
+})();
+
+// Equal-height figure rows. For each .figure-row, set each cell's
+// flex-grow to the image's aspect ratio (w/h) so cells render at the
+// same height with widths proportional to image aspect. Wider images
+// take more horizontal room; narrower ones less.
+(function() {
+    document.querySelectorAll('.post-content figure.figure-row').forEach(row => {
+        const cells = Array.from(row.children);
+        const imgs = cells.map(c => c.querySelector('img')).filter(Boolean);
+        if (imgs.length < 2) return;
+        const apply = () => {
+            const ready = imgs.every(i => i.naturalWidth && i.naturalHeight);
+            if (!ready) return;
+            imgs.forEach((img, i) => {
+                const ar = img.naturalWidth / img.naturalHeight;
+                cells[i].style.flexGrow = ar.toFixed(4);
+                cells[i].style.flexBasis = '0';
+            });
+        };
+        if (imgs.every(i => i.complete)) apply();
+        else imgs.forEach(img => img.addEventListener('load', apply, { once: true }));
+    });
+})();
+
+// Tag blockquotes that begin with "**Figure N**" or "**Table N**" as
+// captions so they render with the small italic caption style instead
+// of the big pull-quote.
+(function() {
+    document.querySelectorAll('.post-content blockquote').forEach(bq => {
+        const firstP = bq.querySelector('p');
+        const firstStrong = firstP ? firstP.querySelector('strong') : null;
+        if (!firstStrong) return;
+        const txt = firstStrong.textContent.trim();
+        if (/^(figure|fig|table|tab)\.?\s*\d/i.test(txt)) {
+            bq.classList.add('caption-quote');
+        }
+    });
+})();
+
+// Build TOC from h2s in the article. Auto-hides if no h2s.
+(function() {
+    const toc = document.querySelector('.post-toc ol');
+    const block = document.querySelector('.post-toc');
+    if (!toc || !block) return;
+    const headings = document.querySelectorAll('.post-content h2[id]');
+    if (headings.length === 0) { block.style.display = 'none'; return; }
+    headings.forEach(h => {
         const li = document.createElement('li');
         const a = document.createElement('a');
-        a.href = `#${id}`;
-        a.textContent = heading.textContent;
-        if (heading.tagName === 'H3') a.style.paddingLeft = '1rem';
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
         li.appendChild(a);
         toc.appendChild(li);
     });
-
-    // Convert footnotes to sidenotes
-    const footnoteRefs = document.querySelectorAll('sup[id^="fnref:"]');
-    const footnotes = document.querySelector('.footnotes');
-
-    if (footnotes) {
-        const footnoteList = footnotes.querySelectorAll('li');
-        const footnoteMap = new Map();
-
-        footnoteList.forEach(fn => {
-            const id = fn.id.replace('fn:', '');
-            footnoteMap.set(id, fn.innerHTML.replace(/<a.*?class="reversefootnote".*?<\/a>/, '').trim());
-        });
-
-        footnoteRefs.forEach(ref => {
-            const id = ref.id.replace('fnref:', '').replace(/:.*/, '');
-            const content = footnoteMap.get(id);
-
-            if (content) {
-                const sidenote = document.createElement('span');
-                sidenote.className = 'sidenote';
-                sidenote.innerHTML = content;
-                ref.parentNode.insertBefore(sidenote, ref.nextSibling);
+    const links = toc.querySelectorAll('a');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                links.forEach(l => l.parentElement.classList.toggle(
+                    'active', l.getAttribute('href') === '#' + e.target.id
+                ));
             }
         });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    headings.forEach(h => observer.observe(h));
+})();
 
-        // Hide the original footnotes section on desktop only
-        // On mobile, sidenotes are hidden via CSS and footnotes stay visible at the bottom
-        if (window.innerWidth > 768) {
-            footnotes.style.display = 'none';
-        }
+// Convert kramdown footnotes into right-margin sidenotes on wide screens.
+(function() {
+    const footnotes = document.querySelector('.post-content .footnotes');
+    if (!footnotes) return;
+    const noteMap = new Map();
+    footnotes.querySelectorAll('li[id^="fn:"]').forEach(li => {
+        const key = li.id.replace('fn:', '');
+        let html = li.innerHTML
+            .replace(/<a[^>]*class="reversefootnote"[^>]*>[\s\S]*?<\/a>/g, '')
+            .trim();
+        // Strip the wrapping <p>...</p> kramdown adds. Otherwise the inner
+        // <p> picks up body or blockquote paragraph styles (whichever wins
+        // by specificity for that ref's location), causing inconsistent
+        // sizing between sidenotes inside vs outside blockquotes.
+        const m = html.match(/^<p>([\s\S]*)<\/p>$/);
+        if (m) html = m[1].trim();
+        noteMap.set(key, html);
+    });
+    document.querySelectorAll('.post-content sup[id^="fnref:"]').forEach(ref => {
+        const key = ref.id.replace('fnref:', '').replace(/:.*/, '');
+        const html = noteMap.get(key);
+        if (!html) return;
+        const link = ref.querySelector('a');
+        const num = link ? link.textContent.trim() : '';
+        const note = document.createElement('span');
+        note.className = 'sidenote';
+        note.innerHTML = (num ? '<span class="num">' + num + '</span>' : '') + html;
+        ref.parentNode.insertBefore(note, ref.nextSibling);
+    });
+    if (window.matchMedia('(min-width: 1181px)').matches) {
+        footnotes.style.display = 'none';
     }
-});
+})();
 </script>
+
+{% include footer.html %}
+
+</body>
+</html>

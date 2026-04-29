@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IORI icon workshop — refined</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #14141A;
+            color: #F5F1EB;
+            font-family: 'Inter', sans-serif;
+            padding: 4rem 3rem 6rem;
+            line-height: 1.55;
+        }
+        .wrap { max-width: 1280px; margin: 0 auto; }
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem; font-weight: 700;
+            letter-spacing: -0.03em; margin-bottom: 0.6rem;
+        }
+        .sub {
+            color: rgba(245,241,235,0.6);
+            font-size: 1.05rem;
+            max-width: 66ch;
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .opt {
+            background: #1C1C28;
+            border: 1px solid rgba(245,241,235,0.08);
+            border-radius: 10px;
+            padding: 2rem 1.75rem 1.75rem;
+        }
+        .opt-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(245,241,235,0.4);
+            margin-bottom: 1.25rem;
+        }
+        .opt svg.icon-large {
+            display: block;
+            width: 128px; height: 128px;
+            color: #F5F1EB;
+            margin-bottom: 1.5rem;
+        }
+        .opt-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .opt-desc {
+            color: rgba(245,241,235,0.6);
+            font-size: 0.92rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+        }
+
+        .preview-row {
+            display: flex; align-items: center; gap: 0.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(245,241,235,0.08);
+            color: rgba(245,241,235,0.85);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .preview-row svg {
+            width: 28px; height: 28px;
+            color: rgba(245,241,235,0.85);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem; font-weight: 600;
+            margin-top: 4rem; margin-bottom: 1.25rem;
+            color: rgba(245,241,235,0.5);
+            letter-spacing: -0.01em;
+        }
+
+        .all-nav {
+            display: flex; gap: 2.25rem; align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: #1C1C28;
+            border: 1px solid rgba(245,241,235,0.08);
+            border-radius: 10px;
+            flex-wrap: wrap;
+        }
+        .all-nav-item {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: rgba(245,241,235,0.85);
+            display: inline-flex; align-items: center; gap: 0.25rem;
+        }
+        .all-nav-item svg {
+            width: 28px; height: 28px;
+            color: rgba(245,241,235,0.85);
+        }
+        .lbl {
+            color: rgba(245,241,235,0.4);
+            font-weight: 400;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+
+    <h1>IORI — icon workshop, focused</h1>
+    <p class="sub">
+        Narrowed to the two that resonated (Sprout + Manuscripts) plus one new hybrid that might split the difference. Each shown at full display size (128&times;128) with nav-scale preview below.
+    </p>
+
+    <div class="grid">
+
+        <!-- Option A: Sprout (enhanced large version) -->
+        <div class="opt">
+            <div class="opt-id">Option A · Sprout (v2)</div>
+            <svg class="icon-large" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                <!-- ground: three tick segments -->
+                <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="16" y1="72" x2="32" y2="72"/>
+                    <line x1="40" y1="72" x2="56" y2="72"/>
+                    <line x1="64" y1="72" x2="80" y2="72"/>
+                </g>
+                <!-- buried seed below ground (dashed) -->
+                <ellipse cx="48" cy="82" rx="6" ry="2.8"
+                         stroke="currentColor" stroke-width="1.5" fill="none"
+                         stroke-dasharray="2.5 2.5" opacity="0.55"/>
+                <!-- stem -->
+                <line x1="48" y1="72" x2="48" y2="38"
+                      stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <!-- left leaf (pointed, larger) -->
+                <path d="M 48 54 C 34 54 22 46 18 30 C 30 30 44 38 48 54 Z" fill="currentColor"/>
+                <!-- right leaf (higher, pointed) -->
+                <path d="M 48 42 C 62 42 74 34 78 18 C 66 18 52 26 48 42 Z" fill="currentColor"/>
+                <!-- new tip leaf (just emerging) -->
+                <path d="M 48 38 C 45 34 45 28 48 24 C 51 28 51 34 48 38 Z"
+                      fill="currentColor" opacity="0.85"/>
+            </svg>
+            <div class="opt-name">Sprout — v2</div>
+            <div class="opt-desc">Upgraded for display scale: three leaves (two full + one just emerging at the tip), a buried seed dashed below ground, and segmented ground ticks. More crafted, more depth. Small/nav version stays minimal.</div>
+            <div class="preview-row">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="32" y1="52" x2="32" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M 32 36 C 24 36 18 30 18 22 C 26 22 32 28 32 36 Z" fill="currentColor"/><path d="M 32 30 C 40 30 46 24 46 16 C 38 16 32 22 32 30 Z" fill="currentColor"/><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="20" y1="52" x2="26" y2="52"/><line x1="38" y1="52" x2="44" y2="52"/></g></svg>
+                IORI
+            </div>
+        </div>
+
+        <!-- Option E: Manuscripts (kept) -->
+        <div class="opt">
+            <div class="opt-id">Option E · Manuscripts</div>
+            <svg class="icon-large" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="currentColor" stroke-width="2" fill="#1C1C28" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="34" y="14" width="44" height="60" rx="2"/>
+                    <rect x="24" y="22" width="44" height="60" rx="2"/>
+                    <rect x="14" y="30" width="44" height="60" rx="2"/>
+                </g>
+                <g stroke="currentColor" stroke-width="1.3" opacity="0.55" stroke-linecap="round">
+                    <line x1="20" y1="42" x2="44" y2="42"/>
+                    <line x1="20" y1="50" x2="52" y2="50"/>
+                    <line x1="20" y1="58" x2="48" y2="58"/>
+                    <line x1="20" y1="66" x2="50" y2="66"/>
+                    <line x1="20" y1="74" x2="42" y2="74"/>
+                    <line x1="20" y1="82" x2="46" y2="82"/>
+                </g>
+            </svg>
+            <div class="opt-name">Manuscripts</div>
+            <div class="opt-desc">Three stacked papers with the topmost showing lines of text. Reads cleanly as "shared research output." The safe, fit-for-purpose pick you already flagged as best.</div>
+            <div class="preview-row">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.6" fill="#1C1C28" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5"/><rect x="16" y="14" width="28" height="38" rx="1.5"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI
+            </div>
+        </div>
+
+        <!-- NEW Option F: Sprout + flask hybrid -->
+        <div class="opt">
+            <div class="opt-id">Option F · Sprout-in-flask</div>
+            <svg class="icon-large" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+                <!-- flask -->
+                <g stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="34" y1="16" x2="62" y2="16"/>
+                    <path d="M 38 16 L 38 36 L 22 76 Q 22 84 30 84 L 66 84 Q 74 84 74 76 L 58 36 L 58 16"/>
+                </g>
+                <!-- medium inside flask -->
+                <path d="M 28 68 L 68 68 L 72 78 Q 72 82 68 82 L 28 82 Q 24 82 24 78 Z"
+                      fill="currentColor" opacity="0.35"/>
+                <!-- sprout rising from inside -->
+                <line x1="48" y1="68" x2="48" y2="46"
+                      stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M 48 58 C 40 58 32 52 30 42 C 38 42 46 48 48 58 Z" fill="currentColor"/>
+                <path d="M 48 52 C 56 52 64 46 66 36 C 58 36 50 42 48 52 Z" fill="currentColor"/>
+            </svg>
+            <div class="opt-name">Sprout-in-flask</div>
+            <div class="opt-desc">Explicitly marries science (flask) with initiative (sprout growing from it). The combo makes it specific to IORI in a way neither alone quite lands. Warmer than pure glassware, more scientific than pure sprout.</div>
+            <div class="preview-row">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="10" x2="42" y2="10"/>
+                        <path d="M 25 10 L 25 24 L 14 50 Q 14 54 18 54 L 46 54 Q 50 54 50 50 L 39 24 L 39 10"/>
+                    </g>
+                    <path d="M 18 44 L 46 44 L 49 52 Q 49 54 46 54 L 18 54 Q 15 54 15 52 Z" fill="currentColor" opacity="0.4"/>
+                    <line x1="32" y1="44" x2="32" y2="30" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M 32 37 C 27 37 23 33 22 27 C 27 27 31 31 32 37 Z" fill="currentColor"/>
+                    <path d="M 32 33 C 37 33 41 29 42 23 C 37 23 33 27 32 33 Z" fill="currentColor"/>
+                </svg>
+                IORI
+            </div>
+        </div>
+
+    </div>
+
+    <h2>Side-by-side in the nav</h2>
+
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+
+        <div class="all-nav">
+            <span class="all-nav-item">
+                <svg viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </span>
+            <span class="all-nav-item">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </span>
+            <span class="all-nav-item">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="32" y1="52" x2="32" y2="30" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M 32 36 C 24 36 18 30 18 22 C 26 22 32 28 32 36 Z" fill="currentColor"/><path d="M 32 30 C 40 30 46 24 46 16 C 38 16 32 22 32 30 Z" fill="currentColor"/><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="20" y1="52" x2="26" y2="52"/><line x1="38" y1="52" x2="44" y2="52"/></g></svg>
+                IORI&nbsp;<span class="lbl">· A sprout</span>
+            </span>
+        </div>
+
+        <div class="all-nav">
+            <span class="all-nav-item">
+                <svg viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </span>
+            <span class="all-nav-item">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </span>
+            <span class="all-nav-item">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.6" fill="#1C1C28" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5"/><rect x="16" y="14" width="28" height="38" rx="1.5"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI&nbsp;<span class="lbl">· E manuscripts</span>
+            </span>
+        </div>
+
+        <div class="all-nav">
+            <span class="all-nav-item">
+                <svg viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </span>
+            <span class="all-nav-item">
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </span>
+            <span class="all-nav-item">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="10" x2="42" y2="10"/>
+                        <path d="M 25 10 L 25 24 L 14 50 Q 14 54 18 54 L 46 54 Q 50 54 50 50 L 39 24 L 39 10"/>
+                    </g>
+                    <path d="M 18 44 L 46 44 L 49 52 Q 49 54 46 54 L 18 54 Q 15 54 15 52 Z" fill="currentColor" opacity="0.4"/>
+                    <line x1="32" y1="44" x2="32" y2="30" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M 32 37 C 27 37 23 33 22 27 C 27 27 31 31 32 37 Z" fill="currentColor"/>
+                    <path d="M 32 33 C 37 33 41 29 42 23 C 37 23 33 27 32 33 Z" fill="currentColor"/>
+                </svg>
+                IORI&nbsp;<span class="lbl">· F sprout-in-flask</span>
+            </span>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

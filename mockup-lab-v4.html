@@ -1,21 +1,10 @@
----
-layout: null
-title: Iluvatar Labs
-description: A post-training & research lab. Closing the loop on post-training, scientific research, compression, drug discovery, reinforcement learning, materials science, distillation, self-evolving AI, and computational biology.
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
-    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
-
-    {% seo %}
-
+    <title>Iluvatar Labs — Lab mockup v4</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,19 +14,12 @@ description: A post-training & research lab. Closing the loop on post-training, 
             --edge-pad: 3rem;
 
             --ink-cream:      #F5F1EB;
-            --ink-cream-soft: rgba(245,241,235,0.72);
-            --ink-cream-mute: rgba(245,241,235,0.46);
-            --ink-cream-faint: rgba(245,241,235,0.28);
+            --ink-cream-soft: rgba(245,241,235,0.68);
+            --ink-cream-mute: rgba(245,241,235,0.42);
 
             --ink-dark:       #14141A;
-            --ink-dark-soft:  rgba(20,20,26,0.72);
-            --ink-dark-mute:  rgba(20,20,26,0.46);
-            --ink-dark-faint: rgba(20,20,26,0.28);
-
-            --hair-cream:        rgba(245,241,235,0.12);
-            --hair-cream-strong: rgba(245,241,235,0.22);
-            --hair-dark:         rgba(20,20,26,0.12);
-            --hair-dark-strong:  rgba(20,20,26,0.22);
+            --ink-dark-soft:  rgba(20,20,26,0.68);
+            --ink-dark-mute:  rgba(20,20,26,0.42);
 
             --accent:         #E97B6A;
             --accent-deep:    #CC6A5B;
@@ -53,10 +35,11 @@ description: A post-training & research lab. Closing the loop on post-training, 
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .section { position: relative; width: 100%; padding: 0 var(--edge-pad); }
+        .section { position: relative; width: 100%; }
         .section-inner {
             max-width: var(--max-content);
             margin: 0 auto;
+            padding: 0 var(--edge-pad);
             position: relative;
         }
 
@@ -75,43 +58,38 @@ description: A post-training & research lab. Closing the loop on post-training, 
             z-index: 5;
         }
 
-        /* ── Nav. Theme-agnostic via --nav-ink / --nav-ink-soft. The
-           homepage hero is dark, so cream ink. Other pages declare their
-           own values on .nav-bar. ── */
+        /* ── Nav (original styling) ── */
         .nav-bar {
             position: absolute; top: 0; left: 0; right: 0;
-            z-index: 30;
-            padding: 3rem var(--edge-pad) 0;
-            --nav-ink: var(--ink-cream);
-            --nav-ink-soft: var(--ink-cream-soft);
+            z-index: 30; display: flex; justify-content: center;
         }
         .nav {
-            max-width: var(--max-content);
-            margin: 0 auto;
+            width: 100%; max-width: var(--max-content);
             display: flex; justify-content: space-between; align-items: center;
+            padding: 3rem var(--edge-pad) 0;
         }
         .nav-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2rem;
             font-weight: 700;
             letter-spacing: -0.02em;
-            color: var(--nav-ink);
+            color: var(--ink-cream);
             text-decoration: none;
         }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-links a {
-            color: var(--nav-ink);
+            color: var(--ink-cream);
             text-decoration: none;
             font-size: 1.1rem;
-            border-bottom: 2px solid transparent;
+            border-bottom: 1px solid transparent;
             padding-bottom: 2px;
             transition: border-color 0.2s, font-weight 0.2s;
         }
-        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a:hover { border-bottom-color: var(--ink-cream); }
         /* Active-page state (apply .active to the current section's link) */
         .nav-links a.active {
             font-weight: 700;
-            border-bottom-color: var(--nav-ink);
+            border-bottom-color: var(--ink-cream);
         }
         .nav-links a.product-link {
             font-family: 'Space Grotesk', sans-serif;
@@ -131,23 +109,22 @@ description: A post-training & research lab. Closing the loop on post-training, 
         }
         .social-icon svg {
             width: 100%; height: 100%;
-            fill: var(--nav-ink);
+            fill: var(--ink-cream);
             transition: fill 0.2s;
         }
-        a:hover .social-icon svg { fill: var(--nav-ink); }
+        a:hover .social-icon svg { fill: var(--ink-cream); }
         .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
         .nav-hamburger span {
             display: block; width: 22px; height: 2px;
-            background: var(--nav-ink-soft); margin: 5px 0;
+            background: var(--ink-cream-soft); margin: 5px 0;
         }
-        .nav-hamburger:hover span { background: var(--nav-ink); }
+        .nav-hamburger:hover span { background: var(--ink-cream); }
 
         /* ── Hero: atmospheric dark with multi-point glow ── */
         .hero {
             position: relative;
-            min-height: 58vh;
+            min-height: 68vh;
             overflow: hidden;
-            padding: 7rem var(--edge-pad) 4rem;
             background:
                 radial-gradient(ellipse 70% 90% at 92% 18%, rgba(233,143,102,0.22) 0%, transparent 50%),
                 radial-gradient(ellipse 80% 70% at 12% 85%, rgba(105,82,160,0.25) 0%, transparent 55%),
@@ -160,7 +137,8 @@ description: A post-training & research lab. Closing the loop on post-training, 
             z-index: 2;
             max-width: var(--max-content);
             margin: 0 auto;
-            min-height: calc(58vh - 11rem);
+            min-height: 68vh;
+            padding: 7rem var(--edge-pad) 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -190,18 +168,15 @@ description: A post-training & research lab. Closing the loop on post-training, 
             letter-spacing: -0.013em;
             color: var(--accent);
             text-decoration: none;
-            border: 1.5px solid var(--accent);
-            border-radius: 999px;
-            padding: 0.85rem 1.7rem;
-            background: rgba(233,123,106,0.10);
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 4px;
             margin-top: 2rem;
             display: inline-flex; align-items: center; gap: 0.55rem;
-            transition: color 0.2s, border-color 0.2s, background 0.2s, gap 0.2s;
+            transition: color 0.2s, border-color 0.2s, gap 0.2s;
         }
         .hero-about:hover {
             color: var(--accent-deep);
             border-color: var(--accent-deep);
-            background: rgba(233,123,106,0.18);
             gap: 0.85rem;
         }
 
@@ -268,8 +243,8 @@ description: A post-training & research lab. Closing the loop on post-training, 
             font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(3.5rem, 6.5vw, 6.5rem);
             font-weight: 700;
-            letter-spacing: -0.035em;
-            line-height: 0.98;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
             margin-bottom: 1rem;
         }
         .product .subtitle {
@@ -297,14 +272,12 @@ description: A post-training & research lab. Closing the loop on post-training, 
             font-weight: 500;
             text-decoration: none;
             letter-spacing: -0.005em;
-            padding: 0.85rem 1.6rem;
-            border-radius: 999px;
-            border: 1px solid currentColor;
+            padding-bottom: 4px;
             align-self: flex-start;
-            transition: border-color 0.2s, background 0.2s, gap 0.2s, color 0.2s;
+            transition: color 0.2s, border-color 0.2s, gap 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 0.55rem;
+            gap: 0.5rem;
         }
         .product .learn-more:hover { gap: 0.75rem; }
 
@@ -331,81 +304,78 @@ description: A post-training & research lab. Closing the loop on post-training, 
             z-index: 2; pointer-events: none;
         }
 
-        /* ── Actuator: flat cream (matches Discover's body surface) ── */
+        /* ── Actuator: flat cream ── */
         .product.actuator {
-            background: #FAFAF5;
+            background: #F1ECE2;
             color: var(--ink-dark);
         }
         .product.actuator .product-eyebrow { color: var(--ink-dark-mute); }
         .product.actuator .subtitle { color: var(--ink-dark); }
         .product.actuator .subtitle i { color: var(--accent-deep); }
         .product.actuator .body { color: var(--ink-dark-soft); }
-        .product.actuator .learn-more { color: var(--ink-dark); border-color: var(--hair-dark-strong); background: rgba(20,20,26,0.04); }
-        .product.actuator .learn-more:hover { border-color: var(--ink-dark); background: rgba(20,20,26,0.09); }
+        .product.actuator .learn-more { color: var(--ink-dark); border-bottom: 1px solid rgba(20,20,26,0.3); }
+        .product.actuator .learn-more:hover { border-color: var(--accent-deep); color: var(--accent-deep); }
         .product.actuator .product-visual::before {
             background: linear-gradient(
                 to right,
-                rgba(250,250,245,1) 0%, rgba(250,250,245,0.5) 10%,
-                rgba(250,250,245,0) 25%, rgba(250,250,245,0) 80%,
-                rgba(250,250,245,0.5) 93%, rgba(250,250,245,1) 100%
+                rgba(241,236,226,1) 0%, rgba(241,236,226,0.5) 10%,
+                rgba(241,236,226,0) 25%, rgba(241,236,226,0) 80%,
+                rgba(241,236,226,0.5) 93%, rgba(241,236,226,1) 100%
             );
         }
         .product.actuator .product-visual::after {
             background: linear-gradient(
                 to bottom,
-                rgba(250,250,245,1) 0%, rgba(250,250,245,0) 14%,
-                rgba(250,250,245,0) 86%, rgba(250,250,245,1) 100%
+                rgba(241,236,226,1) 0%, rgba(241,236,226,0) 14%,
+                rgba(241,236,226,0) 86%, rgba(241,236,226,1) 100%
             );
         }
 
-        /* ── Marvin: deep navy (#0F2240). Doesn't match the Marvin page
-           Aegean — chosen for the homepage panel specifically. Flat
-           fill so the canvas edge fades line up. */
+        /* ── Marvin: flat warm near-black (v2 style) ── */
         .product.marvin {
-            background: #0F2240;
+            background: #14141A;
             color: var(--ink-cream);
         }
         .product.marvin .product-eyebrow { color: var(--ink-cream-mute); }
         .product.marvin .subtitle { color: var(--ink-cream); }
         .product.marvin .subtitle i { color: var(--accent); }
         .product.marvin .body { color: var(--ink-cream-soft); }
-        .product.marvin .learn-more { color: var(--ink-cream); border-color: var(--hair-cream-strong); background: rgba(245,241,235,0.05); }
-        .product.marvin .learn-more:hover { border-color: var(--ink-cream); background: rgba(245,241,235,0.11); }
+        .product.marvin .learn-more { color: var(--ink-cream); border-bottom: 1px solid rgba(245,241,235,0.3); }
+        .product.marvin .learn-more:hover { border-color: var(--accent); color: var(--accent); }
         /* Asymmetric horizontal fade: heavier on the left (toward text),
            softer on the other edges. Pulled farther inward so the rectangle
-           boundary isn't visible. Tinted to match panel bg #0F2240 so the
-           canvas edges fade into the section, not into a dark rectangle. */
+           boundary isn't visible. */
         .product.marvin .product-visual::before {
             background: linear-gradient(
                 to right,
-                rgba(15,34,64,1)    0%,
-                rgba(15,34,64,0.75) 10%,
-                rgba(15,34,64,0.35) 22%,
-                rgba(15,34,64,0.08) 32%,
-                rgba(15,34,64,0)    40%,
-                rgba(15,34,64,0)    74%,
-                rgba(15,34,64,0.4)  88%,
-                rgba(15,34,64,1)    100%
+                rgba(20,20,26,1)    0%,
+                rgba(20,20,26,0.75) 10%,
+                rgba(20,20,26,0.35) 22%,
+                rgba(20,20,26,0.08) 32%,
+                rgba(20,20,26,0)    40%,
+                rgba(20,20,26,0)    74%,
+                rgba(20,20,26,0.4)  88%,
+                rgba(20,20,26,1)    100%
             );
         }
         .product.marvin .product-visual::after {
             background: linear-gradient(
                 to bottom,
-                rgba(15,34,64,1)    0%,
-                rgba(15,34,64,0.5)  12%,
-                rgba(15,34,64,0)    26%,
-                rgba(15,34,64,0)    74%,
-                rgba(15,34,64,0.5)  88%,
-                rgba(15,34,64,1)    100%
+                rgba(20,20,26,1)    0%,
+                rgba(20,20,26,0.5)  12%,
+                rgba(20,20,26,0)    26%,
+                rgba(20,20,26,0)    74%,
+                rgba(20,20,26,0.5)  88%,
+                rgba(20,20,26,1)    100%
             );
         }
 
-        /* ── From the lab: warm near-black (was Marvin's color, swap) ── */
+        /* ── From the lab: slightly indigo-tinted charcoal ── */
         .lab {
             position: relative;
-            background: #14141A;
+            background: #1C1C28;
             color: var(--ink-cream);
-            padding: 6rem var(--edge-pad) 7rem;
+            padding: 6rem 0 7rem;
             overflow: hidden;
         }
         .lab-head {
@@ -414,11 +384,11 @@ description: A post-training & research lab. Closing the loop on post-training, 
             position: relative; z-index: 2;
         }
         .lab h2 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2.25rem, 3.6vw, 3.4rem);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1;
         }
         .lab-all {
             font-family: 'Inter', sans-serif;
@@ -427,14 +397,12 @@ description: A post-training & research lab. Closing the loop on post-training, 
             letter-spacing: -0.01em;
             text-decoration: none;
             color: var(--ink-cream);
-            border: 1px solid var(--hair-cream-strong);
-            border-radius: 999px;
-            padding: 0.85rem 1.6rem;
-            background: rgba(245,241,235,0.05);
-            display: inline-flex; align-items: center; gap: 0.55rem;
-            transition: gap 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
+            border-bottom: 1px solid rgba(245,241,235,0.35);
+            padding-bottom: 4px;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: gap 0.2s, border-color 0.2s, color 0.2s;
         }
-        .lab-all:hover { border-color: var(--ink-cream); background: rgba(245,241,235,0.11); gap: 0.75rem; }
+        .lab-all:hover { border-color: var(--accent); color: var(--accent); gap: 0.75rem; }
 
         /* Featured article */
         .lab-featured {
@@ -463,62 +431,36 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .lab-thumb {
             position: absolute; inset: 0;
         }
-        /* Marvin: aegean base + cyan glow + coral glow */
-        .lab-thumb-marvin {
-            background:
-                radial-gradient(ellipse 92% 92% at 95% 10%, rgba(110,200,230,0.24) 0%, rgba(110,200,230,0) 62%),
-                radial-gradient(ellipse 92% 82% at 5% 100%, rgba(224,129,74,0.16) 0%, rgba(224,129,74,0) 65%),
-                #16415A;
-        }
-        /* Actuator: cream base + coral glow + indigo glow */
         .lab-thumb-actuator {
             background:
-                radial-gradient(ellipse 100% 90% at 95% 8%, rgba(233,123,106,0.18) 0%, rgba(233,123,106,0) 60%),
-                radial-gradient(ellipse 95% 85% at 5% 100%, rgba(79,70,229,0.14) 0%, rgba(79,70,229,0) 65%),
-                #FAFAF5;
+                radial-gradient(ellipse 70% 80% at 25% 30%, rgba(233,123,106,0.5) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 70% at 80% 75%, rgba(75,65,140,0.7) 0%, transparent 60%),
+                #241F4A;
         }
-        /* DCA: indigo base + lavender glow + coral glow */
         .lab-thumb-dca {
             background:
-                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(184,166,255,0.22) 0%, rgba(184,166,255,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(233,123,106,0.14) 0%, rgba(233,123,106,0) 65%),
-                #2E2A5A;
+                radial-gradient(ellipse 60% 80% at 75% 25%, rgba(140,110,220,0.55) 0%, transparent 55%),
+                radial-gradient(ellipse 70% 70% at 20% 85%, rgba(30,27,75,0.9) 0%, transparent 60%),
+                #1A1D3E;
         }
-        /* Elastic: ink-dark base + cyan glow + coral glow */
+        .lab-thumb-marvin {
+            background:
+                radial-gradient(ellipse 70% 70% at 70% 30%, rgba(58,74,70,0.65) 0%, transparent 55%),
+                radial-gradient(ellipse 60% 80% at 20% 80%, rgba(20,20,26,0.8) 0%, transparent 60%),
+                #2E3A38;
+        }
         .lab-thumb-elastic {
             background:
-                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(110,200,230,0.22) 0%, rgba(110,200,230,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(224,129,74,0.12) 0%, rgba(224,129,74,0) 65%),
-                #14141A;
+                radial-gradient(ellipse 70% 70% at 80% 30%, rgba(230,170,120,0.55) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 70% at 20% 80%, rgba(120,75,55,0.65) 0%, transparent 60%),
+                #3A2A20;
         }
-        /* Indigo fallback for posts without a known thumbnail value */
-        .lab-thumb-indigo {
-            background:
-                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(184,166,255,0.22) 0%, rgba(184,166,255,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(233,123,106,0.14) 0%, rgba(233,123,106,0) 65%),
-                #2E2A5A;
-        }
-        /* Grain — cream-on-dark default, matching the live hero treatment. */
         .lab-thumb-grain {
             position: absolute; inset: 0;
-            z-index: 2;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/></svg>");
+            opacity: 0.12;
+            mix-blend-mode: overlay;
             pointer-events: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0 0.92  1.4 1.4 1.4 0 -1.95'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-            opacity: 0.35;
-        }
-        /* Actuator's cream background uses dark-on-cream grain instead. */
-        .lab-thumb-actuator + .lab-thumb-grain {
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0 0.10  1.4 1.4 1.4 0 -1.95'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-            opacity: 0.25;
-        }
-        /* Pictograph icon overlays both the thumb and the grain. */
-        .lab-featured-visual .thumb-icon,
-        .lab-card-visual .thumb-icon {
-            position: absolute;
-            inset: 0;
-            width: 100%; height: 100%;
-            z-index: 3;
-            display: block;
         }
 
         .lab-featured-content {
@@ -526,6 +468,10 @@ description: A post-training & research lab. Closing the loop on post-training, 
             flex-direction: column;
             justify-content: center;
             padding: 1rem 2rem 1rem 0;
+        }
+        .lab-featured h3,
+        .lab-featured .lab-excerpt {
+            max-width: 36ch;
         }
         .lab-meta {
             display: flex; align-items: center; gap: 1rem;
@@ -544,11 +490,11 @@ description: A post-training & research lab. Closing the loop on post-training, 
             font-size: 0.95rem;
         }
         .lab-featured h3 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(1.75rem, 2.5vw, 2.25rem);
             font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -0.022em;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
             margin-bottom: 1rem;
             color: var(--ink-cream);
         }
@@ -557,24 +503,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
             color: var(--ink-cream-soft);
             line-height: 1.55;
             margin-bottom: 1.5rem;
-        }
-        .lab-featured .lab-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--ink-cream);
-            line-height: 1.4;
-            letter-spacing: -0.012em;
-            margin-bottom: 1rem;
-        }
-        .lab-card .lab-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--ink-cream);
-            line-height: 1.4;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.7rem;
+            max-width: 34rem;
         }
         .lab-authors {
             font-family: 'Inter', sans-serif;
@@ -611,49 +540,36 @@ description: A post-training & research lab. Closing the loop on post-training, 
             margin-bottom: 1.25rem;
         }
         .lab-card h4 {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.4rem;
             font-weight: 600;
-            line-height: 1.25;
-            letter-spacing: -0.018em;
+            line-height: 1.22;
+            letter-spacing: -0.02em;
             margin-bottom: 0.9rem;
             color: var(--ink-cream);
         }
         .lab-card .lab-meta { margin-bottom: 0.9rem; }
         .lab-card .lab-authors { font-size: 1.05rem; margin: 0; }
 
-        /* ── Footer — uniform across all pages, sits on the last
-           section's surface (the lab section's slightly indigo
-           charcoal). No separator. ── */
-        .site-footer {
-            padding: 4rem var(--edge-pad);
-            background: #14141A;
-        }
-        .site-footer-inner {
-            max-width: var(--max-content);
-            margin: 0 auto;
+        /* ── Footer: blends into the lab section, just a © ── */
+        .lab-copy {
+            margin-top: 8rem;
+            font-family: 'Inter', sans-serif;
             font-size: 1rem;
+            font-weight: 400;
             color: var(--ink-cream-mute);
             letter-spacing: -0.005em;
+            text-align: left;
+            position: relative;
+            z-index: 2;
         }
 
         /* ── Responsive ── */
-        /* Laptop heights (≤1399px tall, non-mobile widths): h1 caps in px at
-           the clamp ceiling, but 62vh shrinks with viewport height, so the
-           text-to-hero ratio reads as squished on laptops. Bump min-height
-           on both .hero and .hero-inner so the hero matches the proportions
-           1440p+ desktops get from 62vh alone. Inner needs the bump too
-           because it sets its own min-height for flex-centering. */
-        @media (min-width: 961px) and (max-height: 1399px) {
-            .hero { min-height: 820px; }
-            .hero-inner { min-height: calc(820px - 11rem); }
-        }
-
         @media (max-width: 960px) {
             :root { --edge-pad: 1.5rem; }
 
-            .hero { min-height: auto; padding: 7rem var(--edge-pad) 4rem; }
-            .hero-inner { min-height: auto; }
+            .hero { min-height: auto; }
+            .hero-inner { min-height: auto; padding: 7rem var(--edge-pad) 4rem; }
             .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: none; }
             .hero-about { font-size: clamp(1.1rem, 4vw, 1.35rem); }
 
@@ -679,6 +595,8 @@ description: A post-training & research lab. Closing the loop on post-training, 
             .lab-grid { grid-template-columns: 1fr; gap: 2rem; }
             .lab-card-visual { aspect-ratio: 16 / 9; }
 
+            .footer .section-inner { justify-content: flex-start; gap: 1rem; }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -699,7 +617,36 @@ description: A post-training & research lab. Closing the loop on post-training, 
 </head>
 <body>
 
-    {% include nav.html %}
+    <div class="nav-bar">
+        <nav class="nav">
+            <a href="/" class="nav-title">iluvatar labs.</a>
+            <button class="nav-hamburger" type="button" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-links">
+                <a href="/blog/2026/04/introducing-actuator/" class="product-link">
+                    <svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                    Actuator
+                </a>
+                <a href="/blog/2026/03/introducing-marvin/" class="product-link">
+                    <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                    Marvin
+                </a>
+                <a href="/iori/" class="product-link">
+                    <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.6" fill="#14141A" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5"/><rect x="16" y="14" width="28" height="38" rx="1.5"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                    IORI
+                </a>
+                <a href="/blog/" class="nav-text">Discover</a>
+                <a href="/about/" class="nav-text">About</a>
+                <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer">
+                    <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+                </a>
+                <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer">
+                    <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+                </a>
+            </div>
+        </nav>
+    </div>
 
     <!-- Hero -->
     <section class="hero section">
@@ -720,10 +667,13 @@ description: A post-training & research lab. Closing the loop on post-training, 
                     <span class="rotator-word" aria-hidden="true">computational biology.</span>
                 </span>
             </h1>
+            <div class="hero-link-anchor">
+                <a href="/about/" class="hero-about">Read about our mission <span>&rarr;</span></a>
+            </div>
         </div>
     </section>
 
-    <!-- Actuator: cream, DAG visual -->
+    <!-- Actuator: atmospheric indigo, visual right -->
     <section class="product actuator section" id="actuator">
         <div class="grain" style="opacity: 0.05;"></div>
         <div class="section-inner">
@@ -731,7 +681,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
                 <h2>Actuator.</h2>
                 <p class="subtitle">A <i>closed-loop</i> control layer for post-training.</p>
                 <p class="body">Streams reward and eval signals through live training, adapts pressure when quality drifts, and halts before damage is done. Drops into any framework.</p>
-                <a href="/actuator/" class="learn-more">Learn more about Actuator &rarr;</a>
+                <a href="/blog/2026/04/introducing-actuator/" class="learn-more">Learn more about Actuator &rarr;</a>
             </div>
             <div class="product-visual">
                 <canvas id="actuatorDag"></canvas>
@@ -739,7 +689,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         </div>
     </section>
 
-    <!-- Marvin: dark, constellation visual -->
+    <!-- Marvin: light blue -->
     <section class="product marvin section" id="marvin">
         <div class="grain" style="opacity: 0.06;"></div>
         <div class="section-inner">
@@ -747,7 +697,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
                 <h2>Marvin.</h2>
                 <p class="subtitle">An autonomous agent for <i>post-training research</i>.</p>
                 <p class="body">Give Marvin a mission: it reviews literature, generates novel hypotheses, designs and runs experiments, and delivers a full logic trail.</p>
-                <a href="/marvin/" class="learn-more">Meet Marvin &rarr;</a>
+                <a href="/blog/2026/03/introducing-marvin/" class="learn-more">Meet Marvin &rarr;</a>
             </div>
             <div class="product-visual">
                 <canvas id="marvinConstellation"></canvas>
@@ -755,7 +705,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         </div>
     </section>
 
-    <!-- From the team -->
+    <!-- From the lab -->
     <section class="lab section" id="lab">
         <div class="grain" style="opacity: 0.05;"></div>
         <div class="section-inner">
@@ -764,60 +714,69 @@ description: A post-training & research lab. Closing the loop on post-training, 
                 <a href="/blog/" class="lab-all">Discover more <span>&rarr;</span></a>
             </div>
 
-            {% assign featured = site.posts | where_exp: "p", "p.featured == true" | first | default: site.posts.first %}
-            {% if featured %}
-            <a href="{{ featured.url }}" class="lab-featured">
+            <!-- Featured -->
+            <a href="/blog/2026/04/introducing-actuator/" class="lab-featured">
                 <div class="lab-featured-visual">
-                    {% if site.data.thumbs[featured.slug] %}
-                        <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[featured.slug] }}); background-size: cover; background-position: center;"></div>
-                    {% else %}
-                        <div class="lab-thumb lab-thumb-{{ featured.thumbnail | default: 'indigo' }}"></div>
-                    {% endif %}
+                    <div class="lab-thumb lab-thumb-actuator"></div>
                     <div class="lab-thumb-grain"></div>
-                    {% include thumb-icon.html type=featured.thumbnail %}
                 </div>
                 <div class="lab-featured-content">
                     <div class="lab-meta">
-                        <span class="lab-cat">{{ featured.category | default: "Research" }}</span>
-                        <span>{{ featured.date | date: "%b %Y" }}</span>
+                        <span class="lab-cat">Product</span>
+                        <span>Apr 2026</span>
                     </div>
-                    <h3>{{ featured.title }}</h3>
-                    {% if featured.subtitle %}<p class="lab-subtitle">{{ featured.subtitle }}</p>{% endif %}
-                    {% if featured.excerpt %}<p class="lab-excerpt">{{ featured.excerpt | strip_html | truncate: 240 }}</p>{% endif %}
-                    {% if featured.author %}<div class="lab-authors">By {{ featured.author }}</div>{% endif %}
+                    <h3>Introducing Actuator — closing the loop on post-training quality.</h3>
+                    <p class="lab-excerpt">A closed-loop control layer that streams reward and eval signals through live training, adapts pressure when quality drifts, and halts before damage is done. Plug it into your existing stack; stop burning GPU-months on doomed runs.</p>
+                    <div class="lab-authors">By Iluvatar Labs</div>
                 </div>
             </a>
-            {% endif %}
 
-            <!-- Secondary grid: next 3 posts (excluding featured) -->
-            {% assign rest = site.posts | where_exp: "p", "p.url != featured.url" | slice: 0, 3 %}
+            <!-- Secondary grid -->
             <div class="lab-grid">
-                {% for post in rest %}
-                <a href="{{ post.url }}" class="lab-card">
+                <a href="/blog/2026/03/divergent-convergent-attention/" class="lab-card">
                     <div class="lab-card-visual">
-                        {% if site.data.thumbs[post.slug] %}
-                            <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[post.slug] }}); background-size: cover; background-position: center;"></div>
-                        {% else %}
-                            <div class="lab-thumb lab-thumb-{{ post.thumbnail | default: 'indigo' }}"></div>
-                        {% endif %}
+                        <div class="lab-thumb lab-thumb-dca"></div>
                         <div class="lab-thumb-grain"></div>
-                        {% include thumb-icon.html type=post.thumbnail %}
                     </div>
                     <div class="lab-meta">
-                        <span class="lab-cat">{{ post.category | default: "Research" }}</span>
-                        <span>{{ post.date | date: "%b %Y" }}</span>
+                        <span class="lab-cat">Research</span>
+                        <span>Mar 2026</span>
                     </div>
-                    <h4>{{ post.title }}</h4>
-                    {% if post.subtitle %}<p class="lab-subtitle">{{ post.subtitle }}</p>{% endif %}
-                    {% if post.author %}<div class="lab-authors">{{ post.author }}</div>{% endif %}
+                    <h4>Divergent-Convergent Attention: parallel perspectives for compositional reasoning.</h4>
+                    <div class="lab-authors">Ben Zhao · Jenhan Tao</div>
                 </a>
-                {% endfor %}
+                <a href="/blog/2026/03/introducing-marvin/" class="lab-card">
+                    <div class="lab-card-visual">
+                        <div class="lab-thumb lab-thumb-marvin"></div>
+                        <div class="lab-thumb-grain"></div>
+                    </div>
+                    <div class="lab-meta">
+                        <span class="lab-cat">Product</span>
+                        <span>Mar 2026</span>
+                    </div>
+                    <h4>Meet Marvin — the autonomous ML research agent.</h4>
+                    <div class="lab-authors">By Iluvatar Labs</div>
+                </a>
+                <a href="/blog/2025/11/elastic-speculation/" class="lab-card">
+                    <div class="lab-card-visual">
+                        <div class="lab-thumb lab-thumb-elastic"></div>
+                        <div class="lab-thumb-grain"></div>
+                    </div>
+                    <div class="lab-meta">
+                        <span class="lab-cat">Research</span>
+                        <span>Nov 2025</span>
+                    </div>
+                    <h4>Elastic Speculation: adaptive draft length and confidence-based early exit.</h4>
+                    <div class="lab-authors">Ben Zhao · Roy Zhao · Justin Huang</div>
+                </a>
             </div>
+
+            <div class="lab-copy">© 2026 Iluvatar Labs</div>
         </div>
     </section>
 
 <!-- ──────────────────────────────────────────────── -->
-<!-- Actuator DAG on cream                             -->
+<!-- Actuator DAG on atmospheric indigo               -->
 <!-- ──────────────────────────────────────────────── -->
 <script>
 (function() {
@@ -1125,7 +1084,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
 </script>
 
 <!-- ──────────────────────────────────────────────── -->
-<!-- Marvin constellation on dark (cream nodes)       -->
+<!-- Marvin constellation on peach bg (dark ink)      -->
 <!-- ──────────────────────────────────────────────── -->
 <script>
 (function() {
@@ -1278,8 +1237,6 @@ description: A post-training & research lab. Closing the loop on post-training, 
     window.addEventListener('resize', () => { clearTimeout(window._marResize); window._marResize = setTimeout(init, 150); });
 })();
 </script>
-
-{% include footer.html %}
 
 </body>
 </html>

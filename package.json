@@ -1,0 +1,12 @@
+{
+  "name": "iluvatarlabs-site",
+  "private": true,
+  "scripts": {
+    "thumbs": "node scripts/generate-thumbs.js",
+    "thumbs:full": "bundle exec jekyll build && node scripts/generate-thumbs.js && bundle exec jekyll build"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.0.0",
+    "globby": "^14.0.0"
+  }
+}

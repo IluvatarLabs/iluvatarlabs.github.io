@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About IORI — Iluvatar Labs</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --max-content: 1200px;
+            --edge-pad: 3rem;
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.72);
+            --ink-cream-dim:  rgba(245,241,235,0.55);
+            --ink-cream-mute: rgba(245,241,235,0.38);
+            --hairline:       rgba(245,241,235,0.10);
+            --hairline-strong: rgba(245,241,235,0.16);
+            --bg:             #14141A;
+            --bg-surface:     #1A1A22;
+            --accent:         #6FA488;
+            --accent-deep:    #4F8470;
+            --accent-warm:    #C89A5D;
+            --accent-violet:  #9B7DC2;
+        }
+        html, body { background: var(--bg); color: var(--ink-cream); font-family: 'Inter', sans-serif; line-height: 1.55; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+        /* NAV */
+        .nav-bar { position: absolute; top: 0; left: 0; right: 0; z-index: 30; display: flex; justify-content: center; --nav-ink: var(--ink-cream); --nav-ink-soft: var(--ink-cream-soft); }
+        .nav { width: 100%; max-width: var(--max-content); display: flex; justify-content: space-between; align-items: center; padding: 3rem var(--edge-pad) 0; }
+        .nav-title { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; color: var(--nav-ink); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: var(--nav-ink); text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color 0.2s; }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active { font-weight: 700; border-bottom-color: var(--nav-ink); }
+        .nav-links a.product-link { font-family: 'Space Grotesk', sans-serif; font-weight: 600; display: flex; align-items: center; gap: 0.15rem; }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg { width: 100%; height: 100%; fill: var(--nav-ink); }
+
+        /* HEADER */
+        .header { padding: 8rem var(--edge-pad) 2.5rem; border-bottom: 1px solid var(--hairline); }
+        .header-inner { max-width: var(--max-content); margin: 0 auto; }
+        .breadcrumb { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--ink-cream-mute); margin-bottom: 2rem; display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+        .breadcrumb a { color: var(--ink-cream-dim); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--ink-cream); }
+        .breadcrumb .sep { color: rgba(245,241,235,0.2); }
+        .header h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 3.5vw, 2.85rem); line-height: 1.1; letter-spacing: -0.025em; font-weight: 700; color: var(--ink-cream); margin-bottom: 1.25rem; max-width: 44rem; }
+        .header .lead { font-size: 1.1rem; line-height: 1.7; color: var(--ink-cream-soft); max-width: 48rem; }
+
+        /* BODY with sticky TOC */
+        .body-inner {
+            max-width: var(--max-content); margin: 0 auto;
+            padding: 3rem var(--edge-pad) 6rem;
+            display: grid;
+            grid-template-columns: 14rem 1fr;
+            gap: 3.5rem;
+        }
+        .toc {
+            position: sticky; top: 3rem; align-self: start;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .toc-label {
+            font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--ink-cream-mute); margin-bottom: 1rem;
+        }
+        .toc ol { list-style: none; }
+        .toc li { margin-bottom: 0.7rem; }
+        .toc a {
+            color: var(--ink-cream-dim); text-decoration: none;
+            font-size: 0.88rem; transition: color 0.2s;
+            display: block;
+        }
+        .toc a:hover, .toc a.active { color: var(--ink-cream); }
+
+        .content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.65rem; font-weight: 600;
+            letter-spacing: -0.018em;
+            color: var(--ink-cream);
+            margin: 3.5rem 0 1.25rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--hairline);
+            scroll-margin-top: 5rem;
+        }
+        .content h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+        .content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em;
+            color: var(--ink-cream);
+            margin-top: 1.75rem; margin-bottom: 0.5rem;
+        }
+        .content p {
+            font-size: 1.02rem; line-height: 1.75;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.1rem;
+            max-width: 48rem;
+        }
+        .content p strong { color: var(--ink-cream); font-weight: 500; }
+        .content p a {
+            color: var(--accent); text-decoration: none;
+            border-bottom: 1px solid rgba(111,164,136,0.35);
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .content p a:hover { color: var(--ink-cream); border-color: var(--ink-cream); }
+
+        /* Numbered list (Why this exists) */
+        .numbered { counter-reset: nlist; margin: 0.5rem 0; }
+        .nitem {
+            counter-increment: nlist;
+            display: grid; grid-template-columns: 3rem 1fr;
+            gap: 1.5rem;
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--hairline);
+        }
+        .nitem:first-child { border-top: none; padding-top: 0; }
+        .nitem:last-child { padding-bottom: 0.5rem; }
+        .nitem::before {
+            content: counter(nlist, decimal-leading-zero);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem; font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+        }
+        .nitem h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem; font-weight: 600; letter-spacing: -0.015em;
+            color: var(--ink-cream); margin-bottom: 0.35rem;
+        }
+        .nitem p { margin: 0; font-size: 0.98rem; color: var(--ink-cream-soft); max-width: 42rem; }
+
+        /* Step grid (How it works) */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0;
+            margin: 1rem 0 1.5rem;
+        }
+        .step {
+            border-top: 2px solid var(--hairline-strong);
+            padding: 1rem 1rem 1rem 0;
+            cursor: default;
+            transition: border-color 0.2s;
+        }
+        .step.active { border-top-color: var(--accent); }
+        .step-n {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+            margin-bottom: 0.3rem;
+        }
+        .step.active .step-n { color: var(--accent); }
+        .step-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem; font-weight: 600; letter-spacing: -0.01em;
+            color: var(--ink-cream-dim);
+            transition: color 0.2s;
+        }
+        .step.active .step-label { color: var(--ink-cream); }
+        .step-desc {
+            font-size: 1rem; line-height: 1.65;
+            color: var(--ink-cream-soft);
+            margin-top: 1rem; max-width: 48rem;
+            min-height: 4.5rem;
+        }
+
+        /* Tier cards (stacked) */
+        .tier {
+            padding: 1.5rem 1.75rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        .tier-head {
+            display: flex; gap: 1rem; align-items: baseline;
+            margin-bottom: 0.75rem; flex-wrap: wrap;
+        }
+        .tier-n {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent);
+        }
+        .tier-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em;
+        }
+        .tier-time {
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem; color: var(--ink-cream-mute);
+        }
+        .tier p { font-size: 0.98rem; color: var(--ink-cream-soft); margin: 0; line-height: 1.6; }
+
+        /* Openness split */
+        .openness {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 1rem 0 1.5rem;
+        }
+        .openness h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .open-col h4 { color: var(--accent); }
+        .closed-col h4 { color: var(--accent-warm); }
+        .openness ul { list-style: none; padding: 0; }
+        .openness li {
+            font-size: 0.98rem; line-height: 1.55;
+            color: var(--ink-cream-soft);
+            padding: 0.55rem 0;
+            border-top: 1px solid var(--hairline);
+        }
+        .openness li:last-child { border-bottom: 1px solid var(--hairline); }
+        .openness li strong { color: var(--ink-cream); font-weight: 500; }
+
+        /* Agreement blocks */
+        .agreement {
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 6px;
+            padding: 1.5rem 1.75rem;
+            margin: 1rem 0;
+        }
+        .agreement h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 0.8rem;
+        }
+        .agreement.theirs h4 { color: var(--accent-warm); }
+        .agreement ul { list-style: none; padding: 0; }
+        .agreement li {
+            font-size: 0.98rem; line-height: 1.55;
+            color: var(--ink-cream-soft);
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.25rem;
+        }
+        .agreement li::before {
+            content: "";
+            position: absolute; left: 0; top: 0.75rem;
+            width: 0.5rem; height: 0.5rem;
+            background: currentColor;
+            border-radius: 50%;
+            color: var(--ink-cream-mute);
+        }
+        .agreement li strong { color: var(--ink-cream); font-weight: 500; }
+
+        /* Back link */
+        .backlink {
+            display: inline-block; margin-top: 3rem;
+            font-size: 1rem; font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 2px;
+            transition: gap 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .backlink:hover { color: var(--ink-cream); border-color: var(--ink-cream); }
+
+        /* FOOTER */
+        .footer { padding: 2.5rem var(--edge-pad); border-top: 1px solid var(--hairline); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ink-cream-mute); letter-spacing: 0.04em; }
+        .footer-inner { max-width: var(--max-content); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+        .footer a { color: var(--ink-cream-dim); text-decoration: none; border-bottom: 1px solid var(--hairline-strong); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+        .footer a:hover { color: var(--ink-cream); border-color: var(--ink-cream); }
+        .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+            .header { padding: 6rem var(--edge-pad) 2rem; }
+            .body-inner { grid-template-columns: 1fr; gap: 2rem; padding: 2rem var(--edge-pad) 4rem; }
+            .toc { position: static; }
+            .steps { grid-template-columns: repeat(2, 1fr); }
+            .openness { grid-template-columns: 1fr; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-bar">
+    <nav class="nav">
+        <a href="/" class="nav-title">iluvatar labs.</a>
+        <div class="nav-links">
+            <a href="/actuator/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </a>
+            <a href="/marvin/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </a>
+            <a href="mockup-iori-v1.html" class="product-link active">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-nav-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-nav-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI
+            </a>
+            <a href="/blog/" class="nav-text">Discover</a>
+            <a href="/about/" class="nav-text">About</a>
+            <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer"><span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span></a>
+            <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer"><span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span></a>
+        </div>
+    </nav>
+</div>
+
+<section class="header">
+    <div class="header-inner">
+        <div class="breadcrumb">
+            <a href="/">iluvatar labs.</a>
+            <span class="sep">/</span>
+            <a href="mockup-iori-v1.html">IORI</a>
+            <span class="sep">/</span>
+            <span>About</span>
+        </div>
+        <h1>About the Iluvatar Open Research Initiative</h1>
+        <p class="lead">A public open-science program where Marvin performs computational biology research on behalf of the scientific community — free, openly published, and independently reviewable.</p>
+    </div>
+</section>
+
+<div class="body-inner">
+    <aside class="toc">
+        <div class="toc-label">On this page</div>
+        <ol>
+            <li><a href="#why">Why this exists</a></li>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="#tracks">Two tracks</a></li>
+            <li><a href="#selection">Selection criteria</a></li>
+            <li><a href="#tiers">Deliverable tiers</a></li>
+            <li><a href="#openness">Openness</a></li>
+            <li><a href="#ip">IP &amp; authorship</a></li>
+            <li><a href="#contributing">Contributing</a></li>
+        </ol>
+    </aside>
+
+    <div class="content">
+
+        <h2 id="why">Why this exists</h2>
+        <p>Computational biology has a throughput problem. Public data is abundant but fragmented; labs often know what they'd ask of it but can't staff the integration work. IORI exists because we think a well-vetted automated scientist can close that gap — and because the most credible demonstration of that capability is a public trail of work that real scientists can inspect and challenge.</p>
+        <div class="numbered">
+            <div class="nitem">
+                <div>
+                    <h4>Public data is abundant but fragmented</h4>
+                    <p>Decades of scRNA-seq, perturb-seq, GWAS, proteomics, and methylation data sit across disconnected repositories. The evidence exists; the integration doesn't.</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Most labs can't staff the computational work</h4>
+                    <p>Wet-lab PIs know what they'd ask of the data; most don't have the computational team to integrate it across modalities, especially for rare or underfunded disease areas.</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Marvin can synthesize across evidence</h4>
+                    <p>Marvin searches the public scientific record, integrates multi-modal data, reasons over it, and produces testable hypotheses — with full logic trails covering every filter decision and parameter choice.</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Open review turns hypotheses into science</h4>
+                    <p>Rigor comes from scrutiny. Wet-lab validation, dataset corrections, community critique, and sometimes quiet refutation are what separates signal from noise. IORI is structured to make that loop visible and accountable.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="how">How it works</h2>
+        <p>A six-step loop. Each project moves through these phases and then re-enters the loop as new evidence accumulates — projects are "living," not one-shot.</p>
+        <div class="steps">
+            <div class="step active"><div class="step-n">01</div><div class="step-label">Submit</div></div>
+            <div class="step"><div class="step-n">02</div><div class="step-label">Select</div></div>
+            <div class="step"><div class="step-n">03</div><div class="step-label">Analyze</div></div>
+            <div class="step"><div class="step-n">04</div><div class="step-label">Vet</div></div>
+            <div class="step"><div class="step-n">05</div><div class="step-label">Publish</div></div>
+            <div class="step"><div class="step-n">06</div><div class="step-label">Iterate</div></div>
+        </div>
+        <h3>01 · Submit</h3>
+        <p>A PI submits a biological question via the <a href="mockup-iori-submit.html">structured form</a> — the question, known data sources, and what validation they could perform. Or Iluvatar selects a Showcase project internally.</p>
+        <h3>02 · Select</h3>
+        <p>A review committee (2–3 internal PhD scientists + 1–2 rotating external advisors) evaluates each quarterly cohort for tractability, impact, Marvin's comparative advantage, and portfolio diversity. <a href="#selection">Full criteria &rarr;</a></p>
+        <h3>03 · Analyze</h3>
+        <p>Marvin runs a multi-stage pipeline: literature synthesis, data retrieval, integration across modalities, differential analysis, network modeling, hypothesis generation. Every step is logged.</p>
+        <h3>04 · Vet</h3>
+        <p>Internal PhD scientists review every output before publication. Findings are framed as <strong>hypotheses with explicit confidence levels</strong>, not claims of truth. Confidence may go down between iterations — that's a feature.</p>
+        <h3>05 · Publish</h3>
+        <p>Preprint posted to bioRxiv. GitHub repo opened with the full pipeline, data manifest, analysis artifacts, and hypothesis file. Community is invited to review and contribute.</p>
+        <h3>06 · Iterate</h3>
+        <p>New datasets, community feedback, and emerging literature trigger re-analysis. Marvin's updates are proposed as <strong>pull requests</strong> — 7-day community review window, visible diffs, auditable history.</p>
+
+        <h2 id="tracks">Two tracks</h2>
+        <h3>Track 1 · Showcase (Iluvatar-initiated)</h3>
+        <p>Iluvatar selects 2–3 high-impact computational biology problems per period, runs them through Marvin end-to-end, vets the results, and publishes. <strong>Purpose: proof of capability under controlled conditions.</strong> Selection prioritizes rare or underfunded therapeutic areas, problems requiring fragmented-data integration, and high probability of non-obvious findings.</p>
+        <h3>Track 2 · Community-submitted</h3>
+        <p>External PIs submit their own biological questions via the structured form. Iluvatar selects a subset per cohort and delivers results to the PI and the public simultaneously. <strong>Purpose: network growth and word-of-mouth.</strong> This track centers the scientist's problem — not ours — which is why we expect it to be the larger engine over time.</p>
+
+        <h2 id="selection">Selection criteria</h2>
+        <p>Each submission is evaluated against five weighted criteria. No hidden factors; the selection committee's reasoning is published alongside each cohort announcement.</p>
+        <div class="numbered">
+            <div class="nitem">
+                <div>
+                    <h4>Scientific tractability <em style="color: var(--accent); font-style: normal;">· highest weight</em></h4>
+                    <p>Is there enough relevant public data for meaningful analysis? Is the question well-defined enough to produce concrete, testable predictions?</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Impact and novelty</h4>
+                    <p>Does resolving this question meaningfully advance the field? Is the current literature genuinely inadequate? Is there unmet need?</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Validation feasibility</h4>
+                    <p>Can the PI — or anyone — realistically perform wet-lab validation within an academic-scale budget?</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Marvin's comparative advantage</h4>
+                    <p>Does an automated integration system genuinely add value over a postdoc with standard tools? If not, we'll say so and suggest you skip us.</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Portfolio diversity</h4>
+                    <p>Each cohort balances across disease areas, data modalities, institution types, and career stages. Good science shouldn't require being at a well-funded R1.</p>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 1.5rem;"><strong>Every rejected submission receives specific, written feedback and an invitation to resubmit.</strong> We do not ghost.</p>
+
+        <h2 id="tiers">Deliverable tiers</h2>
+        <p>Final tier is assigned by the selection committee based on data availability, scope, and PI engagement.</p>
+        <div class="tier">
+            <div class="tier-head">
+                <span class="tier-n">Tier 1</span>
+                <span class="tier-title">Literature synthesis + hypothesis generation</span>
+                <span class="tier-time">2–4 weeks</span>
+            </div>
+            <p>Structured literature review, dataset identification, gap analysis, and generated hypotheses. Appropriate when data availability is limited but the question is strong enough to warrant a structured framing.</p>
+        </div>
+        <div class="tier">
+            <div class="tier-head">
+                <span class="tier-n">Tier 2 · Default</span>
+                <span class="tier-title">Computational analysis on public data</span>
+                <span class="tier-time">6–10 weeks</span>
+            </div>
+            <p>Everything in Tier 1, plus systematic integrated analysis across public datasets, ML-based target or biomarker identification, reproducible pipeline. Delivered as preprint-ready manuscript draft + analysis notebooks + hypothesis file.</p>
+        </div>
+        <div class="tier">
+            <div class="tier-head">
+                <span class="tier-n">Tier 3</span>
+                <span class="tier-title">Full pipeline with living updates</span>
+                <span class="tier-time">8–12 weeks + ongoing</span>
+            </div>
+            <p>Everything in Tier 2, plus ongoing monitoring for new data and publications, periodic re-analysis, and a living dashboard. Reserved for high-impact projects with strong PI engagement for a 6-month updates window.</p>
+        </div>
+
+        <h2 id="openness">Openness</h2>
+        <p>Open by default. The line is <strong>outputs vs. engine</strong>: everything Marvin produces is open; how Marvin works internally is commercial.</p>
+        <div class="openness">
+            <div class="open-col">
+                <h4>Open</h4>
+                <ul>
+                    <li>Research results and findings</li>
+                    <li>Computational pipelines and code <strong>(Apache 2.0)</strong></li>
+                    <li>Text, figures, and preprints <strong>(CC-BY 4.0)</strong></li>
+                    <li>Data source manifests &amp; accessions</li>
+                    <li>Raw intermediate outputs</li>
+                    <li>Selection criteria &amp; cohort decisions</li>
+                    <li>Project status dashboards</li>
+                </ul>
+            </div>
+            <div class="closed-col">
+                <h4>Not open</h4>
+                <ul>
+                    <li>Marvin's core architecture &amp; training methodology</li>
+                    <li>Internal review deliberations (outputs are public; process is not)</li>
+                    <li>Submission details for unselected projects</li>
+                </ul>
+            </div>
+        </div>
+        <p>Publishing the full computational pipelines means anyone can reproduce the analysis with their own tools, independent of Marvin. That's the key credibility signal — and the reason we think this boundary is defensible.</p>
+
+        <h2 id="ip">IP &amp; authorship · collaboration agreement</h2>
+        <p>Iluvatar takes no IP on findings produced through the initiative. If you or third parties choose to pursue IP on downstream work, that's your prerogative. The one-page collaboration agreement for selected PIs is intentionally plain-language:</p>
+        <div class="agreement">
+            <h4>Iluvatar commits to</h4>
+            <ul>
+                <li>Delivering the agreed analysis tier on the stated timeline</li>
+                <li>Publishing all findings openly (preprint + GitHub + hypothesis file)</li>
+                <li><strong>Not claiming IP</strong> on any findings</li>
+                <li>Crediting the submitting PI as lead collaborator via CRediT</li>
+            </ul>
+        </div>
+        <div class="agreement theirs">
+            <h4>You commit to</h4>
+            <ul>
+                <li>Providing written feedback within 30 days (best effort)</li>
+                <li>Allowing Iluvatar to publicly describe the collaboration</li>
+                <li>Acknowledging Marvin &amp; Iluvatar in resulting publications</li>
+                <li><strong>Sharing wet-lab validation results</strong> if performed (strongly encouraged, not required — a negative validation is a valuable output)</li>
+            </ul>
+        </div>
+        <h3>Authorship via CRediT</h3>
+        <p>We use the <a href="https://credit.niso.org/">CRediT Contributor Roles Taxonomy</a>. Submitting PI gets Conceptualization and Supervision plus any roles actively filled. Iluvatar team gets Methodology, Software, Formal Analysis, Data Curation, Visualization. Community contributors get credit for specific roles based on actual contributions. <strong>Marvin is acknowledged in the methods section, not listed as an author</strong> — we don't want the AI-authorship debate distracting from the work.</p>
+
+        <h2 id="contributing">Contributing</h2>
+        <p>All contributions happen on GitHub. The website is the reading layer; GitHub is where work happens. Four paths by commitment level:</p>
+        <div class="numbered">
+            <div class="nitem">
+                <div>
+                    <h4>Comment on a hypothesis · ~5 min</h4>
+                    <p>Leave a scientific comment on any formalized hypothesis in any active project. <a href="mockup-iori-v1.html#projects">Browse active projects &rarr;</a></p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Suggest a missing paper or dataset · ~15 min</h4>
+                    <p>File a structured issue on the relevant project repo. Marvin considers suggestions for the next scheduled re-analysis.</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Review an analysis · 1–2 hours</h4>
+                    <p>Inspect the pipeline, question methodology, challenge parameter choices, or propose alternative normalization. All pipelines are Docker-reproducible.</p>
+                </div>
+            </div>
+            <div class="nitem">
+                <div>
+                    <h4>Validate a hypothesis · weeks</h4>
+                    <p>Pick up a testable prediction if you have the experimental system. Protocols are in the project repo. Co-authorship per CRediT.</p>
+                </div>
+            </div>
+        </div>
+
+        <a class="backlink" href="mockup-iori-v1.html">&larr; Back to IORI</a>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div>Iluvatar Open Research Initiative — part of Iluvatar Labs.</div>
+        <div class="footer-links">
+            <a href="mockup-iori-v1.html">Back to IORI</a>
+            <a href="https://github.com/iluvatar-open-research">GitHub</a>
+            <a href="mailto:iori@iluvatarlabs.com">iori@iluvatarlabs.com</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* Interactive steps — click a step to show its description (future enhancement).
+   For now, step 01 is active by default. */
+</script>
+
+</body>
+</html>

@@ -1,7 +1,10 @@
 ---
 layout: post
-title: "Divergent-Convergent Attention: Parallel Perspectives for Compositional Reasoning"
+title: "Divergent-Convergent Attention"
+subtitle: "Parallel Perspectives for Compositional Reasoning"
 date: 2026-03-26
+category: Research
+thumbnail: dca
 author: "Ben Zhao · Jenhan Tao"
 excerpt: "We introduce Divergent-Convergent Attention (DCA), a transformer primitive that maintains parallel attention streams at different window sizes and reconciles them through learned periodic consensus."
 image: /assets/images/divergent-convergent-attention/social-card.png
@@ -57,7 +60,7 @@ Note that while the implementation described here uses dense causal attention, D
 
 Full-fat DCA at baseline width (K=3 at d=1024) costs 3x VRAM and ~2.7x FLOPs. Bottleneck projections let perspectives operate at d_lane=512 inside d_model=1024. The key math is that 3 x 512^2 < 1024^2, so K=3 perspectives at d=512 are cheaper per layer than a single stream at d=1024. This replaces the role that global tokens play in Longformer and BigBird[^longformer][^bigbird] in a causal-compatible way; global tokens in causal decoders are functionally vacuous since position 0 can only attend to itself. Per-perspective gradient checkpointing reduces activation memory from ~3x baseline to below baseline levels. We scale by adding layers (30L) at the cheap d=512 perspective width rather than widening to d=1024.
 
-**Table 1: DCA design space.** Theoretical and tested variants with FLOP and VRAM tradeoffs.
+> **Table 1** DCA design space. Theoretical and tested variants with FLOP and VRAM tradeoffs.
 
 | Variant | d_model | d_lane | Params | FLOP ratio | VRAM vs baseline | MLP |
 |---|---|---|---|---|---|---|
@@ -252,7 +255,7 @@ The 90M result raises a natural question: does the advantage hold at larger scal
 
 To calibrate the effect of pretraining domain, we also trained DCA 90M on PG-19 (EM=0.38%, compared to 1.56% on WT103). The 350M standard baseline on PG-19 achieves 0.93% EM, indicating that even at 4x the parameters, standard decoders remain poor at multi-hop QA. A FLOP-comparable DCA-215M on PG-19 achieves 1.43% EM vs the baseline's 0.93% (1.54x), with 39% fewer parameters and less VRAM (~35 vs ~45 GB). Within PG-19, scaling DCA from 90M to 215M improves EM from 0.38% to 1.43%, surpassing the 350M baseline by 1.54x.
 
-**Table 2: HotpotQA results across scales and pretraining domains.** All models finetuned and evaluated on HotpotQA.
+> **Table 2** HotpotQA results across scales and pretraining domains. All models finetuned and evaluated on HotpotQA.
 
 **WT103 pretraining (90M):**
 
@@ -277,7 +280,7 @@ Scaling provided an opportunity to test which components of DCA are essential. O
 
 These results motivated the DCA-215M design. A narrower variant at d=768 (323M params) achieved only EM=0.57%, undertrained at 6.2 tokens per parameter. A variant without per-perspective MLP (302M params, 1.07x FLOPs) achieved EM=1.21% (1.30x over baseline). Separate MLP weights (139M params, same FLOPs) achieved PPL=20.45 but EM=0.80%, confirming the shared MLP acts as a regularizer.
 
-**Table 3: Architectural variant results.** All evaluated on HotpotQA.
+> **Table 3** Architectural variant results. All evaluated on HotpotQA.
 
 | Model | Params | d_model | d_lane | EM% | VRAM |
 |---|---|---|---|---|---|

@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric GBM — IORI — Iluvatar Labs</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1200px;
+            --edge-pad: 3rem;
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.72);
+            --ink-cream-dim:  rgba(245,241,235,0.55);
+            --ink-cream-mute: rgba(245,241,235,0.38);
+            --ink-cream-faint: rgba(245,241,235,0.08);
+            --hairline:       rgba(245,241,235,0.10);
+            --hairline-strong: rgba(245,241,235,0.16);
+            --bg:             #14141A;
+            --bg-surface:     #1A1A22;
+            --bg-surface-2:   #1E1E28;
+            --accent:         #6FA488;
+            --accent-deep:    #4F8470;
+            --accent-warm:    #C89A5D;
+            --accent-violet:  #9B7DC2;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--ink-cream);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* NAV */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30; display: flex; justify-content: center;
+            --nav-ink: var(--ink-cream);
+            --nav-ink-soft: var(--ink-cream-soft);
+        }
+        .nav {
+            width: 100%; max-width: var(--max-content);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 3rem var(--edge-pad) 0;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;
+            color: var(--nav-ink); text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink); text-decoration: none; font-size: 1.1rem;
+            border-bottom: 1px solid transparent; padding-bottom: 2px;
+            transition: border-color 0.2s, font-weight 0.2s;
+        }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.active { font-weight: 700; border-bottom-color: var(--nav-ink); }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+            display: flex; align-items: center; gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg { width: 100%; height: 100%; fill: var(--nav-ink); transition: fill 0.2s; }
+
+        /* ─── HEADER ─── */
+        .header {
+            padding: 8rem var(--edge-pad) 2.5rem;
+            border-bottom: 1px solid var(--hairline);
+            background: var(--bg);
+        }
+        .header-inner { max-width: var(--max-content); margin: 0 auto; }
+
+        .breadcrumb {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+            margin-bottom: 2rem;
+            display: flex; gap: 0.5rem; align-items: center;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a {
+            color: var(--ink-cream-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .breadcrumb a:hover { color: var(--ink-cream); }
+        .breadcrumb .sep { color: rgba(245,241,235,0.2); }
+
+        .meta-row {
+            display: flex; gap: 1.25rem; align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+            margin-bottom: 1.5rem; flex-wrap: wrap;
+        }
+        .status {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            color: var(--accent);
+        }
+        .status::before {
+            content: ""; width: 7px; height: 7px; border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 0 3px rgba(111,164,136,0.18);
+        }
+        .track { color: var(--ink-cream-dim); }
+        .meta-date { color: var(--ink-cream-mute); }
+
+        .header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.85rem);
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            font-weight: 700;
+            color: var(--ink-cream);
+            margin-bottom: 1.25rem;
+            max-width: 50rem;
+        }
+        .header .summary {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--ink-cream-soft);
+            max-width: 48rem;
+            margin-bottom: 2.25rem;
+        }
+        .header .summary strong { color: var(--ink-cream); font-weight: 500; }
+
+        .header-stats {
+            display: flex; gap: 3.5rem;
+            margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        .stat { display: flex; flex-direction: column; gap: 0.2rem; }
+        .stat-n {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.85rem; font-weight: 600;
+            letter-spacing: -0.03em; line-height: 1;
+            color: var(--ink-cream);
+        }
+        .stat-l {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--ink-cream-mute);
+        }
+
+        .header-ctas {
+            display: flex; gap: 2rem; flex-wrap: wrap;
+            font-size: 1rem;
+        }
+        .ext-link {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 2px;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            transition: gap 0.2s, color 0.2s, border-color 0.2s;
+            font-weight: 500;
+        }
+        .ext-link.secondary { color: var(--ink-cream-dim); border-color: var(--hairline-strong); }
+        .ext-link:hover { gap: 0.6rem; color: var(--ink-cream); border-color: var(--ink-cream); }
+
+        /* ─── TABS ─── */
+        .tabs-bar {
+            position: sticky; top: 0;
+            z-index: 20;
+            background: rgba(20,20,26,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--hairline);
+        }
+        .tabs-inner {
+            max-width: var(--max-content); margin: 0 auto;
+            padding: 0 var(--edge-pad);
+            display: flex; gap: 0;
+            overflow-x: auto;
+        }
+        .tab {
+            background: none; border: none; cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem; font-weight: 500;
+            color: var(--ink-cream-mute);
+            padding: 1.1rem 0;
+            margin-right: 2rem;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: color 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+        .tab:hover { color: var(--ink-cream-soft); }
+        .tab.active { color: var(--ink-cream); border-bottom-color: var(--accent); }
+        .tab .tab-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; font-weight: 400;
+            color: var(--ink-cream-mute);
+            margin-left: 0.4rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── TAB PANELS ─── */
+        .panel {
+            padding: 3rem var(--edge-pad) 5rem;
+            display: none;
+        }
+        .panel.active { display: block; }
+        .panel-inner { max-width: var(--max-content); margin: 0 auto; }
+
+        .panel h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.65rem; font-weight: 600;
+            letter-spacing: -0.018em;
+            margin-bottom: 1rem;
+            color: var(--ink-cream);
+        }
+        .panel h2:not(:first-child) { margin-top: 3.5rem; }
+        .panel > .panel-inner > p,
+        .panel .prose p {
+            font-size: 1.05rem; line-height: 1.75;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.15rem;
+            max-width: 50rem;
+        }
+        .panel p strong { color: var(--ink-cream); font-weight: 500; }
+        .panel p em {
+            color: var(--accent); font-style: italic; font-weight: 500;
+        }
+
+        /* Caveat block */
+        .caveat {
+            border-left: 2px solid var(--accent-warm);
+            padding: 1rem 1.25rem;
+            background: rgba(200,154,93,0.05);
+            font-size: 0.98rem; line-height: 1.65;
+            color: var(--ink-cream-soft);
+            margin: 1.5rem 0 2.5rem;
+            max-width: 50rem;
+        }
+        .caveat strong { color: var(--accent-warm); font-weight: 600; }
+
+        /* ── Schematic figure (inline SVG) ── */
+        .figure {
+            margin: 2rem 0 2.5rem;
+            max-width: 50rem;
+        }
+        .figure svg { width: 100%; height: auto; display: block; }
+        .figure-caption {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+            margin-top: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        /* ─── HYPOTHESIS CARDS (the key component) ─── */
+        .hypothesis {
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: border-color 0.15s;
+        }
+        .hypothesis.expanded { border-color: var(--hairline-strong); }
+
+        .hyp-head {
+            display: grid;
+            grid-template-columns: 3rem 1fr auto;
+            gap: 1.25rem;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            align-items: center;
+        }
+        .hypothesis.expanded .hyp-head { border-bottom: 1px solid var(--hairline); }
+
+        .hyp-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem; font-weight: 500;
+            color: var(--accent); letter-spacing: 0.06em;
+        }
+        .hyp-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem; font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--ink-cream);
+            line-height: 1.35;
+        }
+        .hyp-pill {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem; letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 2px;
+            color: var(--ink-cream-dim);
+            white-space: nowrap;
+        }
+        .hyp-pill.conf-high { color: var(--accent); border-color: rgba(111,164,136,0.35); }
+        .hyp-pill.conf-mod  { color: var(--accent-warm); border-color: rgba(200,154,93,0.35); }
+        .hyp-pill.conf-low  { color: var(--ink-cream-dim); }
+        .hyp-caret {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--ink-cream-mute);
+            font-size: 0.85rem;
+        }
+        .hypothesis.expanded .hyp-caret { transform: rotate(180deg); }
+
+        .hyp-body {
+            display: none;
+            padding: 1.5rem 1.5rem 1.75rem;
+        }
+        .hypothesis.expanded .hyp-body { display: block; }
+
+        .hyp-field {
+            display: grid;
+            grid-template-columns: 9rem 1fr;
+            gap: 1.5rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid var(--hairline);
+        }
+        .hyp-field:first-child { border-top: none; padding-top: 0; }
+        .hyp-field-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            padding-top: 0.15rem;
+        }
+        .hyp-field-value {
+            font-size: 0.98rem; line-height: 1.65;
+            color: var(--ink-cream-soft);
+        }
+        .hyp-field-value strong { color: var(--ink-cream); font-weight: 500; }
+        .hyp-field-value code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.87em;
+            background: rgba(245,241,235,0.06);
+            padding: 0.08rem 0.35rem; border-radius: 2px;
+            color: var(--ink-cream);
+        }
+        .hyp-actions {
+            display: flex; gap: 1.5rem; flex-wrap: wrap;
+            margin-top: 1.25rem; padding-top: 1rem;
+            border-top: 1px solid var(--hairline);
+        }
+        .hyp-action {
+            font-size: 0.9rem; font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            transition: gap 0.2s, color 0.2s;
+        }
+        .hyp-action:hover { gap: 0.55rem; color: var(--ink-cream); }
+        .hyp-action.warn { color: var(--accent-warm); }
+        .hyp-action.warn:hover { color: var(--ink-cream); }
+        .hyp-action.muted { color: var(--ink-cream-dim); }
+
+        /* ─── DATA TABLE ─── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        .data-table thead th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            text-align: left;
+            padding: 0.75rem 1rem 0.75rem 0;
+            border-bottom: 1px solid var(--hairline-strong);
+            font-weight: 500;
+        }
+        .data-table tbody td {
+            padding: 1rem 1rem 1rem 0;
+            border-bottom: 1px solid var(--hairline);
+            color: var(--ink-cream-soft);
+            line-height: 1.5;
+        }
+        .data-table tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
+        .data-table .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--ink-cream-dim);
+        }
+        .data-table a {
+            color: var(--accent); text-decoration: none;
+            border-bottom: 1px solid rgba(111,164,136,0.3);
+        }
+        .data-table a:hover { color: var(--ink-cream); border-color: var(--ink-cream); }
+
+        .panel-cta {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 2px;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            transition: gap 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .panel-cta:hover { gap: 0.6rem; color: var(--ink-cream); border-color: var(--ink-cream); }
+
+        /* ─── TIMELINE ─── */
+        .timeline-row {
+            display: grid;
+            grid-template-columns: 9rem 10rem 1fr;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--hairline);
+            align-items: baseline;
+        }
+        .timeline-row:last-child { border-bottom: 1px solid var(--hairline); }
+        .tl-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem; letter-spacing: 0.08em;
+            color: var(--ink-cream-mute);
+        }
+        .tl-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--accent);
+        }
+        .tl-type.review { color: var(--accent-warm); }
+        .tl-type.community { color: var(--accent-violet); }
+        .tl-text {
+            font-size: 0.98rem; line-height: 1.6;
+            color: var(--ink-cream-soft);
+        }
+        .tl-text strong { color: var(--ink-cream); font-weight: 500; }
+
+        .next-iteration {
+            margin-top: 2.5rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(111,164,136,0.06);
+            border-left: 2px solid var(--accent);
+            font-size: 0.98rem; line-height: 1.6;
+            color: var(--ink-cream-soft);
+            max-width: 50rem;
+        }
+        .next-iteration strong { color: var(--accent); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.12em; display: block; margin-bottom: 0.35rem; font-family: 'JetBrains Mono', monospace; }
+
+        /* ─── CONTRIBUTE (tab) ─── */
+        .contribute-row {
+            display: grid;
+            grid-template-columns: 3rem 1fr auto;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--hairline);
+            align-items: baseline;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.15s;
+        }
+        .contribute-row:last-child { border-bottom: 1px solid var(--hairline); }
+        .contribute-row:hover { background: rgba(245,241,235,0.015); }
+        .contribute-row .c-n {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; color: var(--ink-cream-mute);
+            letter-spacing: 0.1em;
+        }
+        .contribute-row h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem; font-weight: 600; letter-spacing: -0.015em;
+            color: var(--ink-cream);
+            margin-bottom: 0.3rem;
+            transition: color 0.2s;
+        }
+        .contribute-row:hover h4 { color: var(--accent); }
+        .contribute-row p {
+            font-size: 0.95rem; color: var(--ink-cream-soft);
+            line-height: 1.55; max-width: 40rem;
+        }
+        .contribute-row .c-cta {
+            font-size: 0.95rem; font-weight: 500;
+            color: var(--accent);
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            transition: gap 0.2s;
+        }
+        .contribute-row:hover .c-cta { gap: 0.6rem; }
+
+        .agreement-note {
+            margin-top: 3rem;
+            padding: 1.5rem 1.75rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 6px;
+            max-width: 50rem;
+        }
+        .agreement-note h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem; font-weight: 600;
+            color: var(--ink-cream); margin-bottom: 0.6rem;
+        }
+        .agreement-note p {
+            font-size: 0.95rem; line-height: 1.6;
+            color: var(--ink-cream-soft);
+            margin-bottom: 0.8rem;
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            padding: 2.5rem var(--edge-pad);
+            border-top: 1px solid var(--hairline);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem; color: var(--ink-cream-mute);
+            letter-spacing: 0.04em;
+        }
+        .footer-inner {
+            max-width: var(--max-content); margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 2rem; flex-wrap: wrap;
+        }
+        .footer a {
+            color: var(--ink-cream-dim); text-decoration: none;
+            border-bottom: 1px solid var(--hairline-strong); padding-bottom: 1px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .footer a:hover { color: var(--ink-cream); border-color: var(--ink-cream); }
+        .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+
+        /* Responsive */
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+            .header { padding: 6rem var(--edge-pad) 2rem; }
+            .header-stats { gap: 1.75rem; }
+            .hyp-head { grid-template-columns: 2.5rem 1fr; }
+            .hyp-pill, .hyp-caret { grid-column: 1 / -1; justify-self: start; margin-top: 0.35rem; }
+            .hyp-field { grid-template-columns: 1fr; gap: 0.3rem; }
+            .timeline-row { grid-template-columns: 1fr; gap: 0.25rem; }
+            .contribute-row { grid-template-columns: 2rem 1fr; }
+            .contribute-row .c-cta { grid-column: 2; margin-top: 0.3rem; }
+            .data-table { font-size: 0.85rem; }
+            .data-table thead th, .data-table tbody td { padding: 0.6rem 0.5rem 0.6rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-bar">
+    <nav class="nav">
+        <a href="/" class="nav-title">iluvatar labs.</a>
+        <div class="nav-links">
+            <a href="/actuator/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </a>
+            <a href="/marvin/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </a>
+            <a href="mockup-iori-v1.html" class="product-link active">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-nav-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-nav-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI
+            </a>
+            <a href="/blog/" class="nav-text">Discover</a>
+            <a href="/about/" class="nav-text">About</a>
+            <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer">
+                <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+            </a>
+            <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer">
+                <span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- HEADER -->
+<section class="header">
+    <div class="header-inner">
+        <div class="breadcrumb">
+            <a href="/">iluvatar labs.</a>
+            <span class="sep">/</span>
+            <a href="mockup-iori-v1.html">IORI</a>
+            <span class="sep">/</span>
+            <span>Pediatric GBM multi-omic prioritization</span>
+        </div>
+
+        <div class="meta-row">
+            <span class="status">Active analysis</span>
+            <span class="track">Showcase</span>
+            <span class="meta-date">· Updated Apr 20, 2026</span>
+            <span class="meta-date">· Project initiated Mar 12, 2026</span>
+        </div>
+
+        <h1>Multi-omic target prioritization in pediatric high-grade glioma</h1>
+
+        <p class="summary"><strong>Pediatric high-grade gliomas (pHGGs) have a 5-year survival under 20% and no approved targeted therapies.</strong> Marvin integrated transcriptomic, genomic, proteomic, and methylation data across 14 public datasets (2,660 pediatric brain tumor samples) to identify druggable targets with pediatric-specific mechanistic support. After internal review, three hypotheses with clear wet-lab validation paths were formalized and published.</p>
+
+        <div class="header-stats">
+            <div class="stat"><span class="stat-n">3</span><span class="stat-l">Hypotheses</span></div>
+            <div class="stat"><span class="stat-n">14</span><span class="stat-l">Datasets</span></div>
+            <div class="stat"><span class="stat-n">2,660</span><span class="stat-l">Samples</span></div>
+            <div class="stat"><span class="stat-n">7</span><span class="stat-l">Contributors</span></div>
+            <div class="stat"><span class="stat-n">2</span><span class="stat-l">Iterations</span></div>
+        </div>
+
+        <div class="header-ctas">
+            <a href="https://github.com/iluvatar-open-research/project-pediatric-gbm" class="ext-link">View on GitHub <span>&rarr;</span></a>
+            <a href="https://www.biorxiv.org/" class="ext-link secondary">Preprint (bioRxiv v1) <span>&rarr;</span></a>
+            <a href="#contribute-tab" class="ext-link secondary" onclick="document.querySelector('[data-tab=contribute]').click();return false;">How to contribute <span>&rarr;</span></a>
+        </div>
+    </div>
+</section>
+
+<!-- TABS -->
+<div class="tabs-bar">
+    <div class="tabs-inner">
+        <button class="tab active" data-tab="findings">Findings</button>
+        <button class="tab" data-tab="data">Data sources<span class="tab-count">(6)</span></button>
+        <button class="tab" data-tab="timeline">Timeline<span class="tab-count">(6)</span></button>
+        <button class="tab" data-tab="contribute">Contribute</button>
+    </div>
+</div>
+
+<!-- FINDINGS PANEL -->
+<section class="panel active" data-panel="findings">
+    <div class="panel-inner">
+        <h2>Summary of findings</h2>
+        <div class="prose">
+            <p>Marvin integrated transcriptomic (RNA-seq, microarray), genomic (whole-genome sequencing), proteomic (TMT mass spectrometry), and epigenomic (methylation array) data from 14 public datasets encompassing 2,660 pediatric brain tumor samples. After quality control, batch correction, and cross-platform normalization, differential analysis identified <strong>2,340 genes with consistent dysregulation</strong> across at least 3 independent datasets.</p>
+            <p>Network analysis using curated protein-protein interaction data narrowed this to <strong>23 high-centrality candidates</strong> with evidence of functional relevance in the pediatric-specific subnetwork. Three of these — <em>PDGFRA</em>, <em>CXCR4</em>, and <em>EZH2</em> — emerged with sufficient multi-omic support to formalize as testable hypotheses. Notably, while all three have known roles in adult GBM, the specific mechanistic contexts identified here are pediatric-specific and are not well-characterized in existing literature.</p>
+            <p>The full analysis pipeline, intermediate outputs, and reasoning artifacts are available in the <a href="https://github.com/iluvatar-open-research/project-pediatric-gbm" style="color: var(--accent); border-bottom: 1px solid rgba(111,164,136,0.35); text-decoration: none;">project repository</a>. Marvin's logic trail — every filter decision, parameter choice, and reasoning step — is reproducible end-to-end via the included Dockerfile.</p>
+        </div>
+
+        <figure class="figure">
+            <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Integration schematic: 4 modalities converging on network -> 3 targets -->
+                <defs>
+                    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                        <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(245,241,235,0.4)"/>
+                    </marker>
+                </defs>
+                <!-- Modality boxes (left) -->
+                <g font-family="JetBrains Mono, monospace" font-size="11" fill="#F5F1EB">
+                    <rect x="30" y="40" width="150" height="34" rx="3" fill="#1A1A22" stroke="#6FA488" stroke-width="1"/>
+                    <text x="105" y="61" text-anchor="middle">RNA-seq · 4 sets</text>
+                    <rect x="30" y="90" width="150" height="34" rx="3" fill="#1A1A22" stroke="#6FA488" stroke-width="1"/>
+                    <text x="105" y="111" text-anchor="middle">Microarray · 3 sets</text>
+                    <rect x="30" y="140" width="150" height="34" rx="3" fill="#1A1A22" stroke="#6FA488" stroke-width="1"/>
+                    <text x="105" y="161" text-anchor="middle">Methylation · 3 sets</text>
+                    <rect x="30" y="190" width="150" height="34" rx="3" fill="#1A1A22" stroke="#6FA488" stroke-width="1"/>
+                    <text x="105" y="211" text-anchor="middle">Proteomics · 2 sets</text>
+                    <rect x="30" y="240" width="150" height="34" rx="3" fill="#1A1A22" stroke="#6FA488" stroke-width="1"/>
+                    <text x="105" y="261" text-anchor="middle">WGS · 2 sets</text>
+                </g>
+
+                <!-- Converging arrows to central node -->
+                <g stroke="rgba(245,241,235,0.25)" stroke-width="1" fill="none">
+                    <path d="M 180 57 Q 280 57 360 157" marker-end="url(#arrow)"/>
+                    <path d="M 180 107 Q 280 107 360 157" marker-end="url(#arrow)"/>
+                    <path d="M 180 157 L 360 157" marker-end="url(#arrow)"/>
+                    <path d="M 180 207 Q 280 207 360 157" marker-end="url(#arrow)"/>
+                    <path d="M 180 257 Q 280 257 360 157" marker-end="url(#arrow)"/>
+                </g>
+
+                <!-- Central integration node -->
+                <g>
+                    <rect x="360" y="128" width="155" height="58" rx="3" fill="#1A1A22" stroke="#C89A5D" stroke-width="1.5"/>
+                    <text x="437" y="151" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#C89A5D" letter-spacing="0.08em">MULTI-OMIC</text>
+                    <text x="437" y="171" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="#F5F1EB">2,340 DEGs</text>
+                </g>
+
+                <!-- Middle arrow to network -->
+                <path d="M 515 157 L 570 157" stroke="rgba(245,241,235,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
+
+                <!-- Network -> 3 targets -->
+                <g font-family="JetBrains Mono, monospace" font-size="11">
+                    <rect x="570" y="50" width="200" height="60" rx="3" fill="#1A1A22" stroke="#9B7DC2" stroke-width="1.5"/>
+                    <text x="670" y="75" text-anchor="middle" font-size="10" fill="#9B7DC2" letter-spacing="0.08em">NETWORK ANALYSIS</text>
+                    <text x="670" y="95" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="#F5F1EB">23 high-centrality hits</text>
+
+                    <rect x="570" y="130" width="200" height="54" rx="3" fill="#1A1A22" stroke="#6FA488" stroke-width="1.5"/>
+                    <text x="670" y="150" text-anchor="middle" font-size="10" fill="#6FA488" letter-spacing="0.08em">FORMALIZED HYPOTHESES</text>
+                    <text x="670" y="172" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600" fill="#F5F1EB">PDGFRA · CXCR4 · EZH2</text>
+
+                    <rect x="570" y="204" width="200" height="44" rx="3" fill="#1A1A22" stroke="rgba(245,241,235,0.2)" stroke-width="1"/>
+                    <text x="670" y="225" text-anchor="middle" font-size="10" fill="rgba(245,241,235,0.55)" letter-spacing="0.08em">DISCARDED</text>
+                    <text x="670" y="240" text-anchor="middle" font-size="10.5" fill="rgba(245,241,235,0.55)">20 candidates · insufficient evidence</text>
+                </g>
+
+                <!-- Internal arrows from network to results -->
+                <path d="M 670 110 L 670 128" stroke="rgba(245,241,235,0.25)" stroke-width="1" marker-end="url(#arrow)"/>
+                <path d="M 670 186 L 670 202" stroke="rgba(245,241,235,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+            </svg>
+            <div class="figure-caption">Fig. 1 — Multi-omic integration schematic. 14 public datasets across 5 modalities → batch-corrected DEG set → PPI network centrality → 3 formalized hypotheses.</div>
+        </figure>
+
+        <div class="caveat">
+            <strong>Caveat.</strong> These are computational predictions derived from integrative analysis of public data. None have been experimentally validated in the specific contexts proposed here. The hypotheses below represent the strongest candidates from the current iteration, not confirmed findings. We actively invite scrutiny — particularly on dataset selection, batch correction choices, and the network centrality filtering threshold.
+        </div>
+
+        <h2>Testable hypotheses</h2>
+        <p style="margin-bottom: 1.5rem;">Each hypothesis includes a specific prediction, supporting evidence, suggested validation protocol, and status. Confidence reflects Marvin's internal scoring after PhD review; see <a href="https://github.com/iluvatar-open-research/project-pediatric-gbm/blob/main/findings/hypotheses.md" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(111,164,136,0.3);">hypotheses.md</a> for full reasoning traces.</p>
+
+        <!-- H1 (expanded by default) -->
+        <div class="hypothesis expanded">
+            <div class="hyp-head">
+                <span class="hyp-id">H1</span>
+                <span class="hyp-title">PDGFRA–STAT3 axis as therapeutic vulnerability in PDGFRA-amplified pHGG</span>
+                <span class="hyp-pill conf-high">Confidence: High · Awaiting validation</span>
+                <span class="hyp-caret">&#x25BC;</span>
+            </div>
+            <div class="hyp-body">
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Prediction</div>
+                    <div class="hyp-field-value">Pharmacological inhibition of PDGFRA in PDGFRA-amplified pediatric GBM cell lines will reduce STAT3 phosphorylation and suppress proliferation. Specifically: <strong>crenolanib IC<sub>50</sub> &lt; 1 μM</strong> in SF188 and KNS42 lines; <strong>&gt;60% reduction in pSTAT3 (Y705)</strong> at 24 h; <strong>&gt;50% viability reduction</strong> at 72 h (CellTiter-Glo).</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Supporting evidence</div>
+                    <div class="hyp-field-value">Consistent overexpression of PDGFRA across <strong>11 of 14 datasets</strong>. Network analysis places PDGFRA as a hub node upstream of STAT3 in the pediatric-specific subnetwork (centrality rank 4). Two independent proteomic datasets (CPTAC Pediatric Brain Tumor Pilot, Mackay et al. 2017) confirm elevated pSTAT3 in PDGFRA-amplified samples (log2FC 1.8, FDR &lt; 0.01).</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Validation protocol</div>
+                    <div class="hyp-field-value">Dose-response curve for crenolanib (0.01–10 μM, 8 points) in <code>SF188</code> and <code>KNS42</code> pediatric GBM cell lines. Western blot for pSTAT3(Y705), total STAT3, and PDGFRA at 24 h and 48 h. Viability assay at 72 h. Full protocol: <code>validation/H1-protocol.md</code>.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">What would falsify</div>
+                    <div class="hyp-field-value">(1) Crenolanib IC<sub>50</sub> &gt; 5 μM in both lines; (2) No measurable reduction in pSTAT3 at sub-cytotoxic concentrations; (3) Effect is equivalent in PDGFRA-wild-type control lines.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Difficulty</div>
+                    <div class="hyp-field-value">Standard mid-sized academic lab (2D culture, WB, viability). Estimated 3–5 weeks. No animal work required for this hypothesis.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Status</div>
+                    <div class="hyp-field-value"><span class="hyp-pill conf-high" style="font-size: 0.68rem;">Awaiting validation</span> &nbsp; No lab has claimed this yet.</div>
+                </div>
+                <div class="hyp-actions">
+                    <a href="https://github.com/iluvatar-open-research/project-pediatric-gbm/discussions" class="hyp-action">Discuss on GitHub <span>&rarr;</span></a>
+                    <a href="#" class="hyp-action warn">I can validate this <span>&rarr;</span></a>
+                    <a href="#" class="hyp-action muted">Review evidence <span>&rarr;</span></a>
+                    <a href="#" class="hyp-action muted">Suggest missing evidence <span>&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- H2 (collapsed) -->
+        <div class="hypothesis">
+            <div class="hyp-head">
+                <span class="hyp-id">H2</span>
+                <span class="hyp-title">CXCL12/CXCR4 chemokine signaling drives tumor-associated macrophage infiltration</span>
+                <span class="hyp-pill conf-mod">Confidence: Moderate · Awaiting validation</span>
+                <span class="hyp-caret">&#x25BC;</span>
+            </div>
+            <div class="hyp-body">
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Prediction</div>
+                    <div class="hyp-field-value">CXCR4 antagonism (AMD3100 / plerixafor) will reduce tumor-associated macrophage infiltration in pediatric GBM organoid models, measurable as <strong>&gt;30% reduction in CD68<sup>+</sup>/CD163<sup>+</sup> population</strong> by flow cytometry at 72 h co-culture.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Supporting evidence</div>
+                    <div class="hyp-field-value">scRNA-seq deconvolution identifies CXCL12-high tumor cells co-localized with M2-polarized macrophages in <strong>5 of 8 single-cell datasets</strong>. Bulk transcriptomic signature correlates with worse progression-free survival (HR 1.8, 95% CI 1.15–2.81, p=0.03). <strong>Limitation:</strong> interaction is inferred from expression correlation, not direct functional evidence.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Validation protocol</div>
+                    <div class="hyp-field-value">Co-culture of patient-derived pediatric GBM organoids with monocyte-derived macrophages ± AMD3100 (100 nM, 72 h). Flow panel: CD45 / CD68 / CD163 / CD206. Invasion assay (Transwell) as secondary readout. See <code>validation/H2-protocol.md</code>.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Difficulty</div>
+                    <div class="hyp-field-value">Lab with organoid culture + flow cytometry capabilities. 6–8 weeks. Access to patient-derived material preferred; immortalized lines acceptable fallback.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Status</div>
+                    <div class="hyp-field-value"><span class="hyp-pill conf-mod" style="font-size: 0.68rem;">Awaiting validation</span></div>
+                </div>
+                <div class="hyp-actions">
+                    <a href="#" class="hyp-action">Discuss <span>&rarr;</span></a>
+                    <a href="#" class="hyp-action warn">I can validate this <span>&rarr;</span></a>
+                    <a href="#" class="hyp-action muted">Review evidence <span>&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- H3 (collapsed) -->
+        <div class="hypothesis">
+            <div class="hyp-head">
+                <span class="hyp-id">H3</span>
+                <span class="hyp-title">Targetable residual EZH2 activity in H3K27M-mutant pediatric GBM</span>
+                <span class="hyp-pill conf-mod">Confidence: Moderate · In discussion</span>
+                <span class="hyp-caret">&#x25BC;</span>
+            </div>
+            <div class="hyp-body">
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Prediction</div>
+                    <div class="hyp-field-value">EZH2 inhibitor (tazemetostat) will selectively reduce viability in H3K27M-mutant pediatric GBM lines vs. H3-wild-type lines, with <strong>differential sensitivity &gt;5-fold</strong> (IC<sub>50</sub> comparison).</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Supporting evidence</div>
+                    <div class="hyp-field-value">Methylation array analysis shows global H3K27me3 loss in H3K27M samples — consistent with existing literature. However, Marvin's locus-specific analysis identified <strong>847 regions that paradoxically retain or gain H3K27me3</strong>, enriched for developmental transcription factors. This suggests a targetable dependency on residual EZH2 activity that is not visible at the global level.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Validation protocol</div>
+                    <div class="hyp-field-value">Tazemetostat dose-response in matched H3K27M-mutant (<code>HSJD-DIPG007</code>) vs. H3-WT (<code>SF188</code>) lines. ChIP-seq for H3K27me3 at 48 h to confirm on-target effects at the 847 predicted loci. <strong>This is the most exploratory hypothesis of the three</strong> and is currently in community discussion.</div>
+                </div>
+                <div class="hyp-field">
+                    <div class="hyp-field-label">Status</div>
+                    <div class="hyp-field-value"><span class="hyp-pill" style="font-size: 0.68rem; color: var(--accent-violet); border-color: rgba(155,125,194,0.35);">In discussion</span> &nbsp; Dr. Chen (Harvard) raised concerns about locus annotation; Marvin re-running with updated reference.</div>
+                </div>
+                <div class="hyp-actions">
+                    <a href="#" class="hyp-action">Discuss <span>&rarr;</span></a>
+                    <a href="#" class="hyp-action muted">View ongoing thread <span>&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DATA PANEL -->
+<section class="panel" data-panel="data">
+    <div class="panel-inner">
+        <h2>Public datasets used</h2>
+        <p>All six datasets are public or properly licensed. Accessions and processing notes are in <code style="font-family: 'JetBrains Mono', monospace; background: rgba(245,241,235,0.06); padding: 0.08rem 0.3rem; border-radius: 2px;">data/sources.md</code>. We actively invite suggestions of datasets we missed — particularly non-English repositories and newer preprint-adjacent deposits.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Dataset</th>
+                    <th>Modality</th>
+                    <th>Samples</th>
+                    <th>Source</th>
+                    <th>Relevance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CBTTC Pediatric Brain Tumor Atlas</td>
+                    <td class="mono">RNA-seq + WGS</td>
+                    <td class="mono">943</td>
+                    <td><a href="https://cbtn.org/">PBTA / Kids First</a></td>
+                    <td>Primary integrated cohort. Largest pediatric-specific resource.</td>
+                </tr>
+                <tr>
+                    <td>HERBY Clinical Trial Transcriptomics</td>
+                    <td class="mono">Microarray</td>
+                    <td class="mono">120</td>
+                    <td><a href="#">SIOPE / GEO GSE117842</a></td>
+                    <td>Added in iteration 2 after community contribution (Dr. Patel, UCL).</td>
+                </tr>
+                <tr>
+                    <td>St. Jude Cloud Pediatric Cancer</td>
+                    <td class="mono">RNA-seq + WGS + Methylation</td>
+                    <td class="mono">312</td>
+                    <td><a href="https://stjude.cloud/">St. Jude Cloud</a></td>
+                    <td>Cross-modality within-sample integration for 312 tumors.</td>
+                </tr>
+                <tr>
+                    <td>Allen Brain Atlas (Developmental)</td>
+                    <td class="mono">scRNA-seq</td>
+                    <td class="mono">—</td>
+                    <td><a href="https://portal.brain-map.org/">Allen Institute</a></td>
+                    <td>Developmental reference for cell-type deconvolution.</td>
+                </tr>
+                <tr>
+                    <td>CPTAC Pediatric Brain Tumor Pilot</td>
+                    <td class="mono">Proteomics (TMT)</td>
+                    <td class="mono">218</td>
+                    <td><a href="https://proteomics.cancer.gov/">NCI CPTAC</a></td>
+                    <td>Proteomic validation of transcriptomic hits. Re-processed after batch correction.</td>
+                </tr>
+                <tr>
+                    <td>Mackay et al. 2017 Methylation</td>
+                    <td class="mono">450k Methylation Array</td>
+                    <td class="mono">1,067</td>
+                    <td><a href="#">GEO GSE77241</a></td>
+                    <td>Largest pediatric HGG methylation cohort; used for H3K27me3 locus analysis.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="https://github.com/iluvatar-open-research/project-pediatric-gbm/issues/new?template=new-data-source.yml" class="panel-cta">Know a dataset we missed? Suggest it <span>&rarr;</span></a>
+    </div>
+</section>
+
+<!-- TIMELINE PANEL -->
+<section class="panel" data-panel="timeline">
+    <div class="panel-inner">
+        <h2>Project changelog</h2>
+        <p>Every iteration, internal review, community contribution, and hypothesis revision is logged. Confidence changes — including downgrades — are tracked.</p>
+
+        <div class="timeline-row">
+            <span class="tl-date">Apr 20, 2026</span>
+            <span class="tl-type">Iteration</span>
+            <span class="tl-text"><strong>Iteration 2 complete.</strong> 3 hypotheses formalized after incorporating HERBY data. Preprint v1 posted to bioRxiv. GitHub repo opened for community review.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="tl-date">Apr 11, 2026</span>
+            <span class="tl-type review">Review</span>
+            <span class="tl-text">Internal review flagged potential batch effect in CPTAC proteomic data. Marvin re-ran the full pipeline with ComBat correction; 12 candidates dropped out, 3 new ones emerged.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="tl-date">Apr 5, 2026</span>
+            <span class="tl-type community">Community</span>
+            <span class="tl-text"><strong>Dr. Patel (UCL)</strong> suggested HERBY trial transcriptomic data was missing. Added to iteration 2. <a href="#" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(111,164,136,0.3);">Issue #14</a>.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="tl-date">Mar 28, 2026</span>
+            <span class="tl-type">Iteration</span>
+            <span class="tl-text">Initial multi-omic integration complete. 2,340 DEGs across 14 datasets; 247 pass network centrality filtering; top 23 prioritized for hypothesis generation.</span>
+        </div>
+        <div class="timeline-row">
+            <span class="tl-date">Mar 18, 2026</span>
+            <span class="tl-type review">Review</span>
+            <span class="tl-text">PhD team vetted literature synthesis. Two references flagged as low-quality and removed; one preprint added that Marvin had filtered out (Bhattacharya et al. 2025).</span>
+        </div>
+        <div class="timeline-row">
+            <span class="tl-date">Mar 12, 2026</span>
+            <span class="tl-type">Milestone</span>
+            <span class="tl-text"><strong>Project initiated.</strong> Literature synthesis began across 14 identified public datasets. Selection criteria: pediatric-specific cohorts, &gt;50 samples, multi-modal coverage.</span>
+        </div>
+
+        <div class="next-iteration">
+            <strong>Next iteration — Apr 23, 2026</strong>
+            Full pipeline re-run incorporating (a) updated reference annotation for H3K27me3 locus analysis (raised by Dr. Chen, Harvard), (b) newly released 2026 St. Jude cohort expansion (n=114), and (c) revised CXCR4 binding affinity priors from Iwata et al. 2026.
+        </div>
+    </div>
+</section>
+
+<!-- CONTRIBUTE PANEL -->
+<section class="panel" data-panel="contribute" id="contribute-tab">
+    <div class="panel-inner">
+        <h2>How to contribute to this project</h2>
+        <p>Contributions are credited via CRediT (Contributor Roles Taxonomy). All discussion is public on GitHub. Four paths by commitment level:</p>
+
+        <a class="contribute-row" href="https://github.com/iluvatar-open-research/project-pediatric-gbm/discussions">
+            <span class="c-n">01</span>
+            <div>
+                <h4>Comment on a hypothesis · ~5 min</h4>
+                <p>Leave a scientific comment on any of the three formalized hypotheses. Useful for flagging interpretation concerns, pointing out relevant prior work, or asking clarifying questions.</p>
+            </div>
+            <span class="c-cta">Open discussion <span>&rarr;</span></span>
+        </a>
+
+        <a class="contribute-row" href="https://github.com/iluvatar-open-research/project-pediatric-gbm/issues/new/choose">
+            <span class="c-n">02</span>
+            <div>
+                <h4>Suggest a missing paper or dataset · ~15 min</h4>
+                <p>Know something we should have integrated? File a structured issue with accession + why it matters. Marvin considers these for the next scheduled re-analysis.</p>
+            </div>
+            <span class="c-cta">File suggestion <span>&rarr;</span></span>
+        </a>
+
+        <a class="contribute-row" href="https://github.com/iluvatar-open-research/project-pediatric-gbm/tree/main/analysis">
+            <span class="c-n">03</span>
+            <div>
+                <h4>Review the analysis · 1–2 hours</h4>
+                <p>Inspect the pipeline, question the methodology, challenge a parameter choice, or propose an alternative normalization. Full reproducibility via Dockerfile; all intermediate outputs available.</p>
+            </div>
+            <span class="c-cta">Open analysis folder <span>&rarr;</span></span>
+        </a>
+
+        <a class="contribute-row" href="https://github.com/iluvatar-open-research/project-pediatric-gbm/issues/new?template=validation-offer.yml">
+            <span class="c-n">04</span>
+            <div>
+                <h4>Validate a hypothesis in the lab · weeks</h4>
+                <p>Pick up H1, H2, or H3 if you have the experimental system. Protocols are in <code style="font-family: 'JetBrains Mono', monospace; background: rgba(245,241,235,0.06); padding: 0.05rem 0.3rem; border-radius: 2px;">validation/</code>. Co-authorship on resulting publications — CRediT: Validation, Investigation.</p>
+            </div>
+            <span class="c-cta">File validation offer <span>&rarr;</span></span>
+        </a>
+
+        <div class="agreement-note">
+            <h3>Collaboration agreement</h3>
+            <p>For lab validations and formal collaborations we use a one-page plain-language agreement. <strong>Iluvatar commits to:</strong> delivering the analysis on stated timeline, publishing findings openly, not claiming IP, crediting you as lead collaborator. <strong>You commit to:</strong> acknowledging Marvin/Iluvatar in resulting publications, sharing validation results if performed (strongly encouraged, not required).</p>
+            <a href="mockup-iori-about.html#ip" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(111,164,136,0.3); font-size: 0.95rem; font-weight: 500;">Read the agreement &rarr;</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div>Iluvatar Open Research Initiative — part of Iluvatar Labs.</div>
+        <div class="footer-links">
+            <a href="mockup-iori-v1.html">Back to IORI</a>
+            <a href="https://github.com/iluvatar-open-research/project-pediatric-gbm">Project repo</a>
+            <a href="mailto:iori@iluvatarlabs.com">iori@iluvatarlabs.com</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+/* Tabs */
+(function() {
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+    tabs.forEach(t => {
+        t.addEventListener('click', () => {
+            const id = t.dataset.tab;
+            tabs.forEach(x => x.classList.toggle('active', x === t));
+            panels.forEach(p => p.classList.toggle('active', p.dataset.panel === id));
+            window.scrollTo({ top: document.querySelector('.tabs-bar').offsetTop, behavior: 'smooth' });
+        });
+    });
+})();
+
+/* Expand/collapse hypothesis cards */
+(function() {
+    document.querySelectorAll('.hypothesis .hyp-head').forEach(h => {
+        h.addEventListener('click', () => {
+            h.parentElement.classList.toggle('expanded');
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

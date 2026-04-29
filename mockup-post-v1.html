@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divergent-Convergent Attention — Iluvatar Labs</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1200px;
+            --edge-pad: 3rem;
+            --ink-cream:      #F5F1EB;
+            --ink-cream-soft: rgba(245,241,235,0.78);
+            --ink-cream-dim:  rgba(245,241,235,0.6);
+            --ink-cream-mute: rgba(245,241,235,0.42);
+            --hairline:       rgba(245,241,235,0.1);
+            --hairline-strong: rgba(245,241,235,0.16);
+            --bg:             #14141A;
+            --bg-surface:     #1A1A22;
+            --accent:         #6FA488;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--ink-cream);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* NAV */
+        .nav-bar {
+            position: absolute; top: 0; left: 0; right: 0;
+            z-index: 30; display: flex; justify-content: center;
+            --nav-ink: var(--ink-cream);
+            --nav-ink-soft: var(--ink-cream-soft);
+        }
+        .nav {
+            width: 100%; max-width: var(--max-content);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 3rem var(--edge-pad) 0;
+        }
+        .nav-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem; font-weight: 700; letter-spacing: -0.02em;
+            color: var(--nav-ink); text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--nav-ink); text-decoration: none; font-size: 1.1rem;
+            border-bottom: 1px solid transparent; padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
+        .nav-links a.product-link {
+            font-family: 'Space Grotesk', sans-serif; font-weight: 600;
+            display: flex; align-items: center; gap: 0.15rem;
+        }
+        .nav-links a.nav-text { margin-left: 0.35rem; }
+        .product-icon { vertical-align: middle; }
+        .social-icon { display: flex; align-items: center; width: 18px; height: 18px; }
+        .social-icon svg { width: 100%; height: 100%; fill: var(--nav-ink); transition: fill 0.2s; }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* POST HERO — centered, minimal, massive whitespace.              */
+        /* Title + subtitle + continue-reading pill. That's it.            */
+        /* ────────────────────────────────────────────────────────────── */
+        .post-hero {
+            /* The nav is position:absolute at top:0 and overlaps the
+               first ~5rem of the hero. Top padding has to account for
+               that AND provide a visible gap to the title.             */
+            padding: 15rem var(--edge-pad) 9rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .post-hero-inner {
+            max-width: 40rem;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .post-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: var(--ink-cream);
+            margin-bottom: 1.75rem;
+        }
+        .post-hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+            font-weight: 400;
+            line-height: 1.45;
+            letter-spacing: -0.01em;
+            color: var(--ink-cream-dim);
+            margin-bottom: 2.75rem;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Hero meta row — authors + published, inline and centered. */
+        .post-meta {
+            display: inline-flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--ink-cream-soft);
+        }
+        .post-meta .field {
+            display: inline-flex;
+            gap: 0.65rem;
+            align-items: baseline;
+        }
+        .post-meta .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+        }
+        .post-meta .value {
+            font-family: 'Inter', sans-serif;
+        }
+        .post-continue {
+            display: inline-flex;
+            align-items: center; gap: 0.5rem;
+            padding: 0.7rem 1.35rem;
+            border: 1px solid var(--hairline-strong);
+            border-radius: 999px;
+            font-size: 0.9rem; font-weight: 500;
+            color: var(--ink-cream-soft);
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+        .post-continue:hover {
+            border-color: var(--ink-cream-soft);
+            color: var(--ink-cream);
+            background: rgba(245,241,235,0.04);
+        }
+
+        /* ────────────────────────────────────────────────────────────── */
+        /* POST BODY — narrow reading column + thin TOC sidebar.          */
+        /* ────────────────────────────────────────────────────────────── */
+        .post-body {
+            padding: 2rem var(--edge-pad) 10rem;
+        }
+        .post-body-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            /* Symmetric gutters so the content column lands at the true
+               viewport center. TOC sits in the left 1fr cell; sidenotes
+               float into the right 1fr cell. */
+            grid-template-columns: 1fr minmax(0, 40rem) 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .post-content { grid-column: 2; }
+        .post-sidebar { grid-column: 1; justify-self: end; width: 12rem; }
+
+        /* ── Sidebar: meta (authors / date) + contents ── */
+        .post-sidebar {
+            position: sticky;
+            top: 3rem;
+            align-self: start;
+        }
+        .sidebar-block {
+            margin-bottom: 2.75rem;
+        }
+        .sidebar-block:last-child { margin-bottom: 0; }
+        .sidebar-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.66rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            margin-bottom: 0.85rem;
+        }
+        .sidebar-authors,
+        .sidebar-date {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--ink-cream-soft);
+        }
+        .sidebar-authors span { display: block; }
+
+        .post-toc ol { list-style: none; }
+        .post-toc li {
+            margin-bottom: 0.7rem;
+            padding-left: 0.9rem;
+            border-left: 1px solid var(--hairline);
+            transition: border-color 0.15s;
+        }
+        .post-toc li.active { border-left-color: var(--accent); }
+        .post-toc a {
+            font-size: 0.88rem;
+            line-height: 1.4;
+            color: var(--ink-cream-mute);
+            text-decoration: none;
+            transition: color 0.2s;
+            display: block;
+        }
+        .post-toc a:hover, .post-toc li.active a { color: var(--ink-cream); }
+
+        /* ── Article column ── */
+        .post-content {
+            max-width: 40rem;
+        }
+
+        /* Right-margin sidenote. Floats right into the gutter column,
+           using negative margin to pull out of the content column.     */
+        .sidenote {
+            float: right;
+            clear: right;
+            width: 13rem;
+            margin-right: -14.5rem;
+            margin-top: 0.45rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--hairline-strong);
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: var(--ink-cream-mute);
+        }
+        .sidenote strong { color: var(--ink-cream-soft); font-weight: 500; }
+        .sidenote .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.74rem;
+            color: var(--accent);
+            letter-spacing: 0.05em;
+            margin-right: 0.35rem;
+        }
+
+        .post-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.35rem;
+        }
+        .post-content p strong { color: var(--ink-cream); font-weight: 500; }
+        .post-content p em {
+            color: var(--ink-cream);
+            font-style: italic;
+        }
+        .post-content p a {
+            color: var(--ink-cream);
+            text-decoration: none;
+            border-bottom: 1px solid var(--hairline-strong);
+            padding-bottom: 1px;
+            transition: border-color 0.2s;
+        }
+        .post-content p a:hover { border-color: var(--ink-cream); }
+
+        /* Drop cap on first paragraph. */
+        .post-content > .lede::first-letter {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 500;
+            line-height: 0.9;
+            float: left;
+            padding: 0.5rem 0.65rem 0 0;
+            color: var(--ink-cream);
+        }
+
+        .post-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: var(--ink-cream);
+            line-height: 1.2;
+            margin: 4.5rem 0 1.25rem;
+            scroll-margin-top: 3rem;
+        }
+        .post-content h2:first-child { margin-top: 0; }
+        .post-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--ink-cream);
+            margin: 2.5rem 0 0.85rem;
+        }
+
+        /* TL;DR / hero excerpt deck — top of article. */
+        .post-deck {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.08rem;
+            line-height: 1.6;
+            color: var(--ink-cream);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            padding: 1.85rem 0;
+            margin-bottom: 3.25rem;
+            border-top: 1px solid var(--hairline);
+            border-bottom: 1px solid var(--hairline);
+        }
+        .post-deck strong { font-weight: 500; }
+        .post-deck .deck-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem; letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Pull-quote blockquote. */
+        .post-content blockquote {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.45;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: -0.015em;
+            color: var(--ink-cream);
+            padding: 1.75rem 0 1.75rem 1.5rem;
+            border-left: 2px solid var(--accent);
+            margin: 2.75rem 0;
+        }
+        .post-content blockquote p { font-size: inherit; line-height: inherit; color: inherit; margin: 0; }
+
+        /* Lists */
+        .post-content ul, .post-content ol {
+            margin: 0.25rem 0 1.5rem 1.5rem;
+            color: var(--ink-cream-soft);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .post-content li { margin-bottom: 0.45rem; }
+        .post-content li strong { color: var(--ink-cream); font-weight: 500; }
+
+        /* Inline code */
+        .post-content code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.92em;
+            background: rgba(245,241,235,0.06);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            color: var(--ink-cream);
+        }
+
+        /* Figure */
+        .post-figure {
+            margin: 4rem 0;
+        }
+        .post-figure-img {
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 4px;
+            padding: 2rem;
+        }
+        .post-figure-img svg { width: 100%; height: auto; display: block; }
+        .post-figure-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            font-style: italic;
+            color: var(--ink-cream-mute);
+            line-height: 1.6;
+            margin-top: 1.25rem;
+            max-width: 36rem;
+        }
+        .post-figure-caption strong {
+            font-family: 'JetBrains Mono', monospace;
+            font-style: normal;
+            font-size: 0.74rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-cream-dim);
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Data table */
+        .post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 3.5rem 0;
+            font-size: 0.95rem;
+        }
+        .post-content thead th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-cream-mute);
+            text-align: left;
+            padding: 0.85rem 1rem 0.85rem 0;
+            border-bottom: 1px solid var(--hairline-strong);
+            font-weight: 500;
+        }
+        .post-content tbody td {
+            padding: 1rem 1rem 1rem 0;
+            border-bottom: 1px solid var(--hairline);
+            color: var(--ink-cream-soft);
+            line-height: 1.5;
+        }
+        .post-content tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
+        .post-content tbody td.num {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.92rem;
+        }
+
+        /* Code block */
+        .post-content pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.75;
+            background: var(--bg-surface);
+            border: 1px solid var(--hairline);
+            border-radius: 4px;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            color: var(--ink-cream);
+            white-space: pre;
+        }
+        .post-content pre code {
+            font-size: inherit;
+            background: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        /* Image figure (SVG asset) */
+        .post-figure-asset img {
+            width: 100%; height: auto; display: block;
+            background: #0E0E14;
+            border-radius: 3px;
+        }
+
+        /* Superscript footnote reference in body text. */
+        .post-content sup a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            padding: 0 0.15rem;
+            color: var(--accent);
+            text-decoration: none;
+            vertical-align: super;
+            line-height: 0;
+        }
+        .post-content sup a:hover { color: var(--ink-cream); }
+
+        /* Responsive */
+        @media (max-width: 1180px) {
+            /* Not enough room for sidenotes in the right gutter —
+               collapse them inline above the paragraph they belong to. */
+            .sidenote {
+                float: none;
+                width: auto;
+                margin: 1.25rem 0;
+                padding-left: 1rem;
+            }
+            .post-body-inner {
+                grid-template-columns: 12rem minmax(0, 40rem);
+                max-width: 1000px;
+            }
+        }
+        @media (max-width: 960px) {
+            :root { --edge-pad: 1.5rem; }
+            .post-hero { padding: 8rem var(--edge-pad) 5rem; }
+            .post-body { padding: 1rem var(--edge-pad) 6rem; }
+            .post-body-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .post-content { grid-column: auto; }
+            .post-sidebar { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-bar">
+    <nav class="nav">
+        <a href="/" class="nav-title">iluvatar labs.</a>
+        <div class="nav-links">
+            <a href="/actuator/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="10 10 44 44" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 43.136 25.6 L 43.136 38.4 L 32 44.8 L 20.864 38.4 L 20.864 25.6 Z"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 19.2 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 25.6 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 43.136 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 32 44.8 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 38.4 L 32 32"/><path fill="none" stroke="currentColor" stroke-width="1.024" stroke-linecap="round" d="M 20.864 25.6 L 32 32"/><circle cx="32" cy="32" r="3" fill="currentColor"/></g></svg>
+                Actuator
+            </a>
+            <a href="/marvin/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 60 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
+                Marvin
+            </a>
+            <a href="/iori/" class="product-link">
+                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-nav-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-nav-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-nav-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
+                IORI
+            </a>
+            <a href="/blog/" class="nav-text">Discover</a>
+            <a href="/about/" class="nav-text">About</a>
+            <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer"><span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span></a>
+            <a href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer"><span class="social-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span></a>
+        </div>
+    </nav>
+</div>
+
+<article>
+
+<!-- HERO: title + subtitle + authors/date + continue-reading pill. Centered. -->
+<header class="post-hero">
+    <div class="post-hero-inner">
+        <h1>Divergent-Convergent Attention</h1>
+        <p class="subtitle">Parallel perspectives for compositional reasoning in transformers.</p>
+        <div class="post-meta">
+            <div class="field">
+                <span class="label">Authors</span>
+                <span class="value">Ben Zhao · Jenhan Tao</span>
+            </div>
+            <div class="field">
+                <span class="label">Published</span>
+                <span class="value">March 26, 2026</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- BODY: TOC sidebar (authors + date + contents) + centered article column -->
+<section class="post-body">
+    <div class="post-body-inner">
+
+        <aside class="post-sidebar">
+            <div class="sidebar-block post-toc">
+                <div class="sidebar-label">Contents</div>
+                <ol>
+                    <li class="active"><a href="#intro">Introduction</a></li>
+                    <li><a href="#related">Related work</a></li>
+                    <li><a href="#architecture">The architecture</a></li>
+                    <li><a href="#benchmarks">Benchmarks</a></li>
+                    <li><a href="#mechanistic">Mechanistic analysis</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                </ol>
+            </div>
+        </aside>
+
+        <main class="post-content">
+
+            <div class="post-deck">
+                <span class="deck-label">TL;DR</span>
+                Divergent-Convergent Attention (DCA) improves compositional reasoning by maintaining multiple parallel attention perspectives before periodic learned consensus. On HotpotQA, DCA achieves <strong>5.4× higher exact match</strong> than a parameter-matched 90M baseline, and a <strong>215M DCA model outperforms a 355M standard transformer by 1.54×</strong> with fewer parameters and lower memory. Most notably, DCA assigns higher probability to the correct answer tokens on <strong>97.8% of examples</strong>, with the advantage sharply correlated with question difficulty. DCA helps when relevant content is scattered across structurally independent documents; it does not help on sequential reasoning or single-source retrieval.
+            </div>
+
+            <h2 id="intro">Introduction</h2>
+            <p class="lede">Standard transformers process multi-document input through a single attention stream, fusing heterogeneous evidence into one representation at every layer. RAG pipelines, long-context windows, and tasks like legal analysis or medical synthesis all require integrating information from structurally independent sources. A single stream must compromise between local precision and global reach at every layer. The result is <em>premature fusion</em>, where multi-document evidence is collapsed before the model can develop complementary views.</p>
+
+            <p>We introduce Divergent-Convergent Attention (DCA), a transformer variant that maintains <em>K</em> parallel attention streams at different scales and reconciles them only at scheduled consensus points. The novelty is not merely independent lanes or a late merge, but that those lanes are explicitly <strong>multi-horizon</strong>: short, medium, and long timescales that cultivate complementary perspectives before reconciliation.</p>
+
+            <p>DCA is inspired by an organizational principle in neuroscience: the brain concurrently maintains multiple oscillatory bands that only periodically couple to coordinate information.<sup><a href="#fn-buzsaki">1</a></sup><span class="sidenote"><span class="num">1</span><strong>Buzsáki 2006.</strong> <em>Rhythms of the Brain.</em> Oxford University Press.</span><sup><a href="#fn-canolty">2</a></sup><span class="sidenote"><span class="num">2</span><strong>Canolty &amp; Knight 2010.</strong> The Functional Role of Cross-Frequency Coupling. <em>Trends in Cognitive Sciences</em>, 14(11).</span> Gamma (30–100 Hz) supports fast, local feature binding, analogous to our short horizon. Beta (13–30 Hz) integrates across nearby regions, our medium horizon. Theta (4–8 Hz) supports global synchronization, our long horizon.<sup><a href="#fn-lisman">3</a></sup><span class="sidenote"><span class="num">3</span><strong>Lisman &amp; Jensen 2013.</strong> The Theta-Gamma Neural Code. <em>Neuron</em>, 77(6).</span> DCA provides the computational analogue: separate processing streams that periodically synchronize via learned consensus.</p>
+
+            <figure class="post-figure">
+                <div class="post-figure-asset">
+                    <img src="/assets/images/divergent-convergent-attention/neural_oscillation_dcr_analogy.svg" alt="Neural oscillation analogy showing gamma, beta, and theta bands mapping to DCA horizons.">
+                </div>
+                <figcaption class="post-figure-caption">
+                    <strong>Figure 1a</strong>Biological multi-scale oscillations. Gamma, beta, and theta bands process at different scales and periodically couple to coordinate information. DCA maps these to three attention horizons.
+                </figcaption>
+            </figure>
+
+            <p>In controlled experiments, DCA achieves 5.4× higher exact match on multi-hop QA at 90M parameters (<em>p</em> &lt; 10<sup>−6</sup>, 3 seeds). At 215M, DCA beats a 355M baseline by 1.54× with fewer parameters, approximately matched FLOPs, and less memory. We characterized the consensus mechanism through causal interventions at both scales. Despite the small capacity of these models, our force-decode analysis shows an unambiguous representational advantage in multi-document composition. DCA assigns higher probability to the correct answer tokens on 97.8% of all examples at 90M, and the advantage scales with difficulty, with 7.7× larger gains on the hardest examples.</p>
+
+            <h2 id="related">Related work</h2>
+            <p>Multi-scale and sparse attention methods such as Longformer,<sup><a href="#fn-longformer">4</a></sup><span class="sidenote"><span class="num">4</span><strong>Beltagy, Peters &amp; Cohan 2020.</strong> Longformer: The Long-Document Transformer. arXiv:2004.05150.</span> BigBird,<sup><a href="#fn-bigbird">5</a></sup><span class="sidenote"><span class="num">5</span><strong>Zaheer et al. 2020.</strong> Big Bird: Transformers for Longer Sequences. <em>NeurIPS 2020</em>.</span> and RetNet combine local and global attention within a single stream, blending scales early or continuously. DCA maintains <em>separate</em> streams that develop independent representations before merging. Ring attention and flash attention address computational cost but not fusion timing; DCA is orthogonal and compatible with these methods.</p>
+
+            <p>Multi-path architectures provide useful precedents but differ in mechanism. ResNeXt<sup><a href="#fn-resnext">6</a></sup><span class="sidenote"><span class="num">6</span><strong>Xie et al. 2017.</strong> Aggregated Residual Transformations for Deep Neural Networks. <em>CVPR 2017</em>.</span> established split-transform-merge for vision. Mixture of Experts increases capacity through sparse routing. DCA differs in that all perspectives are always active and differentiated by attention scale rather than learned routing. The gated consensus mechanism uses Highway Network–style residual connections with periodic synchronization analogous to federated averaging.</p>
+
+            <p>HotpotQA<sup><a href="#fn-hotpot">7</a></sup><span class="sidenote"><span class="num">7</span><strong>Yang et al. 2018.</strong> HotpotQA: A Dataset for Diverse, Explainable Multi-hop QA. <em>EMNLP 2018</em>. arXiv:1809.09600.</span> requires composing information across two Wikipedia paragraphs among eight distractors. Encoder models at 110M–355M achieve substantially higher scores with bidirectional attention, while decoder-only models generally require 7B+ to reach around 30% EM. To our knowledge, no published decoder-only HotpotQA results exist between 90M and 7B parameters.</p>
+
+            <h2 id="architecture">The architecture</h2>
+            <p>DCA replaces each transformer block with <em>K</em> parallel attention streams ("perspectives"), each operating at a different window size. In our experiments, <em>K</em>=3 with horizons [32, 128, 0], where 0 denotes full causal attention. Each perspective has its own QKV projection weights. All perspectives share a single MLP, with all paths always active (closer to ResNeXt's split-transform-merge than to Mixture of Experts' selective routing). Every <em>N</em> layers, the perspectives merge via a Highway Network–style gate, a periodic synchronization analogous to federated averaging. This gate is content-dependent and learned, and the model discovers a depth-dependent strategy where early layers mostly pass through and late layers merge more fully.</p>
+
+            <pre><code>consensus = mean(perspective_1, ..., perspective_K)
+gate      = sigmoid(W_g * RMSNorm(x))
+output    = (1 - gate) * x + gate * consensus</code></pre>
+
+            <p>Note that while the implementation described here uses dense causal attention, DCA is a more general <em>late-consensus primitive</em>. The consensus mechanism operates on tensors, so any module that takes <code>[B, T, D]</code> and produces <code>[B, T, D]</code> can serve as a perspective. In this work, we use dense causal attention with different window sizes, but other sequence-processing modules (ring attention, linear attention, SSMs) could serve the same role.</p>
+
+            <figure class="post-figure">
+                <div class="post-figure-asset">
+                    <img src="/assets/images/divergent-convergent-attention/dcr_architecture_diagram.svg" alt="DCA architecture diagram: K=3 perspectives fork from residual stream, process with separate attention and shared MLP, then merge via learned highway consensus.">
+                </div>
+                <figcaption class="post-figure-caption">
+                    <strong>Figure 1b</strong>DCA architecture. <em>K</em>=3 perspectives fork from the residual stream, process with separate attention and a shared MLP, then merge via learned highway consensus. The cycle repeats every <em>N</em> layers.
+                </figcaption>
+            </figure>
+
+            <h3>Design tradeoffs</h3>
+            <p>Full-fat DCA at baseline width (<em>K</em>=3 at <em>d</em>=1024) costs 3× VRAM and ~2.7× FLOPs. Bottleneck projections let perspectives operate at <code>d_lane=512</code> inside <code>d_model=1024</code>. The key math is that 3 × 512² &lt; 1024², so <em>K</em>=3 perspectives at <em>d</em>=512 are cheaper per layer than a single stream at <em>d</em>=1024. Per-perspective gradient checkpointing reduces activation memory from ~3× baseline to below baseline levels. We scale by adding layers (30L) at the cheap <em>d</em>=512 perspective width rather than widening to <em>d</em>=1024.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Variant</th>
+                        <th>d_model</th>
+                        <th>d_lane</th>
+                        <th>Params</th>
+                        <th>FLOP ratio</th>
+                        <th>VRAM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Baseline</td><td class="num">1024</td><td class="num">—</td><td class="num">355M</td><td class="num">1.00×</td><td class="num">1.0×</td></tr>
+                    <tr><td>Full-fat (K=3)</td><td class="num">1024</td><td class="num">1024</td><td class="num">556M</td><td class="num">2.71×</td><td class="num">~3×</td></tr>
+                    <tr><td>DCA-215M</td><td class="num">1024</td><td class="num">512</td><td class="num">215M</td><td class="num">1.24×</td><td class="num">~0.8×</td></tr>
+                    <tr><td>DCA-215M + sep. MLPs</td><td class="num">1024</td><td class="num">512</td><td class="num">341M</td><td class="num">1.24×</td><td class="num">~0.8×</td></tr>
+                </tbody>
+            </table>
+
+            <p class="post-figure-caption" style="max-width: 36rem;"><strong>Table 1</strong>DCA design space. Theoretical and tested variants with FLOP and VRAM tradeoffs.</p>
+
+            <h2 id="benchmarks">Benchmarks</h2>
+            <p>We pretrained DCA (89M params) and a parameter-matched baseline (90M params) on WikiText-103 for 50K steps, then finetuned both on HotpotQA across three seeds. Though DCA is modestly worse on WikiText-103 validation perplexity (21.48 vs 20.79, ~3%), the benefit on long reasoning is asymmetric. DCA achieves 5.4× higher exact match on HotpotQA (1.56% vs 0.29%), with <em>p</em> &lt; 10<sup>−6</sup> and odds ratio 5.49 (Fisher exact, pooled across seeds).</p>
+
+            <p>The 90M result raises a natural question: does the advantage hold at larger scale? While the relative advantage is clear, absolute performance of both models is low. WT103 is too small for 350M-class models, so we switched to PG-19 (3B tokens) following standard conventions. The 350M standard baseline on PG-19 achieves 0.93% EM, indicating that even at 4× the parameters, standard decoders remain poor at multi-hop QA. A FLOP-comparable DCA-215M on PG-19 achieves 1.43% EM vs the baseline's 0.93% (1.54×), with 39% fewer parameters and less VRAM (~35 vs ~45 GB).</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Params</th>
+                        <th>FLOP ratio</th>
+                        <th>VRAM</th>
+                        <th>EM %</th>
+                        <th>F1 %</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Baseline 90M (WT103)</td><td class="num">90M</td><td class="num">~1.00×</td><td class="num">~4 GB</td><td class="num">0.29</td><td class="num">7.77</td></tr>
+                    <tr><td>DCA 90M (WT103)</td><td class="num">89M</td><td class="num">~1.56×</td><td class="num">~8 GB</td><td class="num">1.56</td><td class="num">14.40</td></tr>
+                    <tr><td>DCA 90M (PG-19)</td><td class="num">89M</td><td class="num">~1.56×</td><td class="num">~8 GB</td><td class="num">0.38</td><td class="num">7.78</td></tr>
+                    <tr><td>Baseline 350M (PG-19)</td><td class="num">355M</td><td class="num">1.00×</td><td class="num">~45 GB</td><td class="num">0.93</td><td class="num">10.81</td></tr>
+                    <tr><td>DCA-215M (PG-19)</td><td class="num">215M</td><td class="num">1.24×</td><td class="num">~35 GB</td><td class="num">1.43</td><td class="num">11.32</td></tr>
+                </tbody>
+            </table>
+
+            <p class="post-figure-caption" style="max-width: 36rem;"><strong>Table 2</strong>HotpotQA results across scales and pretraining domains. All models finetuned and evaluated on HotpotQA.</p>
+
+            <blockquote>
+                <p>DCA helps when relevant information is distributed across structurally independent segments — what we refer to as the <em>information topology</em> of the input — and does not help when information forms a single chain or resides at a single location.</p>
+            </blockquote>
+
+            <p>Sequential reasoning tasks (bAbI, Tree pathfinding, PrOntoQA, LEGO) show no advantage; all facts lie in a single flat sequence and every attention scale sees the same chain. Single-source tasks (TriviaQA, LAMBADA, MQAR) show no advantage; all perspectives see the same content. Within HotpotQA, the advantage is uniform across bridge questions (sequential logic, OR=4.65) and comparison questions (parallel logic, OR=4.51), indicating that <strong>multi-document context, not reasoning pattern, is the key factor</strong>.</p>
+
+            <h2 id="mechanistic">Mechanistic analysis</h2>
+            <h3>Force-decode: the representation advantage</h3>
+            <p>To separate representation quality from generation dynamics, we feed the context to both models and force-decode the gold answer tokens (teacher-forcing), recording each model's log-probability of the correct token at each position. For each of 6,359 validation examples, we compare which model assigns higher probability to the gold answer.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Slice</th>
+                        <th>DCA advantage</th>
+                        <th>DCA win rate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Overall</td><td class="num">+6.25 nats (~520×)</td><td class="num">97.8%</td></tr>
+                    <tr><td>0–20% (easiest)</td><td class="num">+1.84 nats</td><td class="num">96.5%</td></tr>
+                    <tr><td>20–40%</td><td class="num">+3.20 nats</td><td class="num">96.2%</td></tr>
+                    <tr><td>40–60%</td><td class="num">+4.75 nats</td><td class="num">96.5%</td></tr>
+                    <tr><td>60–80%</td><td class="num">+7.25 nats</td><td class="num">99.6%</td></tr>
+                    <tr><td>80–100% (hardest)</td><td class="num">+14.23 nats</td><td class="num">100%</td></tr>
+                </tbody>
+            </table>
+
+            <p class="post-figure-caption" style="max-width: 36rem;"><strong>Table 3</strong>Force-decode results (90M, WT103). Top row: paired comparison across all 6,359 validation examples. Below: advantage by baseline difficulty quintile.</p>
+
+            <p>The representation advantage is near-universal: DCA produces better internal representations on 97.8% of all examples, not just the 1.6% where EM=1. The advantage correlates with baseline difficulty (<em>r</em>=−0.888): 7.7× larger on the hardest examples than the easiest. The harder an example is for a standard transformer, the more DCA's multi-perspective consensus improves the representation.</p>
+
+            <h3>Gate ablation: consensus is essential and precisely tuned</h3>
+            <p>We force the consensus gate to fixed values during full QA evaluation using forward hooks. Gate=0 clamps the sigmoid to 0.001 (bypass consensus). Gate=1 clamps to 0.999 (force full consensus). Bypassing consensus collapses performance from 101 to 2 correct at 90M and 91 to 2 at 215M. Forcing full consensus drops 101 to 18 at 90M and 91 to 0 at 215M — worse than the 350M baseline (59 correct), indicating that forced consensus is actively destructive to the representations DCA has learned to build through gradual integration.</p>
+
+            <p>At 90M the learned strategy is binary: passthrough early (0.29), full commit at the final layer (0.99). At 215M it is gradual and never exceeds 0.37. Both strategies are load-bearing, and disrupting either destroys performance.</p>
+
+            <h2 id="conclusion">Conclusion</h2>
+            <p>Multi-document composition is a documented bottleneck for production LLMs. RAG pipelines retrieve relevant documents but fail to synthesize across them. Models fail to use information in the middle of long contexts. Multi-hop reasoning may require 30–70B parameters to emerge in standard transformers. With DCA, we sought to demonstrate that parallel multi-scale perspectives with periodic late consensus can improve on these deficiencies.</p>
+
+            <p>Despite the limited capacity of our models, extensive benchmarking demonstrated a consistent advantage on distributed-source tasks (5.4× EM at 90M, 1.54× at 215M FLOP-comparable) and no advantage on sequential, single-source, or capacity-limited tasks. At 90M, the resulting representations encode multi-document relationships better than a parameter-matched standard transformer on 97.8% of examples, with 7.7× larger gains on the hardest examples, reflecting an advantage in composition rather than retrieval.</p>
+
+            <p>Consensus frequency, horizon widths, and gate training dynamics were fixed throughout our experiments, leaving substantial room for task-specific tuning. Because DCA is fundamentally a primitive that operates on tensors, other sequence-processing modules could serve as perspectives, opening a combinatorial design space we have only begun to explore. The force-decode diagnostic is itself useful beyond DCA, offering a general tool for determining whether the bottleneck in a given architecture is understanding or expression.</p>
+
+        </main>
+    </div>
+</section>
+
+</article>
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IORI theme swatches</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --max-content: 1280px;
+            --edge-pad: 3rem;
+        }
+
+        html, body {
+            background: #14141A;
+            color: #F5F1EB;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Page header */
+        .page-head {
+            background: #14141A;
+            padding: 4rem var(--edge-pad) 3rem;
+            border-bottom: 1px solid rgba(245,241,235,0.12);
+        }
+        .page-head-inner { max-width: var(--max-content); margin: 0 auto; }
+        .page-head h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem; font-weight: 600;
+            letter-spacing: -0.022em;
+            margin-bottom: 0.6rem;
+        }
+        .page-head p {
+            color: rgba(245,241,235,0.72);
+            font-size: 1.1rem;
+            max-width: 56rem;
+        }
+
+        /* Each candidate */
+        .candidate {
+            border-bottom: 1px solid rgba(245,241,235,0.12);
+        }
+        .candidate-meta {
+            background: #14141A;
+            padding: 2.5rem var(--edge-pad) 1.75rem;
+        }
+        .candidate-meta-inner {
+            max-width: var(--max-content);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: end;
+        }
+        .candidate-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.022em;
+        }
+        .candidate-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(245,241,235,0.46);
+            margin-top: 0.4rem;
+        }
+        .candidate-rationale {
+            font-size: 1rem;
+            line-height: 1.55;
+            color: rgba(245,241,235,0.72);
+            max-width: 52rem;
+            margin-top: 0.85rem;
+        }
+        .candidate-chips {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: rgba(245,241,235,0.6);
+        }
+        .chip-swatch {
+            width: 60px; height: 60px;
+            border-radius: 4px;
+            border: 1px solid rgba(245,241,235,0.18);
+        }
+
+        /* The three sample sections per candidate */
+        .surfaces {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            min-height: 540px;
+        }
+        @media (max-width: 1080px) {
+            .surfaces { grid-template-columns: 1fr; }
+        }
+        .surface {
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 280px;
+        }
+        .surface-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+        .surface h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
+            max-width: 16ch;
+        }
+        .surface p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.75;
+        }
+        .surface .acc {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        .surface code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+            opacity: 0.6;
+            margin-top: auto;
+        }
+
+        /* CANDIDATES — colors set per-candidate. */
+
+        /* ─── A. Oxblood & bone ─── */
+        .a .surfaces .s1 { background: #3D1820; color: #F2E6DD; }
+        .a .surfaces .s2 { background: #1F0F12; color: #F2E6DD; }
+        .a .surfaces .s3 { background: #EFE4D2; color: #2A1612; }
+        .a .surfaces .s1 .acc { color: #D9A864; }
+        .a .surfaces .s2 .acc { color: #D9A864; }
+        .a .surfaces .s3 .acc { color: #8C4A1F; }
+        .a .chip-1 { background: #3D1820; }
+        .a .chip-2 { background: #1F0F12; }
+        .a .chip-3 { background: #EFE4D2; }
+        .a .chip-4 { background: #D9A864; }
+
+        /* ─── B. Twilight observatory ─── */
+        .b .surfaces .s1 { background: #14182E; color: #F0EAD6; }
+        .b .surfaces .s2 { background: #0B0E1C; color: #F0EAD6; }
+        .b .surfaces .s3 { background: #EBE0CE; color: #1A1828; }
+        .b .surfaces .s1 .acc { color: #D4A847; }
+        .b .surfaces .s2 .acc { color: #D4A847; }
+        .b .surfaces .s3 .acc { color: #8B6A1F; }
+        .b .chip-1 { background: #14182E; }
+        .b .chip-2 { background: #0B0E1C; }
+        .b .chip-3 { background: #EBE0CE; }
+        .b .chip-4 { background: #D4A847; }
+
+        /* ─── C. Forest understory ─── */
+        .c .surfaces .s1 { background: #14302A; color: #ECE6D5; }
+        .c .surfaces .s2 { background: #0A1A18; color: #ECE6D5; }
+        .c .surfaces .s3 { background: #E8DCC0; color: #1F2A1E; }
+        .c .surfaces .s1 .acc { color: #D88848; }
+        .c .surfaces .s2 .acc { color: #D88848; }
+        .c .surfaces .s3 .acc { color: #8C4F1F; }
+        .c .chip-1 { background: #14302A; }
+        .c .chip-2 { background: #0A1A18; }
+        .c .chip-3 { background: #E8DCC0; }
+        .c .chip-4 { background: #D88848; }
+
+        /* ─── D. Plum & dust ─── */
+        .d .surfaces .s1 { background: #2A1530; color: #F2E8E0; }
+        .d .surfaces .s2 { background: #170B1C; color: #F2E8E0; }
+        .d .surfaces .s3 { background: #E8D6D8; color: #2A1828; }
+        .d .surfaces .s1 .acc { color: #C5A968; }
+        .d .surfaces .s2 .acc { color: #C5A968; }
+        .d .surfaces .s3 .acc { color: #6B4C1F; }
+        .d .chip-1 { background: #2A1530; }
+        .d .chip-2 { background: #170B1C; }
+        .d .chip-3 { background: #E8D6D8; }
+        .d .chip-4 { background: #C5A968; }
+
+        /* ─── E. Sea & shore ─── */
+        .e .surfaces .s1 { background: #1A2C3A; color: #ECE5D5; }
+        .e .surfaces .s2 { background: #0D1822; color: #ECE5D5; }
+        .e .surfaces .s3 { background: #E8DDC8; color: #1A2828; }
+        .e .surfaces .s1 .acc { color: #E0814A; }
+        .e .surfaces .s2 .acc { color: #E0814A; }
+        .e .surfaces .s3 .acc { color: #94411F; }
+        .e .chip-1 { background: #1A2C3A; }
+        .e .chip-2 { background: #0D1822; }
+        .e .chip-3 { background: #E8DDC8; }
+        .e .chip-4 { background: #E0814A; }
+    </style>
+</head>
+<body>
+
+<div class="page-head">
+    <div class="page-head-inner">
+        <h1>IORI theme — pick a direction.</h1>
+        <p>Five candidate palettes, each in the spirit of meh_alt2: three thematically related surfaces, two darker shades plus one warm-light section, no abrupt light/dark alternation. Each row shows the same three surface roles (hero, mid-band, light section) plus an accent chip. Compare the mood and the family relationship. None of these reuse colors already on the site.</p>
+    </div>
+</div>
+
+
+<!-- ─────────────────────────────── A. Oxblood & bone ─────────────────────────────── -->
+<section class="candidate a">
+    <div class="candidate-meta">
+        <div class="candidate-meta-inner">
+            <div>
+                <div class="candidate-name">A · Oxblood &amp; bone</div>
+                <div class="candidate-tag">Manuscript · library · ledger</div>
+                <p class="candidate-rationale">Deep saturated oxblood as the hero, near-black wine for the mid-band, warm bone for the third section. Reads as a 19th-century scientific journal — old paper, leather binding, ink. Amber gold accent feels like aged brass on a microscope. Distinct from coral (warmer, redder, much darker) and from About's indigo (no blue at all).</p>
+            </div>
+            <div class="candidate-chips">
+                <div class="chip"><div class="chip-swatch chip-1"></div><span>3D1820</span></div>
+                <div class="chip"><div class="chip-swatch chip-2"></div><span>1F0F12</span></div>
+                <div class="chip"><div class="chip-swatch chip-3"></div><span>EFE4D2</span></div>
+                <div class="chip"><div class="chip-swatch chip-4"></div><span>D9A864</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="surfaces">
+        <div class="surface s1">
+            <div class="surface-label">Hero</div>
+            <h2>Open computational biology, in the open.</h2>
+            <p>Marvin runs the analysis on public data. PhDs vet. Findings publish.</p>
+            <span class="acc">Submit a question →</span>
+            <code>#3D1820</code>
+        </div>
+        <div class="surface s2">
+            <div class="surface-label">Thesis</div>
+            <h2>Pipelines and data are public.</h2>
+            <p>Every project starts from a question a PI couldn't answer because of computational bandwidth. Pipelines are reproducible end-to-end.</p>
+            <span class="acc">Read approach →</span>
+            <code>#1F0F12</code>
+        </div>
+        <div class="surface s3">
+            <div class="surface-label">Active projects</div>
+            <h2>Two active projects.</h2>
+            <p>Pediatric high-grade glioma. Drug repurposing for MECP2-related disorders. Both with hypotheses open for validation.</p>
+            <span class="acc">Read project →</span>
+            <code>#EFE4D2</code>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────── B. Twilight observatory ─────────────────────────────── -->
+<section class="candidate b">
+    <div class="candidate-meta">
+        <div class="candidate-meta-inner">
+            <div>
+                <div class="candidate-name">B · Twilight observatory</div>
+                <div class="candidate-tag">Astronomy · ledger · gold-on-blue</div>
+                <p class="candidate-rationale">Deep midnight blue, then near-black, then warm parchment. Amber gold accent. Reads as an old observatory log — cool nights with brass instruments. Cooler than About (more saturated blue), warmer accent (gold instead of coral).</p>
+            </div>
+            <div class="candidate-chips">
+                <div class="chip"><div class="chip-swatch chip-1"></div><span>14182E</span></div>
+                <div class="chip"><div class="chip-swatch chip-2"></div><span>0B0E1C</span></div>
+                <div class="chip"><div class="chip-swatch chip-3"></div><span>EBE0CE</span></div>
+                <div class="chip"><div class="chip-swatch chip-4"></div><span>D4A847</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="surfaces">
+        <div class="surface s1">
+            <div class="surface-label">Hero</div>
+            <h2>Open computational biology, in the open.</h2>
+            <p>Marvin runs the analysis on public data. PhDs vet. Findings publish.</p>
+            <span class="acc">Submit a question →</span>
+            <code>#14182E</code>
+        </div>
+        <div class="surface s2">
+            <div class="surface-label">Thesis</div>
+            <h2>Pipelines and data are public.</h2>
+            <p>Every project starts from a question a PI couldn't answer because of computational bandwidth. Pipelines are reproducible end-to-end.</p>
+            <span class="acc">Read approach →</span>
+            <code>#0B0E1C</code>
+        </div>
+        <div class="surface s3">
+            <div class="surface-label">Active projects</div>
+            <h2>Two active projects.</h2>
+            <p>Pediatric high-grade glioma. Drug repurposing for MECP2-related disorders. Both with hypotheses open for validation.</p>
+            <span class="acc">Read project →</span>
+            <code>#EBE0CE</code>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────── C. Forest understory ─────────────────────────────── -->
+<section class="candidate c">
+    <div class="candidate-meta">
+        <div class="candidate-meta-inner">
+            <div>
+                <div class="candidate-name">C · Forest understory</div>
+                <div class="candidate-tag">Botanical · field guide · pine + rust</div>
+                <p class="candidate-rationale">Deep teal-pine — a green that's not sage and not Marvin's teal-slate. Reads as a serious field-biology manual, not a SaaS mascot. Hay-cream third section. Rust accent for warmth. The green-rust pair is naturalist territory, distinct from anything else on the site.</p>
+            </div>
+            <div class="candidate-chips">
+                <div class="chip"><div class="chip-swatch chip-1"></div><span>14302A</span></div>
+                <div class="chip"><div class="chip-swatch chip-2"></div><span>0A1A18</span></div>
+                <div class="chip"><div class="chip-swatch chip-3"></div><span>E8DCC0</span></div>
+                <div class="chip"><div class="chip-swatch chip-4"></div><span>D88848</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="surfaces">
+        <div class="surface s1">
+            <div class="surface-label">Hero</div>
+            <h2>Open computational biology, in the open.</h2>
+            <p>Marvin runs the analysis on public data. PhDs vet. Findings publish.</p>
+            <span class="acc">Submit a question →</span>
+            <code>#14302A</code>
+        </div>
+        <div class="surface s2">
+            <div class="surface-label">Thesis</div>
+            <h2>Pipelines and data are public.</h2>
+            <p>Every project starts from a question a PI couldn't answer because of computational bandwidth. Pipelines are reproducible end-to-end.</p>
+            <span class="acc">Read approach →</span>
+            <code>#0A1A18</code>
+        </div>
+        <div class="surface s3">
+            <div class="surface-label">Active projects</div>
+            <h2>Two active projects.</h2>
+            <p>Pediatric high-grade glioma. Drug repurposing for MECP2-related disorders. Both with hypotheses open for validation.</p>
+            <span class="acc">Read project →</span>
+            <code>#E8DCC0</code>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────── D. Plum & dust ─────────────────────────────── -->
+<section class="candidate d">
+    <div class="candidate-meta">
+        <div class="candidate-meta-inner">
+            <div>
+                <div class="candidate-name">D · Plum &amp; dust</div>
+                <div class="candidate-tag">Aubergine · dusty rose · muted gold</div>
+                <p class="candidate-rationale">Saturated deep plum, near-black violet, dusty rose-cream. Gold-olive accent. The most distinctly "different" — no other page goes purple-pink-gold. Risk: warm-light third section is pinkier than the other candidates, may feel boutique.</p>
+            </div>
+            <div class="candidate-chips">
+                <div class="chip"><div class="chip-swatch chip-1"></div><span>2A1530</span></div>
+                <div class="chip"><div class="chip-swatch chip-2"></div><span>170B1C</span></div>
+                <div class="chip"><div class="chip-swatch chip-3"></div><span>E8D6D8</span></div>
+                <div class="chip"><div class="chip-swatch chip-4"></div><span>C5A968</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="surfaces">
+        <div class="surface s1">
+            <div class="surface-label">Hero</div>
+            <h2>Open computational biology, in the open.</h2>
+            <p>Marvin runs the analysis on public data. PhDs vet. Findings publish.</p>
+            <span class="acc">Submit a question →</span>
+            <code>#2A1530</code>
+        </div>
+        <div class="surface s2">
+            <div class="surface-label">Thesis</div>
+            <h2>Pipelines and data are public.</h2>
+            <p>Every project starts from a question a PI couldn't answer because of computational bandwidth. Pipelines are reproducible end-to-end.</p>
+            <span class="acc">Read approach →</span>
+            <code>#170B1C</code>
+        </div>
+        <div class="surface s3">
+            <div class="surface-label">Active projects</div>
+            <h2>Two active projects.</h2>
+            <p>Pediatric high-grade glioma. Drug repurposing for MECP2-related disorders. Both with hypotheses open for validation.</p>
+            <span class="acc">Read project →</span>
+            <code>#E8D6D8</code>
+        </div>
+    </div>
+</section>
+
+
+<!-- ─────────────────────────────── E. Sea & shore ─────────────────────────────── -->
+<section class="candidate e">
+    <div class="candidate-meta">
+        <div class="candidate-meta-inner">
+            <div>
+                <div class="candidate-name">E · Sea &amp; shore</div>
+                <div class="candidate-tag">Cool teal-blue · warm sand · sunset orange</div>
+                <p class="candidate-rationale">Deep ocean teal-blue, near-black abyss, warm sand-cream. Sunset orange accent. Reads as marine biology / deep-water research lab. The orange accent makes it feel alive without screaming. Cooler than About's indigo (more teal), warmer accent.</p>
+            </div>
+            <div class="candidate-chips">
+                <div class="chip"><div class="chip-swatch chip-1"></div><span>1A2C3A</span></div>
+                <div class="chip"><div class="chip-swatch chip-2"></div><span>0D1822</span></div>
+                <div class="chip"><div class="chip-swatch chip-3"></div><span>E8DDC8</span></div>
+                <div class="chip"><div class="chip-swatch chip-4"></div><span>E0814A</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="surfaces">
+        <div class="surface s1">
+            <div class="surface-label">Hero</div>
+            <h2>Open computational biology, in the open.</h2>
+            <p>Marvin runs the analysis on public data. PhDs vet. Findings publish.</p>
+            <span class="acc">Submit a question →</span>
+            <code>#1A2C3A</code>
+        </div>
+        <div class="surface s2">
+            <div class="surface-label">Thesis</div>
+            <h2>Pipelines and data are public.</h2>
+            <p>Every project starts from a question a PI couldn't answer because of computational bandwidth. Pipelines are reproducible end-to-end.</p>
+            <span class="acc">Read approach →</span>
+            <code>#0D1822</code>
+        </div>
+        <div class="surface s3">
+            <div class="surface-label">Active projects</div>
+            <h2>Two active projects.</h2>
+            <p>Pediatric high-grade glioma. Drug repurposing for MECP2-related disorders. Both with hypotheses open for validation.</p>
+            <span class="acc">Read project →</span>
+            <code>#E8DDC8</code>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

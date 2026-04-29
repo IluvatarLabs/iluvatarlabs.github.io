@@ -3,6 +3,30 @@ description: Reality-inspired AI architectures for the AGI era
 url: "https://iluvatarlabs.github.io"
 baseurl: ""
 
+# Author / org metadata used by jekyll-seo-tag for OG, Twitter, JSON-LD
+author:
+  name: Iluvatar Labs
+  email: ben@iluvatarlabs.com
+  url: "https://iluvatarlabs.github.io"
+  twitter: IluvatarLabs
+
+# Twitter / X card config. Per-post `image:` frontmatter triggers
+# summary_large_image automatically; pages without an image get the
+# fallback summary card.
+twitter:
+  username: IluvatarLabs
+  card: summary_large_image
+
+# Social profiles surfaced in JSON-LD sameAs.
+social:
+  name: Iluvatar Labs
+  links:
+    - "https://x.com/IluvatarLabs"
+    - "https://www.linkedin.com/company/iluvatarlabs/"
+
+# Logo for organization JSON-LD.
+logo: /favicon.svg
+
 # Build settings
 future: true
 markdown: kramdown
@@ -14,6 +38,12 @@ collections:
   posts:
     output: true
     permalink: /blog/:year/:month/:title/
+  projects:
+    # Disabled while IORI is held back from the partial push. Flip to
+    # `output: true` and reinstate /iori/index.html when the IORI
+    # surface is ready to ship.
+    output: false
+    permalink: /iori/:name/
 
 # Plugins
 plugins:
@@ -27,6 +57,18 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - CLAUDE.md
+  - mockup-*.html
+  - "index copy.html"
+  - iori_mockups
+  - IORI_exec.md
+  - README.md
+  - suggestions.md
+  - package.json
+  - package-lock.json
+  - scripts
+  - index-old-backup.html
+  - "test-*.html"
 
 # Default values
 defaults:
@@ -36,3 +78,8 @@ defaults:
     values:
       layout: "post"
       author: "Iluvatar Labs"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "iori-project"
