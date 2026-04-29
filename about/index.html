@@ -290,25 +290,30 @@ permalink: /about/
         }
         .outreach h2 {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.85rem, 3.2vw, 2.65rem);
-            font-weight: 600;
-            letter-spacing: -0.028em;
-            line-height: 1;
+            font-size: clamp(2.25rem, 4.2vw, 3.6rem);
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
             color: var(--ink-dark);
             margin-bottom: 3rem;
         }
         .outreach-routes {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem 3rem;
-            max-width: 980px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            max-width: var(--max-content);
             margin: 0 auto;
             text-align: left;
         }
         .route {
-            padding: 1.5rem 0;
-            border-top: 1px solid var(--hair-dark);
+            padding: 0 1.5rem;
+            border-left: 1px solid var(--hair-dark-strong);
         }
+        .route:first-child {
+            padding-left: 0;
+            border-left: none;
+        }
+        .route:last-child { padding-right: 0; }
         .route-label {
             font-family: 'Inter', sans-serif;
             font-size: 1.4rem;
@@ -318,10 +323,10 @@ permalink: /about/
             margin-bottom: 0.65rem;
         }
         .route-desc {
-            font-size: 1.2rem;
-            line-height: 1.55;
+            font-size: 0.95rem;
+            line-height: 1.65;
             color: var(--ink-dark-soft);
-            margin-bottom: 0.85rem;
+            margin-bottom: 1rem;
         }
         .route-email {
             font-family: 'JetBrains Mono', monospace;
@@ -415,6 +420,10 @@ permalink: /about/
             .team-grid { grid-template-columns: 1fr; gap: 2.25rem; }
             .outreach { padding: 5rem var(--edge-pad); }
             .outreach-routes { grid-template-columns: 1fr; gap: 0; }
+            /* Vertical seps don't work stacked — revert to top borders. */
+            .route { padding: 1.5rem 0; border-left: none; border-top: 1px solid var(--hair-dark-strong); }
+            .route:first-child { padding-left: 0; padding-top: 0; border-top: none; }
+            .route:last-child { padding-right: 0; }
             .archives { padding: 4rem var(--edge-pad); }
         }
     </style>
