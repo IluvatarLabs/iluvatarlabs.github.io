@@ -464,43 +464,62 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .lab-thumb {
             position: absolute; inset: 0;
         }
-        .lab-thumb-actuator {
-            background:
-                radial-gradient(ellipse 70% 80% at 25% 30%, rgba(233,123,106,0.5) 0%, transparent 55%),
-                radial-gradient(ellipse 80% 70% at 80% 75%, rgba(75,65,140,0.7) 0%, transparent 60%),
-                #241F4A;
-        }
-        .lab-thumb-dca {
-            background:
-                radial-gradient(ellipse 60% 80% at 75% 25%, rgba(140,110,220,0.55) 0%, transparent 55%),
-                radial-gradient(ellipse 70% 70% at 20% 85%, rgba(30,27,75,0.9) 0%, transparent 60%),
-                #1A1D3E;
-        }
+        /* Marvin: aegean base + cyan glow + coral glow */
         .lab-thumb-marvin {
             background:
-                radial-gradient(ellipse 70% 70% at 70% 30%, rgba(58,74,70,0.65) 0%, transparent 55%),
-                radial-gradient(ellipse 60% 80% at 20% 80%, rgba(20,20,26,0.8) 0%, transparent 60%),
-                #2E3A38;
+                radial-gradient(ellipse 92% 92% at 95% 10%, rgba(110,200,230,0.24) 0%, rgba(110,200,230,0) 62%),
+                radial-gradient(ellipse 92% 82% at 5% 100%, rgba(224,129,74,0.16) 0%, rgba(224,129,74,0) 65%),
+                #16415A;
         }
+        /* Actuator: cream base + coral glow + indigo glow */
+        .lab-thumb-actuator {
+            background:
+                radial-gradient(ellipse 100% 90% at 95% 8%, rgba(233,123,106,0.18) 0%, rgba(233,123,106,0) 60%),
+                radial-gradient(ellipse 95% 85% at 5% 100%, rgba(79,70,229,0.14) 0%, rgba(79,70,229,0) 65%),
+                #FAFAF5;
+        }
+        /* DCA: indigo base + lavender glow + coral glow */
+        .lab-thumb-dca {
+            background:
+                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(184,166,255,0.22) 0%, rgba(184,166,255,0) 60%),
+                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(233,123,106,0.14) 0%, rgba(233,123,106,0) 65%),
+                #2E2A5A;
+        }
+        /* Elastic: ink-dark base + cyan glow + coral glow */
         .lab-thumb-elastic {
             background:
-                radial-gradient(ellipse 70% 70% at 80% 30%, rgba(230,170,120,0.55) 0%, transparent 55%),
-                radial-gradient(ellipse 80% 70% at 20% 80%, rgba(120,75,55,0.65) 0%, transparent 60%),
-                #3A2A20;
+                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(110,200,230,0.22) 0%, rgba(110,200,230,0) 60%),
+                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(224,129,74,0.12) 0%, rgba(224,129,74,0) 65%),
+                #14141A;
         }
-        /* Fallback gradient for posts without a thumbnail declared */
+        /* Indigo fallback for posts without a known thumbnail value */
         .lab-thumb-indigo {
             background:
-                radial-gradient(ellipse 60% 80% at 75% 25%, rgba(140,110,220,0.5) 0%, transparent 55%),
-                radial-gradient(ellipse 70% 70% at 20% 85%, rgba(30,27,75,0.9) 0%, transparent 60%),
-                #1A1D3E;
+                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(184,166,255,0.22) 0%, rgba(184,166,255,0) 60%),
+                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(233,123,106,0.14) 0%, rgba(233,123,106,0) 65%),
+                #2E2A5A;
         }
+        /* Grain — cream-on-dark default, matching the live hero treatment. */
         .lab-thumb-grain {
             position: absolute; inset: 0;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.5'/></svg>");
-            opacity: 0.12;
-            mix-blend-mode: overlay;
+            z-index: 2;
             pointer-events: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0 0.92  1.4 1.4 1.4 0 -1.95'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+            opacity: 0.35;
+        }
+        /* Actuator's cream background uses dark-on-cream grain instead. */
+        .lab-thumb-actuator + .lab-thumb-grain {
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0 0.10  1.4 1.4 1.4 0 -1.95'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+            opacity: 0.25;
+        }
+        /* Pictograph icon overlays both the thumb and the grain. */
+        .lab-featured-visual .thumb-icon,
+        .lab-card-visual .thumb-icon {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            z-index: 3;
+            display: block;
         }
 
         .lab-featured-content {
@@ -759,6 +778,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
                         <div class="lab-thumb lab-thumb-{{ featured.thumbnail | default: 'indigo' }}"></div>
                     {% endif %}
                     <div class="lab-thumb-grain"></div>
+                    {% include thumb-icon.html type=featured.thumbnail %}
                 </div>
                 <div class="lab-featured-content">
                     <div class="lab-meta">
@@ -785,6 +805,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
                             <div class="lab-thumb lab-thumb-{{ post.thumbnail | default: 'indigo' }}"></div>
                         {% endif %}
                         <div class="lab-thumb-grain"></div>
+                        {% include thumb-icon.html type=post.thumbnail %}
                     </div>
                     <div class="lab-meta">
                         <span class="lab-cat">{{ post.category | default: "Research" }}</span>
