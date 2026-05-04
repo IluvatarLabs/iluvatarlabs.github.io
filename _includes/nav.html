@@ -5,7 +5,7 @@ The calling page is responsible for declaring --nav-ink and --nav-ink-soft on
 CSS rules. This include emits markup only.
 
 Param:
-  active — "actuator" | "marvin" | "iori" | "discover" | nil
+  active — "actuator" | "marvin" | "discover" | nil
 {%- endcomment -%}
 {%- assign active = include.active -%}
 <div class="nav-bar">
@@ -22,10 +22,6 @@ Param:
             <a href="/marvin/" class="product-link{% if active == 'marvin' %} active{% endif %}">
                 <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 0.2rem;"><path d="M 20 14 L 12 14 Q 8 14 8 18 L 8 28 Q 8 32 4 32 Q 8 32 8 36 L 8 46 Q 8 50 12 50 L 20 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 44 14 L 52 14 Q 56 14 56 18 L 56 28 Q 56 32 60 32 Q 56 32 56 36 L 56 46 Q 56 50 52 50 L 44 50" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="18" y="27" width="11" height="10" rx="5" fill="currentColor"/><rect x="35" y="27" width="11" height="10" rx="5" fill="currentColor"/></svg>
                 Marvin
-            </a>
-            <a href="/iori/" class="product-link{% if active == 'iori' %} active{% endif %}">
-                <svg class="product-icon" width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><mask id="iori-hide-front"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/></mask><mask id="iori-hide-front-middle"><rect width="64" height="64" fill="#fff"/><rect x="10" y="18" width="28" height="38" rx="1.5" fill="#000"/><rect x="16" y="14" width="28" height="38" rx="1.5" fill="#000"/></mask></defs><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="10" width="28" height="38" rx="1.5" mask="url(#iori-hide-front-middle)"/><rect x="16" y="14" width="28" height="38" rx="1.5" mask="url(#iori-hide-front)"/><rect x="10" y="18" width="28" height="38" rx="1.5"/></g><g stroke="currentColor" stroke-width="1" opacity="0.55" stroke-linecap="round"><line x1="14" y1="27" x2="28" y2="27"/><line x1="14" y1="32" x2="34" y2="32"/><line x1="14" y1="37" x2="30" y2="37"/><line x1="14" y1="42" x2="32" y2="42"/><line x1="14" y1="47" x2="26" y2="47"/></g></svg>
-                IORI
             </a>
             <a href="/blog/" class="nav-text{% if active == 'discover' %} active{% endif %}">Discover</a>
             <a href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer">

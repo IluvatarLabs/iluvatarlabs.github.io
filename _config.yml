@@ -39,7 +39,9 @@ collections:
     output: true
     permalink: /blog/:year/:month/:title/
   projects:
-    output: true
+    # IORI is held back from this launch. Flip to `output: true` and
+    # restore iori/index.html when the IORI surface is ready to ship.
+    output: false
     permalink: /iori/:name/
 
 # Plugins
@@ -58,6 +60,14 @@ exclude:
   - mockup-*.html
   - "index copy.html"
   - iori_mockups
+  - IORI_exec.md
+  - README.md
+  - suggestions.md
+  - package.json
+  - package-lock.json
+  - scripts
+  - index-old-backup.html
+  - "test-*.html"
 
 # Default values
 defaults:
