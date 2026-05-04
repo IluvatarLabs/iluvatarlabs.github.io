@@ -479,6 +479,25 @@ permalink: /marvin/
         /* Try Marvin */
         .access { margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--hair-cream-strong); }
         .access h2 { margin-top: 0; }
+        /* Body paragraph here lives inside .read but isn't a direct child,
+           so the .read > p rules don't apply. Mirror them so this section
+           reads the same as every other section's prose. */
+        .access p {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.25rem;
+            max-width: 48rem;
+        }
+        .access p strong { color: var(--ink-cream); font-weight: 500; }
+        .access p em { font-style: italic; color: var(--accent-cyan); font-weight: 500; }
+        .access p a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(6,182,212,0.45);
+            transition: border-color 0.2s;
+        }
+        .access p a:hover { border-color: var(--accent-cyan); }
         .access .mail {
             display: inline-block;
             font-family: 'JetBrains Mono', monospace;
@@ -498,6 +517,7 @@ permalink: /marvin/
         .site-footer-inner {
             max-width: var(--max-content);
             margin: 0 auto;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1rem;
             color: var(--ink-cream-mute);
             letter-spacing: -0.005em;
@@ -540,10 +560,10 @@ permalink: /marvin/
     <div class="grain"></div>
     <div class="hero-inner">
         <div class="hero-text">
-            <h1>Marvin.</h1>
-            <p class="subtitle">The fully <span class="hero-em">autonomous</span> scientist agent.</p>
-            <p class="text"><strong>Define your research mission and Marvin will take care of the rest.</strong> Marvin automates the workflow end-to-end: reviewing literature, generating truly novel hypotheses, performing experiments, and rigorous analysis.</p>
-            <a href="#research" class="hero-cta">Read Marvin's latest research <span>&darr;</span></a>
+            <h1>Marvin</h1>
+            <p class="subtitle">The fully <span class="hero-em">autonomous</span> scientist agent</p>
+            <p class="text"><strong>Marvin automates the scientific workflow end-to-end:</strong> reviewing literature, generating novel hypotheses, and performing experiments and rigorous analysis.</p>
+            <a href="https://marvinsci.com" class="hero-cta" target="_blank" rel="noopener noreferrer">Try Marvin <span>&rarr;</span></a>
         </div>
         <div class="hero-mark">
             <svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -573,18 +593,19 @@ permalink: /marvin/
                 <li><a href="#vera">Dream big with Vera</a></li>
                 <li><a href="#memory">Mithril memory</a></li>
                 <li><a href="#trail">Logic trail</a></li>
-                <li><a href="#research">Latest research</a></li>
+                <li><a href="#research">Research examples</a></li>
                 <li><a href="#access">Try Marvin</a></li>
             </ol>
         </aside>
 
         <article class="read">
-            <h2 id="meet">Meet Marvin.</h2>
-            <p>Marvin is an autonomous research agent that takes the information overload and busywork out of research. It does deep literature review, generates and tests novel and scientifically valid hypotheses with the help of <a href="#vera">Vera</a>, performs the entire research loop fully autonomously end to end, and keeps context fresh and up-to-date between every session through <a href="#memory">Mithril</a>, Marvin's persistent memory. Whether you're a highly technical ML researcher who just needs more clones of you or a bench scientist who has never written a line of code, Marvin picks up the work you want to delegate at the degree of autonomy you want to grant it, across fields as diverse as frontier AI research, computational biology, and materials science.</p>
+            <h2 id="meet">Meet Marvin</h2>
+            <p>Marvin is the first autonomous scientist that truly works with you throughout the entire research loop. It does deep literature review, generates hypotheses, designs and runs experiments, and keeps a complete "logic trail" every step of the way. Unlike other agents that only perform part of the workflow, Marvin is truly capable of driving research projects entirely on its own end-to-end.</p>
+            <p>Whether you're a highly technical ML researcher who just needs more clones of you or a bench scientist who has never written a line of code, Marvin picks up the work you want to delegate and does so at the degree of autonomy you want to grant. Best of all, Marvin is cross-disciplinary, and already accelerating research across fields as diverse as frontier AI, computational biology, and materials science.</p>
 
             <hr class="section-divider" style="margin-top: 5rem;">
-            <h2 id="cycle">The research cycle, automated.</h2>
-            <p>Every step of the loop, run by Marvin and its sub-agents. Humans stay in the driver's seat for the mission; Marvin handles the logistics.</p>
+            <h2 id="cycle">The research cycle, automated</h2>
+            <p>Every step of the loop, run by Marvin. As your agentic co-worker, Marvin can be as autonomous or supervised as you want, so you can choose whether to stay out of, over, or in the loop.</p>
             <div class="timeline">
                 <div class="timeline-line"></div>
                 <div class="timeline-item">
@@ -620,22 +641,22 @@ permalink: /marvin/
             </div>
 
             <hr class="section-divider" style="margin-top: 5rem;">
-            <h2 id="vera">Dream big with Vera.</h2>
+            <h2 id="vera">Dream big with Vera</h2>
             <p><strong>Vera</strong> is Marvin's hypothesis engine: a tunable exploration agent that generates truly novel ideas and insights that conventional agents miss. Every hypothesis is grounded in evidence and scored for <strong>novelty, plausibility, tractability, impact, and scope</strong>, so Vera won't waste your time on hallucinatory nonsense that sounds smart but doesn't add up.</p>
             <div class="visual-block">
                 <canvas id="radarCanvas" width="920" height="840"></canvas>
             </div>
 
             <hr class="section-divider" style="margin-top: 5rem;">
-            <h2 id="memory">Mithril persistent memory.</h2>
-            <p>Research doesn't happen in a single session. <strong>Mithril</strong> is Marvin's persistent memory system, a living knowledge base that spans all sessions to preserve results, findings, decisions, and the connections between them. With intelligent depth, agents share context at whatever granularity their task demands, as efficiently as possible. Whether it's Marvin, Vera, or a swarm of sub-agents, they all pick up exactly where the collective left off.</p>
+            <h2 id="memory">Mithril persistent memory</h2>
+            <p>Research doesn't happen in a single session. <strong>Mithril</strong> is Marvin's persistent memory system, a living knowledge base that spans all sessions to preserve results, findings, decisions, and the connections between them. With intelligent depth, agents share context at whatever granularity their task demands, so they all pick up exactly where the collective left off.</p>
             <div class="visual-block wide">
                 <canvas id="graphCanvas" width="1440" height="720"></canvas>
             </div>
 
             <hr class="section-divider" style="margin-top: 5rem;">
-            <h2 id="trail">Your repo's "logic trail."</h2>
-            <p>Designed for ML research teams by ML researchers. Every iteration, every interpretation, and every decision is traceable and reproducible with an auditable git history.</p>
+            <h2 id="trail">Your project's "logic trail"</h2>
+            <p>Every iteration, every interpretation, and every decision is traceable and reproducible with an auditable git history. Interactively explore the lineage and links between every one of Marvin's analyses and actions.</p>
             <div class="output-tree">
 <div><span class="dir">my-project/</span></div>
 <div>&nbsp;&nbsp;├── <span class="file">research_state.md</span> <span class="cm"># goals, status, findings</span></div>
@@ -647,10 +668,11 @@ permalink: /marvin/
 <div>&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── <span class="cm">batch_001/</span></div>
 <div>&nbsp;&nbsp;└── <span class="dir">literature/</span></div>
             </div>
+            <p>As scientists, we understand how important it is that research stays under wraps until you're ready to share it. That's why every project is fully encrypted to protect the provenance of your hard work. We do <strong>not</strong> use your data or projects for training and we <strong>never</strong> will.</p>
 
             <hr class="section-divider" style="margin-top: 5rem;">
-            <h2 id="research">Latest research.</h2>
-            <p>A selection of recent work produced end-to-end by Marvin and Vera, with full logic trails.</p>
+            <h2 id="research">Research examples</h2>
+            <p>A selection of recent work produced end-to-end by Marvin and Vera. </p>
             <a class="paper-card" href="/assets/marvin/marvin-1.pdf" target="_blank" rel="noopener noreferrer">
                 <span class="paper-tag">Autonomous AI Research</span>
                 <div class="paper-title">Why Partial Rename Invariance Fails in Transformers</div>
@@ -660,8 +682,8 @@ permalink: /marvin/
             </a>
 
             <div class="access" id="access">
-                <h2>Try Marvin.</h2>
-                <p>Marvin is in active development and designed for AI research by AI researchers. If you're an ML engineer, scientist, or even a hobbyist interested in trying it, please reach out. We'd love to hear about your project's needs and discuss how Marvin can help.</p>
+                <h2>Try Marvin</h2>
+                <p>Marvin is now live! If you're an ML engineer, scientist, or even a hobbyist interested in trying it, please visit <a href="https://marvinsci.com" target="_blank" rel="noopener noreferrer">marvinsci.com</a> to join the waitlist. If you have any questions or comments, we'd love to hear about your project's needs and discuss how Marvin can help.</p>
                 <a class="mail" href="mailto:marvin@iluvatarlabs.com">marvin@iluvatarlabs.com</a>
             </div>
         </article>
