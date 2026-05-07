@@ -32,29 +32,29 @@ The approach:
 
 All analyses use publicly available GWAS summary statistics and annotation resources. No original experimental data were generated.
 
+> This is a living project. Marvin has finished this iteration using existing public data and literature. The next iteration begins when you contribute: a critique of the analysis, an alternative interpretation, a dataset we missed, a question we haven't asked, or experimental validation of a finding. Marvin will incorporate your input and run the next research cycle, published openly, for free. [See open questions below](#open-questions-for-the-community) or [learn more about how IORI works](/iori/).
+
 ## Summary of discoveries
 
-1. **[Neurons are the primary enriched cell type](#neuronal-enrichment) — ESTABLISHED.** Six orthogonal lines of evidence converge: Fisher overlap OR=9.76 (FDR=1.79×10⁻¹⁰), cross-dataset replication OR=29.88, brain-expressed background OR=7.87, gene-length-matched permutation adjusted OR=6.94, S-LDSC neuronal annotation 1.83-fold enrichment (p=0.009), sex-stratified S-LDSC directionally concordant. The strongest and most reproducible cell-type result.
+1. **[Neurons are the primary enriched cell type](#neuronal-enrichment) — `High confidence`.** Six orthogonal lines of evidence converge: Fisher overlap OR=9.76 (FDR=1.79×10⁻¹⁰), cross-dataset replication OR=29.88, brain-expressed background OR=7.87, gene-length-matched permutation adjusted OR=6.94, S-LDSC neuronal annotation 1.83-fold enrichment (p=0.009), sex-stratified S-LDSC directionally concordant. The strongest and most reproducible cell-type result.
 
-2. **[Microglia are NOT enriched](#microglia-negative) — ESTABLISHED.** OR=1.11 (p=0.53). Zero overlap between PGC3 prioritized genes and PanglaoDB microglia markers. Immune-associated findings (complement, TLR pathway) persist within neuronal risk sets, not as cell-autonomous microglial burden.
+2. **[Microglia are NOT enriched](#microglia-negative) — `High confidence`.** OR=1.11 (p=0.53). Zero overlap between PGC3 prioritized genes and PanglaoDB microglia markers. Immune-associated findings (complement, TLR pathway) persist within neuronal risk sets, not as cell-autonomous microglial burden.
 
-3. **[NF-κB pathway enrichment is a circular false positive](#nfkb-false-positive) — REFUTED.** Traced to the DoRothEA input gene list: 14 of 88 "confirmed SCZ" genes were immune-cluster members pre-selected from prior complement, cytokine, NF-κB, and TLR analyses. 86% of RELA regulon overlaps attributable to those 14 pre-selected genes. Methodological contribution: DoRothEA-style regulon enrichment is sensitive to disease-specific gene-set curation and should be verified with annotation-independent methods.
+3. **[NF-κB pathway enrichment is a circular false positive](#nfkb-false-positive) — `High confidence`.** Traced to the DoRothEA input gene list: 14 of 88 "confirmed SCZ" genes were immune-cluster members pre-selected from prior complement, cytokine, NF-κB, and TLR analyses. 86% of RELA regulon overlaps attributable to those 14 pre-selected genes. Methodological contribution: DoRothEA-style regulon enrichment is sensitive to disease-specific gene-set curation and should be verified with annotation-independent methods.
 
-4. **[EGR1 and CTCF are the strongest convergence regulators](#egr1-ctcf) — ESTABLISHED.** Both recur across DoRothEA regulon overlap AND independent JASPAR PWM motif enrichment (EGR1 OR=4.98, corrected p=4.5×10⁻⁶; CTCF OR=3.15, corrected p=6.9×10⁻⁵). EGR1 is an activity-dependent immediate-early gene: SCZ risk may disrupt activity-dependent synaptic plasticity programs. CTCF organizes chromatin architecture at synaptic gene neighborhoods, suggesting the 3D regulatory context of constrained synaptic loci is itself a convergence point.
+4. **[EGR1 and CTCF are the strongest convergence regulators](#egr1-ctcf) — `High confidence`.** Both recur across DoRothEA regulon overlap AND independent JASPAR PWM motif enrichment (EGR1 OR=4.98, corrected p=4.5×10⁻⁶; CTCF OR=3.15, corrected p=6.9×10⁻⁵). EGR1 is an activity-dependent immediate-early gene: SCZ risk may disrupt activity-dependent synaptic plasticity programs. CTCF organizes chromatin architecture at synaptic gene neighborhoods, suggesting the 3D regulatory context of constrained synaptic loci is itself a convergence point.
 
-5. **[Evolutionary constraint concentrates at synaptic loci, not the broad risk set](#constraint-architecture) — ESTABLISHED.** The most important architectural finding. The full common-variant risk set (EDT1, n=261) shows no significant constraint (pLI OR=1.14, p=0.41). The 14-gene SynGO synaptic intersection shows extreme constraint (pLI OR=26.44, p=2.22×10⁻⁷; all nine in the most-constrained pLI bin). SCHEMA rare-variant genes (n=9) are categorically constrained (all pLI>0.9). Functional decomposition: synaptic scaffold proteins (pLI OR=20.91), glutamate receptors (pLI OR=∞, 3/3 genes pLI>0.9), transcriptional regulators (pLI OR=13.91). Ion channel and mitochondrial genes show no constraint.
+5. **[Evolutionary constraint concentrates at synaptic loci, not the broad risk set](#constraint-architecture) — `High confidence`.** The most important architectural finding. The full common-variant risk set (EDT1, n=261) shows no significant constraint (pLI OR=1.14, p=0.41). The 14-gene SynGO synaptic intersection shows extreme constraint (pLI OR=26.44, p=2.22×10⁻⁷; all nine in the most-constrained pLI bin). SCHEMA rare-variant genes (n=9) are categorically constrained (all pLI>0.9). Functional decomposition: synaptic scaffold proteins (pLI OR=20.91), glutamate receptors (pLI OR=∞, 3/3 genes pLI>0.9), transcriptional regulators (pLI OR=13.91). Ion channel and mitochondrial genes show no constraint.
 
-6. **[Cross-disorder constraint is shared, not SCZ-specific](#cross-disorder) — SUGGESTED.** ASD risk genes (OR_HA=25.4, BH q=6×10⁻⁴⁹) and dominant developmental disorder genes (OR_HA=31.3, BH q=2×10⁻¹²⁵) show constraint enrichments of the same magnitude as SCZ, with no Holm-significant pairwise differences. The constraint axis is most accurately framed as shared severe-neurodevelopmental architecture. SCZ-distinctive features, if any, reside at the synaptic-localization subset (SynGO), cortical cell-type specificity, and eRegulon TF identity levels.
+6. **[Cross-disorder constraint is shared, not SCZ-specific](#cross-disorder) — `Moderate`.** ASD risk genes (OR_HA=25.4, BH q=6×10⁻⁴⁹) and dominant developmental disorder genes (OR_HA=31.3, BH q=2×10⁻¹²⁵) show constraint enrichments of the same magnitude as SCZ, with no Holm-significant pairwise differences. The constraint axis is most accurately framed as shared severe-neurodevelopmental architecture. SCZ-distinctive features, if any, reside at the synaptic-localization subset (SynGO), cortical cell-type specificity, and eRegulon TF identity levels.
 
-7. **[Drug target depletion suggests regulatory targeting](#tractability) — SUGGESTED.** SCZ risk genes are depleted for approved drug targets (12.4% vs 17% background, OR=0.67, p=0.005). If the constraint architecture is correct, therapeutic progress is more likely to come from targeting the regulatory programs that control synaptic gene expression (EGR1-mediated activity-dependent transcription, CTCF-mediated chromatin architecture) rather than directly targeting the constrained synaptic proteins.
+7. **[Drug target depletion suggests regulatory targeting](#tractability) — `Moderate`.** SCZ risk genes are depleted for approved drug targets (12.4% vs 17% background, OR=0.67, p=0.005). If the constraint architecture is correct, therapeutic progress is more likely to come from targeting the regulatory programs that control synaptic gene expression (EGR1-mediated activity-dependent transcription, CTCF-mediated chromatin architecture) rather than directly targeting the constrained synaptic proteins.
 
 ## Open questions for the community
 
-> This is a living project. Marvin has finished this iteration using existing public data and literature. The next iteration begins when you contribute: a critique of the analysis, an alternative interpretation, a dataset we missed, a question we haven't asked, or experimental validation of a finding. Marvin will incorporate your input and run the next research cycle, published openly, for free. [Learn more about how IORI works.](/iori/)
-
 This project is entirely computational. Every finding rests on summary statistics, curated gene sets, and annotation databases. The next steps are experimental, and the computational reanalysis has been done exhaustively. We are looking for:
 
-- **East Asian ancestry S-LDSC with larger sample size.** The EAS neuronal result is INCONCLUSIVE (τ* z-score = -0.20, large SE). A well-powered EAS replication would establish whether neuronal convergence is ancestry-robust or European-specific.
+- **East Asian ancestry S-LDSC with larger sample size.** The EAS neuronal result is inconclusive (τ* z-score = -0.20, large SE). A well-powered EAS replication would establish whether neuronal convergence is ancestry-robust or European-specific.
 - **Single-cell perturbation of EGR1 and CTCF in human iPSC-derived cortical neurons.** The motif-level enrichment predicts that EGR1 knockdown should reduce expression of SCZ risk genes specifically in the synaptic-scaffold and glutamate-receptor functional tiers. CTCF perturbation should alter chromatin topology at constrained synaptic loci. Neither prediction has been tested.
 - **Cell-type-resolved cortical eQTL data.** The project identifies regulatory convergence at the motif level but cannot test whether this translates to cell-type-specific expression effects. Single-cell eQTL in human cortical neurons would close this gap.
 - **Postsynaptic-density proteomics from SCZ patient-derived iPSC neurons.** The constraint architecture predicts protein-level changes at the PSD, not just mRNA changes. Matched proteomics and transcriptomics in disease-relevant cells would test this directly.
@@ -77,7 +77,7 @@ Gene-length-matched permutation attenuated the raw Fisher estimate from OR=9.96 
 
 A random-effects meta-analysis across three SCZ GWAS produced a DerSimonian-Laird summary OR of 4.73 (p=0.011), but the Hartung-Knapp sensitivity analysis gave p=0.154 with substantial heterogeneity (I²=63.9%). The meta-analysis is therefore supportive but not decisive; the core neuronal claim does not depend on it.
 
-**Classification: ESTABLISHED.** Six orthogonal lines of evidence converge (Fisher overlap, cross-dataset replication, brain-expressed background, gene-length-matched permutation, S-LDSC conditional, sex-stratified S-LDSC). Specification-curve forensic QC confirmed robustness across 5 background denominators and 5 length-kernel variants.
+**Confidence: High.** Six orthogonal lines of evidence converge (Fisher overlap, cross-dataset replication, brain-expressed background, gene-length-matched permutation, S-LDSC conditional, sex-stratified S-LDSC). Specification-curve forensic QC confirmed robustness across 5 background denominators and 5 length-kernel variants.
 
 ### Microglia negative
 
@@ -85,7 +85,7 @@ Microglia did not carry a cell-autonomous SCZ signal. The primary PanglaoDB micr
 
 The surviving immune-adjacent signal localized to neuronal risk sets. Complement-linked genes (C4A, C4B) and the KEGG TLR pathway remained directionally enriched (OR=5.91, raw p=0.016), but the adjusted FDR was 0.147, above the prespecified threshold. The three overlapping TLR genes were AKT3, IRF3, and MAPK3, pleiotropic kinases (AKT3 in PI3K/AKT, MAPK3 in ERK) alongside one interferon-response factor. The correct conclusion is not that TLR is established, but that it is the strongest surviving pathway-level immune signal after strict correction.
 
-**Classification: ESTABLISHED** as a negative result. Strong negative replication for cell-autonomous microglial enrichment. TLR pathway signal classified as **SUGGESTED** (raw p=0.016, FDR=0.147).
+**Confidence: High** as a negative result. Strong negative replication for cell-autonomous microglial enrichment. TLR pathway signal classified as **Moderate** (raw p=0.016, FDR=0.147).
 
 ### NF-κB false positive
 
@@ -93,7 +93,7 @@ Earlier analyses had treated NF-κB as a dominant convergence pathway. Against t
 
 Testing NF-κB enrichment against a gene list that already encoded NF-κB biology is circular by construction. This generalizes beyond the present paper: DoRothEA-style regulon enrichment is sensitive to disease-specific gene-set curation, and pathway-level claims based on such enrichment should be verified with a gene list that does not re-use pathway annotations during its construction.
 
-**Classification: REFUTED** as an unresolved false positive. Methodological contribution with implications for any project using regulon-based enrichment on curated disease gene sets.
+**Confidence: High** as an unresolved false positive. Methodological contribution with implications for any project using regulon-based enrichment on curated disease gene sets.
 
 ### EGR1 and CTCF
 
@@ -101,7 +101,7 @@ The most stable regulatory finding is the cross-framework recurrence of EGR1 and
 
 A third framework, direct ENCODE ChIP-seq peak overlap at SCZ gene promoters (±10kb), did not reach significance for either factor (EGR1 OR=1.58, p=0.37; CTCF OR≈0.9, p>0.7). This null is interpretable rather than contradictory: EGR1 is an activity-dependent immediate-early gene whose binding is induced by neuronal activity, and adult post-mortem ChIP-seq is unlikely to capture activity-dependent occupancy. CTCF binds the genome near-ubiquitously, inflating the background rate and making promoter enrichment tests inherently underpowered. The PWM result is treated as the informative sequence-based test; the ChIP-seq null is noted explicitly so that it is not misread as positive evidence against the conclusion.
 
-**Classification: ESTABLISHED** as cross-framework computational evidence. The ChIP-seq gap motivates activity-dependent binding experiments as the next validation step.
+**Confidence: High** as cross-framework computational evidence. The ChIP-seq gap motivates activity-dependent binding experiments as the next validation step.
 
 ### Constraint architecture
 
@@ -123,7 +123,7 @@ Functional decomposition of the EDT1 set clarified where the constraint concentr
 
 The constraint hierarchy connects rare and common variant architecture through a single biological axis: synaptic function at the postsynaptic density. SCZ risk genes do not show significant enrichment near Human Accelerated Regions (SynGO_EDT1 OR=1.73, p=0.46; EDT1 OR=1.34, p=0.16), consistent with concentration at the most phylogenetically conserved synaptic genes, not at rapidly-evolving human-specific regulatory elements.
 
-**Classification: ESTABLISHED.** The sub-structure within EDT1 (constrained synaptic core, unconstrained remainder) survived gene-length-stratified permutation, orthogonal LOEUF cross-check, and functional-tier decomposition. The constraint hierarchy (SCHEMA > SynGO∩EDT1 > EDT1 broadly) is internally consistent.
+**Confidence: High.** The sub-structure within EDT1 (constrained synaptic core, unconstrained remainder) survived gene-length-stratified permutation, orthogonal LOEUF cross-check, and functional-tier decomposition. The constraint hierarchy (SCHEMA > SynGO∩EDT1 > EDT1 broadly) is internally consistent.
 
 ### Cross-disorder
 
@@ -133,7 +133,7 @@ Constraint-based gene-set analysis applied to the B3 high-confidence SCZ-postsyn
 
 Under gnomAD gene-length-matched permutation, ASD (OR_HA=25.4) and dominant developmental disorders (OR_HA=31.3) show constraint enrichments of the same magnitude class as SCZ, with no Holm-significant pairwise difference (Fisher 2×2 all p=1.0; Wilcoxon on continuous pLI all p≥0.18). The constraint axis is therefore most accurately framed as a shared severe-neurodevelopmental architecture rather than SCZ-distinctive. Cross-disorder convergence on constraint may also partially reflect shared exome-discovery ascertainment (discovery bias). SCZ-specific features, if any, reside at the SynGO subset, cortical cell-type, and eRegulon TF identity levels.
 
-**Classification: SUGGESTED** for the cross-disorder constraint reframe. The equivalence rests on non-significance of pairwise tests (absence of evidence, not evidence of absence) and the discovery-bias confound remains untested.
+**Confidence: Moderate** for the cross-disorder constraint reframe. The equivalence rests on non-significance of pairwise tests (absence of evidence, not evidence of absence) and the discovery-bias confound remains untested.
 
 ### Tractability
 
@@ -147,7 +147,7 @@ PoPS gene-level ranking confirmed that the neuronal synaptic module (M1, n=47 ge
 
 Attempts to identify reproducible mechanistic subtypes failed: k-means clustering (k=2-5) on 8-disorder MAGMA-Z profiles yielded split-half ARI=0.39-0.44, all with permutation p>0.24. Spectral clustering was fully degenerate. PCA variance was near-isotropic (PC1 explains 17.9% vs 12.5% expected). The data support a view of SCZ genetic architecture as a single heterogeneous risk pool with identifiable functional concentrations (synaptic scaffold, neuronal regulation) rather than discrete mechanistic subtypes resolvable from current GWAS summary statistics.
 
-**Classification: SUGGESTED** for the regulatory-targeting direction. Drug-target depletion is the empirical observation; the regulatory alternative is an inference from the convergence architecture, not a tested therapeutic strategy.
+**Confidence: Moderate** for the regulatory-targeting direction. Drug-target depletion is the empirical observation; the regulatory alternative is an inference from the convergence architecture, not a tested therapeutic strategy.
 
 ## Sources, datasets, and literature
 

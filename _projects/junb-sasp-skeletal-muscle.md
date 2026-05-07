@@ -31,27 +31,27 @@ The approach:
 
 Use the Human Lifemap Muscle Atlas (HLMA, 387,000+ cells, 23 donors) as the primary dataset, with the Nature Aging 2024 atlas (90,902 cells, 12 donors) for cross-atlas validation.
 
+> This is a living project. Marvin has finished this iteration using existing public data and literature. The next iteration begins when you contribute: a critique of the analysis, an alternative interpretation, a dataset we missed, a question we haven't asked, or experimental validation of a finding. Marvin will incorporate your input and run the next research cycle, published openly, for free. [See open questions below](#open-questions-for-the-community) or [learn more about how IORI works](/iori/).
+
 ## Summary of discoveries
 
-1. **[Vascular endothelial cells dominate SASP](#vascular-junb-sasp-dominance) — ESTABLISHED.** JUNB regulon activity correlates with SASP at rho=0.923 (p=3.64×10⁻¹⁰, N=23 donors) in vascular cells, the strongest coupling of any TF in any compartment. Reframes the prevailing FAP-centric model of muscle aging.
+1. **[Vascular endothelial cells dominate SASP](#vascular-junb-sasp-dominance) — `High confidence`.** JUNB regulon activity correlates with SASP at rho=0.923 (p=3.64×10⁻¹⁰, N=23 donors) in vascular cells, the strongest coupling of any TF in any compartment. Reframes the prevailing FAP-centric model of muscle aging.
 
-2. **[Three-compartment regulatory model](#three-compartment-tf-architecture) — ESTABLISHED.** Vascular cells run an AP-1 axis (JUNB-dominated). MuSCs run a dual AP-1 + p21 axis. FAPs operate through C/EBPβ with opposite AP-1 polarity (all seven canonical subunits show negative AUCell coupling). Each compartment requires a different therapeutic strategy.
+2. **[Three-compartment regulatory model](#three-compartment-tf-architecture) — `High confidence`.** Vascular cells run an AP-1 axis (JUNB-dominated). MuSCs run a dual AP-1 + p21 axis. FAPs operate through C/EBPβ with opposite AP-1 polarity (all seven canonical subunits show negative AUCell coupling). Each compartment requires a different therapeutic strategy.
 
-3. **[KLF10 is a TGF-β bystander biomarker, not a SASP driver](#klf10-bystander) — REFUTED.** Despite the strongest and most consistent mRNA-SASP correlation across five datasets (rho=0.813, I²=27.2%), regulon-level validation is null (AUCell rho=0.079 in FAP). Prevents a misdirected therapeutic strategy targeting KLF10 in FAPs.
+3. **[KLF10 is a TGF-β bystander biomarker, not a SASP driver](#klf10-bystander) — `High confidence`.** Despite the strongest and most consistent mRNA-SASP correlation across five datasets (rho=0.813, I²=27.2%), regulon-level validation is null (AUCell rho=0.079 in FAP). Prevents a misdirected therapeutic strategy targeting KLF10 in FAPs.
 
-4. **[Two distinct vascular→FAP paracrine axes](#vascular-fap-crosstalk) — ESTABLISHED / SUGGESTED.** Axis 1: JNK-dependent inflammatory crosstalk (CXCL2→CXCR2, IL6→IL6R). Axis 2: JNK-independent vessel destabilization (ANGPT2→Tie1/Tie2). The two axes are not reducible to a single pharmacological target.
+4. **[Two distinct vascular→FAP paracrine axes](#vascular-fap-crosstalk) — `High confidence` / `Moderate`.** Axis 1: JNK-dependent inflammatory crosstalk (CXCL2→CXCR2, IL6→IL6R). Axis 2: JNK-independent vessel destabilization (ANGPT2→Tie1/Tie2). The two axes are not reducible to a single pharmacological target.
 
-5. **[FAP growth factor compensation is inadequate](#fap-growth-factor-compensation) — SUGGESTED.** FAPs upregulate FGF7 and HGF with age but the signal does not reach MuSCs: the FGF7→FGFR1 axis is broken (receptor flat), and IGF2 declines across all FAP subtypes while MuSC IGF1R rises. Growth factor supplementation may bypass this failure.
+5. **[FAP growth factor compensation is inadequate](#fap-growth-factor-compensation) — `Moderate`.** FAPs upregulate FGF7 and HGF with age but the signal does not reach MuSCs: the FGF7→FGFR1 axis is broken (receptor flat), and IGF2 declines across all FAP subtypes while MuSC IGF1R rises. Growth factor supplementation may bypass this failure.
 
-6. **[CDK4/6 inhibitors are CONTRAINDICATED in muscle](#cdk46-contraindication) — SUGGESTED.** CDKN1A/p21 operates downstream of JUNB in the regulatory cascade. CDK4/6 activity is required for MyoD-driven satellite cell re-entry. Any clinical program pairing a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens.
+6. **[CDK4/6 inhibitors are CONTRAINDICATED in muscle](#cdk46-contraindication) — `Moderate`.** CDKN1A/p21 operates downstream of JUNB in the regulatory cascade. CDK4/6 activity is required for MyoD-driven satellite cell re-entry. Any clinical program pairing a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens.
 
-7. **[JNK→AP-1→CDKN1A→SASP hierarchy](#jnk-ap1-cdkn1a-hierarchy) — SUGGESTED.** Partial-correlation decomposition shows JUNB's SASP signal is largely mediated through CDKN1A, while CDKN1A retains independent signal beyond JUNB. CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target.
+7. **[JNK→AP-1→CDKN1A→SASP hierarchy](#jnk-ap1-cdkn1a-hierarchy) — `Moderate`.** Partial-correlation decomposition shows JUNB's SASP signal is largely mediated through CDKN1A, while CDKN1A retains independent signal beyond JUNB. CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target.
 
-8. **[BML-260 + ANGPT2 blockade as leading combination](#therapeutic-model) — SUGGESTED.** BML-260 (a DUSP22 modulator) addresses the JNK-dependent vascular inflammatory axis; ANGPT2 blockade (MEDI3617 or AKB-9778) addresses the JNK-independent vessel-destabilization axis. Neither agent alone is predicted to cover both paracrine pathways.
+8. **[BML-260 + ANGPT2 blockade as leading combination](#therapeutic-model) — `Moderate`.** BML-260 (a DUSP22 modulator) addresses the JNK-dependent vascular inflammatory axis; ANGPT2 blockade (MEDI3617 or AKB-9778) addresses the JNK-independent vessel-destabilization axis. Neither agent alone is predicted to cover both paracrine pathways.
 
 ## Open questions for the community
-
-> This is a living project. Marvin has finished this iteration using existing public data and literature. The next iteration begins when you contribute: a critique of the analysis, an alternative interpretation, a dataset we missed, a question we haven't asked, or experimental validation of a finding. Marvin will incorporate your input and run the next research cycle, published openly, for free. [Learn more about how IORI works.](/iori/)
 
 These findings are correlational. Causal validation requires perturbation in primary human muscle cell cultures, not mouse models (the AP-1 polarity we report is human-specific). We are actively looking for:
 
@@ -76,7 +76,7 @@ pySCENIC regulon inference confirmed this is genuine regulatory activity: JUNB r
 
 The JUNB-SASP coupling survived four verification tests: IL6⁺ venular exclusion (rho changed from 0.9262 to 0.9287), leave-one-out analysis (minimum rho=0.9185), senescence-marker comparison (JUNB correlated more strongly with CDKN1A/p21 than with activation markers ICAM1, VCAM1, or SELE), and cross-atlas replication in Nature Aging endothelial cells (rho=0.720, p=0.008, N=12, directionally concordant but formally underpowered).
 
-**Classification: ESTABLISHED.** Meets all five pre-registered evidence criteria. The single limitation is absence of a fully independent third vascular muscle aging atlas.
+**Confidence: High.** Meets all five pre-registered evidence criteria. The single limitation is absence of a fully independent third vascular muscle aging atlas.
 
 ### Three-compartment TF architecture
 
@@ -88,7 +88,7 @@ The TF-SASP coupling landscape differs dramatically across compartments:
 
 After joint partial-correlation adjustment for age, sex, and sequencing technology, the hierarchy sharpens: vascular JUNB partial rho=0.912 (N=23); FAP CEBPB partial rho=0.888 (N=22, strengthened by +0.066); MuSC EGR1 partial rho=0.622 (N=23, JUNB demoted to second place after confounder adjustment).
 
-**Classification: ESTABLISHED** for the vascular and FAP programs. **SUGGESTED** for MuSC (cross-atlas CDKN1A coupling present but below the rho>0.5 effect-size threshold).
+**Confidence: High** for the vascular and FAP programs. **Moderate** for MuSC (cross-atlas CDKN1A coupling present but below the rho>0.5 effect-size threshold).
 
 ### KLF10 bystander
 
@@ -98,13 +98,13 @@ However, pySCENIC AUCell analysis refuted this interpretation. KLF10 AUCell rho=
 
 The mechanistic explanation: KLF10 (TIEG1) is a TGF-β early response gene and transcriptional repressor that recruits Sin3A/HDAC complexes. In aging muscle, TGF-β signaling activates both KLF10 mRNA (as a negative feedback regulator) and SASP genes (via SMAD-independent branches including AP-1). KLF10 mRNA rises with SASP because both respond to the same upstream TGF-β signal, but KLF10's repressive targets are distinct from SASP output genes. The KLF10 co-expression module in vascular cells (74 targets) contained zero SASP genes, compared to JUNB's 104-target module which included CXCL2 and CCL2.
 
-**Classification: REFUTED** as a SASP regulatory driver. This negative result prevents a misdirected therapeutic strategy targeting KLF10 in FAPs.
+**Confidence: High** as a SASP regulatory driver. This negative result prevents a misdirected therapeutic strategy targeting KLF10 in FAPs.
 
 ### Vascular-FAP crosstalk
 
 Donor-level Spearman coupling between 49 vascular ligand-FAP receptor pairs resolved two mechanistically distinct paracrine axes:
 
-**Axis 1: JNK-dependent inflammatory crosstalk.** Four pairs showed strong positive vascular-JUNB coupling: CXCL2→CXCR2 (rho_JUNB=0.924, BH-FDR q=1.5×10⁻⁸), IL6→IL6R (rho_JUNB=0.855), TNF→TNFRSF1A (rho_JUNB=0.824), VEGFA→KDR (rho_JUNB=0.766). CXCL2→CXCR2 and VEGFA→KDR retain ESTABLISHED status after 49-pair BH-FDR. Because vascular JUNB activity is the presumed JNK readout, these ligand outputs are predicted to be reducible by JNK inhibition.
+**Axis 1: JNK-dependent inflammatory crosstalk.** Four pairs showed strong positive vascular-JUNB coupling: CXCL2→CXCR2 (rho_JUNB=0.924, BH-FDR q=1.5×10⁻⁸), IL6→IL6R (rho_JUNB=0.855), TNF→TNFRSF1A (rho_JUNB=0.824), VEGFA→KDR (rho_JUNB=0.766). CXCL2→CXCR2 and VEGFA→KDR survive 49-pair BH-FDR. Because vascular JUNB activity is the presumed JNK readout, these ligand outputs are predicted to be reducible by JNK inhibition.
 
 **Axis 2: JNK-independent vessel destabilization.** ANGPT2→TIE1 (and ANGPT2→TEK) showed moderate coupling to donor age (rho_age=+0.465, p=0.025) and to vascular JUNB (rho_JUNB=0.442, p=0.035). Because ANGPT2 mean expression is not a JNK-downstream AP-1 target in our data, this axis is predicted to persist under JNK-targeted therapy and requires a mechanistically distinct intervention. Two Tie2-axis therapeutic candidates (MEDI3617, a neutralizing anti-ANGPT2 monoclonal; AKB-9778/razuprotafib, a VE-PTP inhibitor) converge on Tie2 activation but have not been tested jointly in aged-muscle cohorts.
 
@@ -112,7 +112,7 @@ Three additional pairs showed age-associated loss of protective paracrine factor
 
 **Therapeutic implication:** Vascular SASP → FAP signaling is not a single pharmacological entity. JNK inhibition (Axis 1) plus ANGPT2/Tie2 stabilization (Axis 2) are complementary; addressing only Axis 1 leaves the vessel-destabilization and protective-loss programs intact.
 
-**Classification: Axis 1 ESTABLISHED** (2 of 4 pairs survive 49-pair BH-FDR). **Axis 2 SUGGESTED** (0 of 3 protective-factor pairs survive BH-FDR; F068_04, iter-070 downgrade).
+**Confidence: Axis 1 High** (2 of 4 pairs survive 49-pair BH-FDR). **Axis 2 Moderate** (0 of 3 protective-factor pairs survive BH-FDR; F068_04, iter-070 downgrade).
 
 ### FAP growth factor compensation
 
@@ -122,7 +122,7 @@ However, this molecular compensation did not translate to functional benefit. Th
 
 Exogenous growth factor supplementation (FGF7/KGF, HGF, IGF1/IGF2) is justified to bypass the broken endogenous FAP→MuSC signaling axis. FGF7 (palifermin) is FDA-approved for oral mucositis, providing a potential repurposing pathway. FGF7 is reported to act through FGFR2 rather than FGFR1 in satellite cells, which may modify interpretation.
 
-**Classification: SUGGESTED.** Growth factor compensation is clearly documented; the broken crosstalk axis is consistent but based on single-atlas population-level effects.
+**Confidence: Moderate.** Growth factor compensation is clearly documented; the broken crosstalk axis is consistent but based on single-atlas population-level effects.
 
 ### CDK4/6 contraindication
 
@@ -130,7 +130,7 @@ The CDKN1A/p21-SASP coupling (donor-level rho=0.929, p=1.66×10⁻¹⁰, N=23 in
 
 CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target in the MuSC compartment. Any clinical program that pairs a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens as a prerequisite.
 
-**Classification: SUGGESTED.** The contraindication is inferred from the p21 hierarchy and established satellite-cell biology; the supporting evidence for the CDK4/6 claim is from literature synthesis, not direct experimentation in this study.
+**Confidence: Moderate.** The contraindication is inferred from the p21 hierarchy and established satellite-cell biology; the supporting evidence for the CDK4/6 claim is from literature synthesis, not direct experimentation in this study.
 
 ### JNK-AP1-CDKN1A hierarchy
 
@@ -142,7 +142,7 @@ This places CDKN1A/p21 downstream of JUNB in the regulatory cascade and identifi
 
 Three independent genetic-regulation layers converge on the conclusion that AP-1 immediate-early TFs are not transcriptionally regulated at the genomic level: upstream kinase mRNAs show null age effects, bulk muscle eQTL from Open Targets yields 0 of 54 TF×sarcopenia/lean-body-mass trait colocalizations, and single-cell eQTL in OneK1K (N=982) finds JUNB, FOS, EGR1, and ATF3 null at the cis-eQTL level in immune cells, while CDKN1A carries a significant cis-eQTL (p=3.4×10⁻¹⁰). The therapeutic entry point is the JNK/MAPK kinase layer, not the TF-DNA interface.
 
-**Classification: SUGGESTED.** HLMA-only; causal direction is inferred from post-translational literature, not directly tested.
+**Confidence: Moderate.** HLMA-only; causal direction is inferred from post-translational literature, not directly tested.
 
 ### Therapeutic model
 
@@ -158,7 +158,7 @@ Based on the three-compartment model and two-axis paracrine architecture, the le
 
 The BML-260 + ANGPT2-blockade combination is our leading hypothesis; neither agent alone is expected to address the other axis.
 
-**Classification: SUGGESTED.** The combination is inferred from the compartment-specific paracrine architecture; none of the agents have been tested jointly in aged-muscle cohorts.
+**Confidence: Moderate.** The combination is inferred from the compartment-specific paracrine architecture; none of the agents have been tested jointly in aged-muscle cohorts.
 
 ## Sources, datasets, and literature
 
