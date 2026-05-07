@@ -1,10 +1,10 @@
 ---
-title: "JUNB/AP-1 regulon dominates vascular SASP in aged human skeletal muscle"
+title: "JUNB drives inflammatory signaling in vascular cells of aging human muscle"
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-04
 started: 2026-04-22
-summary: "Vascular endothelial cells, not fibroblasts, are the dominant source of senescence-associated secretory phenotype in aged human skeletal muscle, driven by JNK/AP-1 signaling through the JUNB regulon. A three-compartment model with compartment-specific therapeutic strategies emerges, with BML-260 plus ANGPT2 blockade as the leading combination hypothesis."
+summary: "Vascular endothelial cells, not fibroblasts, are the dominant source of age-related inflammatory secretion in human skeletal muscle, driven by JUNB and the JNK/AP-1 signaling axis. The three major cell compartments (vascular, muscle stem cell, fibroblast) each run distinct regulatory programs, with AP-1 polarity actually reversing in fibroblasts. The leading therapeutic hypothesis pairs a JNK-pathway modulator for the vascular axis with ANGPT2 blockade for a second, JNK-independent vessel-destabilization axis."
 tags:
   - Sarcopenia
   - Single-cell transcriptomics

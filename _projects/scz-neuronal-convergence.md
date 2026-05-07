@@ -1,10 +1,10 @@
 ---
-title: "Cell-type-specific convergence of schizophrenia polygenic risk on neuronal regulatory programs"
+title: "Schizophrenia genetic risk converges on constrained synaptic genes in neurons"
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-04
 started: 2026-04-23
-summary: "SCZ polygenic risk converges on synaptic programs within neurons, not microglia, through a five-level architecture spanning genetic enrichment, SNP heritability, rare-variant constraint, common-rare overlap, and evolutionary conservation. The constraint signal concentrates specifically at postsynaptic density scaffold proteins and glutamate receptors, is shared with ASD and developmental disorders, and is absent from ion channels and mitochondrial genes within the same risk set."
+summary: "Across five independent genetic analyses, schizophrenia common-variant risk maps onto neuronal synaptic programs, not microglia. The signal concentrates at postsynaptic scaffold and glutamate receptor genes that are under extreme evolutionary constraint (the SynGO-annotated subset shows 26-fold enrichment for loss-of-function intolerance), while ion channel and mitochondrial genes in the same risk set show none. This constraint architecture is shared with autism and developmental disorders at comparable magnitude, framing it as neurodevelopmental rather than schizophrenia-specific. EGR1 and CTCF emerge as the strongest convergence transcription factors across independent computational frameworks."
 tags:
   - Schizophrenia
   - Psychiatric genetics
