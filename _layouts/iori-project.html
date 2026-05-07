@@ -125,7 +125,6 @@
             line-height: 1.45;
             letter-spacing: -0.01em;
             color: var(--ink-cream-soft);
-            max-width: 50rem;
             margin-bottom: 2rem;
         }
         .hero .summary strong { color: var(--ink-cream); font-weight: 500; }
@@ -437,7 +436,8 @@
         }
         .article > table tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
 
-        /* Confidence chips — colored pills inline with finding headings. */
+        /* Confidence chips — colored pills inline with finding headings.
+           4-tier scale: Strong > High > Moderate > Preliminary. */
         .chip {
             display: inline-block;
             font-family: 'JetBrains Mono', monospace;
@@ -451,10 +451,15 @@
             position: relative;
             top: -0.1em;
         }
-        .chip-high {
+        .chip-strong {
             background: rgba(111,180,130,0.18);
             color: #8FCBA8;
             border: 1px solid rgba(111,180,130,0.35);
+        }
+        .chip-high {
+            background: rgba(90,170,210,0.18);
+            color: #6EC8E6;
+            border: 1px solid rgba(90,170,210,0.35);
         }
         .chip-moderate {
             background: rgba(216,136,72,0.18);
