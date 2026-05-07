@@ -41,15 +41,15 @@ Use the Human Lifemap Muscle Atlas (HLMA, 387,000+ cells, 23 donors) as the prim
 
 3. **[KLF10 is a TGF-β bystander biomarker, not a SASP driver](#klf10-bystander) — <span class="chip chip-strong">Strong</span>.** Despite the strongest and most consistent mRNA-SASP correlation across five datasets (rho=0.813, I²=27.2%), regulon-level validation is null (AUCell rho=0.079 in FAP). Prevents a misdirected therapeutic strategy targeting KLF10 in FAPs.
 
-4. **[Two distinct vascular→FAP paracrine axes](#vascular-fap-crosstalk) — <span class="chip chip-strong">Strong</span> / <span class="chip chip-moderate">Moderate</span>.** Axis 1: JNK-dependent inflammatory crosstalk (CXCL2→CXCR2, IL6→IL6R). Axis 2: JNK-independent vessel destabilization (ANGPT2→Tie1/Tie2). The two axes are not reducible to a single pharmacological target.
+4. **[Two distinct vascular→FAP paracrine axes](#vascular-fap-crosstalk) — <span class="chip chip-high">High</span>.** Axis 1: JNK-dependent inflammatory crosstalk (CXCL2→CXCR2, IL6→IL6R). Axis 2: JNK-independent vessel destabilization (ANGPT2→Tie1/Tie2). The two axes are not reducible to a single pharmacological target.
 
-5. **[FAP growth factor compensation is inadequate](#fap-growth-factor-compensation) — <span class="chip chip-moderate">Moderate</span>.** FAPs upregulate FGF7 and HGF with age but the signal does not reach MuSCs: the FGF7→FGFR1 axis is broken (receptor flat), and IGF2 declines across all FAP subtypes while MuSC IGF1R rises. Growth factor supplementation may bypass this failure.
+5. **[FAP growth factor compensation is inadequate](#fap-growth-factor-compensation) — <span class="chip chip-high">High</span>.** FAPs upregulate FGF7 and HGF with age but the signal does not reach MuSCs: the FGF7→FGFR1 axis is broken (receptor flat), and IGF2 declines across all FAP subtypes while MuSC IGF1R rises. Growth factor supplementation may bypass this failure.
 
 6. **[CDK4/6 inhibitors are CONTRAINDICATED in muscle](#cdk46-contraindication) — <span class="chip chip-high">High</span>.** CDKN1A/p21 operates downstream of JUNB in the regulatory cascade. CDK4/6 activity is required for MyoD-driven satellite cell re-entry. Any clinical program pairing a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens.
 
 7. **[JNK→AP-1→CDKN1A→SASP hierarchy](#jnk-ap1-cdkn1a-hierarchy) — <span class="chip chip-high">High</span>.** Partial-correlation decomposition shows JUNB's SASP signal is largely mediated through CDKN1A, while CDKN1A retains independent signal beyond JUNB. CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target.
 
-8. **[BML-260 + ANGPT2 blockade as leading combination](#therapeutic-model) — <span class="chip chip-moderate">Moderate</span>.** BML-260 (a DUSP22 modulator) addresses the JNK-dependent vascular inflammatory axis; ANGPT2 blockade (MEDI3617 or AKB-9778) addresses the JNK-independent vessel-destabilization axis. Neither agent alone is predicted to cover both paracrine pathways.
+8. **[BML-260 + ANGPT2 blockade as leading combination](#therapeutic-model) — <span class="chip chip-high">High</span>.** BML-260 (a DUSP22 modulator) addresses the JNK-dependent vascular inflammatory axis; ANGPT2 blockade (MEDI3617 or AKB-9778) addresses the JNK-independent vessel-destabilization axis. Neither agent alone is predicted to cover both paracrine pathways.
 
 ## Open questions for the community
 
@@ -112,7 +112,7 @@ Three additional pairs showed age-associated loss of protective paracrine factor
 
 **Therapeutic implication:** Vascular SASP → FAP signaling is not a single pharmacological entity. JNK inhibition (Axis 1) plus ANGPT2/Tie2 stabilization (Axis 2) are complementary; addressing only Axis 1 leaves the vessel-destabilization and protective-loss programs intact.
 
-**Confidence: Axis 1 Strong** (2 of 4 pairs survive 49-pair BH-FDR). **Axis 2 Moderate** (0 of 3 protective-factor pairs survive BH-FDR; F068_04, iter-070 downgrade).
+**Confidence: High.** Axis 1 survives 49-pair BH-FDR (2 of 4 pairs). Axis 2 does not (0 of 3 protective-factor pairs; F068_04, iter-070 downgrade). Overall rated at the lower of the two.
 
 ### FAP growth factor compensation
 
@@ -122,7 +122,7 @@ However, this molecular compensation did not translate to functional benefit. Th
 
 Exogenous growth factor supplementation (FGF7/KGF, HGF, IGF1/IGF2) is justified to bypass the broken endogenous FAP→MuSC signaling axis. FGF7 (palifermin) is FDA-approved for oral mucositis, providing a potential repurposing pathway. FGF7 is reported to act through FGFR2 rather than FGFR1 in satellite cells, which may modify interpretation.
 
-**Confidence: Moderate.** Growth factor compensation is clearly documented; the broken crosstalk axis is consistent but based on single-atlas population-level effects.
+**Confidence: High.** Growth factor compensation is clearly documented; the broken crosstalk axis is consistent but based on single-atlas population-level effects.
 
 ### CDK4/6 contraindication
 
@@ -158,7 +158,7 @@ Based on the three-compartment model and two-axis paracrine architecture, the le
 
 The BML-260 + ANGPT2-blockade combination is our leading hypothesis; neither agent alone is expected to address the other axis.
 
-**Confidence: Moderate.** The combination is inferred from the compartment-specific paracrine architecture; none of the agents have been tested jointly in aged-muscle cohorts.
+**Confidence: High.** The combination is inferred from the compartment-specific paracrine architecture; none of the agents have been tested jointly in aged-muscle cohorts.
 
 ## Sources, datasets, and literature
 

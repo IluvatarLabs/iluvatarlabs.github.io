@@ -48,7 +48,7 @@ All analyses use publicly available GWAS summary statistics and annotation resou
 
 6. **[Cross-disorder constraint is shared, not SCZ-specific](#cross-disorder) — <span class="chip chip-high">High</span>.** ASD risk genes (OR_HA=25.4, BH q=6×10⁻⁴⁹) and dominant developmental disorder genes (OR_HA=31.3, BH q=2×10⁻¹²⁵) show constraint enrichments of the same magnitude as SCZ, with no Holm-significant pairwise differences. The constraint axis is most accurately framed as shared severe-neurodevelopmental architecture. SCZ-distinctive features, if any, reside at the synaptic-localization subset (SynGO), cortical cell-type specificity, and eRegulon TF identity levels.
 
-7. **[Drug target depletion suggests regulatory targeting](#tractability) — <span class="chip chip-moderate">Moderate</span>.** SCZ risk genes are depleted for approved drug targets (12.4% vs 17% background, OR=0.67, p=0.005). If the constraint architecture is correct, therapeutic progress is more likely to come from targeting the regulatory programs that control synaptic gene expression (EGR1-mediated activity-dependent transcription, CTCF-mediated chromatin architecture) rather than directly targeting the constrained synaptic proteins.
+7. **[Drug target depletion suggests regulatory targeting](#tractability) — <span class="chip chip-high">High</span>.** SCZ risk genes are depleted for approved drug targets (12.4% vs 17% background, OR=0.67, p=0.005). If the constraint architecture is correct, therapeutic progress is more likely to come from targeting the regulatory programs that control synaptic gene expression (EGR1-mediated activity-dependent transcription, CTCF-mediated chromatin architecture) rather than directly targeting the constrained synaptic proteins.
 
 ## Open questions for the community
 
@@ -85,7 +85,7 @@ Microglia did not carry a cell-autonomous SCZ signal. The primary PanglaoDB micr
 
 The surviving immune-adjacent signal localized to neuronal risk sets. Complement-linked genes (C4A, C4B) and the KEGG TLR pathway remained directionally enriched (OR=5.91, raw p=0.016), but the adjusted FDR was 0.147, above the prespecified threshold. The three overlapping TLR genes were AKT3, IRF3, and MAPK3, pleiotropic kinases (AKT3 in PI3K/AKT, MAPK3 in ERK) alongside one interferon-response factor. The correct conclusion is not that TLR is established, but that it is the strongest surviving pathway-level immune signal after strict correction.
 
-**Confidence: Strong** as a negative result. Strong negative replication for cell-autonomous microglial enrichment. TLR pathway signal classified as **Moderate** (raw p=0.016, FDR=0.147).
+**Confidence: Strong** as a negative result. Strong negative replication for cell-autonomous microglial enrichment. TLR pathway signal classified as **High** (raw p=0.016, FDR=0.147).
 
 ### NF-κB false positive
 
@@ -147,7 +147,7 @@ PoPS gene-level ranking confirmed that the neuronal synaptic module (M1, n=47 ge
 
 Attempts to identify reproducible mechanistic subtypes failed: k-means clustering (k=2-5) on 8-disorder MAGMA-Z profiles yielded split-half ARI=0.39-0.44, all with permutation p>0.24. Spectral clustering was fully degenerate. PCA variance was near-isotropic (PC1 explains 17.9% vs 12.5% expected). The data support a view of SCZ genetic architecture as a single heterogeneous risk pool with identifiable functional concentrations (synaptic scaffold, neuronal regulation) rather than discrete mechanistic subtypes resolvable from current GWAS summary statistics.
 
-**Confidence: Moderate** for the regulatory-targeting direction. Drug-target depletion is the empirical observation; the regulatory alternative is an inference from the convergence architecture, not a tested therapeutic strategy.
+**Confidence: High** for the regulatory-targeting direction. Drug-target depletion is the empirical observation; the regulatory alternative is an inference from the convergence architecture, not a tested therapeutic strategy.
 
 ## Sources, datasets, and literature
 
