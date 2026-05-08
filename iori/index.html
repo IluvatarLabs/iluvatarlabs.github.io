@@ -177,22 +177,35 @@ permalink: /iori/
         }
         .thesis-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem 3rem;
         }
         .thesis-grid > div {
-            padding: 0 1.5rem;
-            border-left: 1px solid var(--hair-cream-strong);
-            font-size: 1.1rem;
-            line-height: 1.7;
+            border-top: 1px solid var(--hair-cream-strong);
+            padding-top: 1.25rem;
+        }
+        .thesis-grid .pillar-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.65rem;
+        }
+        .thesis-grid strong {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ink-cream);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .thesis-grid p {
+            font-size: 1rem;
+            line-height: 1.65;
             color: var(--ink-cream-soft);
-        }
-        .thesis-grid > div:first-child {
-            padding-left: 0;
-            border-left: none;
-        }
-        .thesis-grid > div:last-child {
-            padding-right: 0;
         }
         .thesis-grid strong {
             color: var(--ink-cream);
@@ -204,7 +217,8 @@ permalink: /iori/
         /* strip, no eyebrow, no filter chips.                            */
         /* ────────────────────────────────────────────────────────────── */
         .projects {
-            background: var(--surface-deep);
+            background: #ECEDE4;
+            color: var(--ink-dark);
             padding: 6.5rem var(--edge-pad) 7rem;
         }
         .projects-inner {
@@ -213,11 +227,11 @@ permalink: /iori/
         }
         .projects h2 {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(2rem, 3.2vw, 2.75rem);
+            font-size: clamp(2.25rem, 4.2vw, 3.6rem);
             font-weight: 500;
-            letter-spacing: -0.022em;
+            letter-spacing: -0.025em;
             line-height: 1.1;
-            color: var(--ink-cream);
+            color: var(--ink-dark);
             margin-bottom: 3.5rem;
         }
         .project {
@@ -234,24 +248,24 @@ permalink: /iori/
             gap: 2rem;
         }
         .project {
-            background: #081412;
-            border: 1px solid var(--hair-cream);
+            background: #E1E5DB;
+            border: 1px solid rgba(31,42,30,0.08);
             border-radius: 10px;
             padding: 2.75rem 3rem;
             text-decoration: none;
-            color: inherit;
+            color: var(--ink-dark);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
             align-items: start;
             transition: transform 0.15s, border-color 0.15s;
         }
-        .project:hover { transform: translateY(-2px); border-color: var(--hair-cream-strong); }
+        .project:hover { transform: translateY(-2px); border-color: rgba(31,42,30,0.18); }
         @media (max-width: 960px) { .project { grid-template-columns: 1fr; } }
 
         .project-left { padding-right: 2.75rem; }
         .project-right {
-            border-left: 1px solid var(--hair-cream);
+            border-left: 1px solid rgba(31,42,30,0.12);
             padding-left: 2.75rem;
             display: flex;
             flex-direction: column;
@@ -259,7 +273,7 @@ permalink: /iori/
         }
         @media (max-width: 960px) {
             .project-left { padding-right: 0; }
-            .project-right { border-left: none; padding-left: 0; border-top: 1px solid var(--hair-cream); padding-top: 1.75rem; margin-top: 1.75rem; }
+            .project-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(31,42,30,0.12); padding-top: 1.75rem; margin-top: 1.75rem; }
         }
 
         .project-name {
@@ -268,7 +282,7 @@ permalink: /iori/
             font-weight: 700;
             letter-spacing: -0.025em;
             line-height: 1.05;
-            color: var(--ink-cream);
+            color: var(--ink-dark);
             margin-bottom: 1.5rem;
         }
         .project-question {
@@ -277,29 +291,31 @@ permalink: /iori/
             font-weight: 500;
             letter-spacing: -0.012em;
             line-height: 1.35;
-            color: var(--ink-cream);
+            color: var(--ink-dark);
             margin-bottom: 1.75rem;
         }
         .project-motivation-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.72rem;
+            font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--accent-deep);
             margin-bottom: 0.45rem;
         }
         .project-motivation {
             font-size: 0.98rem;
             line-height: 1.6;
-            color: var(--ink-cream-soft);
+            color: rgba(31,42,30,0.78);
         }
 
         .project-iteration-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.78rem;
+            font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--accent);
+            color: var(--accent-deep);
             margin-bottom: 0.85rem;
         }
         .project-iteration-title {
@@ -308,13 +324,13 @@ permalink: /iori/
             font-weight: 600;
             letter-spacing: -0.01em;
             line-height: 1.25;
-            color: var(--ink-cream);
+            color: var(--ink-dark);
             margin-bottom: 0.75rem;
         }
         .project-iteration-text {
             font-size: 0.95rem;
             line-height: 1.55;
-            color: var(--ink-cream-soft);
+            color: rgba(31,42,30,0.78);
             margin-bottom: 1.75rem;
         }
         .project-tags {
@@ -326,20 +342,21 @@ permalink: /iori/
         .project-tags .tag {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.72rem;
+            font-weight: 500;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             padding: 0.3rem 0.6rem;
             border: 1px solid currentColor;
             border-radius: 2px;
-            background: rgba(0,0,0,0.18);
+            background: rgba(31,42,30,0.04);
         }
-        .project-tags .tag-coral  { color: #F0A48F; }
-        .project-tags .tag-cyan   { color: #7BD9E8; }
-        .project-tags .tag-amber  { color: #E8C376; }
-        .project-tags .tag-moss   { color: #9DD6B8; }
-        .project-tags .tag-violet { color: #C8B5F2; }
-        .project-tags .tag-rust   { color: #F0A678; }
-        .project-tags .tag-sky    { color: #98C8E8; }
+        .project-tags .tag-coral  { color: #A84030; }
+        .project-tags .tag-cyan   { color: #1A7888; }
+        .project-tags .tag-amber  { color: #8A6A20; }
+        .project-tags .tag-moss   { color: #2A7848; }
+        .project-tags .tag-violet { color: #5A48A0; }
+        .project-tags .tag-rust   { color: #9A5A28; }
+        .project-tags .tag-sky    { color: #2868A0; }
         .project-arrow-row {
             margin-top: auto;
             display: flex;
@@ -349,20 +366,22 @@ permalink: /iori/
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
             font-weight: 600;
-            color: var(--accent);
+            color: var(--accent-deep);
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            transition: gap 0.2s;
+            border-bottom: 1.5px solid var(--accent);
+            padding-bottom: 2px;
+            transition: gap 0.2s, color 0.2s;
         }
-        .project:hover .project-arrow { gap: 0.65rem; }
+        .project:hover .project-arrow { gap: 0.65rem; color: var(--accent); }
 
         /* ────────────────────────────────────────────────────────────── */
         /* HOW IT WORKS — deeper cream. Numbered steps, plain language.  */
         /* Submit link absorbed into step 01.                             */
         /* ────────────────────────────────────────────────────────────── */
         .how {
-            background: var(--surface-light);
+            background: #E5E6DD;
             padding: 6.5rem var(--edge-pad) 7rem;
             color: var(--ink-dark);
         }
@@ -387,19 +406,22 @@ permalink: /iori/
         }
         .how-step {
             display: grid;
-            grid-template-columns: 4rem 14rem 1fr;
-            gap: 2.5rem;
-            align-items: baseline;
-            padding: 2rem 0;
+            grid-template-columns: 6rem 1fr auto;
+            gap: 0 2.5rem;
+            align-items: center;
+            padding: 2.25rem 0;
             border-bottom: 1px solid var(--hair-dark-strong);
         }
         .how-step .step-num {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 400;
             color: var(--accent);
-            letter-spacing: 0.04em;
-            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            align-self: center;
         }
+        .how-step .step-content {}
         .how-step .step-title {
             font-family: 'Inter', sans-serif;
             font-size: 1.35rem;
@@ -409,29 +431,23 @@ permalink: /iori/
             line-height: 1.25;
         }
         .how-step .step-body {
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1.05rem;
+            line-height: 1.65;
             color: var(--ink-dark-soft);
             max-width: 38rem;
+            margin-top: 0.5rem;
         }
-        .how-step .step-body a {
-            color: var(--ink-dark);
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 1px;
-            transition: color 0.2s;
-        }
-        .how-step .step-body a:hover { color: var(--accent); }
         .step-cta {
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
-            margin-top: 1rem;
-            font-weight: 500;
-            color: var(--ink-dark);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--accent-deep);
             text-decoration: none;
             border-bottom: 1.5px solid var(--accent);
             padding-bottom: 2px;
+            white-space: nowrap;
             transition: color 0.2s, gap 0.2s;
         }
         .step-cta:hover {
@@ -443,7 +459,7 @@ permalink: /iori/
            it works"), no separator. Dark ink to match that section. */
         .site-footer {
             padding: 4rem var(--edge-pad);
-            background: var(--surface-light);
+            background: #E5E6DD;
         }
         .site-footer-inner {
             max-width: var(--max-content);
@@ -474,14 +490,9 @@ permalink: /iori/
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            .thesis-grid > div {
-                border-left: none;
-                border-top: 1px solid var(--hair-cream-strong);
-                padding: 1.5rem 0 0;
-            }
-            .thesis-grid > div:first-child {
-                border-top: none;
-                padding-top: 0;
+            .thesis-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .projects { padding: 5rem var(--edge-pad); }
@@ -531,16 +542,24 @@ permalink: /iori/
         <h2>An evolving open program for questions worth answering. Marvin runs the research. Anyone can contribute. Iluvatar takes no IP.</h2>
         <div class="thesis-grid">
             <div>
-                <strong>Project ideas come from the community.</strong> Anyone can propose a question worth running. The submitting researcher leads the resulting project with full attribution.
+                <div class="pillar-label">Proposals</div>
+                <strong>Project ideas come from the community.</strong>
+                <p>Anyone can propose a question worth running. The submitting researcher leads the resulting project with full attribution.</p>
             </div>
             <div>
-                <strong>Critiques, suggestions, and feedback are public.</strong> Every project's methods, hypotheses, and uncertainty estimates are exposed as the work progresses. Anyone can challenge a methodology, flag a missing reference, or push back on a confidence tier. Discussions live on GitHub alongside the work.
+                <div class="pillar-label">Feedback</div>
+                <strong>Critiques, suggestions, and feedback are public.</strong>
+                <p>Every project's methods, hypotheses, and uncertainty estimates are exposed as the work progresses. Anyone can challenge a methodology, flag a missing reference, or push back on a confidence tier.</p>
             </div>
             <div>
-                <strong>Data is shared, found, and contributed.</strong> Projects run on public data by default. Anyone can point us at datasets we missed, contribute curated or processed data, or volunteer to run validation on a published hypothesis.
+                <div class="pillar-label">Data</div>
+                <strong>Data is shared, found, and contributed.</strong>
+                <p>Projects run on public data by default. Anyone can point us at datasets we missed, contribute curated or processed data, or volunteer to run validation.</p>
             </div>
             <div>
-                <strong>Marvin runs the research, in public.</strong> Marvin handles literature synthesis, data integration, analysis, and drafting. Iluvatar PhDs vet every output before it ships. Iterations land as pull requests against the project repo, sit for community review, then merge. Each draft leaves open questions for collaborators.
+                <div class="pillar-label">Research</div>
+                <strong>Marvin runs the research, in public.</strong>
+                <p>Iterations land as pull requests against the project repo, sit for community review, then merge. Each draft leaves open questions for collaborators.</p>
             </div>
         </div>
     </div>
@@ -592,45 +611,43 @@ permalink: /iori/
         <div class="how-steps">
             <div class="how-step">
                 <span class="step-num">01</span>
-                <span class="step-title">Critique or challenge a finding</span>
-                <div class="step-body">
-                    Push back on an interpretation, flag a confounder we missed, or challenge a confidence classification. Every finding carries an explicit evidence tier. Tell us if you think we got one wrong.
-                    <a href="https://github.com/iluvatar-open-research" class="step-cta">Open a critique on GitHub <span>&rarr;</span></a>
+                <div class="step-content">
+                    <span class="step-title">Critique or challenge a finding</span>
+                    <div class="step-body">Push back on an interpretation, flag a confounder we missed, or challenge a confidence classification.</div>
                 </div>
+                <a href="https://github.com/iluvatar-open-research" class="step-cta">Open a critique <span>&rarr;</span></a>
             </div>
             <div class="how-step">
                 <span class="step-num">02</span>
-                <span class="step-title">Contribute data</span>
-                <div class="step-body">
-                    Point us at a dataset we missed, share curated or processed data, or contribute validation results from your own work. New data feeds the next iteration of Marvin's analysis.
-                    <a href="https://github.com/iluvatar-open-research" class="step-cta">Suggest a dataset <span>&rarr;</span></a>
+                <div class="step-content">
+                    <span class="step-title">Contribute data</span>
+                    <div class="step-body">Point us at a dataset we missed, share curated or processed data, or contribute validation results.</div>
                 </div>
+                <a href="https://github.com/iluvatar-open-research" class="step-cta">Suggest a dataset <span>&rarr;</span></a>
             </div>
             <div class="how-step">
                 <span class="step-num">03</span>
-                <span class="step-title">Suggest a new direction</span>
-                <div class="step-body">
-                    Is there a question we should be asking that we haven't? A hypothesis Marvin should test? A method worth trying? Post it and Marvin will explore it in the next research cycle.
-                    <a href="https://github.com/iluvatar-open-research" class="step-cta">Propose a direction <span>&rarr;</span></a>
+                <div class="step-content">
+                    <span class="step-title">Suggest a new direction</span>
+                    <div class="step-body">Is there a question we should be asking? A hypothesis Marvin should test? A method worth trying?</div>
                 </div>
+                <a href="https://github.com/iluvatar-open-research" class="step-cta">Propose a direction <span>&rarr;</span></a>
             </div>
             <div class="how-step">
                 <span class="step-num">04</span>
-                <span class="step-title">Validate a hypothesis</span>
-                <div class="step-body">
-                    Run a wet-lab experiment, a computational replication, or an independent analysis on one of our published findings. Validation results publish alongside the original work with full attribution.
-                    <a href="https://github.com/iluvatar-open-research" class="step-cta">Browse open hypotheses <span>&rarr;</span></a>
+                <div class="step-content">
+                    <span class="step-title">Validate a hypothesis</span>
+                    <div class="step-body">Run an experiment, a replication, or an independent analysis on one of our published findings.</div>
                 </div>
+                <a href="https://github.com/iluvatar-open-research" class="step-cta">Browse hypotheses <span>&rarr;</span></a>
             </div>
-        </div>
-        <div class="how-steps" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--hair-dark);">
             <div class="how-step">
                 <span class="step-num">05</span>
-                <span class="step-title">Submit a new project idea</span>
-                <div class="step-body">
-                    Propose a question you think Marvin should run. We review every submission and reply with specific feedback either way.
-                    <a href="/iori/submit/" class="step-cta">Submit a question <span>&rarr;</span></a>
+                <div class="step-content">
+                    <span class="step-title">Submit a new project idea</span>
+                    <div class="step-body">Propose a question you think Marvin should run. We reply with specific feedback either way.</div>
                 </div>
+                <a href="/iori/submit/" class="step-cta">Submit a question <span>&rarr;</span></a>
             </div>
         </div>
     </div>
