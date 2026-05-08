@@ -12,7 +12,6 @@ Iluvatar Labs is an AI research lab building tools that close the loop between m
 
 - [Marvin](https://iluvatarlabs.github.io/marvin/): An autonomous research agent for ML and scientific work. Marvin reviews literature, generates and tests hypotheses, runs full research loops end-to-end, and maintains rich persistent context (Mithril) across sessions. Cross-domain: frontier AI, computational biology, materials science.
 - [Actuator](https://iluvatarlabs.github.io/actuator/): A patent-pending closed-loop control layer for model transformation. Streams reward and eval signals through live training, adapts pressure when capability drifts, and halts before damage. Drops into existing post-training stacks. Use cases include distillation, compression, and reinforcement learning with reduced alignment tax.
-- [IORI](https://iluvatarlabs.github.io/iori/): Open computational biology run on public data, reviewed in public, free to validate. Case studies in cardiac fibrosis, pediatric glioblastoma, and Rett syndrome.
 
 ## Research
 
@@ -24,9 +23,8 @@ Iluvatar Labs is an AI research lab building tools that close the loop between m
 - [Meet Marvin](https://iluvatarlabs.github.io/blog/2026/03/introducing-marvin/): Why we built an autonomous research agent and how it differs from existing options.
 - [Introducing Actuator](https://iluvatarlabs.github.io/blog/2026/04/introducing-actuator/): Why post-training is the primary differentiation lever for AI labs in 2026 and how Actuator closes the loop.
 
-## About
+## More
 
-- [About Iluvatar Labs](https://iluvatarlabs.github.io/about/): Mission, principles, and team.
 - [Discover (full blog index)](https://iluvatarlabs.github.io/blog/): Product announcements, research notes, field reports.
 
 ## Technical resources
