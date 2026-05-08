@@ -43,13 +43,13 @@ Use the Human Lifemap Muscle Atlas (HLMA, 387,000+ cells, 23 donors) as the prim
 
 4. **[Two distinct vascular→FAP paracrine axes](#vascular-fap-crosstalk) — <span class="chip chip-high">High</span>.** Axis 1: JNK-dependent inflammatory crosstalk (CXCL2→CXCR2, IL6→IL6R). Axis 2: JNK-independent vessel destabilization (ANGPT2→Tie1/Tie2). The two axes are not reducible to a single pharmacological target.
 
-5. **[FAP growth factor compensation is inadequate](#fap-growth-factor-compensation) — <span class="chip chip-high">High</span>.** FAPs upregulate FGF7 and HGF with age but the signal does not reach MuSCs: the FGF7→FGFR1 axis is broken (receptor flat), and IGF2 declines across all FAP subtypes while MuSC IGF1R rises. Growth factor supplementation may bypass this failure.
+5. **[FAP growth factor compensation is inadequate](#fap-growth-factor-compensation) — <span class="chip chip-moderate">Moderate</span>.** FAPs upregulate FGF7 and HGF with age but the signal does not reach MuSCs: the FGF7→FGFR1 axis is broken (receptor flat), and IGF2 declines across all FAP subtypes while MuSC IGF1R rises. Growth factor supplementation may bypass this failure.
 
-6. **[CDK4/6 inhibitors are CONTRAINDICATED in muscle](#cdk46-contraindication) — <span class="chip chip-high">High</span>.** CDKN1A/p21 operates downstream of JUNB in the regulatory cascade. CDK4/6 activity is required for MyoD-driven satellite cell re-entry. Any clinical program pairing a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens.
+6. **[CDK4/6 inhibitors are CONTRAINDICATED in muscle](#cdk46-contraindication) — <span class="chip chip-moderate">Moderate</span>.** CDKN1A/p21 operates downstream of JUNB in the regulatory cascade. CDK4/6 activity is required for MyoD-driven satellite cell re-entry. Any clinical program pairing a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens.
 
-7. **[JNK→AP-1→CDKN1A→SASP hierarchy](#jnk-ap1-cdkn1a-hierarchy) — <span class="chip chip-high">High</span>.** Partial-correlation decomposition shows JUNB's SASP signal is largely mediated through CDKN1A, while CDKN1A retains independent signal beyond JUNB. CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target.
+7. **[JNK→AP-1→CDKN1A→SASP hierarchy](#jnk-ap1-cdkn1a-hierarchy) — <span class="chip chip-moderate">Moderate</span>.** Partial-correlation decomposition shows JUNB's SASP signal is largely mediated through CDKN1A, while CDKN1A retains independent signal beyond JUNB. CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target.
 
-8. **[BML-260 + ANGPT2 blockade as leading combination](#therapeutic-model) — <span class="chip chip-high">High</span>.** BML-260 (a DUSP22 modulator) addresses the JNK-dependent vascular inflammatory axis; ANGPT2 blockade (MEDI3617 or AKB-9778) addresses the JNK-independent vessel-destabilization axis. Neither agent alone is predicted to cover both paracrine pathways.
+8. **[BML-260 + ANGPT2 blockade as leading combination](#therapeutic-model) — <span class="chip chip-moderate">Moderate</span>.** BML-260 (a DUSP22 modulator) addresses the JNK-dependent vascular inflammatory axis; ANGPT2 blockade (MEDI3617 or AKB-9778) addresses the JNK-independent vessel-destabilization axis. Neither agent alone is predicted to cover both paracrine pathways.
 
 ## Open questions for the community
 
@@ -122,7 +122,7 @@ However, this molecular compensation did not translate to functional benefit. Th
 
 Exogenous growth factor supplementation (FGF7/KGF, HGF, IGF1/IGF2) is justified to bypass the broken endogenous FAP→MuSC signaling axis. FGF7 (palifermin) is FDA-approved for oral mucositis, providing a potential repurposing pathway. FGF7 is reported to act through FGFR2 rather than FGFR1 in satellite cells, which may modify interpretation.
 
-**Confidence: High.** Growth factor compensation is clearly documented; the broken crosstalk axis is consistent but based on single-atlas population-level effects.
+**Confidence: Moderate.** Growth factor compensation is clearly documented; the broken crosstalk axis is consistent but based on single-atlas population-level effects.
 
 ### CDK4/6 contraindication
 
@@ -130,7 +130,7 @@ The CDKN1A/p21-SASP coupling (donor-level rho=0.929, p=1.66×10⁻¹⁰, N=23 in
 
 CDKN1A/p21 is a pharmacodynamic biomarker for JNK-directed trials, not a therapeutic target in the MuSC compartment. Any clinical program that pairs a JNK inhibitor with a CDK4/6 inhibitor in muscle-aging populations requires satellite-cell safety screens as a prerequisite.
 
-**Confidence: High.** The contraindication is inferred from the p21 hierarchy and established satellite-cell biology; the supporting evidence for the CDK4/6 claim is from literature synthesis, not direct experimentation in this study.
+**Confidence: Moderate.** The contraindication is inferred from the p21 hierarchy and established satellite-cell biology; the supporting evidence for the CDK4/6 claim is from literature synthesis, not direct experimentation in this study.
 
 ### JNK-AP1-CDKN1A hierarchy
 
@@ -142,7 +142,7 @@ This places CDKN1A/p21 downstream of JUNB in the regulatory cascade and identifi
 
 Three independent genetic-regulation layers converge on the conclusion that AP-1 immediate-early TFs are not transcriptionally regulated at the genomic level: upstream kinase mRNAs show null age effects, bulk muscle eQTL from Open Targets yields 0 of 54 TF×sarcopenia/lean-body-mass trait colocalizations, and single-cell eQTL in OneK1K (N=982) finds JUNB, FOS, EGR1, and ATF3 null at the cis-eQTL level in immune cells, while CDKN1A carries a significant cis-eQTL (p=3.4×10⁻¹⁰). The therapeutic entry point is the JNK/MAPK kinase layer, not the TF-DNA interface.
 
-**Confidence: High.** HLMA-only; causal direction is inferred from post-translational literature, not directly tested.
+**Confidence: Moderate.** HLMA-only; causal direction is inferred from post-translational literature, not directly tested.
 
 ### Therapeutic model
 
@@ -158,7 +158,7 @@ Based on the three-compartment model and two-axis paracrine architecture, the le
 
 The BML-260 + ANGPT2-blockade combination is our leading hypothesis; neither agent alone is expected to address the other axis.
 
-**Confidence: High.** The combination is inferred from the compartment-specific paracrine architecture; none of the agents have been tested jointly in aged-muscle cohorts.
+**Confidence: Moderate.** The combination is inferred from the compartment-specific paracrine architecture; none of the agents have been tested jointly in aged-muscle cohorts.
 
 ## Sources, datasets, and literature
 
