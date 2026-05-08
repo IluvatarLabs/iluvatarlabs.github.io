@@ -21,31 +21,30 @@ permalink: /iori/
             --max-content: 1280px;
             --edge-pad: 3rem;
 
-            /* Forest palette — primary forest green from About's IORI
-               tile (#1E3228), deeper near-black green for the contrast
-               band, warm hay cream for the light "release" section.
-               Rust accent. Field-biology / naturalist territory. */
-            --bg:               #1F3D2C;   /* pine — hero (lightest tier) */
-            --surface-mid:      #15322A;   /* mid pine — thesis (one step darker than hero) */
-            --surface-deep:     #0A1A18;   /* near-black green — active projects (deepest tier) */
-            --surface-light:    #FAFAF5;   /* warm white (matches Discover body) — how-it-works */
+            /* Slate palette — cool blue-gray replacing the forest
+               greens, same three-tier dark surface progression.
+               Rust accent kept for warmth against the cool base. */
+            --bg:               #181E28;   /* slate — hero (one step lighter than thesis) */
+            --surface-mid:      #14141A;   /* ink-dark — thesis (matches Discover hero) */
+            --surface-deep:     #0C1018;   /* near-black slate — deepest tier */
+            --surface-light:    #F9FAFC;   /* cool white */
 
-            /* Cream-ink family for the dark surfaces — slightly brighter
-               cream + bumped soft alpha for legibility on forest green. */
-            --ink-cream:        #F5EFE0;
-            --ink-cream-soft:   rgba(245,239,224,0.85);
-            --ink-cream-mute:   rgba(245,239,224,0.58);
-            --ink-cream-faint:  rgba(245,239,224,0.32);
-            --hair-cream:       rgba(245,239,224,0.14);
-            --hair-cream-strong: rgba(245,239,224,0.24);
+            /* Cream-ink family for the dark surfaces — shifted cool to
+               harmonize with slate instead of forest green. */
+            --ink-cream:        #EFF1F5;
+            --ink-cream-soft:   rgba(239,241,245,0.85);
+            --ink-cream-mute:   rgba(239,241,245,0.58);
+            --ink-cream-faint:  rgba(239,241,245,0.32);
+            --hair-cream:       rgba(239,241,245,0.14);
+            --hair-cream-strong: rgba(239,241,245,0.24);
 
-            /* Dark-ink family for the light-cream section */
-            --ink-dark:         #1F2A1E;
-            --ink-dark-soft:    rgba(31,42,30,0.72);
-            --ink-dark-mute:    rgba(31,42,30,0.46);
-            --ink-dark-faint:   rgba(31,42,30,0.28);
-            --hair-dark:        rgba(31,42,30,0.12);
-            --hair-dark-strong: rgba(31,42,30,0.22);
+            /* Dark-ink family for the light sections */
+            --ink-dark:         #202630;
+            --ink-dark-soft:    rgba(32,38,48,0.72);
+            --ink-dark-mute:    rgba(32,38,48,0.46);
+            --ink-dark-faint:   rgba(32,38,48,0.28);
+            --hair-dark:        rgba(32,38,48,0.12);
+            --hair-dark-strong: rgba(32,38,48,0.22);
 
             --accent:           #D88848;   /* rust */
             --accent-deep:      #B5621A;
@@ -63,7 +62,7 @@ permalink: /iori/
         }
 
         /* ────────────────────────────────────────────────────────────── */
-        /* NAV — dark-ink variant for cream hero. Same structure as the   */
+        /* NAV — cream-ink variant on slate hero. Same structure as the   */
         /* shared site include.                                           */
         /* ────────────────────────────────────────────────────────────── */
         .nav-bar {
@@ -108,7 +107,7 @@ permalink: /iori/
         .nav-hamburger:hover span { background: var(--nav-ink); }
 
         /* ────────────────────────────────────────────────────────────── */
-        /* HERO — Discover-style on cream: corner glows in moss + rust    */
+        /* HERO — corner glows in cool blue + rust on slate base.          */
         /* tints, clean H1 + subtitle, no rule.                            */
         /* ────────────────────────────────────────────────────────────── */
         .hero {
@@ -116,8 +115,8 @@ permalink: /iori/
             padding: 7.5rem var(--edge-pad) 4rem;
             min-height: 42vh;
             background:
-                radial-gradient(ellipse 90% 90% at 95% 10%, rgba(216,136,72,0.14) 0%, rgba(216,136,72,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(111,164,136,0.18) 0%, rgba(111,164,136,0) 65%),
+                radial-gradient(ellipse 90% 90% at 95% 10%, rgba(216,136,72,0.07) 0%, rgba(216,136,72,0) 60%),
+                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(120,150,195,0.09) 0%, rgba(120,150,195,0) 65%),
                 var(--bg);
             color: var(--ink-cream);
             display: flex;
@@ -217,7 +216,7 @@ permalink: /iori/
         /* strip, no eyebrow, no filter chips.                            */
         /* ────────────────────────────────────────────────────────────── */
         .projects {
-            background: #ECEDE4;
+            background: #E8EAEF;
             color: var(--ink-dark);
             padding: 6.5rem var(--edge-pad) 7rem;
         }
@@ -248,8 +247,8 @@ permalink: /iori/
             gap: 2rem;
         }
         .project {
-            background: #E1E5DB;
-            border: 1px solid rgba(31,42,30,0.08);
+            background: #DEE1E8;
+            border: 1px solid rgba(32,38,48,0.08);
             border-radius: 10px;
             padding: 2.75rem 3rem;
             text-decoration: none;
@@ -260,12 +259,12 @@ permalink: /iori/
             align-items: start;
             transition: transform 0.15s, border-color 0.15s;
         }
-        .project:hover { transform: translateY(-2px); border-color: rgba(31,42,30,0.18); }
+        .project:hover { transform: translateY(-2px); border-color: rgba(32,38,48,0.18); }
         @media (max-width: 960px) { .project { grid-template-columns: 1fr; } }
 
         .project-left { padding-right: 2.75rem; }
         .project-right {
-            border-left: 1px solid rgba(31,42,30,0.12);
+            border-left: 1px solid rgba(32,38,48,0.12);
             padding-left: 2.75rem;
             display: flex;
             flex-direction: column;
@@ -273,7 +272,7 @@ permalink: /iori/
         }
         @media (max-width: 960px) {
             .project-left { padding-right: 0; }
-            .project-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(31,42,30,0.12); padding-top: 1.75rem; margin-top: 1.75rem; }
+            .project-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(32,38,48,0.12); padding-top: 1.75rem; margin-top: 1.75rem; }
         }
 
         .project-name {
@@ -306,7 +305,7 @@ permalink: /iori/
         .project-motivation {
             font-size: 0.98rem;
             line-height: 1.6;
-            color: rgba(31,42,30,0.78);
+            color: rgba(32,38,48,0.78);
         }
 
         .project-iteration-label {
@@ -330,7 +329,7 @@ permalink: /iori/
         .project-iteration-text {
             font-size: 0.95rem;
             line-height: 1.55;
-            color: rgba(31,42,30,0.78);
+            color: rgba(32,38,48,0.78);
             margin-bottom: 1.75rem;
         }
         .project-tags {
@@ -348,7 +347,7 @@ permalink: /iori/
             padding: 0.3rem 0.6rem;
             border: 1px solid currentColor;
             border-radius: 2px;
-            background: rgba(31,42,30,0.04);
+            background: rgba(32,38,48,0.04);
         }
         .project-tags .tag-coral  { color: #A84030; }
         .project-tags .tag-cyan   { color: #1A7888; }
@@ -381,7 +380,7 @@ permalink: /iori/
         /* Submit link absorbed into step 01.                             */
         /* ────────────────────────────────────────────────────────────── */
         .how {
-            background: #E5E6DD;
+            background: #E2E4EB;
             padding: 6.5rem var(--edge-pad) 7rem;
             color: var(--ink-dark);
         }
@@ -459,7 +458,7 @@ permalink: /iori/
            it works"), no separator. Dark ink to match that section. */
         .site-footer {
             padding: 4rem var(--edge-pad);
-            background: #E5E6DD;
+            background: #E2E4EB;
         }
         .site-footer-inner {
             max-width: var(--max-content);
