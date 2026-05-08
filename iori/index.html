@@ -228,71 +228,111 @@ permalink: /iori/
             border-top: 1px solid var(--hair-cream);
             transition: background 0.18s;
         }
-        .project:last-child {
-            border-bottom: 1px solid var(--hair-cream);
-        }
-        .project-grid {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 3rem;
-            align-items: start;
-        }
-        .project-meta {
+        .project-stack {
             display: flex;
-            gap: 0.65rem;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.86rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--ink-cream-faint);
-            margin-bottom: 1.1rem;
+            flex-direction: column;
+            gap: 2rem;
         }
-        .project-meta .status {
-            color: var(--accent);
+        .project {
+            background: #081412;
+            border: 1px solid var(--hair-cream);
+            border-radius: 10px;
+            padding: 2.75rem 3rem;
+            text-decoration: none;
+            color: inherit;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: start;
+            transition: transform 0.15s, border-color 0.15s;
         }
-        .project-meta .status.warn {
-            color: var(--status-warn);
+        .project:hover { transform: translateY(-2px); border-color: var(--hair-cream-strong); }
+        @media (max-width: 960px) { .project { grid-template-columns: 1fr; } }
+
+        .project-left { padding-right: 2.75rem; }
+        .project-right {
+            border-left: 1px solid var(--hair-cream);
+            padding-left: 2.75rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
         }
-        .project-meta .sep {
-            color: var(--ink-cream-faint);
+        @media (max-width: 960px) {
+            .project-left { padding-right: 0; }
+            .project-right { border-left: none; padding-left: 0; border-top: 1px solid var(--hair-cream); padding-top: 1.75rem; margin-top: 1.75rem; }
         }
-        .project h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.5rem, 2.1vw, 1.85rem);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
+
+        .project-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.05;
             color: var(--ink-cream);
-            margin-bottom: 1rem;
-            transition: color 0.2s;
-            max-width: 40ch;
+            margin-bottom: 1.5rem;
         }
-        .project:hover h3 { color: var(--accent); }
-        .project-scope {
-            font-size: 1.05rem;
+        .project-question {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: -0.012em;
+            line-height: 1.35;
+            color: var(--ink-cream);
+            margin-bottom: 1.75rem;
+        }
+        .project-motivation-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.45rem;
+        }
+        .project-motivation {
+            font-size: 0.98rem;
             line-height: 1.6;
             color: var(--ink-cream-soft);
-            margin-bottom: 1.4rem;
-            max-width: 56rem;
+        }
+
+        .project-iteration-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.85rem;
+        }
+        .project-iteration-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.25;
+            color: var(--ink-cream);
+            margin-bottom: 0.75rem;
+        }
+        .project-iteration-text {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: var(--ink-cream-soft);
+            margin-bottom: 1.75rem;
         }
         .project-tags {
             display: flex;
-            gap: 0.6rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
+            margin-bottom: 1.5rem;
         }
         .project-tags .tag {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            letter-spacing: 0.06em;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 0.28rem 0.65rem;
+            padding: 0.3rem 0.6rem;
             border: 1px solid currentColor;
             border-radius: 2px;
             background: rgba(0,0,0,0.18);
         }
-        /* Colored tag palette — cycled across tags so they pop and stand
-           out as discrete labels rather than uniform chrome. */
         .project-tags .tag-coral  { color: #F0A48F; }
         .project-tags .tag-cyan   { color: #7BD9E8; }
         .project-tags .tag-amber  { color: #E8C376; }
@@ -300,22 +340,22 @@ permalink: /iori/
         .project-tags .tag-violet { color: #C8B5F2; }
         .project-tags .tag-rust   { color: #F0A678; }
         .project-tags .tag-sky    { color: #98C8E8; }
+        .project-arrow-row {
+            margin-top: auto;
+            display: flex;
+            justify-content: flex-end;
+        }
         .project-arrow {
             font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--ink-cream-soft);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
             display: inline-flex;
             align-items: center;
-            gap: 0.45rem;
-            white-space: nowrap;
-            padding-top: 0.35rem;
-            transition: gap 0.2s, color 0.2s;
+            gap: 0.4rem;
+            transition: gap 0.2s;
         }
-        .project:hover .project-arrow {
-            color: var(--accent);
-            gap: 0.7rem;
-        }
+        .project:hover .project-arrow { gap: 0.65rem; }
 
         /* ────────────────────────────────────────────────────────────── */
         /* HOW IT WORKS — deeper cream. Numbered steps, plain language.  */
@@ -506,33 +546,42 @@ permalink: /iori/
     </div>
 </section>
 
-<!-- 3. ACTIVE PROJECTS — minimal cards, no stat strip, no chrome. -->
+<!-- 3. ACTIVE PROJECTS — D1 two-column cards. -->
 <section class="projects">
     <div class="projects-inner">
         <h2>Active projects.</h2>
 
         {% assign sorted_projects = site.projects | sort: "updated" | reverse %}
         {% assign tag_palette = "coral,cyan,amber,moss,violet,rust,sky" | split: "," %}
+        <div class="project-stack">
         {% for project in sorted_projects %}
         <a class="project" href="{{ project.url }}">
-            <div class="project-grid">
-                <div class="project-main">
-                    <h3>{{ project.title }}</h3>
-                    {% if project.summary %}<p class="project-scope">{{ project.summary }}</p>{% endif %}
-                    {% if project.tags %}
-                    <div class="project-tags">
-                        {% for tag in project.tags %}
-                            {% assign palette_index = forloop.index0 | modulo: tag_palette.size %}
-                            {% assign palette_color = tag_palette[palette_index] %}
-                        <span class="tag tag-{{ palette_color }}">{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+            <div class="project-left">
+                <div class="project-name">{{ project.project_name | default: project.title }}</div>
+                <p class="project-question">{{ project.question }}</p>
+                <div class="project-motivation-label">Why it matters</div>
+                <p class="project-motivation">{{ project.north_star }}</p>
+            </div>
+            <div class="project-right">
+                <div class="project-iteration-label">Iteration {{ project.iteration }} findings</div>
+                <div class="project-iteration-title">{{ project.title }}</div>
+                <p class="project-iteration-text">{{ project.latest | default: project.summary }}</p>
+                {% if project.tags %}
+                <div class="project-tags">
+                    {% for tag in project.tags %}
+                        {% assign palette_index = forloop.index0 | modulo: tag_palette.size %}
+                        {% assign palette_color = tag_palette[palette_index] %}
+                    <span class="tag tag-{{ palette_color }}">{{ tag }}</span>
+                    {% endfor %}
                 </div>
-                <span class="project-arrow">Read project <span>&rarr;</span></span>
+                {% endif %}
+                <div class="project-arrow-row">
+                    <span class="project-arrow">Read project <span>&rarr;</span></span>
+                </div>
             </div>
         </a>
         {% endfor %}
+        </div>
     </div>
 </section>
 

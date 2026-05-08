@@ -55,9 +55,14 @@ exclude:
   - node_modules
   - vendor
   - CLAUDE.md
-  - mockup-*.html
-  - "index copy.html"
-  - iori_mockups
+  - _mockups
+  - IORI_exec.md
+  - README.md
+  - suggestions.md
+  - package.json
+  - package-lock.json
+  - scripts
+  - "test-*.html"
 
 # Default values
 defaults:

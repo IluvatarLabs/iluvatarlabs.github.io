@@ -1,5 +1,9 @@
 ---
 title: "JUNB drives inflammatory signaling in vascular cells of aging human muscle"
+project_name: "Skeletal Muscle Aging"
+question: "What drives aging muscle from regeneration toward fibrosis and inflammation, and can it be reversed?"
+north_star: "Sarcopenia has no approved therapy despite affecting over 50 million people. This project maps the regulatory programs that tip aging muscle from regenerative competence toward pathological drift, with the goal of identifying targets that restore regeneration without harmful tradeoffs."
+latest: "Vascular endothelial cells, not fibroblasts, are the dominant inflammatory source, driven by JUNB/AP-1. Each cell compartment runs a distinct regulatory program requiring a different therapeutic strategy."
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-04

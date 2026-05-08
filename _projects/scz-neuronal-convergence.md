@@ -1,5 +1,9 @@
 ---
 title: "Schizophrenia genetic risk converges on constrained synaptic genes in neurons"
+project_name: "Mapping Schizophrenia Risk"
+question: "Can schizophrenia's hundreds of risk loci be resolved into targetable biology?"
+north_star: "Two decades of GWAS have produced hundreds of schizophrenia risk loci but zero mechanistic targets. This project maps where genetic risk converges on actionable regulatory programs, including the intersection with environmental triggers like stress, inflammation, and neurodevelopmental insults."
+latest: "Risk converges on constrained synaptic genes in neurons, not microglia. EGR1 and CTCF emerge as the strongest convergence regulators. The constraint architecture is shared with autism and developmental disorders, pointing to a neurodevelopmental rather than schizophrenia-specific substrate."
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-04
