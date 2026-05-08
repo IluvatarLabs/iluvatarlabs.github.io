@@ -125,7 +125,6 @@
             line-height: 1.45;
             letter-spacing: -0.01em;
             color: var(--ink-cream-soft);
-            max-width: 50rem;
             margin-bottom: 2rem;
         }
         .hero .summary strong { color: var(--ink-cream); font-weight: 500; }
@@ -437,6 +436,42 @@
         }
         .article > table tbody td:first-child { color: var(--ink-cream); font-weight: 500; }
 
+        /* Confidence chips — colored pills inline with finding headings.
+           4-tier scale: Strong > High > Moderate > Preliminary. */
+        .chip {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+            position: relative;
+            top: -0.1em;
+        }
+        .chip-strong {
+            background: rgba(111,180,130,0.18);
+            color: #8FCBA8;
+            border: 1px solid rgba(111,180,130,0.35);
+        }
+        .chip-high {
+            background: rgba(90,170,210,0.18);
+            color: #6EC8E6;
+            border: 1px solid rgba(90,170,210,0.35);
+        }
+        .chip-moderate {
+            background: rgba(216,136,72,0.18);
+            color: #D88848;
+            border: 1px solid rgba(216,136,72,0.35);
+        }
+        .chip-preliminary {
+            background: rgba(245,239,224,0.10);
+            color: var(--ink-cream-mute);
+            border: 1px solid rgba(245,239,224,0.18);
+        }
+
         /* Superscript footnote refs */
         .article sup a {
             font-family: 'JetBrains Mono', monospace;
@@ -527,19 +562,6 @@
         .breadcrumb a:hover { color: var(--ink-cream); }
         .breadcrumb .sep { margin: 0 0.5rem; color: var(--ink-cream-faint); }
 
-        /* Footer */
-        .footer {
-            background: var(--surface-deep);
-            padding: 3rem var(--edge-pad);
-            border-top: 1px solid var(--hair-cream);
-        }
-        .footer-inner {
-            max-width: var(--max-content);
-            margin: 0 auto;
-            font-size: 0.92rem;
-            color: var(--ink-cream-mute);
-        }
-
         /* Responsive */
         @media (max-width: 1380px) {
             .sidenote {
@@ -562,6 +584,7 @@
         .site-footer-inner {
             max-width: var(--max-content);
             margin: 0 auto;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1rem;
             color: var(--ink-cream-mute);
             letter-spacing: -0.005em;
@@ -636,10 +659,6 @@
 
     </div>
 </section>
-
-<footer class="footer">
-    <div class="footer-inner">&copy; {{ "now" | date: "%Y" }} Iluvatar Labs · IORI</div>
-</footer>
 
 <script>
 // Caption blockquote tagging
