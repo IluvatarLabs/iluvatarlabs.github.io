@@ -1,7 +1,7 @@
 ---
 layout: null
 title: IORI
-description: Open computational biology, run on public data, reviewed in public, free to validate.
+description: Open Science for all. 
 permalink: /iori/
 ---
 <!DOCTYPE html>
@@ -21,14 +21,12 @@ permalink: /iori/
             --max-content: 1280px;
             --edge-pad: 3rem;
 
-            /* Forest palette — primary forest green from About's IORI
-               tile (#1E3228), deeper near-black green for the contrast
-               band, warm hay cream for the light "release" section.
-               Rust accent. Field-biology / naturalist territory. */
+            /* Forest palette — pine green hero, deeper tiers below,
+               warm hay cream for the light sections. Rust accent. */
             --bg:               #1F3D2C;   /* pine — hero (lightest tier) */
             --surface-mid:      #15322A;   /* mid pine — thesis (one step darker than hero) */
             --surface-deep:     #0A1A18;   /* near-black green — active projects (deepest tier) */
-            --surface-light:    #FAFAF5;   /* warm white (matches Discover body) — how-it-works */
+            --surface-light:    #FAFAF5;   /* warm white */
 
             /* Cream-ink family for the dark surfaces — slightly brighter
                cream + bumped soft alpha for legibility on forest green. */
@@ -63,7 +61,7 @@ permalink: /iori/
         }
 
         /* ────────────────────────────────────────────────────────────── */
-        /* NAV — dark-ink variant for cream hero. Same structure as the   */
+        /* NAV — cream-ink variant on pine hero. Same structure as the    */
         /* shared site include.                                           */
         /* ────────────────────────────────────────────────────────────── */
         .nav-bar {
@@ -108,7 +106,7 @@ permalink: /iori/
         .nav-hamburger:hover span { background: var(--nav-ink); }
 
         /* ────────────────────────────────────────────────────────────── */
-        /* HERO — Discover-style on cream: corner glows in moss + rust    */
+        /* HERO — corner glows in moss + rust on pine base.                */
         /* tints, clean H1 + subtitle, no rule.                            */
         /* ────────────────────────────────────────────────────────────── */
         .hero {
@@ -531,35 +529,35 @@ permalink: /iori/
 <!-- 1. HERO — Discover-style: corner glows on cream, clean H1 + subtitle. -->
 <section class="hero">
     <div class="hero-inner">
-        <h1>Iluvatar <span class="hero-em">Open Research</span> Initiative.</h1>
-        <p class="text">Open source science powered by Marvin. We run questions the field hasn't gotten to, in the open. Anyone can contribute.</p>
+        <h1>Iluvatar <span class="hero-em">Open Research</span><br>Initiative</h1>
+        <p class="text">Open source science, powered by Marvin. IORI aims to support groundbreaking research by enabling contributors around the world to participate in community-driven discovery.</p>
     </div>
 </section>
 
 <!-- 2. THESIS — big claim + four line-separated body paragraphs. -->
 <section class="thesis">
     <div class="thesis-inner">
-        <h2>An evolving open program for questions worth answering. Marvin runs the research. Anyone can contribute. Iluvatar takes no IP.</h2>
+        <h2>We're tackling the hard questions to address humanity's unmet needs.</h2>
         <div class="thesis-grid">
             <div>
                 <div class="pillar-label">Proposals</div>
-                <strong>Project ideas come from the community.</strong>
-                <p>Anyone can propose a question worth running. The submitting researcher leads the resulting project with full attribution.</p>
+                <strong>Share a project idea that matters to you.</strong>
+                <p>Propose a research question you think Marvin should investigate. Selected proposals are developed into IORI projects, with attribution to the submitting researcher.</p>
             </div>
             <div>
                 <div class="pillar-label">Feedback</div>
-                <strong>Critiques, suggestions, and feedback are public.</strong>
-                <p>Every project's methods, hypotheses, and uncertainty estimates are exposed as the work progresses. Anyone can challenge a methodology, flag a missing reference, or push back on a confidence tier.</p>
+                <strong>Transparency and trust matter.</strong>
+                <p>Every project's methods, hypotheses, and analyses are committed and shared publicly as the project progresses so everyone can review the work, challenge results, and suggest follow-up questions. </p>
             </div>
             <div>
-                <div class="pillar-label">Data</div>
-                <strong>Data is shared, found, and contributed.</strong>
-                <p>Projects run on public data by default. Anyone can point us at datasets we missed, contribute curated or processed data, or volunteer to run validation.</p>
+                <div class="pillar-label">Data & Literature</div>
+                <strong>Build with IORI.</strong>
+                <p>Each project continuously brings together literature and public data to provide a centralized reference resource any researcher can use. Contributors can suggest relevant primary sources, processed data or analyses, or even generate new validation data.</p>
             </div>
             <div>
                 <div class="pillar-label">Research</div>
-                <strong>Marvin runs the research, in public.</strong>
-                <p>Iterations land as pull requests against the project repo, sit for community review, then merge. Each draft leaves open questions for collaborators.</p>
+                <strong>Open source to the core.</strong>
+                <p>Marvin regularly reviews community submissions, runs new analyses, and publishes project updates under Apache-2.0 / CC-BY-4.0. ontributors retain their original rights, and we make sure sources are attributed wherever they are used.</p>
             </div>
         </div>
     </div>
@@ -568,7 +566,7 @@ permalink: /iori/
 <!-- 3. ACTIVE PROJECTS — D1 two-column cards. -->
 <section class="projects">
     <div class="projects-inner">
-        <h2>Active projects.</h2>
+        <h2>Active projects</h2>
 
         {% assign sorted_projects = site.projects | sort: "updated" | reverse %}
         {% assign tag_palette = "coral,cyan,amber,moss,violet,rust,sky" | split: "," %}
@@ -607,47 +605,39 @@ permalink: /iori/
 <!-- 4. CONTRIBUTE — four contribution types + submit CTA. -->
 <section class="how">
     <div class="how-inner">
-        <h2>Contribute.</h2>
+        <h2>Contribute</h2>
         <div class="how-steps">
             <div class="how-step">
                 <span class="step-num">01</span>
                 <div class="step-content">
-                    <span class="step-title">Critique or challenge a finding</span>
-                    <div class="step-body">Push back on an interpretation, flag a confounder we missed, or challenge a confidence classification.</div>
+                    <span class="step-title">Propose a project</span>
+                    <div class="step-body">Have a scientific question worth investigating? Let us know what it is, why it matters, and any papers or datasets that would help Marvin get started.</div>
                 </div>
-                <a href="https://github.com/iluvatar-open-research" class="step-cta">Open a critique <span>&rarr;</span></a>
+                <a href="#" onclick="return false" class="step-cta">Submit a question <span>&rarr;</span></a>
             </div>
             <div class="how-step">
                 <span class="step-num">02</span>
                 <div class="step-content">
-                    <span class="step-title">Contribute data</span>
-                    <div class="step-body">Point us at a dataset we missed, share curated or processed data, or contribute validation results.</div>
+                    <span class="step-title">Review an active project</span>
+                    <div class="step-body">Challenge an interpretation, flag missing evidence, suggest a better analysis, or just ideas for Marvin's open questions.</div>
                 </div>
-                <a href="https://github.com/iluvatar-open-research" class="step-cta">Suggest a dataset <span>&rarr;</span></a>
+                <a href="#" onclick="return false" class="step-cta">Open a critique <span>&rarr;</span></a>
             </div>
             <div class="how-step">
                 <span class="step-num">03</span>
                 <div class="step-content">
-                    <span class="step-title">Suggest a new direction</span>
-                    <div class="step-body">Is there a question we should be asking? A hypothesis Marvin should test? A method worth trying?</div>
+                    <span class="step-title">Share a resource</span>
+                    <div class="step-body">Point us to useful sources we might have missed, whether it's a dataset, manuscript, or benchmark.</div>
                 </div>
-                <a href="https://github.com/iluvatar-open-research" class="step-cta">Propose a direction <span>&rarr;</span></a>
+                <a href="#" onclick="return false" class="step-cta">Suggest a resource <span>&rarr;</span></a>
             </div>
             <div class="how-step">
                 <span class="step-num">04</span>
                 <div class="step-content">
-                    <span class="step-title">Validate a hypothesis</span>
-                    <div class="step-body">Run an experiment, a replication, or an independent analysis on one of our published findings.</div>
+                    <span class="step-title">Run a validation</span>
+                    <div class="step-body">Test a published IORI finding through independent analysis, better-controlled computation, or real-world validation experiments.</div>
                 </div>
-                <a href="https://github.com/iluvatar-open-research" class="step-cta">Browse hypotheses <span>&rarr;</span></a>
-            </div>
-            <div class="how-step">
-                <span class="step-num">05</span>
-                <div class="step-content">
-                    <span class="step-title">Submit a new project idea</span>
-                    <div class="step-body">Propose a question you think Marvin should run. We reply with specific feedback either way.</div>
-                </div>
-                <a href="/iori/submit/" class="step-cta">Submit a question <span>&rarr;</span></a>
+                <a href="#" onclick="return false" class="step-cta">Browse hypotheses <span>&rarr;</span></a>
             </div>
         </div>
     </div>
