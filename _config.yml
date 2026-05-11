@@ -1,13 +1,13 @@
 title: Iluvatar Labs
 description: Reality-inspired AI architectures for the AGI era
-url: "https://iluvatarlabs.github.io"
+url: "https://iluvatarlabs.com"
 baseurl: ""
 
 # Author / org metadata used by jekyll-seo-tag for OG, Twitter, JSON-LD
 author:
   name: Iluvatar Labs
   email: ben@iluvatarlabs.com
-  url: "https://iluvatarlabs.github.io"
+  url: "https://iluvatarlabs.com"
   twitter: IluvatarLabs
 
 # Twitter / X card config. Per-post `image:` frontmatter triggers
