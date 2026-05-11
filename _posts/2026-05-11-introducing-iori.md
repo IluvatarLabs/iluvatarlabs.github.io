@@ -3,7 +3,7 @@ layout: post
 title: "Introducing the Iluvatar Open Research Initiative"
 subtitle: "Open source science, powered by Marvin"
 date: 2026-05-11
-category: Product
+category: Research
 thumbnail: iori
 author: "Iluvatar Labs"
 excerpt: "AI can run genuine scientific research now. The question is who gets to use it. IORI is an open research program where Marvin runs full projects on public data, publishes every iteration as it happens, and invites the field to critique, extend, and validate the work."
