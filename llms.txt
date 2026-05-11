@@ -24,9 +24,8 @@ Iluvatar Labs is an AI research lab building tools that close the loop between m
 - [Meet Marvin](https://iluvatarlabs.github.io/blog/2026/03/introducing-marvin/): Why we built an autonomous research agent and how it differs from existing options.
 - [Introducing Actuator](https://iluvatarlabs.github.io/blog/2026/04/introducing-actuator/): Why post-training is the primary differentiation lever for AI labs in 2026 and how Actuator closes the loop.
 
-## About
+## More
 
-- [About Iluvatar Labs](https://iluvatarlabs.github.io/about/): Mission, principles, and team.
 - [Discover (full blog index)](https://iluvatarlabs.github.io/blog/): Product announcements, research notes, field reports.
 
 ## Technical resources
