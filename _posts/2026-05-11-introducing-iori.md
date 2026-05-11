@@ -1,12 +1,13 @@
 ---
 layout: post
 title: "Introducing the Iluvatar Open Research Initiative"
-subtitle: "Open source science, powered by Marvin"
+subtitle: "Democratizing AI-enabled science for humanity's hardest problems"
 date: 2026-05-11
-category: Research
+category: Community
 thumbnail: iori
 author: "Iluvatar Labs"
-excerpt: "AI can run genuine scientific research now. The question is who gets to use it. IORI is an open research program where Marvin runs full projects on public data, publishes every iteration as it happens, and invites the field to critique, extend, and validate the work."
+excerpt: "Humanity faces more questions than scientific capacity. Starting with schizophrenia and sarcopenia, IORI is our effort to change that: an open research initiative powered by Marvin, our autonomous AI research agent, where public evidence becomes living research programs the scientific community can inspect, challenge, extend, and validate.
+"
 ---
 
 ## Humanity faces more questions than scientific capacity
