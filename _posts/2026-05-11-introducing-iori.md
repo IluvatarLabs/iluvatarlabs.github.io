@@ -6,6 +6,7 @@ date: 2026-05-11
 category: Community
 thumbnail: iori
 author: "Iluvatar Labs"
+image: /assets/images/introducing-iori/social-card.png
 excerpt: "Humanity faces more questions than scientific capacity. Starting with schizophrenia and sarcopenia, IORI is our effort to change that: an open research initiative powered by Marvin, our autonomous AI research agent, where public evidence becomes living research programs the scientific community can inspect, challenge, extend, and validate.
 "
 ---
