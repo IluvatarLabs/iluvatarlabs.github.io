@@ -56,12 +56,16 @@ exclude:
   - vendor
   - CLAUDE.md
   - _mockups
+  - mockup-*.html
+  - "index copy.html"
+  - iori_mockups
   - IORI_exec.md
   - README.md
   - suggestions.md
   - package.json
   - package-lock.json
   - scripts
+  - index-old-backup.html
   - "test-*.html"
 
 # Default values

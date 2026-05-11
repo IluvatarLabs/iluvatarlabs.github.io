@@ -176,35 +176,6 @@ description: A post-training & research lab. Closing the loop on post-training, 
             max-width: 26ch;
             margin-bottom: 0;
         }
-        /* Zero-height wrapper for the link — it doesn't participate in the
-           flex centering calc, so the h1 alone is centered in the panel.
-           The link renders below the h1 via normal flow + margin. */
-        .hero-link-anchor {
-            height: 0;
-            overflow: visible;
-        }
-        .hero-about {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.2rem, 1.55vw, 1.45rem);
-            font-weight: 600;
-            letter-spacing: -0.013em;
-            color: var(--accent);
-            text-decoration: none;
-            border: 1.5px solid var(--accent);
-            border-radius: 999px;
-            padding: 0.85rem 1.7rem;
-            background: rgba(233,123,106,0.10);
-            margin-top: 2rem;
-            display: inline-flex; align-items: center; gap: 0.55rem;
-            transition: color 0.2s, border-color 0.2s, background 0.2s, gap 0.2s;
-        }
-        .hero-about:hover {
-            color: var(--accent-deep);
-            border-color: var(--accent-deep);
-            background: rgba(233,123,106,0.18);
-            gap: 0.85rem;
-        }
-
         .rotator {
             display: inline-grid;
             grid-template-areas: "w";
@@ -659,6 +630,7 @@ description: A post-training & research lab. Closing the loop on post-training, 
         .site-footer-inner {
             max-width: var(--max-content);
             margin: 0 auto;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1rem;
             color: var(--ink-cream-mute);
             letter-spacing: -0.005em;
@@ -682,7 +654,6 @@ description: A post-training & research lab. Closing the loop on post-training, 
             .hero { min-height: auto; padding: 7rem var(--edge-pad) 4rem; }
             .hero-inner { min-height: auto; }
             .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: none; }
-            .hero-about { font-size: clamp(1.1rem, 4vw, 1.35rem); }
 
             .product-stack { padding: 2.5rem 1.5rem; }
             .product-stack-inner { gap: 1.25rem; }
