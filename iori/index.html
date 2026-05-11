@@ -150,6 +150,14 @@ permalink: /iori/
         .hero .text strong { color: var(--ink-cream); font-weight: 500; }
         /* Keyword emphasis in hero copy — color in place of underline. */
         .hero-em { color: var(--accent); }
+        .hero-link {
+            color: var(--ink-cream);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: var(--ink-cream-mute);
+            transition: text-decoration-color 0.2s;
+        }
+        .hero-link:hover { text-decoration-color: var(--ink-cream); }
 
         /* ────────────────────────────────────────────────────────────── */
         /* THESIS — deeper cream surface. Big multi-line claim, then 4    */
@@ -530,7 +538,7 @@ permalink: /iori/
 <section class="hero">
     <div class="hero-inner">
         <h1>Iluvatar <span class="hero-em">Open Research</span><br>Initiative</h1>
-        <p class="text">Open source science, powered by Marvin. IORI aims to support groundbreaking research by enabling contributors around the world to participate in community-driven discovery.</p>
+        <p class="text">Open source science, powered by <a href="/marvin/" class="hero-link">Marvin</a>. IORI aims to support groundbreaking research by enabling contributors around the world to participate in <span class="hero-em">community-driven discovery</span>.</p>
     </div>
 </section>
 
