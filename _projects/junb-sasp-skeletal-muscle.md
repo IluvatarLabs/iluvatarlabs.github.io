@@ -14,7 +14,7 @@ tags:
   - Single-cell transcriptomics
   - Senescence
   - Drug discovery
-github_url: "https://github.com/iluvatar-open-research/project-junb-sasp-skeletal-muscle"
+github_url: "https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/junb-sasp-skeletal-muscle"
 preprint_url: "https://www.biorxiv.org/"
 hypothesis_count: 8
 dataset_count: 5
@@ -68,7 +68,7 @@ All findings are correlational. Causal validation requires perturbation in prima
 
 If you have data, capacity, or relevant perturbation systems, file an issue on the [project repository][repo] or email iori@iluvatarlabs.com.
 
-[repo]: https://github.com/iluvatar-open-research/project-junb-sasp-skeletal-muscle
+[repo]: https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/junb-sasp-skeletal-muscle
 
 ## Findings
 
