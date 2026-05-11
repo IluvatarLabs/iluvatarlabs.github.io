@@ -7,7 +7,7 @@ latest: "Risk converges on constrained synaptic genes in neurons, not microglia.
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-11
-started: 2026-04-23
+started: 2026-05-11
 summary: "Across five independent genetic analyses, schizophrenia common-variant risk maps onto neuronal synaptic programs, not microglia. Synaptic genes as a class are broadly constrained (pLI OR=4.45 vs genome), and within that class, SCZ-associated synaptic genes show additional constraint concentration (within-class OR=6.94, p=0.004). This two-layer architecture means SCZ risk preferentially targets the most dosage-sensitive members of the most constrained functional class. The constraint architecture is shared with autism and developmental disorders at comparable magnitude, framing it as neurodevelopmental rather than schizophrenia-exclusive. EGR1 and MEF2C are enriched at SCZ, ASD, and DDD gene promoters — they are pan-neurodevelopmental regulators. CTCF is the only factor showing possibly SCZ-preferential motif enrichment. An NF-κB pathway finding was traced to circular gene curation and retracted. Drug-target overlap is database-definition-dependent: enriched vs the genome but null vs the druggable universe."
 tags:
   - Schizophrenia

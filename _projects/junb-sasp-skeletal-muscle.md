@@ -7,7 +7,7 @@ latest: "Vascular endothelial cells show the strongest donor-level SASP coupling
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-11
-started: 2026-04-22
+started: 2026-05-11
 summary: "Vascular endothelial cells, not fibroblasts, show the strongest donor-level coupling between JUNB/AP-1 and the senescence-associated secretory phenotype (SASP) in aged human skeletal muscle. The three major cell compartments (vascular, muscle stem cell, fibroblast) each run distinct regulatory programs. The leading therapeutic hypothesis pairs a JNK-pathway modulator for the vascular inflammatory axis with ANGPT2 blockade for a second, JNK-independent vessel-destabilization axis. All findings are correlational; causal validation requires perturbation in primary human cells."
 tags:
   - Sarcopenia

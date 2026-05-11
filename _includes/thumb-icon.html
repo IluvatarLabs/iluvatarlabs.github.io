@@ -46,6 +46,32 @@
     <path d="M 140 80 L 340 80 L 240 180 Z M 140 280 L 340 280 L 240 180 Z"
           fill="#B8A6FF" stroke="#B8A6FF" stroke-width="12" stroke-linejoin="round"/>
 </svg>
+{% when 'iori' %}
+<svg class="thumb-icon" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+        <mask id="th-iori-mf">
+            <rect width="480" height="360" fill="#fff"/>
+            <rect x="110" y="95" width="170" height="226" rx="10" fill="#000"/>
+        </mask>
+        <mask id="th-iori-mfm">
+            <rect width="480" height="360" fill="#fff"/>
+            <rect x="110" y="95" width="170" height="226" rx="10" fill="#000"/>
+            <rect x="144" y="73" width="170" height="226" rx="10" fill="#000"/>
+        </mask>
+    </defs>
+    <g stroke="#D88848" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="184" y="56"  width="158" height="214" rx="8" mask="url(#th-iori-mfm)"/>
+        <rect x="150" y="79"  width="158" height="214" rx="8" mask="url(#th-iori-mf)"/>
+        <rect x="116" y="101" width="158" height="214" rx="8"/>
+    </g>
+    <g stroke="#D88848" stroke-width="7" stroke-linecap="round" opacity="0.55">
+        <line x1="139" y1="152" x2="218" y2="152"/>
+        <line x1="139" y1="180" x2="251" y2="180"/>
+        <line x1="139" y1="208" x2="229" y2="208"/>
+        <line x1="139" y1="236" x2="240" y2="236"/>
+        <line x1="139" y1="264" x2="206" y2="264"/>
+    </g>
+</svg>
 {% when 'elastic' %}
 <svg class="thumb-icon" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <g stroke="#6EC8E6" stroke-width="14" stroke-linecap="round" fill="none">
