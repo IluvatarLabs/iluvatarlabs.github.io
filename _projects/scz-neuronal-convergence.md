@@ -14,7 +14,7 @@ tags:
   - Psychiatric genetics
   - Post-GWAS
   - Evolutionary constraint
-github_url: "https://github.com/iluvatar-open-research/project-scz-neuronal-convergence"
+github_url: "https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/scz-neuronal-convergence"
 preprint_url: "https://www.biorxiv.org/"
 hypothesis_count: 7
 dataset_count: 12
@@ -72,7 +72,7 @@ This project is entirely computational. Every finding rests on summary statistic
 
 If you have data, cell systems, or relevant expertise, file an issue on the [project repository][repo] or email iori@iluvatarlabs.com.
 
-[repo]: https://github.com/iluvatar-open-research/project-scz-neuronal-convergence
+[repo]: https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/scz-neuronal-convergence
 
 ## Findings
 
