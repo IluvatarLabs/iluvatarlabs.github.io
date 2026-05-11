@@ -10,27 +10,27 @@ Iluvatar Labs is an AI research lab building tools that close the loop between m
 
 ## Products
 
-- [Marvin](https://iluvatarlabs.github.io/marvin/): An autonomous research agent for ML and scientific work. Marvin reviews literature, generates and tests hypotheses, runs full research loops end-to-end, and maintains rich persistent context (Mithril) across sessions. Cross-domain: frontier AI, computational biology, materials science.
-- [Actuator](https://iluvatarlabs.github.io/actuator/): A patent-pending closed-loop control layer for model transformation. Streams reward and eval signals through live training, adapts pressure when capability drifts, and halts before damage. Drops into existing post-training stacks. Use cases include distillation, compression, and reinforcement learning with reduced alignment tax.
+- [Marvin](https://iluvatarlabs.com/marvin/): An autonomous research agent for ML and scientific work. Marvin reviews literature, generates and tests hypotheses, runs full research loops end-to-end, and maintains rich persistent context (Mithril) across sessions. Cross-domain: frontier AI, computational biology, materials science.
+- [Actuator](https://iluvatarlabs.com/actuator/): A patent-pending closed-loop control layer for model transformation. Streams reward and eval signals through live training, adapts pressure when capability drifts, and halts before damage. Drops into existing post-training stacks. Use cases include distillation, compression, and reinforcement learning with reduced alignment tax.
 
 ## Research
 
-- [Divergent-Convergent Attention (DCA)](https://iluvatarlabs.github.io/blog/2026/03/divergent-convergent-attention/): A transformer attention primitive that maintains parallel attention streams at different window sizes and reconciles them through learned periodic consensus. Improves long-context reasoning and recall.
-- [Elastic Speculation](https://iluvatarlabs.github.io/blog/2025/11/elastic-speculation/): Speculative decoding with adaptive depth. Delivers 30-50% lower inference latency and ~50% fewer speculative KV writes while preserving output quality.
+- [Divergent-Convergent Attention (DCA)](https://iluvatarlabs.com/blog/2026/03/divergent-convergent-attention/): A transformer attention primitive that maintains parallel attention streams at different window sizes and reconciles them through learned periodic consensus. Improves long-context reasoning and recall.
+- [Elastic Speculation](https://iluvatarlabs.com/blog/2025/11/elastic-speculation/): Speculative decoding with adaptive depth. Delivers 30-50% lower inference latency and ~50% fewer speculative KV writes while preserving output quality.
 
 ## Announcements
 
-- [Meet Marvin](https://iluvatarlabs.github.io/blog/2026/03/introducing-marvin/): Why we built an autonomous research agent and how it differs from existing options.
-- [Introducing Actuator](https://iluvatarlabs.github.io/blog/2026/04/introducing-actuator/): Why post-training is the primary differentiation lever for AI labs in 2026 and how Actuator closes the loop.
+- [Meet Marvin](https://iluvatarlabs.com/blog/2026/03/introducing-marvin/): Why we built an autonomous research agent and how it differs from existing options.
+- [Introducing Actuator](https://iluvatarlabs.com/blog/2026/04/introducing-actuator/): Why post-training is the primary differentiation lever for AI labs in 2026 and how Actuator closes the loop.
 
 ## More
 
-- [Discover (full blog index)](https://iluvatarlabs.github.io/blog/): Product announcements, research notes, field reports.
+- [Discover (full blog index)](https://iluvatarlabs.com/blog/): Product announcements, research notes, field reports.
 
 ## Technical resources
 
-- [Sitemap](https://iluvatarlabs.github.io/sitemap.xml)
-- [RSS / Atom feed](https://iluvatarlabs.github.io/feed.xml)
+- [Sitemap](https://iluvatarlabs.com/sitemap.xml)
+- [RSS / Atom feed](https://iluvatarlabs.com/feed.xml)
 
 ## Contact
 
