@@ -198,6 +198,25 @@ Don't use `max(<vh>, <px>)` — different MBP scaling modes (Default
 1117 vh / More Space 1329 vh) need the media query to consistently
 activate, and `max()` skips the floor when vh exceeds it.
 
+## IORI (Iluvatar Open Research Initiative)
+
+IORI has its own infrastructure beyond this website repo:
+
+- **Spec**: `IORI_spec_v2.md` in this repo root. All architectural decisions.
+- **SOP**: `IORI_cycle_SOP.md` in this repo root. Step-by-step for
+  publishing a Marvin project cycle. READ THIS BEFORE any repo work.
+- **Research repo**: `github.com/IluvatarLabs/iluvatar-open-research`.
+  Supplemental data archive (code, results, figures, hypotheses).
+  Local clone typically at `~/Documents/GitHub/iluvatar-open-research/`.
+- **Website pages**: `/iori/` (landing), `/iori/<slug>/` (project
+  detail pages from `_projects/*.md`).
+- **Contribute CTAs** on the IORI page link to GitHub issue templates
+  on the research repo.
+
+When working on IORI project publications, follow the SOP. The repo
+is a supplemental archive (like GEO + journal supplement), not a
+narrative layer. The website is the narrative.
+
 ## Color tokens (site-wide)
 
 Defined per-page in `:root`. Common ones:
