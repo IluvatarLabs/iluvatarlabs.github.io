@@ -181,22 +181,30 @@ last (check git log: `git log --oneline -- _includes/thumb-icon.html`).
 
 ## Hero sizing
 
-Heroes use a `min-height: <vh>` baseline + a laptop-height media query
-floor so 16" MBPs and similar shorter viewports don't render squished:
+Heroes fill the viewport on laptops and iPads, with a floor and a cap:
 
 ```css
-.hero { min-height: 58vh; /* or 65vh, etc. */ }
-
-/* Laptop-height floor: activates only on viewports ≤ 1399px tall,
-   so 1440p+ desktops keep their vh-based sizing untouched. */
-@media (min-width: 961px) and (max-height: 1399px) {
-    .hero { min-height: 820px; /* or whatever pixel floor fits */ }
+.hero {
+    min-height: 600px;
+    height: 100dvh;
+    max-height: 1117px;
 }
 ```
 
-Don't use `max(<vh>, <px>)` — different MBP scaling modes (Default
-1117 vh / More Space 1329 vh) need the media query to consistently
-activate, and `max()` skips the floor when vh exceeds it.
+- `100dvh` fills the viewport. `dvh` (dynamic viewport height) adjusts
+  for mobile browser chrome.
+- `600px` floor prevents cramping on unusual small viewports.
+- `982px` cap is the 14" MacBook Pro default logical screen height.
+  On 14" and smaller laptops the cap never activates, so heroes are
+  full-pane. On 16" MBPs and desktop monitors the hero stops at
+  982px and content peeks below.
+
+Mobile breakpoints reset all three:
+```css
+@media (max-width: 960px) {
+    .hero { min-height: auto; height: auto; max-height: none; }
+}
+```
 
 ## IORI (Iluvatar Open Research Initiative)
 

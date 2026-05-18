@@ -113,7 +113,9 @@ permalink: /iori/
         .hero {
             position: relative;
             padding: 7.5rem var(--edge-pad) 4rem;
-            min-height: 42vh;
+            min-height: 600px;
+            height: 100dvh;
+            max-height: 982px;
             background:
                 radial-gradient(ellipse 90% 90% at 95% 10%, rgba(216,136,72,0.07) 0%, rgba(216,136,72,0) 60%),
                 radial-gradient(ellipse 90% 80% at 5% 100%, rgba(120,150,195,0.09) 0%, rgba(120,150,195,0) 65%),
@@ -133,23 +135,23 @@ permalink: /iori/
         }
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(3.5rem, 8vw, 6.25rem);
             line-height: 1.02;
             letter-spacing: -0.035em;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--ink-cream);
             margin-bottom: 1.25rem;
         }
         .hero .text {
             font-family: 'Inter', sans-serif;
             font-size: clamp(1.2rem, 1.7vw, 1.5rem);
-            line-height: 1.4;
+            line-height: 1.55;
             letter-spacing: -0.012em;
             font-weight: 400;
             color: var(--ink-cream-soft);
+            max-width: 44rem;
         }
         .hero .text strong { color: var(--ink-cream); font-weight: 500; }
-        /* Keyword emphasis in hero copy — color in place of underline. */
         .hero-em { color: var(--accent); }
         .hero-link {
             color: var(--accent);
@@ -159,6 +161,29 @@ permalink: /iori/
             transition: color 0.2s, text-decoration-color 0.2s;
         }
         .hero-link:hover { color: var(--ink-cream); text-decoration-color: var(--ink-cream); }
+        .hero-cta {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.25rem, 1.5vw, 1.45rem);
+            font-weight: 600;
+            letter-spacing: -0.012em;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1.5px solid var(--accent);
+            border-radius: 999px;
+            padding: 0.85rem 1.7rem;
+            background: rgba(216,136,72,0.10);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            transition: color 0.2s, border-color 0.2s, background 0.2s, gap 0.2s;
+            margin-top: 1.75rem;
+        }
+        .hero-cta:hover {
+            color: var(--ink-cream);
+            border-color: var(--ink-cream);
+            background: rgba(216,136,72,0.16);
+            gap: 0.85rem;
+        }
 
         /* ────────────────────────────────────────────────────────────── */
         /* THESIS — deeper cream surface. Big multi-line claim, then 4    */
@@ -478,17 +503,10 @@ permalink: /iori/
         }
 
         /* Responsive */
-        /* Laptop heights: 42vh shrinks to ~470px on a 16" MBP, which feels
-           cramped against the H1 + subtitle + CTA stack. Add a px floor that
-           kicks in only on shorter viewports so 1440px+ desktops keep their
-           original sizing. */
-        @media (min-width: 961px) and (max-height: 1399px) {
-            .hero { min-height: 560px; }
-        }
         @media (max-width: 960px) {
             :root { --edge-pad: 1.5rem; }
 
-            .hero { padding: 8rem var(--edge-pad) 4.5rem; }
+            .hero { padding: 8rem var(--edge-pad) 4.5rem; min-height: auto; height: auto; max-height: none; }
             .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: none; }
 
             .thesis { padding: 5rem var(--edge-pad); }
@@ -540,7 +558,7 @@ permalink: /iori/
     <div class="hero-inner">
         <h1>Iluvatar <span class="hero-em">Open Research</span><br>Initiative</h1>
         <p class="text">Open source science, powered by <a href="/marvin/" class="hero-link">Marvin</a>. IORI aims to support groundbreaking research by enabling contributors around the world to participate in <span class="hero-em">community-driven</span> discovery.</p>
-        <p class="text" style="margin-top: 1.25rem;"><a href="/blog/2026/05/introducing-iori/" class="hero-link">Why open research matters &rarr;</a></p>
+        <a href="/blog/2026/05/introducing-iori/" class="hero-cta">Why open research matters <span>&rarr;</span></a>
     </div>
 </section>
 
