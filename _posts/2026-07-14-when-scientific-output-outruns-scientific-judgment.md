@@ -6,6 +6,7 @@ category: Research
 thumbnail: marvin
 author: "Iluvatar Labs"
 excerpt: "AI is scaling research output but risks creating an unsustainable wave of slop. Marvin is the industry-leading scientific agent that combats this quality gap by pairing frontier models with expert-built workflows, provenance, and persistent project state, scoring 93.7% across four LifeSciBench expert-reasoning tasks."
+image: /assets/images/vibe-science/social-card.png
 ---
 
 A recent *Science* article[^trinetx] on TriNetX documents what can happen when scientific output becomes easier to produce than to verify. The platform gives researchers access to anonymized electronic health records from more than 300 million patients. Publications mentioning TriNetX rose from 33 five years earlier to nearly 2,700 in 2025, then exceeded 2,100 by late June 2026. The article describes uncorrected bias, cherry-picking, and methods sections that claim analyses the platform cannot perform. Researchers also asked seven LLMs how to make a key correction for immortal-time bias in TriNetX; six proposed methods that were impossible to implement, and the researchers then found those impossible approaches described in published papers.

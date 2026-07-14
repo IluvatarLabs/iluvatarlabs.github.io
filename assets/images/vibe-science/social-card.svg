@@ -1,0 +1,71 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">When Scientific Output Outruns Scientific Judgment</title>
+  <desc id="desc">Social card showing Marvin leading LifeSciBench expert reasoning and visual analysis.</desc>
+
+  <defs>
+    <radialGradient id="cyanGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1120 30) rotate(145) scale(640 430)">
+      <stop stop-color="#6EC8E6" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#6EC8E6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="coralGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(65 625) rotate(-35) scale(520 330)">
+      <stop stop-color="#E0814A" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#E0814A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#10171C"/>
+  <rect width="1200" height="630" fill="url(#cyanGlow)"/>
+  <rect width="1200" height="630" fill="url(#coralGlow)"/>
+
+  <g font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">
+    <text x="64" y="150" fill="#F5F1EB" font-size="50" font-weight="700" letter-spacing="-1.8">
+      <tspan x="64" dy="0">When scientific</tspan>
+      <tspan x="64" dy="60">output outruns</tspan>
+      <tspan x="64" dy="60">scientific judgment</tspan>
+    </text>
+
+    <text x="64" y="400" font-size="28" font-weight="500" letter-spacing="-0.4">
+      <tspan fill="#6EC8E6" font-weight="700">Marvin leads</tspan>
+      <tspan fill="#F5F1EB"> in</tspan>
+      <tspan x="64" dy="38" fill="#F5F1EB">LifeSciBench expert</tspan>
+      <tspan x="64" dy="38" fill="#F5F1EB">reasoning and visual</tspan>
+      <tspan x="64" dy="38" fill="#F5F1EB">analysis.</tspan>
+    </text>
+
+    <g>
+      <g stroke="#F5F1EB" stroke-opacity="0.11">
+        <path d="M660 58V532M775 58V532M890 58V532M1005 58V532M1120 58V532"/>
+      </g>
+
+      <g font-size="18">
+        <text x="640" y="112" fill="#F5F1EB" font-weight="700" text-anchor="end">Marvin</text>
+        <rect x="660" y="84" width="387.6" height="40" rx="5" fill="#99C1FB"/>
+        <text x="1062" y="113" fill="#F5F1EB" font-size="20" font-weight="700">93.7%</text>
+
+        <text x="640" y="202" fill="#F5F1EB" text-anchor="end">Biomni</text>
+        <rect x="660" y="174" width="300.2" height="40" rx="5" fill="#E2A061"/>
+        <text x="975" y="203" fill="#F5F1EB">86.1%</text>
+
+        <text x="640" y="292" fill="#F5F1EB" text-anchor="end">Claude Science</text>
+        <rect x="660" y="264" width="299" height="40" rx="5" fill="#92D290"/>
+        <text x="974" y="293" fill="#F5F1EB">86.0%</text>
+
+        <text x="640" y="382" fill="#F5F1EB" text-anchor="end">Claude Code</text>
+        <rect x="660" y="354" width="276" height="40" rx="5" fill="#DE96BF"/>
+        <text x="951" y="383" fill="#F5F1EB">84.0%</text>
+
+        <text x="640" y="472" fill="#F5F1EB" font-size="16" text-anchor="end">Open Source Alternative</text>
+        <rect x="660" y="444" width="92" height="40" rx="5" fill="#A793EA"/>
+        <text x="767" y="473" fill="#F5F1EB">68.0%</text>
+      </g>
+
+      <g fill="#8F9AA1" font-size="15" text-anchor="middle">
+        <text x="660" y="570">60%</text>
+        <text x="775" y="570">70%</text>
+        <text x="890" y="570">80%</text>
+        <text x="1005" y="570">90%</text>
+        <text x="1120" y="570">100%</text>
+      </g>
+    </g>
+  </g>
+</svg>
