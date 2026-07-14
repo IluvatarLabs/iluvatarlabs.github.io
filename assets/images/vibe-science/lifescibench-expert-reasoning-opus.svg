@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 736 390" role="img" aria-labelledby="title desc">
+  <title id="title">Claude Opus 4.8 pooled score by harness</title>
+  <desc id="desc">Marvin scores 93.7 percent, Biomni 86.1 percent, Claude Science 86.0 percent, Claude Code 84.0 percent, and Open Source Alternative 68.0 percent. The displayed axis begins at 60 percent.</desc>
+  <style>
+    text { fill: #fff; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 400; }
+    .label { text-anchor: end; }
+    .value { text-anchor: start; }
+    .strong { font-weight: 500; }
+    .ticks text { fill: #8b8b8b; text-anchor: middle; }
+    .grid line { stroke: #2b2b2b; stroke-width: 1; }
+  </style>
+  <rect width="736" height="390" fill="#181818"/>
+  <g class="grid" aria-hidden="true">
+    <line x1="210" y1="20" x2="210" y2="346"/><line x1="327.5" y1="20" x2="327.5" y2="346"/>
+    <line x1="445" y1="20" x2="445" y2="346"/><line x1="562.5" y1="20" x2="562.5" y2="346"/>
+    <line x1="680" y1="20" x2="680" y2="346"/>
+  </g>
+  <g>
+    <text class="label strong" x="198" y="57">Marvin</text><rect x="210" y="34" width="396" height="34" rx="3" fill="#99c1fb"/><text class="value strong" x="614" y="57">93.7%</text>
+    <text class="label" x="198" y="117">Biomni</text><rect x="210" y="94" width="306.7" height="34" rx="3" fill="#e2a061"/><text class="value" x="525" y="117">86.1%</text>
+    <text class="label" x="198" y="177">Claude Science</text><rect x="210" y="154" width="305.5" height="34" rx="3" fill="#92d290"/><text class="value" x="524" y="177">86.0%</text>
+    <text class="label" x="198" y="237">Claude Code</text><rect x="210" y="214" width="282" height="34" rx="3" fill="#de96bf"/><text class="value" x="500" y="237">84.0%</text>
+    <text class="label" x="198" y="297">Open Source Alternative</text><rect x="210" y="274" width="94" height="34" rx="3" fill="#a793ea"/><text class="value" x="312" y="297">68.0%</text>
+  </g>
+  <g class="ticks" aria-hidden="true">
+    <text x="210" y="370">60%</text><text x="327.5" y="370">70%</text><text x="445" y="370">80%</text><text x="562.5" y="370">90%</text><text x="680" y="370">100%</text>
+  </g>
+</svg>

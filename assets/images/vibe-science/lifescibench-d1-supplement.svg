@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 736 330" role="img" aria-labelledby="title desc">
+  <title id="title">GPT-5.5 and GLM-5.2 D1 scores by harness</title>
+  <desc id="desc">Marvin scores 100 and 92.5 percent. The coding baselines score 46.2 and 47.2 percent. Open Source Alternative scores 23.6 and 9.4 percent.</desc>
+  <style>
+    text { fill: #fff; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; font-weight: 400; }
+    .label { text-anchor: end; }.value { text-anchor: start; }.strong { font-weight: 500; }
+    .ticks text { fill: #8b8b8b; text-anchor: middle; }.grid line { stroke: #2b2b2b; stroke-width: 1; }
+    .gpt { opacity: .58; }
+  </style>
+  <rect width="736" height="330" fill="#181818"/>
+  <g class="grid" aria-hidden="true">
+    <line x1="210" y1="20" x2="210" y2="286"/><line x1="300" y1="20" x2="300" y2="286"/>
+    <line x1="390" y1="20" x2="390" y2="286"/><line x1="480" y1="20" x2="480" y2="286"/>
+    <line x1="570" y1="20" x2="570" y2="286"/>
+  </g>
+  <g>
+    <text class="label strong" x="198" y="61">Marvin</text>
+    <rect class="gpt" x="210" y="34" width="360" height="22" rx="3" fill="#99c1fb"/><text class="value" x="578" y="51">100.0% · GPT-5.5</text>
+    <rect x="210" y="62" width="333" height="22" rx="3" fill="#99c1fb"/><text class="value strong" x="551" y="79">92.5% · GLM-5.2</text>
+    <text class="label" x="198" y="151">Codex / Claude Code</text>
+    <rect class="gpt" x="210" y="124" width="166.3" height="22" rx="3" fill="#de96bf"/><text class="value" x="384" y="141">46.2% · GPT-5.5</text>
+    <rect x="210" y="152" width="169.9" height="22" rx="3" fill="#de96bf"/><text class="value strong" x="388" y="169">47.2% · GLM-5.2</text>
+    <text class="label" x="198" y="241">Open Source Alternative</text>
+    <rect class="gpt" x="210" y="214" width="85" height="22" rx="3" fill="#a793ea"/><text class="value" x="303" y="231">23.6% · GPT-5.5</text>
+    <rect x="210" y="242" width="33.8" height="22" rx="3" fill="#a793ea"/><text class="value strong" x="252" y="259">9.4% · GLM-5.2</text>
+  </g>
+  <g class="ticks" aria-hidden="true"><text x="210" y="310">0%</text><text x="300" y="310">25%</text><text x="390" y="310">50%</text><text x="480" y="310">75%</text><text x="570" y="310">100%</text></g>
+</svg>
