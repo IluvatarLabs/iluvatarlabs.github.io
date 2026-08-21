@@ -20,7 +20,9 @@ permalink: /iori/mission/
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --ground:#F0EADA; --panel:color-mix(in oklch,var(--ground) 72%,white 28%); --ink:#15181C;
+  --ground-base:color-mix(in oklch,#EBEEEF 88%,#F0EADA 12%);
+  --ground:color-mix(in oklch,var(--ground-base) 96%,#15181C 4%);
+  --panel:color-mix(in oklch,#FBFCFC 94%,var(--ground) 6%); --ink:#15181C;
   --soft:rgba(21,24,28,.74); --mute:rgba(21,24,28,.66);
   --hair:rgba(21,24,28,.15); --hair-soft:rgba(21,24,28,.09);
   --active:#0E6B45; --amend:#8A560D;
@@ -97,7 +99,7 @@ h2{font-weight:600;font-size:clamp(1.25rem,2vw,1.5rem);letter-spacing:-.02em}
 .gov dd.mono{font-family:var(--mono);font-size:.93rem;line-height:1.7;color:var(--ink)}
 .gov a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--hair);overflow-wrap:anywhere}
 .gov a:hover{text-decoration-color:var(--ink)}
-.site-foot{display:flex;justify-content:flex-end;padding-top:clamp(1.5rem,4vh,2.5rem)}
+.site-foot{display:flex;justify-content:flex-start;padding-top:clamp(1.5rem,4vh,2.5rem)}
 .site-foot a{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.055em;color:var(--mute);
   text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .site-foot a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
@@ -181,7 +183,7 @@ h2{font-weight:600;font-size:clamp(1.25rem,2vw,1.5rem);letter-spacing:-.02em}
       </div>
     </div>
   </section>
-  <footer class="site-foot" data-od-id="site-footer"><a href="/" data-od-id="iluvatar-labs-return">Iluvatar Labs ↗</a></footer>
+  <footer class="site-foot" data-od-id="site-footer"><a href="/" data-od-id="iluvatar-labs-return">iluvatarlabs.com →</a></footer>
   <div class="end"></div>
 </div>
 </body>
