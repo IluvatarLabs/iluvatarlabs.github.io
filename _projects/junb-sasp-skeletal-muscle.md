@@ -2,7 +2,7 @@
 title: "JUNB/AP-1 marks the strongest inflammatory coupling in vascular cells of aging human muscle"
 project_name: "Skeletal Muscle Aging"
 question: "What drives aging muscle from regeneration toward fibrosis and inflammation, and can it be reversed?"
-north_star: "Sarcopenia has no approved therapy despite affecting over 50 million people. This project maps the regulatory programs that tip aging muscle from regenerative competence toward pathological drift, with the goal of identifying targets that restore regeneration without harmful tradeoffs."
+north_star: "Sarcopenia is estimated to affect more than 50 million people worldwide, yet no drug is approved specifically to treat it. This project maps the regulatory programs that tip aging muscle from regenerative competence toward pathological drift, with the goal of identifying targets that restore regeneration without harmful tradeoffs."
 latest: "Vascular endothelial cells show the strongest donor-level SASP coupling of any compartment, tightly associated with JUNB/AP-1. Each cell compartment runs a distinct regulatory program requiring a different therapeutic strategy. Cross-compartment module polarity may reflect co-expression structure rather than regulatory opposition — direct perturbation is needed."
 status: "Active analysis"
 iteration: 1
@@ -15,7 +15,7 @@ tags:
   - Senescence
   - Drug discovery
 github_url: "https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/junb-sasp-skeletal-muscle"
-preprint_url: "https://www.biorxiv.org/"
+preprint_url: ""
 hypothesis_count: 8
 dataset_count: 5
 sample_count: "387,000+ cells, 35 donors"
@@ -193,6 +193,8 @@ pySCENIC 0.12.x (GRNBoost2 + AUCell; cisTarget motif pruning non-functional), Py
 
 ### Selected literature
 
+- Santilli V et al. 2014. Clinical definition of sarcopenia. *Clin Cases Miner Bone Metab*. 11(3):177-180. [PMID 25568649](https://pubmed.ncbi.nlm.nih.gov/25568649/). Conservative prevalence estimates place the global burden above 50 million people.
+- U.S. Food and Drug Administration. 2024. [Pharmacy Compounding Advisory Committee briefing document: ibutamoren mesylate](https://www.fda.gov/media/183016/download). The FDA reports no approved drugs indicated for sarcopenia; current interventions focus on activity and nutrition.
 - Lee SH et al. 2025. Modulating phosphatase DUSP22 with BML-260 ameliorates skeletal muscle wasting via Akt-independent JNK-FOXO3a repression. *EMBO Mol Med*. doi:10.1038/s44321-025-00234-2.
 - Li Y et al. 2025. Multiomics and cellular senescence profiling of aging human skeletal muscle uncovers Maraviroc as a senotherapeutic approach for sarcopenia. *Nat Commun* 16:6207. doi:10.1038/s41467-025-61403-y.
 - Wang B et al. 2022. Pharmacological CDK4/6 inhibition reveals a p53-dependent senescent state with restricted toxicity. *EMBO J*. 41(6):e108946. doi:10.15252/embj.2021108946.

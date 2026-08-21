@@ -2,20 +2,20 @@
 title: "Schizophrenia genetic risk converges on constrained synaptic genes in neurons"
 project_name: "Mapping Schizophrenia Risk"
 question: "Can schizophrenia's hundreds of risk loci be resolved into targetable biology?"
-north_star: "Two decades of GWAS have produced hundreds of schizophrenia risk loci but zero mechanistic targets. This project maps where genetic risk converges on actionable regulatory programs, including the intersection with environmental triggers like stress, inflammation, and neurodevelopmental insults."
-latest: "Risk converges on constrained synaptic genes in neurons, not microglia. Within the broadly constrained synaptic gene class, SCZ-associated genes show additional constraint concentration (within-class OR=6.94). EGR1 and MEF2C are enriched at SCZ gene promoters but are shared across neurodevelopmental disorders; CTCF is the only factor showing possibly SCZ-preferential enrichment. Drug-target overlap is database-definition-dependent, not a clear depletion."
+north_star: "Schizophrenia genetics has identified hundreds of associated loci, but translating them into tractable biological mechanisms remains difficult. This project tests where common-variant risk converges across cell types, regulatory programs, and evolutionary constraint."
+latest: "Risk converges on constrained synaptic genes in neurons, not microglia. Within the broadly constrained synaptic gene class, SCZ-associated genes show additional constraint concentration (within-class OR=6.94). EGR1 and MEF2C motifs are enriched near SCZ gene promoters but are shared across neurodevelopmental disorders; CTCF is the only tested factor showing possibly SCZ-preferential motif enrichment. Drug-target overlap is database-definition-dependent, not a clear depletion."
 status: "Active analysis"
 iteration: 1
 updated: 2026-05-11
 started: 2026-05-11
-summary: "Across five independent genetic analyses, schizophrenia common-variant risk maps onto neuronal synaptic programs, not microglia. Synaptic genes as a class are broadly constrained (pLI OR=4.45 vs genome), and within that class, SCZ-associated synaptic genes show additional constraint concentration (within-class OR=6.94, p=0.004). This two-layer architecture means SCZ risk preferentially targets the most dosage-sensitive members of the most constrained functional class. The constraint architecture is shared with autism and developmental disorders at comparable magnitude, framing it as neurodevelopmental rather than schizophrenia-exclusive. EGR1 and MEF2C are enriched at SCZ, ASD, and DDD gene promoters — they are pan-neurodevelopmental regulators. CTCF is the only factor showing possibly SCZ-preferential motif enrichment. An NF-κB pathway finding was traced to circular gene curation and retracted. Drug-target overlap is database-definition-dependent: enriched vs the genome but null vs the druggable universe."
+summary: "Across five independent genetic analyses, schizophrenia common-variant risk maps onto neuronal synaptic programs, not microglia. Synaptic genes as a class are broadly constrained (pLI OR=4.45 vs genome), and within that class, SCZ-associated synaptic genes show additional constraint concentration (within-class OR=6.94, p=0.004). This two-layer architecture means SCZ risk preferentially targets the most dosage-sensitive members of the most constrained functional class. The constraint architecture is shared with autism and developmental disorders at comparable magnitude, framing it as neurodevelopmental rather than schizophrenia-exclusive. EGR1 and MEF2C motifs are enriched near promoters of SCZ, ASD, and DDD genes; they appear to be pan-neurodevelopmental regulatory signals rather than SCZ-specific factors. CTCF is the only tested factor showing possibly SCZ-preferential motif enrichment. An NF-κB pathway finding was traced to circular gene curation and retracted. Drug-target overlap is database-definition-dependent: enriched vs the genome but null vs the druggable universe."
 tags:
   - Schizophrenia
   - Psychiatric genetics
   - Post-GWAS
   - Evolutionary constraint
 github_url: "https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/scz-neuronal-convergence"
-preprint_url: "https://www.biorxiv.org/"
+preprint_url: ""
 hypothesis_count: 7
 dataset_count: 12
 sample_count: "76,755 cases, 243,649 controls (PGC3 EUR)"
@@ -47,7 +47,7 @@ All analyses use publicly available GWAS summary statistics and annotation resou
 
 3. **[NF-κB pathway enrichment is a circular false positive](#nfkb-false-positive) — <span class="chip chip-strong">Strong</span>.** Traced to the DoRothEA input gene list: 14 of 88 "confirmed SCZ" genes were immune-cluster members pre-selected from prior complement, cytokine, NF-κB, and TLR analyses. 86% of RELA regulon overlaps attributable to those 14 pre-selected genes. Methodological contribution: DoRothEA-style regulon enrichment is sensitive to disease-specific gene-set curation and should be verified with annotation-independent methods.
 
-4. **[EGR1, MEF2C, and CTCF are enriched at SCZ gene promoters — with cross-disorder context](#egr1-ctcf) — <span class="chip chip-strong">Strong</span> for enrichment; <span class="chip chip-moderate">Moderate</span> for SCZ-specificity.** All three recur across DoRothEA regulon overlap AND independent JASPAR PWM motif enrichment (EGR1 OR=4.98; CTCF OR=3.15; MEF2C OR=3.84). Cross-disorder comparators show that EGR1 and MEF2C motif enrichment is shared across neurodevelopmental disorders (EGR1: DDD OR=13.89, ASD OR=11.90, both exceeding SCZ OR=4.98; MEF2C: ASD OR=8.72, DDD OR=5.42). CTCF is the only tested factor showing possibly SCZ-preferential enrichment (all comparators non-significant; bootstrap-confirmed, 100 draws). EGR1 and MEF2C are best understood as regulatory factors for the constrained neurodevelopmental gene class, with SCZ genes enriched as members of that class.
+4. **[EGR1, MEF2C, and CTCF motifs are enriched near SCZ gene promoters — with cross-disorder context](#egr1-ctcf) — <span class="chip chip-strong">Strong</span> for motif enrichment; <span class="chip chip-moderate">Moderate</span> for SCZ-specificity.** All three recur across DoRothEA regulon overlap AND independent JASPAR PWM motif enrichment (EGR1 OR=4.98; CTCF OR=3.15; MEF2C OR=3.84). Cross-disorder comparators show that EGR1 and MEF2C motif enrichment is shared across neurodevelopmental disorders (EGR1: DDD OR=13.89, ASD OR=11.90, both exceeding SCZ OR=4.98; MEF2C: ASD OR=8.72, DDD OR=5.42). CTCF is the only tested factor showing possibly SCZ-preferential motif enrichment (all comparators non-significant; bootstrap-confirmed, 100 draws). EGR1 and MEF2C are best understood as regulatory factors for the constrained neurodevelopmental gene class, with SCZ genes enriched as members of that class.
 
 5. **[Evolutionary constraint concentrates at synaptic loci via a two-layer architecture](#constraint-architecture) — <span class="chip chip-strong">Strong</span>.** The most important architectural finding. The full common-variant risk set (EDT1, n=261) shows no significant constraint (pLI OR=1.14, p=0.41). The 14-gene hand-curated synaptic list (B3) shows extreme constraint (pLI OR=26.44, p=2.22×10⁻⁷). Critically, this decomposes into two stacking effects: synaptic genes as a class are broadly constrained (non-SCZ SynGO genes pLI OR=4.45, 44.2% in the most-constrained bin vs 15.1% genome-wide), and within that class, SCZ-associated synaptic genes show additional concentration (within-class OR=6.94, p=0.004, 84.6% vs 44.2%). SCZ risk preferentially targets the most dosage-sensitive members of the most constrained functional class. SCHEMA rare-variant genes (n=9) are categorically constrained (all pLI>0.9). Functional decomposition: synaptic scaffold (pLI OR=20.91), glutamate receptors (Haldane-corrected OR=32.5, 3/3 genes pLI>0.9), transcriptional regulators (pLI OR=13.91). Ion channel and mitochondrial genes show no constraint.
 
@@ -99,7 +99,7 @@ The surviving immune-adjacent signal localized to neuronal risk sets. Complement
 
 **Confidence: Strong** as a negative result. TLR pathway signal classified as **Moderate** (raw p=0.016, FDR=0.147).
 
-### NF-κB false positive
+### NF-κB false positive {#nfkb-false-positive}
 
 Earlier analyses had treated NF-κB as a dominant convergence pathway. Against the prioritized PGC3 list, the RELA regulon showed OR=0.79 (p=0.72) and NFKB1 showed OR=0.76 (p=0.73). Against the broader PGC3 extended list, both remained null to depleted. Tracing the earlier positive result back to its inputs revealed the mechanism: the 88-gene "confirmed SCZ" working set used in the initial DoRothEA analysis had been assembled in part by union with prior immune-pathway findings, so that 14 of its 88 genes were immune-cluster members pre-selected from complement, cytokine, NF-κB, and TLR analyses. Approximately 86% of the RELA regulon overlaps in that original analysis were attributable to those 14 pre-selected genes.
 
@@ -107,7 +107,7 @@ Testing NF-κB enrichment against a gene list that already encoded NF-κB biolog
 
 **Confidence: Strong** as a documented false positive. Methodological contribution with implications for any project using regulon-based enrichment on curated disease gene sets.
 
-### EGR1 and CTCF
+### EGR1 and CTCF {#egr1-ctcf}
 
 The most stable regulatory finding is the cross-framework recurrence of EGR1 and CTCF. In DoRothEA-based regulon overlap, EGR1 was enriched in both neuronal and immune compartments, as was CTCF. Orthogonal PWM motif scanning against JASPAR 2022 retained both factors with corrected significance: EGR1 OR=4.98 (corrected p=4.5×10⁻⁶), CTCF OR=3.15 (corrected p=6.9×10⁻⁵). Three additional TFs also passed motif correction: MEF2C (OR=3.84), TCF4 (OR=2.63), and NFKB1 (OR=2.67, but does not rescue the pathway-level NF-κB claim since RELA/NFKB1 regulon replications against PGC3 remained null).
 
