@@ -44,14 +44,13 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   a { color: inherit; }
 
   .page {
-    height: 100dvh;
-    min-height: 820px;
+    min-height: 100dvh;
     max-width: 1440px;
     margin: 0 auto;
-    padding: clamp(20px, 4vh, 40px) var(--pad);
+    padding: 40px var(--pad);
     display: grid;
     grid-template-rows: auto minmax(0, 1fr) auto auto;
-    row-gap: clamp(12px, 2vh, 20px);
+    row-gap: 20px;
   }
 
   /* Top bar */
@@ -94,7 +93,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   /* Main: words left, the field right */
   .main {
     display: grid;
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);   /* fixed split, text 1.5 : field 1, the proportion of the 1440x900 layout, held at every window size */
+    grid-template-columns: minmax(0, 0.775fr) minmax(0, 1fr);   /* fixed split, text 0.775 : field 1, held at every window size */
     column-gap: clamp(32px, 5vw, 80px);
     align-items: center;
     grid-template-rows: minmax(0, 1fr);   /* a definite row, so the field's height resolves */
@@ -103,7 +102,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
     min-height: 0;
   }
   .compact .page { height: auto; }
-  .words { display: flex; flex-direction: column; gap: clamp(28px, 5vh, 56px); }
+  .words { display: flex; flex-direction: column; gap: 56px; }
   .statement h1 {
     font-family: var(--font-wordmark);
     font-weight: 500;
@@ -151,7 +150,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   .lab {
     display: grid;
     row-gap: 2px;
-    padding: clamp(8px, 1.6vh, 18px) 0;
+    padding: 18px 0;
     border-top: 1px solid var(--hair);
     text-decoration: none;
     color: inherit;
@@ -187,25 +186,22 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   .field {
     position: relative;
     width: 100%;
-    height: 100%;
-    max-height: 680px;
-    min-height: 0;
+    aspect-ratio: 1 / 1;   /* a square as wide as its column: the field never shrinks with the window's height */
     align-self: center;
     display: grid;
-    place-items: center end;   /* the square (fitted by script to the smaller of width and height) sits flush right, centred vertically */
+    place-items: center;
   }
   .field canvas { display: block; width: 100%; height: 100%; }
 
   /* Latest from Discover: below the whole product section */
-  .disc { border-top: 1px solid var(--hair); padding: clamp(22px, 3.4vh, 36px) 0 clamp(8px, 1.5vh, 16px); }
-  .disc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: clamp(14px, 2vh, 20px); }
+  .disc { border-top: 1px solid var(--hair); padding: 36px 0 16px; }
+  .disc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 20px; }
   .disc-head h2 { font-family: var(--font-display); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; line-height: 1.2; margin: 0; }
   .disc-head a { font-size: 14px; color: var(--cream-soft); text-decoration: none; display: inline-block; padding: 8px 0; border-bottom: 1px solid var(--hair); transition: color 0.2s ease, border-color 0.2s ease; }
   .disc-head a:hover, .disc-foot a:hover { color: var(--cream); border-bottom-color: var(--cream); }
   .disc-foot a { font-size: 15px; font-family: var(--font-display); letter-spacing: -0.02em; color: var(--cream-soft); text-decoration: none; display: inline-block; padding: 6px 0; border-bottom: 1px solid var(--hair); transition: color 0.2s ease, border-color 0.2s ease; }
   .disc-head a:focus-visible, .disc a.post:focus-visible, .disc a.tp:focus-visible, .disc a.cp:focus-visible { outline: 1.5px solid var(--cream); outline-offset: 6px; border-radius: 4px; }
-  .disc.compact-band { border-top: 0; padding: clamp(6px, 1.2vh, 14px) 0 0; }
-  @media (max-height: 740px) { .compact-band .cp-x { display: none; } }
+  .disc.compact-band { border-top: 0; padding: 14px 0 0; }
   .compact-band .disc-head { margin-bottom: 10px; }
   .compact-band .disc-head h2 { font-size: 16px; font-weight: 500; letter-spacing: -0.03em; color: var(--cream); }
   .compact-band .disc-head a { font-size: 15px; padding: 6px 0; font-family: var(--font-display); letter-spacing: -0.02em; }
@@ -226,7 +222,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-top: clamp(10px, 2vh, 22px);
+    padding-top: 22px;
     font-size: 13px;
     letter-spacing: 0.01em;
     color: var(--cream-mute);
