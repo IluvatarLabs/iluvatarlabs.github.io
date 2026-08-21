@@ -26,7 +26,7 @@ This opportunity only matters if the capability spreads. If AI for science becom
 
 The trajectory of the internet offers a great analogy (not because every AI-adjacent blog post announcement needs an "AI is the new internet" comparison), but because the lesson here really is meaningful. The internet did not matter only because it made information easier to access. It mattered because it also made participation easier. People could publish, organize, build in public, and contribute to shared bodies of work. Open-source software, Wikipedia, and social media all grew out of that shift. 
 
-We think AI should do the same for science. That is why we are launching the **[Iluvatar Open Research Initiative (IORI)](/iori/)**, an open research program powered by [Marvin](https://marvinsci.com){:target="_blank" rel="noopener noreferrer"}, our autonomous AI research agent.
+We think AI should do the same for science. That is why we are launching the **[Iluvatar Open Research Initiative (IORI)](/iori/)**{:target="_blank" rel="noopener noreferrer" aria-label="Iluvatar Open Research Initiative (opens in a new tab)"}, an open research program powered by [Marvin](https://marvinsci.com){:target="_blank" rel="noopener noreferrer"}, our autonomous AI research agent.
 
 ## Open research should evolve with each loop
 

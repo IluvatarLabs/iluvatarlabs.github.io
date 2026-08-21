@@ -1,0 +1,366 @@
+---
+layout: null
+title: Programs | IORI
+description: Explore IORI's current open research projects and their published evidence records.
+image: /assets/images/introducing-iori/social-card.png
+permalink: /iori/programs/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo %}
+<link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+<link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ground:#F0EADA; --panel:color-mix(in oklch,var(--ground) 72%,white 28%); --ink:#15181C;
+  --soft:rgba(21,24,28,.74); --mute:rgba(21,24,28,.66);
+  --hair:rgba(21,24,28,.15); --hair-soft:rgba(21,24,28,.09);
+  --active:#0E6B45; --amend:#8A560D;
+  --pad:clamp(1.25rem,4vw,3.5rem); --max:1160px;
+  --sans:'IBM Plex Sans',sans-serif; --mono:'IBM Plex Mono',monospace;
+}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+a{color:inherit} a:focus-visible{outline:1.5px solid var(--ink);outline-offset:4px}
+.lbl{font-family:var(--mono);font-size:12.5px;font-weight:500;text-transform:uppercase;letter-spacing:.115em;color:var(--mute)}
+.mono{font-family:var(--mono);font-size:.95rem;letter-spacing:.01em}
+
+/* the bar: the site's name and its two pages */
+.bar{border-bottom:1px solid var(--hair)}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.bar .id{font-family:var(--mono);font-size:14.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;text-decoration:none;
+  display:inline-flex;align-items:center;min-height:48px}
+.bar ul{display:flex;gap:1.8rem;list-style:none}
+.bar ul a{font-family:var(--mono);font-size:13.5px;font-weight:500;letter-spacing:.115em;text-transform:uppercase;color:var(--mute);
+  text-decoration:none;display:inline-flex;align-items:center;min-height:48px;border-bottom:1px solid transparent;transition:color .18s ease,border-color .18s ease}
+.bar ul a:hover{color:var(--ink)}
+.bar ul a[aria-current]{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* statement */
+.statement{padding:clamp(2.6rem,7vh,4.6rem) 0 clamp(2rem,5vh,3rem)}
+.statement h1{font-weight:600;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.08;letter-spacing:-.03em}
+section{padding:clamp(1.6rem,4vh,2.6rem) 0}
+.sechead{padding-bottom:.7rem;border-bottom:1px solid var(--ink);margin-bottom:1.1rem}
+.sechead h2{font-weight:600;font-size:clamp(1.25rem,2vw,1.5rem);letter-spacing:-.02em}
+
+/* ───── featured: the registry record ───── */
+.rec{background:var(--panel);border:1px solid var(--hair);margin-bottom:1rem}
+.rec-head{display:flex;justify-content:flex-end;align-items:center;gap:1rem;flex-wrap:wrap;
+  padding:1rem 1.5rem;border-bottom:1px solid var(--hair-soft)}
+.status{font-family:var(--mono);font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.115em;
+  display:inline-flex;align-items:center;gap:.5rem}
+.rec-head .status::before{content:"";width:7px;height:7px;background:var(--active);border-radius:50%;display:inline-block}
+.rec-body{padding:1.6rem 1.5rem 1.25rem}
+.rec-name{font-weight:600;font-size:clamp(1.55rem,3vw,2.3rem);line-height:1.08;letter-spacing:-.028em;max-width:30ch;text-wrap:balance}
+.rec-name a{text-decoration:none}
+.rec-name a:hover{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+.rec-q{margin-top:.62rem;font-size:clamp(1.16rem,1.7vw,1.4rem);line-height:1.36;letter-spacing:-.015em;
+  color:var(--ink);font-weight:500;max-width:80ch;text-wrap:balance}
+.rec-cols{display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:1.5rem 2.9rem;margin-top:1.3rem;align-items:start}
+.rec-main,.rec-rail{min-width:0}
+.rec-rail .r{padding:.72rem 0;border-top:1px solid var(--hair-soft)}
+.rec-rail .r:first-child{border-top:0;padding-top:.1rem}
+.rec-rail .rv{margin-top:.3rem;font-size:1.02rem;line-height:1.45;color:var(--ink)}
+.rec-rail .rv small{display:block;font-family:var(--mono);font-size:13.5px;line-height:1.55;
+  color:var(--mute);margin-top:.22rem;letter-spacing:.01em}
+.rec-rail .rv small.tags{margin-top:.05rem;color:var(--soft)}
+.rec-rail .rv small u{text-decoration:none;white-space:nowrap}
+.finding{display:block;font-size:1.15rem;line-height:1.34;color:var(--ink);font-weight:500;
+  letter-spacing:-.013em;margin-bottom:.55rem;max-width:60ch;text-wrap:pretty}
+.fields{margin-top:0}
+.fields .f:first-child{border-top:0;padding-top:0}
+.f{display:grid;grid-template-columns:8.2rem minmax(0,1fr);gap:1.15rem;padding:.72rem 0;border-top:1px solid var(--hair-soft);align-items:start}
+.f dt{padding-top:.28rem}
+.f dd{font-size:1.02rem;line-height:1.55;color:var(--soft);max-width:72ch;text-wrap:pretty}
+.f dd.strongval{font-size:1.24rem;line-height:1.4;color:var(--ink);font-weight:500;letter-spacing:-.012em;max-width:62ch;text-wrap:balance}
+.f dd.mono{font-family:var(--mono);font-size:.95rem;letter-spacing:.01em;color:var(--ink)}
+.f dd.amend b{display:block;font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.115em;text-transform:uppercase;color:var(--amend);margin-bottom:.2rem}
+.f dd.amend.limit b{color:var(--mute)}
+.rec-foot{display:flex;gap:1.6rem;flex-wrap:wrap;padding:.45rem 1.5rem 1.2rem}
+.rec-foot a{font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  display:inline-flex;align-items:center;min-height:40px;border-bottom:1px solid transparent;color:var(--mute)}
+.rec-foot a:first-child{color:var(--active)}
+.rec-foot a:hover{border-bottom-color:currentColor}
+
+/* ───── all programs: the index ───── */
+.index{background:var(--panel);border:1px solid var(--hair);padding:1.35rem 1.5rem 1.5rem}
+.search{position:relative}
+.search input{width:100%;appearance:none;background:transparent;border:0;border-bottom:1px solid var(--hair);border-radius:0;
+  font-family:var(--mono);font-size:15px;color:var(--ink);padding:.7rem 0;min-height:44px;outline:none;transition:border-color .18s ease}
+.search input::placeholder{color:var(--mute)}
+.search input:focus{border-bottom-color:var(--ink)}
+.search kbd{position:absolute;right:0;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:12px;color:var(--mute);letter-spacing:.08em;
+  opacity:0;transition:opacity .18s ease;pointer-events:none}
+.search.has kbd{opacity:1}
+.filters{margin-top:.9rem;display:grid;gap:.2rem}
+.frow{display:grid;grid-template-columns:4.4rem minmax(0,1fr);gap:1rem;align-items:baseline}
+.frow .fl{padding-top:.2rem}
+.frow ul{list-style:none;display:flex;flex-wrap:wrap;gap:0 1.25rem}
+.frow button{appearance:none;background:none;border:0;border-radius:0;font:inherit;font-size:15px;color:var(--mute);cursor:pointer;padding:0;
+  min-height:36px;border-bottom:1px solid transparent;transition:color .18s ease,border-color .18s ease}
+.frow button:hover{color:var(--ink)}
+.frow button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink);font-weight:500}
+.frow button:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.frow button .c{font-family:var(--mono);font-size:12px;color:var(--mute);margin-left:.3rem;letter-spacing:.02em}
+
+table{width:100%;border-collapse:collapse;margin-top:1.2rem;table-layout:fixed}
+th,td{text-align:left;vertical-align:top;padding:.78rem .9rem .78rem 0;line-height:1.35}
+th{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.115em;text-transform:uppercase;color:var(--mute);
+  border-bottom:1px solid var(--ink);padding-top:.5rem;padding-bottom:.5rem}
+th button{appearance:none;background:none;border:0;border-radius:0;font:inherit;color:inherit;cursor:pointer;padding:0;min-height:32px;
+  display:inline-flex;align-items:center;gap:.45rem;letter-spacing:inherit;text-transform:inherit;transition:color .18s ease}
+th button:hover{color:var(--ink)}
+th button:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+th[aria-sort] button{color:var(--ink);font-weight:600}
+th button .ar{opacity:0;transition:opacity .18s ease;font-size:12px}
+th[aria-sort] button .ar{opacity:1}
+th[aria-sort="ascending"] button .ar::before{content:"↑"}
+th[aria-sort="descending"] button .ar::before{content:"↓"}
+col.c-field{width:10.5rem} col.c-status{width:8.8rem} col.c-hyp{width:8.6rem} col.c-upd{width:5.8rem}
+tbody tr{border-bottom:1px solid var(--hair-soft);cursor:pointer;transition:background-color .16s ease}
+tbody tr:hover{background:rgba(21,24,28,.045)}
+td.name .t{display:block;width:fit-content;font-weight:600;font-size:1.06rem;letter-spacing:-.012em;line-height:1.3;text-decoration:none}
+td.name .t:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+td.name .q{display:block;margin-top:.15rem;font-size:.94rem;line-height:1.4;color:var(--mute);text-wrap:pretty}
+td.field,td.status,td.upd{font-size:.96rem;color:var(--soft);padding-top:.85rem}
+td.status{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.115em;text-transform:uppercase;padding-top:.98rem;color:var(--ink)}
+td.status.live::before{content:"";width:7px;height:7px;background:var(--active);border-radius:50%;display:inline-block;margin-right:.5rem;vertical-align:1px}
+td.status.off{color:var(--mute);font-weight:500}
+td.hyp{padding-top:.88rem;white-space:nowrap}
+td.hyp .n{font-family:var(--mono);font-size:13.5px;color:var(--soft)}
+td.hyp .n.none{color:var(--mute)}
+td.upd{font-family:var(--mono);font-size:13.5px;letter-spacing:.01em;padding-top:.95rem}
+.empty td{color:var(--mute);font-size:1rem;cursor:default}
+.empty:hover{background:transparent!important}
+.site-foot{display:flex;justify-content:flex-end;padding-top:clamp(1.5rem,4vh,2.5rem)}
+.site-foot a{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.055em;color:var(--mute);
+  text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.site-foot a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.end{height:clamp(2.5rem,7vh,4.5rem)}
+
+@media(max-width:900px){
+  .f{grid-template-columns:1fr;gap:.25rem}
+  .rec-cols{grid-template-columns:1fr;gap:1.1rem}
+  .rec-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(11.5rem,1fr));gap:0 2rem}
+  .rec-rail .r:first-child{border-top:1px solid var(--hair-soft);padding-top:.72rem}
+  .search kbd{display:none}
+  table,thead,tbody,tr,td{display:block}
+  thead{display:none}
+  col{display:none}
+  tbody tr{padding:.9rem 0;display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;align-items:baseline}
+  td{padding:0}
+  td.name{grid-column:1;padding:.15rem 0 .35rem}
+  td.status{grid-column:2;grid-row:1;padding:0}
+  td.field,td.hyp,td.upd{display:inline;padding:0;font-size:.94rem}
+  td.field::after,td.hyp::after{content:" · "}
+  td.field{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){ tbody tr{transition:none} }
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap">
+  <a class="id" href="/iori/" data-od-id="identity-mark">IORI</a>
+  <ul data-od-id="nav">
+    <li><a href="/iori/mission/">Our mission</a></li>
+    <li><a href="/iori/programs/" aria-current="page">Programs</a></li>
+  </ul>
+</div></div>
+
+<div class="wrap">
+  <header class="statement" data-od-id="head">
+    <h1 data-od-id="programs-title">Programs</h1>
+  </header>
+
+  <section data-od-id="featured">
+    <div class="sechead"><h2 data-od-id="featured-heading">Featured</h2></div>
+
+    <article class="rec" data-od-id="program-scz">
+      <div class="rec-head"><span class="status">Active · Iteration 1 published</span></div>
+      <div class="rec-body">
+        <h3 class="rec-name"><a href="/iori/scz-neuronal-convergence/">Mapping Schizophrenia Risk</a></h3>
+        <p class="rec-q">Can schizophrenia's hundreds of risk loci be resolved into targetable biology?</p>
+        <div class="rec-cols">
+          <div class="rec-main">
+            <dl class="fields">
+              <div class="f"><dt class="lbl">Why it matters</dt><dd>Two decades of GWAS have identified hundreds of schizophrenia risk loci, but translating those associations into mechanisms remains a central bottleneck. This iteration tests cell-type, regulatory, evolutionary-constraint, cross-disorder, and drug-target convergence using public genetic and annotation data. No original experimental data were generated.</dd></div>
+              <div class="f"><dt class="lbl">Iteration 1 findings</dt><dd><b class="finding">Schizophrenia genetic risk converges on constrained synaptic genes in neurons</b>Across five genetic analyses, schizophrenia common-variant risk maps to neuronal synaptic programs; the tested microglial marker analysis was not enriched. Within the broadly constrained synaptic class, SCZ-associated genes show additional constraint concentration (within-class OR=6.94, p=0.004). EGR1 and MEF2C motifs are enriched near SCZ gene promoters but are shared across neurodevelopmental disorders. CTCF is the only tested factor showing possibly SCZ-preferential motif enrichment. Drug-target overlap depends on the comparison universe. These are computational findings from public data and annotation resources.</dd></div>
+            </dl>
+          </div>
+          <aside class="rec-rail">
+            <div class="r"><div class="lbl">Hypotheses</div><div class="rv">7 hypothesis cards</div></div>
+            <div class="r"><div class="lbl">Evidence base</div><div class="rv">13 datasets and annotation resources<small><u>Primary GWAS: 76,755 cases ·</u> <u>243,649 controls ·</u> <u>PGC3 EUR</u></small></div></div>
+            <div class="r"><div class="lbl">Iteration</div><div class="rv">1<small><u>opened 2026-05-11 ·</u> <u>updated 2026-05-11</u></small></div></div>
+            <div class="r"><div class="lbl">Tags</div><div class="rv"><small class="tags"><u>Schizophrenia ·</u> <u>Psychiatric genetics ·</u> <u>Post-GWAS ·</u> <u>Evolutionary constraint</u></small></div></div>
+          </aside>
+        </div>
+      </div>
+      <div class="rec-foot">
+        <a href="/iori/scz-neuronal-convergence/">Open the record →</a>
+        <a href="https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/scz-neuronal-convergence" target="_blank" rel="noopener noreferrer">Working layer ↗</a>
+      </div>
+    </article>
+
+    <article class="rec" data-od-id="program-muscle">
+      <div class="rec-head"><span class="status">Active · Iteration 1 published</span></div>
+      <div class="rec-body">
+        <h3 class="rec-name"><a href="/iori/junb-sasp-skeletal-muscle/">Skeletal Muscle Aging</a></h3>
+        <p class="rec-q">What drives aging muscle from regeneration toward fibrosis and inflammation, and can it be reversed?</p>
+        <div class="rec-cols">
+          <div class="rec-main">
+            <dl class="fields">
+              <div class="f"><dt class="lbl">Why it matters</dt><dd>Sarcopenia is estimated to affect more than 50 million people worldwide, yet no drug is approved specifically to treat it. This project maps regulatory programs that may tip aging muscle from regenerative competence toward pathological drift.</dd></div>
+              <div class="f"><dt class="lbl">Iteration 1 findings</dt><dd><b class="finding">JUNB/AP-1 marks the strongest inflammatory coupling in vascular cells of aging human muscle</b>Vascular endothelial cells show the strongest donor-level SASP coupling, associated with JUNB/AP-1. Vascular cells, muscle stem cells, and FAPs show distinct regulatory patterns that may require different therapeutic strategies. Cross-compartment module polarity may reflect co-expression structure rather than regulatory opposition. All findings are correlational; causal validation requires perturbation in primary human cells.</dd></div>
+            </dl>
+          </div>
+          <aside class="rec-rail">
+            <div class="r"><div class="lbl">Hypotheses</div><div class="rv">8 hypothesis cards</div></div>
+            <div class="r"><div class="lbl">Evidence base</div><div class="rv">2 single-cell atlases + 3 supporting resources<small><u>HLMA: 387,000+ cells/nuclei ·</u> <u>23 donors</u><br><u>Validation atlas: 90,902 nuclei ·</u> <u>12 analyzed donors</u></small></div></div>
+            <div class="r"><div class="lbl">Iteration</div><div class="rv">1<small><u>opened 2026-05-11 ·</u> <u>updated 2026-05-11</u></small></div></div>
+            <div class="r"><div class="lbl">Tags</div><div class="rv"><small class="tags"><u>Sarcopenia ·</u> <u>Single-cell transcriptomics ·</u> <u>Senescence ·</u> <u>Drug discovery</u></small></div></div>
+          </aside>
+        </div>
+      </div>
+      <div class="rec-foot">
+        <a href="/iori/junb-sasp-skeletal-muscle/">Open the record →</a>
+        <a href="https://github.com/IluvatarLabs/iluvatar-open-research/tree/main/projects/junb-sasp-skeletal-muscle" target="_blank" rel="noopener noreferrer">Working layer ↗</a>
+      </div>
+    </article>
+  </section>
+
+  <section id="all" data-od-id="all-programs">
+    <div class="sechead"><h2 data-od-id="all-programs-heading">All programs</h2></div>
+    <div class="index">
+      <div class="search" id="searchwrap">
+        <label for="q" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search programs</label>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search by title, question, field, or index term">
+        <kbd>ESC CLEARS</kbd>
+      </div>
+      <div class="filters" data-od-id="filters">
+        <div class="frow"><span class="fl lbl">Field</span><ul id="f-field"></ul></div>
+        <div class="frow"><span class="fl lbl">Status</span><ul id="f-status"></ul></div>
+      </div>
+      <table data-od-id="index">
+        <colgroup><col><col class="c-field"><col class="c-status"><col class="c-hyp"><col class="c-upd"></colgroup>
+        <thead><tr>
+          <th data-k="title"><button type="button">Program<span class="ar"></span></button></th>
+          <th data-k="field"><button type="button">Field<span class="ar"></span></button></th>
+          <th data-k="status"><button type="button">Status<span class="ar"></span></button></th>
+          <th data-k="hyp"><button type="button">Hypotheses<span class="ar"></span></button></th>
+          <th data-k="updated"><button type="button">Updated<span class="ar"></span></button></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </section>
+  <footer class="site-foot" data-od-id="site-footer"><a href="/" data-od-id="iluvatar-labs-return">Iluvatar Labs ↗</a></footer>
+  <div class="end"></div>
+</div>
+
+<script>
+(function(){
+  var REAL=[
+    {title:'Mapping Schizophrenia Risk',q:"Can schizophrenia's hundreds of risk loci be resolved into targetable biology?",
+     field:'Schizophrenia',status:'Active',iter:1,updated:'2026-05-11',hyp:7,
+     terms:'schizophrenia psychiatric-genetics post-gwas evolutionary-constraint',url:'/iori/scz-neuronal-convergence/'},
+    {title:'Skeletal Muscle Aging',q:'What drives aging muscle from regeneration toward fibrosis and inflammation, and can it be reversed?',
+     field:'Sarcopenia',status:'Active',iter:1,updated:'2026-05-11',hyp:8,
+     terms:'sarcopenia single-cell-transcriptomics senescence drug-discovery',url:'/iori/junb-sasp-skeletal-muscle/'}
+  ];
+  var ALL=REAL.slice();
+  var state={q:'',field:'All',status:'All',sort:'updated',dir:'desc'};
+  var STATUS_ORDER={Active:0,Proposed:1,Paused:2,Completed:3};
+  var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function when(d){return MON[+d.slice(5,7)-1]+' '+d.slice(0,4);}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  var rows=document.getElementById('rows');
+  var q=document.getElementById('q'), wrap=document.getElementById('searchwrap');
+
+  function uniq(k){var m={};ALL.forEach(function(p){m[p[k]]=(m[p[k]]||0)+1;});return m;}
+  function buildFilters(){
+    var fields=uniq('field'), statuses=uniq('status');
+    var fk=Object.keys(fields).sort(), sk=Object.keys(statuses).sort(function(a,b){return STATUS_ORDER[a]-STATUS_ORDER[b];});
+    fill('f-field','field',['All'].concat(fk),fields);
+    fill('f-status','status',['All'].concat(sk),statuses);
+  }
+  function fill(id,key,vals,counts){
+    var ul=document.getElementById(id); ul.innerHTML='';
+    vals.forEach(function(v){
+      var li=document.createElement('li'), b=document.createElement('button'); b.type='button';
+      b.innerHTML=esc(v)+(v==='All'?'':'<span class="c">'+counts[v]+'</span>');
+      b.setAttribute('aria-pressed',String(state[key]===v));
+      b.addEventListener('click',function(){state[key]=v;render();});
+      li.appendChild(b); ul.appendChild(li);
+    });
+  }
+  function syncFilters(){
+    ['f-field','f-status'].forEach(function(id,i){
+      var key=i?'status':'field';
+      Array.prototype.forEach.call(document.getElementById(id).querySelectorAll('button'),function(b){
+        b.setAttribute('aria-pressed',String(b.firstChild.nodeValue===state[key]));
+      });
+    });
+  }
+  function matches(p){
+    if(state.field!=='All'&&p.field!==state.field) return false;
+    if(state.status!=='All'&&p.status!==state.status) return false;
+    if(!state.q) return true;
+    var hay=(p.title+' '+p.q+' '+p.field+' '+p.status+' '+p.terms).toLowerCase();
+    return state.q.split(/\s+/).every(function(t){return hay.indexOf(t)>-1;});
+  }
+  function cmp(a,b){
+    var k=state.sort, d=state.dir==='asc'?1:-1, x, y;
+    if(k==='hyp'){x=a.hyp;y=b.hyp;}
+    else if(k==='status'){x=STATUS_ORDER[a.status];y=STATUS_ORDER[b.status];}
+    else {x=(a[k]||'').toString().toLowerCase();y=(b[k]||'').toString().toLowerCase();}
+    if(x<y) return -d; if(x>y) return d;
+    return a.updated<b.updated?1:-1;   // stable secondary: newest first
+  }
+  function render(){
+    syncFilters();
+    var list=ALL.filter(matches).sort(cmp);
+    rows.innerHTML=list.map(function(p){
+      var off=p.status==='Completed'||p.status==='Paused', live=p.status==='Active';
+      return '<tr data-url="'+esc(p.url)+'">'+
+        '<td class="name"><a class="t" href="'+esc(p.url)+'">'+esc(p.title)+'</a><span class="q">'+esc(p.q)+'</span></td>'+
+        '<td class="field">'+esc(p.field)+'</td>'+
+        '<td class="status'+(off?' off':'')+(live?' live':'')+'">'+esc(p.status)+'</td>'+
+        '<td class="hyp"><span class="n">'+p.hyp+'</span></td>'+
+        '<td class="upd">'+when(p.updated)+'</td></tr>';
+    }).join('')||'<tr class="empty"><td colspan="5">No programs match.</td></tr>';
+    wrap.classList.toggle('has',!!state.q);
+    Array.prototype.forEach.call(document.querySelectorAll('th[data-k]'),function(th){
+      if(th.dataset.k===state.sort) th.setAttribute('aria-sort',state.dir==='asc'?'ascending':'descending'); else th.removeAttribute('aria-sort');
+    });
+  }
+  q.addEventListener('input',function(){state.q=q.value.trim().toLowerCase();render();});
+  q.addEventListener('keydown',function(e){if(e.key==='Escape'){q.value='';state.q='';render();}});
+  Array.prototype.forEach.call(document.querySelectorAll('th[data-k] button'),function(b){
+    b.addEventListener('click',function(){
+      var k=b.parentNode.dataset.k;
+      if(state.sort===k) state.dir=state.dir==='asc'?'desc':'asc';
+      else {state.sort=k; state.dir=(k==='updated'||k==='hyp')?'desc':'asc';}
+      render();
+    });
+  });
+  rows.addEventListener('click',function(e){
+    if(e.target.closest('a')) return;
+    var tr=e.target.closest('tr[data-url]'); if(!tr) return;
+    location.href=tr.dataset.url;
+  });
+  buildFilters(); render();
+})();
+</script>
+</body>
+</html>
