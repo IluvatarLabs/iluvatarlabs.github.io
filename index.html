@@ -112,7 +112,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
     margin: 0 0 14px;
     max-width: 26ch;
   }
-  /* The third line rotates through the domains: a quiet crossfade, paused while a lab is attended to */
+  /* The third line rotates through the domains: a quiet crossfade that runs whatever else is happening */
   .rotor { display: inline-block; }
   .rotor-word { display: inline-block; opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
   .rotor-word.out { opacity: 0; transform: translateY(6px); }
@@ -261,7 +261,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   <main class="main">
     <div class="words">
       <section class="statement" data-od-id="statement">
-        <h1 data-od-id="statement-title">We build systems<br>that close the loop on<br><span class="rotor" aria-live="off"><span class="rotor-word" data-od-id="statement-rotor">post-training.</span></span></h1>
+        <h1 data-od-id="statement-title">We build systems<br>that close the loop on<br><span class="rotor" aria-live="off"><span class="rotor-word" data-od-id="statement-rotor">scientific research.</span></span></h1>
         <p data-od-id="statement-body">Iluvatar Labs is an AI-native research lab that takes humans out of the loop and puts them over it.</p>
       </section>
 
@@ -536,22 +536,16 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
 
   /* ---- The rotating third line ---- */
   (function () {
-    var WORDS = ['post-training.', 'scientific research.', 'drug discovery.', 'materials science.', 'computational biology.', 'reinforcement learning.', 'compression.', 'distillation.', 'self-evolving AI.'];
+    var WORDS = ['scientific research.', 'post-training.', 'self-evolving AI.', 'drug discovery.', 'materials science.', 'computational biology.', 'reinforcement learning.', 'compression.', 'distillation.'];
     var el = document.querySelector('.rotor-word');
     if (!el || reduce) return;
-    var i = 0, paused = false;
+    var i = 0;
     function next() {
-      if (paused || document.hidden) return;
+      if (document.hidden) return;   /* a hidden tab is the only thing that holds it */
       el.classList.add('out');
       setTimeout(function () { i = (i + 1) % WORDS.length; el.textContent = WORDS[i]; el.classList.remove('out'); }, 520);
     }
     setInterval(next, 3400);
-    Array.prototype.forEach.call(document.querySelectorAll('.lab'), function (lab) {
-      lab.addEventListener('pointerenter', function () { paused = true; });
-      lab.addEventListener('focus', function () { paused = true; });
-      lab.addEventListener('blur', function () { paused = false; });
-    });
-    document.querySelector('.list').addEventListener('pointerleave', function () { paused = false; });
   })();
 
   var forced = new URLSearchParams(location.search).get('state');
