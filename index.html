@@ -46,7 +46,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   .page {
     height: 100dvh;
     min-height: 820px;
-    max-width: 1200px;   /* was 1440: with a fixed split, 1200 keeps the text half at a reading measure */
+    max-width: 1440px;
     margin: 0 auto;
     padding: clamp(20px, 4vh, 40px) var(--pad);
     display: grid;
@@ -94,7 +94,7 @@ description: Iluvatar Labs is an AI-native research lab that takes humans out of
   /* Main: words left, the field right */
   .main {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);   /* a fixed split: text and links left, field right, the same proportion at every window size */
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);   /* fixed split, text 1.5 : field 1, the proportion of the 1440x900 layout, held at every window size */
     column-gap: clamp(32px, 5vw, 80px);
     align-items: center;
     grid-template-rows: minmax(0, 1fr);   /* a definite row, so the field's height resolves */
