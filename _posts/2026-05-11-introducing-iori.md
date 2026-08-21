@@ -9,6 +9,7 @@ author: "Iluvatar Labs"
 image: /assets/images/introducing-iori/social-card.png
 excerpt: "Humanity faces more questions than scientific capacity. Starting with schizophrenia and sarcopenia, IORI is our effort to change that: an open research initiative powered by Marvin, our autonomous AI research agent, where public evidence becomes living research programs the scientific community can inspect, challenge, extend, and validate.
 "
+summary: "Humanity faces more questions than scientific capacity. IORI is our effort to change that."
 ---
 
 ## Humanity faces more questions than scientific capacity
@@ -25,7 +26,7 @@ This opportunity only matters if the capability spreads. If AI for science becom
 
 The trajectory of the internet offers a great analogy (not because every AI-adjacent blog post announcement needs an "AI is the new internet" comparison), but because the lesson here really is meaningful. The internet did not matter only because it made information easier to access. It mattered because it also made participation easier. People could publish, organize, build in public, and contribute to shared bodies of work. Open-source software, Wikipedia, and social media all grew out of that shift. 
 
-We think AI should do the same for science. That is why we are launching the **[Iluvatar Open Research Initiative (IORI)](/iori/)**, an open research program powered by [Marvin](/marvin/), our autonomous AI research agent.
+We think AI should do the same for science. That is why we are launching the **[Iluvatar Open Research Initiative (IORI)](/iori/)**, an open research program powered by [Marvin](https://marvinsci.com){:target="_blank" rel="noopener noreferrer"}, our autonomous AI research agent.
 
 ## Open research should evolve with each loop
 

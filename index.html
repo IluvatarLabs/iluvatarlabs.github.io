@@ -1,1290 +1,579 @@
 ---
 layout: null
 title: Iluvatar Labs
-description: A post-training & research lab. Closing the loop on post-training, scientific research, compression, drug discovery, reinforcement learning, materials science, distillation, self-evolving AI, and computational biology.
+description: Iluvatar Labs is an AI-native research lab that takes humans out of the loop and puts them over it.
 ---
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Favicons -->
+<link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+<link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
+{% seo %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14141A;
+    --cream: #F5F1EB;
+    --cream-soft: rgba(245, 241, 235, 0.72);
+    --cream-mute: rgba(245, 241, 235, 0.56);
+    --hair: rgba(245, 241, 235, 0.14);
+    --coral: #E97B6A;
+    --cyan: #6EC8E6;
+    --sage: #6FA488;
+    --pad: clamp(20px, 3.2vw, 48px);
+    --font-display: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-wordmark: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  .nb { white-space: nowrap; }
+  html, body { margin: 0; background: var(--ink); color: var(--cream); }
+  body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  a { color: inherit; }
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
-    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
-    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">
+  .page {
+    height: 100dvh;
+    min-height: 820px;
+    max-width: 1200px;   /* was 1440: with a fixed split, 1200 keeps the text half at a reading measure */
+    margin: 0 auto;
+    padding: clamp(20px, 4vh, 40px) var(--pad);
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto;
+    row-gap: clamp(12px, 2vh, 20px);
+  }
 
-    {% seo %}
+  /* Top bar */
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .wordmark {
+    font-family: var(--font-wordmark);
+    font-size: 1.625rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    padding: 9px 0;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .nav-link {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--cream-soft);
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 0;
+    line-height: 20px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .nav-link:hover { color: var(--cream); border-bottom-color: var(--cream); }
+  .nav-links { display: flex; align-items: center; gap: 6px; margin-right: -13px; }
+  .nav-links .nav-link { margin-right: 10px; }
+  .social { display: inline-grid; place-items: center; width: 44px; height: 44px; color: var(--cream-soft); transition: color 0.2s ease; }
+  .social svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+  .social:hover { color: var(--cream); }
+  .social:focus-visible { outline: 1.5px solid var(--cream); outline-offset: 2px; border-radius: 4px; }
+  .wordmark:focus-visible, .nav-link:focus-visible, .foot a:focus-visible {
+    outline: 1.5px solid var(--cream);
+    outline-offset: 6px;
+    border-radius: 2px;
+  }
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* Main: words left, the field right */
+  .main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);   /* a fixed split: text and links left, field right, the same proportion at every window size */
+    column-gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+    grid-template-rows: minmax(0, 1fr);   /* a definite row, so the field's height resolves */
+    height: 100%;
+    padding: 0;
+    min-height: 0;
+  }
+  .compact .page { height: auto; }
+  .words { display: flex; flex-direction: column; gap: clamp(28px, 5vh, 56px); }
+  .statement h1 {
+    font-family: var(--font-wordmark);
+    font-weight: 500;
+    font-size: clamp(28px, 3.1vw, 42px);   /* width only: type never changes with window height */
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+    max-width: 26ch;
+  }
+  /* The third line rotates through the domains: a quiet crossfade, paused while a lab is attended to */
+  .rotor { display: inline-block; }
+  .rotor-word { display: inline-block; opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .rotor-word.out { opacity: 0; transform: translateY(6px); }
+  /* Treatments for the rotating word. Default: the site's accent. ?rotor=italic|block|italicblock|plain */
+  .rotor-word { color: #FF4D4D; }                      /* signal red: the one colour on the resting page, used once */
+  .rotor-yellow .rotor-word { color: #FFD60A; }
+  .rotor-amber .rotor-word { color: #F5A623; }
+  .rotor-blue .rotor-word { color: #3291FF; }
+  .rotor-lavender .rotor-word { color: #B8A6FF; }
+  .rotor-coral .rotor-word { color: var(--coral); }
+  .rotor-cyan .rotor-word { color: var(--cyan); }
+  .rotor-gold .rotor-word { color: #E2CB8C; }
+  .rotor-rust .rotor-word { color: #D88848; }
+  .rotor-plain .rotor-word { color: inherit; }
+  .rotor-italic .rotor-word { color: inherit; font-style: italic; }
+  .rotor-block .rotor-word, .rotor-italicblock .rotor-word { color: var(--ink); background: var(--cream); padding: 0 0.16em; margin-left: -0.16em; border-radius: 3px; }
+  .rotor-italicblock .rotor-word { font-style: italic; }
+  /* Bold in the taglines: one phrase per lab */
+  .lab-cap b { font-weight: 600; color: var(--cream); }
+  /* Discover more: under the columns by default; ?more=top moves it to the heading line */
+  .disc .disc-foot { display: block; padding-top: 10px; }
+  .disc .disc-head a { display: none; }
+  .more-top .disc .disc-head a { display: inline-block; }
+  .more-top .disc .disc-foot { display: none; }
+  @media (prefers-reduced-motion: reduce) { .rotor-word { transition: none; } }
+  .statement p {
+    margin: 0;
+    max-width: 40ch;
+    color: var(--cream-soft);
+    font-size: clamp(15px, 1.1vw, 17px);
+    text-wrap: pretty;
+  }
 
-        :root {
-            --max-content: 1280px;
-            --edge-pad: 3rem;
+  .list { display: flex; flex-direction: column; border-bottom: 1px solid var(--hair); }
+  .lab {
+    display: grid;
+    row-gap: 2px;
+    padding: clamp(8px, 1.6vh, 18px) 0;
+    border-top: 1px solid var(--hair);
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+    transform: translateX(0);
+    transition: border-color 0.35s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .lab[data-lab="actuator"] { --c: var(--coral); }
+  .lab[data-lab="marvin"]   { --c: var(--cyan); }
+  .lab[data-lab="iori"]     { --c: var(--sage); }
+  .lab:is(:hover, :focus-visible, .forced) { border-top-color: var(--c); transform: translateX(6px); }
+  .lab:focus-visible { outline: 1.5px solid var(--cream); outline-offset: 6px; border-radius: 4px; }
+  .lab-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(18px, 1.5vw, 21px);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    color: var(--cream);
+  }
+  .lab-cap {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--cream-soft);
+    max-width: 60ch;
+    text-wrap: pretty;
+    transition: color 0.3s ease;
+  }
+  .lab:is(:hover, :focus-visible, .forced) .lab-cap { color: var(--cream); }
+  @media (prefers-reduced-motion: reduce) { .lab { transition: border-color 0.35s ease; } .lab:is(:hover, :focus-visible, .forced) { transform: none; } }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 
-            --ink-cream:      #F5F1EB;
-            --ink-cream-soft: rgba(245,241,235,0.72);
-            --ink-cream-mute: rgba(245,241,235,0.46);
-            --ink-cream-faint: rgba(245,241,235,0.28);
+  .field {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-height: 680px;
+    min-height: 0;
+    align-self: center;
+    display: grid;
+    place-items: center end;   /* the square (fitted by script to the smaller of width and height) sits flush right, centred vertically */
+  }
+  .field canvas { display: block; width: 100%; height: 100%; }
 
-            --ink-dark:       #14141A;
-            --ink-dark-soft:  rgba(20,20,26,0.72);
-            --ink-dark-mute:  rgba(20,20,26,0.46);
-            --ink-dark-faint: rgba(20,20,26,0.28);
+  /* Latest from Discover: below the whole product section */
+  .disc { border-top: 1px solid var(--hair); padding: clamp(22px, 3.4vh, 36px) 0 clamp(8px, 1.5vh, 16px); }
+  .disc-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: clamp(14px, 2vh, 20px); }
+  .disc-head h2 { font-family: var(--font-display); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; line-height: 1.2; margin: 0; }
+  .disc-head a { font-size: 14px; color: var(--cream-soft); text-decoration: none; display: inline-block; padding: 8px 0; border-bottom: 1px solid var(--hair); transition: color 0.2s ease, border-color 0.2s ease; }
+  .disc-head a:hover, .disc-foot a:hover { color: var(--cream); border-bottom-color: var(--cream); }
+  .disc-foot a { font-size: 15px; font-family: var(--font-display); letter-spacing: -0.02em; color: var(--cream-soft); text-decoration: none; display: inline-block; padding: 6px 0; border-bottom: 1px solid var(--hair); transition: color 0.2s ease, border-color 0.2s ease; }
+  .disc-head a:focus-visible, .disc a.post:focus-visible, .disc a.tp:focus-visible, .disc a.cp:focus-visible { outline: 1.5px solid var(--cream); outline-offset: 6px; border-radius: 4px; }
+  .disc.compact-band { border-top: 0; padding: clamp(6px, 1.2vh, 14px) 0 0; }
+  @media (max-height: 740px) { .compact-band .cp-x { display: none; } }
+  .compact-band .disc-head { margin-bottom: 10px; }
+  .compact-band .disc-head h2 { font-size: 16px; font-weight: 500; letter-spacing: -0.03em; color: var(--cream); }
+  .compact-band .disc-head a { font-size: 15px; padding: 6px 0; font-family: var(--font-display); letter-spacing: -0.02em; }
+  .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 40px); }
+  .cp { display: grid; row-gap: 4px; align-content: start; padding-top: 10px; border-top: 1px solid var(--hair); text-decoration: none; color: inherit; outline: none; transition: border-color 0.3s ease; }
+  .cp:hover, .cp:focus-visible { border-top-color: rgba(245, 241, 235, 0.55); }
+  .cp-m { font-family: var(--font-display); font-size: 12.5px; letter-spacing: 0; line-height: 1.4; color: var(--cream-mute); }
+  .cp-t { font-family: var(--font-display); font-weight: 600; font-size: 14.5px; letter-spacing: -0.03em; line-height: 1.35; color: var(--cream); text-wrap: pretty; }
+  .cp-x { font-size: 13.5px; line-height: 1.5; color: var(--cream-soft); max-width: 52ch; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 0.3s ease; }
+  .cp:hover .cp-x, .cp:focus-visible .cp-x { color: var(--cream); }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; gap: 0; } .cp { padding: 10px 0; } .cp:last-child { border-bottom: 1px solid var(--hair); } }
 
-            --hair-cream:        rgba(245,241,235,0.12);
-            --hair-cream-strong: rgba(245,241,235,0.22);
-            --hair-dark:         rgba(20,20,26,0.12);
-            --hair-dark-strong:  rgba(20,20,26,0.22);
+  /* Footer (site include) */
+  .site-footer { display: flex; justify-content: flex-end; align-items: center; padding-top: clamp(10px, 2vh, 22px); }
+  .site-footer-inner { font-size: 13px; letter-spacing: 0.01em; color: var(--cream-mute); }
+  /* Footer */
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: clamp(10px, 2vh, 22px);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+    color: var(--cream-mute);
+  }
+  .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .foot a { display: inline-block; padding: 12px 0; text-decoration: none; color: var(--cream-mute); transition: color 0.2s ease; }
+  .foot a:hover { color: var(--cream); }
 
-            --accent:         #E97B6A;
-            --accent-deep:    #CC6A5B;
-        }
+  @media (max-width: 860px) {
+    .page { height: auto; min-height: 0; }
+    .main { grid-template-columns: 1fr; row-gap: 28px; align-items: start; padding-top: 0; min-height: 0; }
+    .field { width: min(100%, 62vh); height: auto; max-height: none; aspect-ratio: 1 / 1; justify-self: center; order: -1; }
+    .main { grid-template-rows: auto auto; height: auto; }
+    .statement h1 { font-size: 28px; }
+    .lab-cap { font-size: 14px; }
+    .foot { flex-direction: column; align-items: flex-start; gap: 4px; }
+  }
 
-        html, body { background: #14141A; }
-        body {
-            color: var(--ink-cream);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.55;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .section { position: relative; width: 100%; padding: 0 var(--edge-pad); }
-        .section-inner {
-            max-width: var(--max-content);
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .eyebrow {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        .grain {
-            position: absolute; inset: 0;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.6'/></svg>");
-            mix-blend-mode: overlay;
-            z-index: 5;
-        }
-
-        /* ── Nav. Theme-agnostic via --nav-ink / --nav-ink-soft. The
-           homepage hero is dark, so cream ink. Other pages declare their
-           own values on .nav-bar. ── */
-        .nav-bar {
-            position: absolute; top: 0; left: 0; right: 0;
-            z-index: 30;
-            padding: 3rem var(--edge-pad) 0;
-            --nav-ink: var(--ink-cream);
-            --nav-ink-soft: var(--ink-cream-soft);
-        }
-        .nav {
-            max-width: var(--max-content);
-            margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .nav-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--nav-ink);
-            text-decoration: none;
-        }
-        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-        .nav-links a {
-            color: var(--nav-ink);
-            text-decoration: none;
-            font-size: 1.1rem;
-            border-bottom: 2px solid transparent;
-            padding-bottom: 2px;
-            transition: border-color 0.2s, font-weight 0.2s;
-        }
-        .nav-links a:hover { border-bottom-color: var(--nav-ink); }
-        /* Active-page state (apply .active to the current section's link) */
-        .nav-links a.active {
-            font-weight: 700;
-            border-bottom-color: var(--nav-ink);
-        }
-        .nav-links a.product-link {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.15rem;
-        }
-        /* Text-only nav links (no icon) — small optical spacing bump
-           so they don't read as tighter next to the icon-prefixed links. */
-        .nav-links a.nav-text { margin-left: 0.35rem; }
-        .product-icon { vertical-align: middle; }
-        .social-icon {
-            display: flex;
-            align-items: center;
-            width: 18px; height: 18px;
-        }
-        .social-icon svg {
-            width: 100%; height: 100%;
-            fill: var(--nav-ink);
-            transition: fill 0.2s;
-        }
-        a:hover .social-icon svg { fill: var(--nav-ink); }
-        .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.25rem; }
-        .nav-hamburger span {
-            display: block; width: 22px; height: 2px;
-            background: var(--nav-ink-soft); margin: 5px 0;
-        }
-        .nav-hamburger:hover span { background: var(--nav-ink); }
-
-        /* ── Hero: atmospheric dark with multi-point glow ── */
-        .hero {
-            position: relative;
-            min-height: 600px;
-            height: 100dvh;
-            max-height: 982px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            padding: 7rem var(--edge-pad) 4rem;
-            background:
-                radial-gradient(ellipse 70% 90% at 92% 18%, rgba(233,143,102,0.22) 0%, transparent 50%),
-                radial-gradient(ellipse 80% 70% at 12% 85%, rgba(105,82,160,0.25) 0%, transparent 55%),
-                radial-gradient(ellipse 60% 60% at 58% 55%, rgba(40,33,70,0.4) 0%, transparent 70%),
-                #14141A;
-            color: var(--ink-cream);
-        }
-        .hero-inner {
-            position: relative;
-            z-index: 2;
-            max-width: var(--max-content);
-            margin: 0 auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        .hero h1 {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(2.75rem, 7vw, 6.5rem);
-            line-height: 1.04;
-            letter-spacing: -0.033em;
-            font-weight: 600;
-            color: var(--ink-cream);
-            max-width: 26ch;
-            margin-bottom: 0;
-        }
-        .rotator {
-            display: inline-grid;
-            grid-template-areas: "w";
-            vertical-align: baseline;
-            overflow: hidden;
-            max-width: 100%;
-            padding-bottom: 0.22em;
-        }
-        .rotator > span {
-            grid-area: w;
-            white-space: nowrap;
-            font-family: 'Inter', sans-serif;
-            font-style: italic;
-            font-weight: 500;
-            letter-spacing: -0.02em;
-        }
-        .rotator-sizer { visibility: hidden; pointer-events: none; }
-        .rotator-word {
-            color: var(--accent);
-            opacity: 0;
-            transform: translateY(12%);
-            animation: rotate-word 27s infinite;
-        }
-        .rotator-word:nth-of-type(2)  { animation-delay:  0s; }
-        .rotator-word:nth-of-type(3)  { animation-delay:  3s; }
-        .rotator-word:nth-of-type(4)  { animation-delay:  6s; }
-        .rotator-word:nth-of-type(5)  { animation-delay:  9s; }
-        .rotator-word:nth-of-type(6)  { animation-delay: 12s; }
-        .rotator-word:nth-of-type(7)  { animation-delay: 15s; }
-        .rotator-word:nth-of-type(8)  { animation-delay: 18s; }
-        .rotator-word:nth-of-type(9)  { animation-delay: 21s; }
-        .rotator-word:nth-of-type(10) { animation-delay: 24s; }
-        @keyframes rotate-word {
-            0%, 1%    { opacity: 0; transform: translateY(12%); filter: blur(4px); }
-            3%, 10%   { opacity: 1; transform: translateY(0);   filter: blur(0); }
-            12%, 100% { opacity: 0; transform: translateY(-8%); filter: blur(4px); }
-        }
-
-        /* ── Product stack: two cards above each other, inset from the
-           page edges so they float on the body's dark backdrop instead
-           of running full-bleed. ── */
-        .product-stack {
-            background: #FAFAF5;
-            /* LR matches the inside-card padding so the "outside whitespace"
-               between page edge and card equals the "inside whitespace"
-               between card edge and content. */
-            padding: 4rem;
-        }
-        .product-stack-inner {
-            max-width: var(--max-content);
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* ── Product card (was a full-bleed section) ── */
-        .product {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            align-items: stretch;
-            border: 1px solid rgba(20,20,26,0.12);
-        }
-        .product .product-inner {
-            width: 100%;
-            padding: 4rem;
-            display: grid;
-            grid-template-columns: 5fr 7fr;
-            column-gap: 1.5rem;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-        .product-body { display: flex; flex-direction: column; justify-content: center; }
-        .product .product-eyebrow { margin-bottom: 1.5rem; }
-        .product h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3.5rem, 6.5vw, 6.5rem);
-            font-weight: 700;
-            letter-spacing: -0.035em;
-            line-height: 0.98;
-            margin-bottom: 1rem;
-        }
-        .product .subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.35rem, 1.95vw, 1.85rem);
-            font-weight: 400;
-            line-height: 1.3;
-            letter-spacing: -0.012em;
-            margin-bottom: 1.35rem;
-            max-width: 32rem;
-        }
-        .product .subtitle i {
-            font-style: italic;
-            font-weight: 500;
-        }
-        .product .body {
-            font-size: 1.1rem;
-            line-height: 1.65;
-            max-width: 30rem;
-            margin-bottom: 1.85rem;
-        }
-        .product .learn-more {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 500;
-            text-decoration: none;
-            letter-spacing: -0.005em;
-            padding: 0.85rem 1.6rem;
-            border-radius: 999px;
-            border: 1px solid currentColor;
-            align-self: flex-start;
-            transition: border-color 0.2s, background 0.2s, gap 0.2s, color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
-        }
-        .product .learn-more:hover { gap: 0.75rem; }
-
-        /* Visual positioning alternates */
-        .product.visual-left .product-body { grid-column: 2; }
-        .product.visual-left .product-visual { grid-column: 1; grid-row: 1; }
-
-        /* Visual cell with 4-sided fade */
-        .product-visual {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            max-height: 460px;
-        }
-        .product-visual canvas {
-            position: absolute; inset: 0;
-            width: 100%; height: 100%;
-            display: block;
-        }
-        .product-visual::before,
-        .product-visual::after {
-            content: "";
-            position: absolute; inset: 0;
-            z-index: 2; pointer-events: none;
-        }
-
-        /* ── Actuator: dark mode card, flat ink-dark fill so the DAG
-           canvas edge-fades land on a single color and the static SVG
-           backstops aren't fighting a gradient. ── */
-        .product.actuator {
-            background: #14141A;
-            color: var(--ink-cream);
-        }
-        .product.actuator .product-eyebrow { color: var(--ink-cream-mute); }
-        .product.actuator .subtitle { color: var(--ink-cream); }
-        .product.actuator .subtitle i { color: var(--accent); }
-        .product.actuator .body { color: var(--ink-cream-soft); }
-        .product.actuator .learn-more {
-            color: var(--ink-cream);
-            border-color: var(--hair-cream-strong);
-            background: rgba(245,241,235,0.05);
-        }
-        .product.actuator .learn-more:hover {
-            border-color: var(--ink-cream);
-            background: rgba(245,241,235,0.11);
-        }
-        /* Edge fades: blend the canvas into the dark card. */
-        .product.actuator .product-visual::before {
-            background: linear-gradient(
-                to right,
-                rgba(20,20,26,1) 0%, rgba(20,20,26,0.5) 10%,
-                rgba(20,20,26,0) 25%, rgba(20,20,26,0) 80%,
-                rgba(20,20,26,0.5) 93%, rgba(20,20,26,1) 100%
-            );
-        }
-        .product.actuator .product-visual::after {
-            background: linear-gradient(
-                to bottom,
-                rgba(20,20,26,1) 0%, rgba(20,20,26,0) 14%,
-                rgba(20,20,26,0) 86%, rgba(20,20,26,1) 100%
-            );
-        }
-
-        /* ── Marvin: deep saturated true-blue. Hue ~213° (decisively blue,
-           not indigo/purple), saturation ~86% so the color reads rich
-           rather than washed, lightness ~20% to keep it dark. ── */
-        .product.marvin {
-            background: #072E5F;
-            color: var(--ink-cream);
-        }
-        .product.marvin .product-eyebrow { color: var(--ink-cream-mute); }
-        .product.marvin .subtitle { color: var(--ink-cream); }
-        .product.marvin .subtitle i { color: var(--accent); }
-        .product.marvin .body { color: var(--ink-cream-soft); }
-        .product.marvin .learn-more { color: var(--ink-cream); border-color: var(--hair-cream-strong); background: rgba(245,241,235,0.05); }
-        .product.marvin .learn-more:hover { border-color: var(--ink-cream); background: rgba(245,241,235,0.11); }
-        /* Asymmetric horizontal fade: heavier on the left (toward text),
-           softer on the other edges. Tinted to match panel bg #072E5F so
-           the canvas edges fade into the card, not into a different rect. */
-        .product.marvin .product-visual::before {
-            background: linear-gradient(
-                to right,
-                rgba(7,46,95,1)    0%,
-                rgba(7,46,95,0.75) 10%,
-                rgba(7,46,95,0.35) 22%,
-                rgba(7,46,95,0.08) 32%,
-                rgba(7,46,95,0)    40%,
-                rgba(7,46,95,0)    74%,
-                rgba(7,46,95,0.4)  88%,
-                rgba(7,46,95,1)    100%
-            );
-        }
-        .product.marvin .product-visual::after {
-            background: linear-gradient(
-                to bottom,
-                rgba(7,46,95,1)    0%,
-                rgba(7,46,95,0.5)  12%,
-                rgba(7,46,95,0)    26%,
-                rgba(7,46,95,0)    74%,
-                rgba(7,46,95,0.5)  88%,
-                rgba(7,46,95,1)    100%
-            );
-        }
-
-        /* ── From the lab: warm near-black (was Marvin's color, swap) ── */
-        .lab {
-            position: relative;
-            background: #14141A;
-            color: var(--ink-cream);
-            padding: 6rem var(--edge-pad) 7rem;
-            overflow: hidden;
-        }
-        .lab-head {
-            display: flex; justify-content: space-between; align-items: flex-end;
-            margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap;
-            position: relative; z-index: 2;
-        }
-        .lab h2 {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(2.25rem, 3.6vw, 3.4rem);
-            font-weight: 600;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-        }
-        .lab-all {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1rem, 1.25vw, 1.2rem);
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            text-decoration: none;
-            color: var(--ink-cream);
-            border: 1px solid var(--hair-cream-strong);
-            border-radius: 999px;
-            padding: 0.85rem 1.6rem;
-            background: rgba(245,241,235,0.05);
-            display: inline-flex; align-items: center; gap: 0.55rem;
-            transition: gap 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
-        }
-        .lab-all:hover { border-color: var(--ink-cream); background: rgba(245,241,235,0.11); gap: 0.75rem; }
-
-        /* Featured article */
-        .lab-featured {
-            display: grid;
-            grid-template-columns: 5fr 7fr;
-            column-gap: 3rem;
-            align-items: stretch;
-            padding: 2.25rem 0;
-            border-top: 1px solid rgba(245,241,235,0.12);
-            border-bottom: 1px solid rgba(245,241,235,0.12);
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-            z-index: 2;
-            margin-bottom: 2.5rem;
-            transition: background 0.2s;
-        }
-        .lab-featured:hover { background: rgba(245,241,235,0.02); }
-
-        .lab-featured-visual {
-            position: relative;
-            border-radius: 6px;
-            overflow: hidden;
-            min-height: 18rem;
-        }
-        .lab-thumb {
-            position: absolute; inset: 0;
-        }
-        /* Marvin: aegean base + cyan glow + coral glow */
-        .lab-thumb-marvin {
-            background:
-                radial-gradient(ellipse 92% 92% at 95% 10%, rgba(110,200,230,0.24) 0%, rgba(110,200,230,0) 62%),
-                radial-gradient(ellipse 92% 82% at 5% 100%, rgba(224,129,74,0.16) 0%, rgba(224,129,74,0) 65%),
-                #16415A;
-        }
-        /* Actuator: cream base + coral glow + indigo glow */
-        .lab-thumb-actuator {
-            background:
-                radial-gradient(ellipse 100% 90% at 95% 8%, rgba(233,123,106,0.18) 0%, rgba(233,123,106,0) 60%),
-                radial-gradient(ellipse 95% 85% at 5% 100%, rgba(79,70,229,0.14) 0%, rgba(79,70,229,0) 65%),
-                #FAFAF5;
-        }
-        /* DCA: indigo base + lavender glow + coral glow */
-        .lab-thumb-dca {
-            background:
-                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(184,166,255,0.22) 0%, rgba(184,166,255,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(233,123,106,0.14) 0%, rgba(233,123,106,0) 65%),
-                #2E2A5A;
-        }
-        /* Elastic: ink-dark base + cyan glow + coral glow */
-        .lab-thumb-elastic {
-            background:
-                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(110,200,230,0.22) 0%, rgba(110,200,230,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(224,129,74,0.12) 0%, rgba(224,129,74,0) 65%),
-                #14141A;
-        }
-        /* IORI: pine base + rust glow + moss glow */
-        .lab-thumb-iori {
-            background:
-                radial-gradient(ellipse 90% 90% at 95% 10%, rgba(216,136,72,0.22) 0%, rgba(216,136,72,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(111,164,136,0.18) 0%, rgba(111,164,136,0) 65%),
-                #1F3D2C;
-        }
-        /* Indigo fallback for posts without a known thumbnail value */
-        .lab-thumb-indigo {
-            background:
-                radial-gradient(ellipse 95% 90% at 95% 10%, rgba(184,166,255,0.22) 0%, rgba(184,166,255,0) 60%),
-                radial-gradient(ellipse 90% 80% at 5% 100%, rgba(233,123,106,0.14) 0%, rgba(233,123,106,0) 65%),
-                #2E2A5A;
-        }
-        /* Grain — cream-on-dark default, matching the live hero treatment. */
-        .lab-thumb-grain {
-            position: absolute; inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.94  0 0 0 0 0.92  1.4 1.4 1.4 0 -1.95'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-            opacity: 0.35;
-        }
-        /* Actuator's cream background uses dark-on-cream grain instead. */
-        .lab-thumb-actuator + .lab-thumb-grain {
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0 0.10  1.4 1.4 1.4 0 -1.95'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-            opacity: 0.25;
-        }
-        /* Pictograph icon overlays both the thumb and the grain. */
-        .lab-featured-visual .thumb-icon,
-        .lab-card-visual .thumb-icon {
-            position: absolute;
-            inset: 0;
-            width: 100%; height: 100%;
-            z-index: 3;
-            display: block;
-        }
-
-        .lab-featured-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 1rem 2rem 1rem 0;
-        }
-        .lab-meta {
-            display: flex; align-items: center; gap: 1rem;
-            margin-bottom: 1.25rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--ink-cream-mute);
-        }
-        .lab-cat {
-            color: var(--accent);
-            border: 1px solid rgba(233,123,106,0.45);
-            padding: 0.35rem 0.85rem;
-            border-radius: 999px;
-            font-size: 0.95rem;
-        }
-        .lab-featured h3 {
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(1.75rem, 2.5vw, 2.25rem);
-            font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -0.022em;
-            margin-bottom: 1rem;
-            color: var(--ink-cream);
-        }
-        .lab-excerpt {
-            font-size: 1.05rem;
-            color: var(--ink-cream-soft);
-            line-height: 1.55;
-            margin-bottom: 1.5rem;
-        }
-        .lab-featured .lab-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--ink-cream);
-            line-height: 1.4;
-            letter-spacing: -0.012em;
-            margin-bottom: 1rem;
-        }
-        .lab-card .lab-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: var(--ink-cream);
-            line-height: 1.4;
-            letter-spacing: -0.01em;
-            margin-bottom: 0.7rem;
-        }
-        .lab-authors {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--ink-cream-soft);
-            margin-bottom: 0;
-        }
-        .lab-featured .lab-authors {
-            font-size: 1.25rem;
-        }
-
-        /* Secondary grid */
-        .lab-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-            position: relative;
-            z-index: 2;
-        }
-        .lab-card {
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s;
-        }
-        .lab-card:hover { transform: translateY(-3px); }
-        .lab-card-visual {
-            position: relative;
-            aspect-ratio: 16 / 10;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 1.25rem;
-        }
-        .lab-card h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 600;
-            line-height: 1.25;
-            letter-spacing: -0.018em;
-            margin-bottom: 0.9rem;
-            color: var(--ink-cream);
-        }
-        .lab-card .lab-meta { margin-bottom: 0.9rem; }
-        .lab-card .lab-authors { font-size: 1.05rem; margin: 0; }
-
-        /* ── Footer — uniform across all pages, sits on the last
-           section's surface (the lab section's slightly indigo
-           charcoal). No separator. ── */
-        .site-footer {
-            padding: 4rem var(--edge-pad);
-            background: #14141A;
-        }
-        .site-footer-inner {
-            max-width: var(--max-content);
-            margin: 0 auto;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1rem;
-            color: var(--ink-cream-mute);
-            letter-spacing: -0.005em;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 960px) {
-            :root { --edge-pad: 1.5rem; }
-
-            .hero { min-height: auto; height: auto; max-height: none; padding: 7rem var(--edge-pad) 4rem; }
-            .hero-inner { flex: initial; }
-            .hero h1 { font-size: clamp(2rem, 8vw, 3rem); max-width: none; }
-
-            .product-stack { padding: 2.5rem 1.5rem; }
-            .product-stack-inner { gap: 1.25rem; }
-            .product .product-inner {
-                grid-template-columns: 1fr;
-                padding: 1.5rem;
-                row-gap: 2.25rem;
-            }
-            .product h2 { font-size: clamp(2.75rem, 10vw, 4rem); }
-            .product-visual { aspect-ratio: 3 / 2; max-height: 340px; }
-            /* Reset visual-left override on mobile so visual follows body in DOM */
-            .product.visual-left .product-body { grid-column: 1; }
-            .product.visual-left .product-visual { grid-column: 1; grid-row: auto; }
-
-            .lab-featured {
-                grid-template-columns: 1fr;
-                row-gap: 1.25rem;
-                padding: 1.5rem 0 2rem;
-            }
-            .lab-featured-visual { min-height: 14rem; aspect-ratio: 16/10; }
-            .lab-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .lab-card-visual { aspect-ratio: 16 / 9; }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 1rem;
-                background: #1A1A22;
-                border: 1px solid rgba(245,241,235,0.1);
-                border-radius: 10px;
-                padding: 1rem 1.5rem;
-                flex-direction: column;
-                gap: 1rem;
-                min-width: 200px;
-            }
-            .nav-links.open { display: flex; }
-            .nav-hamburger { display: block; }
-        }
-    </style>
+  @media (prefers-reduced-motion: reduce) {
+    .lab, .lab-cap, .nav-link { transition: none; }
+  }
+</style>
 </head>
 <body>
+<div class="page">
 
-    {% include nav.html %}
+  <header class="top" data-od-id="site-nav">
+    <a class="wordmark" href="/" data-od-id="wordmark">iluvatar labs.</a>
+    <div class="nav-links">
+      <a class="nav-link" href="/blog/" data-od-id="nav-discover">Discover</a>
+      <a class="social" href="https://x.com/IluvatarLabs" target="_blank" rel="noopener noreferrer" aria-label="Iluvatar Labs on X" data-od-id="nav-x"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a class="social" href="https://www.linkedin.com/company/iluvatarlabs/" target="_blank" rel="noopener noreferrer" aria-label="Iluvatar Labs on LinkedIn" data-od-id="nav-linkedin"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
+  </header>
 
-    <!-- Hero -->
-    <section class="hero section">
-        <div class="grain" style="opacity: 0.08;"></div>
-        <div class="hero-inner">
-            <h1>
-                Closing the loop<br>
-                on&nbsp;<span class="rotator" aria-label="post-training, scientific research, compression, drug discovery, reinforcement learning, materials science, distillation, self-evolving AI, computational biology.">
-                    <span class="rotator-sizer" aria-hidden="true">reinforcement learning.</span>
-                    <span class="rotator-word" aria-hidden="true">post-training.</span>
-                    <span class="rotator-word" aria-hidden="true">scientific research.</span>
-                    <span class="rotator-word" aria-hidden="true">compression.</span>
-                    <span class="rotator-word" aria-hidden="true">drug discovery.</span>
-                    <span class="rotator-word" aria-hidden="true">reinforcement learning.</span>
-                    <span class="rotator-word" aria-hidden="true">materials science.</span>
-                    <span class="rotator-word" aria-hidden="true">distillation.</span>
-                    <span class="rotator-word" aria-hidden="true">self-evolving AI.</span>
-                    <span class="rotator-word" aria-hidden="true">computational biology.</span>
-                </span>
-            </h1>
-        </div>
-    </section>
+  <main class="main">
+    <div class="words">
+      <section class="statement" data-od-id="statement">
+        <h1 data-od-id="statement-title">We build systems<br>that close the loop on<br><span class="rotor" aria-live="off"><span class="rotor-word" data-od-id="statement-rotor">post-training.</span></span></h1>
+        <p data-od-id="statement-body">Iluvatar Labs is an AI-native research lab that takes humans out of the loop and puts them over it.</p>
+      </section>
 
-    <!-- Product stack: two cards (Actuator + Marvin) inset from page edges. -->
-    <section class="product-stack">
-        <div class="product-stack-inner">
+      <nav class="list" aria-label="Initiatives" data-od-id="labs">
+        <a class="lab" href="/actuator/" data-lab="actuator" data-od-id="lab-actuator">
+          <span class="lab-name" data-od-id="lab-actuator-name">Actuator</span>
+          <span class="lab-cap" data-od-id="lab-actuator-caption">The dynamic <b>control layer</b> for model transformation.</span>
+        </a>
+        <a class="lab" href="https://marvinsci.com" target="_blank" rel="noopener noreferrer" data-lab="marvin" data-od-id="lab-marvin">
+          <span class="lab-name" data-od-id="lab-marvin-name">Marvin<span class="sr-only"> (opens in a new tab)</span></span>
+          <span class="lab-cap" data-od-id="lab-marvin-caption">The world's most intelligent, <b>fully autonomous</b> AI <span class="nb">co-scientist</span>.</span>
+        </a>
+        <a class="lab" href="/iori/" data-lab="iori" data-od-id="lab-iori">
+          <span class="lab-name" data-od-id="lab-iori-name">IORI</span>
+          <span class="lab-cap" data-od-id="lab-iori-caption"><b>Open source science</b> tackling humanity's biggest unmet needs.</span>
+        </a>
+      </nav>
+    </div>
 
-            <!-- Actuator: cream, DAG visual -->
-            <div class="product actuator" id="actuator">
-                <div class="grain" style="opacity: 0.05;"></div>
-                <div class="product-inner">
-                    <div class="product-body">
-                        <h2>Actuator.</h2>
-                        <p class="subtitle">A <i>closed-loop</i> control layer for post-training.</p>
-                        <p class="body">Streams reward and eval signals through live training, adapts pressure when quality drifts, and halts before damage is done. Drops into any framework.</p>
-                        <a href="/actuator/" class="learn-more">Learn more about Actuator &rarr;</a>
-                    </div>
-                    <div class="product-visual">
-                        <canvas id="actuatorDag"></canvas>
-                    </div>
-                </div>
-            </div>
+    <div class="field" data-od-id="field" aria-hidden="true">
+      <canvas id="field"></canvas>
+    </div>
+  </main>
 
-            <!-- Marvin: dark, constellation visual -->
-            <div class="product marvin" id="marvin">
-                <div class="grain" style="opacity: 0.06;"></div>
-                <div class="product-inner">
-                    <div class="product-body">
-                        <h2>Marvin.</h2>
-                        <p class="subtitle">An autonomous agent for <i>post-training research</i>.</p>
-                        <p class="body">Give Marvin a mission: it reviews literature, generates novel hypotheses, designs and runs experiments, and delivers a full logic trail.</p>
-                        <a href="/marvin/" class="learn-more">Meet Marvin &rarr;</a>
-                    </div>
-                    <div class="product-visual">
-                        <canvas id="marvinConstellation"></canvas>
-                    </div>
-                </div>
-            </div>
+  <section class="disc compact-band" data-od-id="latest">
+    <div class="disc-head">
+      <h2 data-od-id="latest-title">From the team</h2>
+      <a href="/blog/" data-od-id="latest-all">Discover more &rarr;</a>
+    </div>
+      <div class="cols" data-od-id="latest-list">
+{% for post in site.posts limit:3 %}
+        <a class="cp" href="{{ post.url }}" data-od-id="latest-post-{{ forloop.index }}">
+          <span class="cp-m">{{ post.category | default: "Research" }} &middot; {{ post.date | date: "%b %Y" }}</span>
+          <span class="cp-t">{{ post.title }}</span>
+          {%- comment -%} The first sentence of the post's excerpt, or a hand-written summary: field in the post's front matter if present. Overflow past two lines is clamped in CSS. {%- endcomment -%}
+          {%- if post.summary -%}
+          {%- assign s = post.summary | strip -%}
+          {%- else -%}
+          {%- assign x = post.excerpt | strip_html | strip_newlines | strip -%}
+          {%- assign s = x | split: ". " | first | strip -%}
+          {%- assign last = s | slice: -1 -%}
+          {%- unless last == "." or last == "?" or last == "!" -%}{%- assign s = s | append: "." -%}{%- endunless -%}
+          {%- endif -%}
+          <span class="cp-x">{{ s }}</span>
+        </a>
+{% endfor %}
+      </div>
+    <div class="disc-foot"><a href="/blog/" data-od-id="latest-all-bottom">Discover more &rarr;</a></div>
+  </section>
 
-        </div>
-    </section>
+  {% include footer.html %}
 
-    <!-- From the team -->
-    <section class="lab section" id="lab">
-        <div class="grain" style="opacity: 0.05;"></div>
-        <div class="section-inner">
-            <div class="lab-head">
-                <h2>From the team.</h2>
-                <a href="/blog/" class="lab-all">Discover more <span>&rarr;</span></a>
-            </div>
+</div>
 
-            {% assign featured = site.posts | where_exp: "p", "p.featured == true" | first | default: site.posts.first %}
-            {% if featured %}
-            <a href="{{ featured.url }}" class="lab-featured">
-                <div class="lab-featured-visual">
-                    {% if site.data.thumbs[featured.slug] %}
-                        <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[featured.slug] }}); background-size: cover; background-position: center;"></div>
-                    {% else %}
-                        <div class="lab-thumb lab-thumb-{{ featured.thumbnail | default: 'indigo' }}"></div>
-                    {% endif %}
-                    <div class="lab-thumb-grain"></div>
-                    {% include thumb-icon.html type=featured.thumbnail %}
-                </div>
-                <div class="lab-featured-content">
-                    <div class="lab-meta">
-                        <span class="lab-cat">{{ featured.category | default: "Research" }}</span>
-                        <span>{{ featured.date | date: "%b %Y" }}</span>
-                    </div>
-                    <h3>{{ featured.title }}</h3>
-                    {% if featured.subtitle %}<p class="lab-subtitle">{{ featured.subtitle }}</p>{% endif %}
-                    {% if featured.excerpt %}<p class="lab-excerpt">{{ featured.excerpt | strip_html | truncate: 240 }}</p>{% endif %}
-                    {% if featured.author %}<div class="lab-authors">By {{ featured.author }}</div>{% endif %}
-                </div>
-            </a>
-            {% endif %}
-
-            <!-- Secondary grid: next 3 posts (excluding featured) -->
-            {% assign rest = site.posts | where_exp: "p", "p.url != featured.url" | slice: 0, 3 %}
-            <div class="lab-grid">
-                {% for post in rest %}
-                <a href="{{ post.url }}" class="lab-card">
-                    <div class="lab-card-visual">
-                        {% if site.data.thumbs[post.slug] %}
-                            <div class="lab-thumb" style="background-image: url({{ site.data.thumbs[post.slug] }}); background-size: cover; background-position: center;"></div>
-                        {% else %}
-                            <div class="lab-thumb lab-thumb-{{ post.thumbnail | default: 'indigo' }}"></div>
-                        {% endif %}
-                        <div class="lab-thumb-grain"></div>
-                        {% include thumb-icon.html type=post.thumbnail %}
-                    </div>
-                    <div class="lab-meta">
-                        <span class="lab-cat">{{ post.category | default: "Research" }}</span>
-                        <span>{{ post.date | date: "%b %Y" }}</span>
-                    </div>
-                    <h4>{{ post.title }}</h4>
-                    {% if post.subtitle %}<p class="lab-subtitle">{{ post.subtitle }}</p>{% endif %}
-                    {% if post.author %}<div class="lab-authors">{{ post.author }}</div>{% endif %}
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-<!-- ──────────────────────────────────────────────── -->
-<!-- Actuator DAG on cream                             -->
-<!-- ──────────────────────────────────────────────── -->
 <script>
-(function() {
-    const canvas = document.getElementById('actuatorDag');
-    if (!canvas) return;
-    const container = canvas.parentElement;
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canvas = document.getElementById('field');
+  var ctx = canvas.getContext('2d');
+  var wrap = canvas.parentNode;
 
-    const INK = '245,241,235';        // cream lines on the dark card
-    const ACCENT = '233,123,106';     // brighter coral pops harder on dark
-    const CREAM = '20,20,26';         // panel bg — used to wipe static edges behind a lit-up node
+  /* ---- Colors: the Iluvatar register at rest, the lab's color when attended to ---- */
+  var COLORS = {
+    rest:     [245, 241, 235],
+    actuator: [233, 123, 106],
+    marvin:   [110, 200, 230],
+    iori:     [111, 164, 136]
+  };
+  var MODES = ['rest', 'actuator', 'marvin', 'iori'];
+  var weight = { rest: 1, actuator: 0, marvin: 0, iori: 0 };
+  var target = { rest: 1, actuator: 0, marvin: 0, iori: 0 };
 
-    let columns, edges, allNodes, skipEdges, feedbackEdges;
-    let bw, bh, offsetX, offsetY, dagW, dagH, w, h;
-    let staticCanvas = null, traces = [], animId = null;
+  /* ---- Particles in normalized coords, the field is the unit disc ---- */
+  var P = [], COUNT = 900, size = 0, dpr = 1;
+  // Trails are drawn explicitly from each particle's recent history and the canvas is cleared to the
+  // page colour every frame, so nothing can accumulate and there is no disc. ?trails=0 keeps one step only.
+  var K = (new URLSearchParams(location.search).get('trails') === '0') ? 1 : 16;
+  function rand() { return Math.random(); }
+  function spawnDisc(p) {
+    var a = rand() * Math.PI * 2, r = Math.sqrt(rand()) * 0.95;
+    p.x = Math.cos(a) * r; p.y = Math.sin(a) * r; p.px = p.x; p.py = p.y; p.h.length = 0;
+  }
+  function spawnEdge(p) {
+    var a = rand() * Math.PI * 2;
+    p.x = Math.cos(a) * 1.02; p.y = Math.sin(a) * 1.02; p.px = p.x; p.py = p.y; p.h.length = 0;
+  }
+  for (var i = 0; i < COUNT; i++) {
+    var p = { x: 0, y: 0, px: 0, py: 0, h: [], bin: 0, seed: rand(), ring: i % 4, dir: (i % 2 ? 1 : -1) };
+    spawnDisc(p);
+    P.push(p);
+  }
 
-    function buildDAG() {
-        const rect = container.getBoundingClientRect();
-        w = rect.width; h = rect.height;
-        if (w === 0 || h === 0) return;
-        canvas.width = w * 2; canvas.height = h * 2;
+  /* ---- Velocity fields, normalized units per second ---- */
+  // Rest: a slow, smooth flow. The Iluvatar register: nothing is being asked of it yet.
+  // Divergence-free: v = (d/dy, -d/dx) of a potential psi*w, where w = 1 - r^6 vanishes at the rim.
+  // Incompressible, so density stays even; the rim is a streamline, so nothing leaks or piles up.
+  function vRest(p, t, out) {
+    var x = p.x, y = p.y, r2 = x * x + y * y, r = Math.sqrt(r2) || 1e-6;
+    var s1x = Math.sin(1.7 * x + 0.20 * t), c1x = Math.cos(1.7 * x + 0.20 * t);
+    var s1y = Math.sin(1.3 * y - 0.15 * t), c1y = Math.cos(1.3 * y - 0.15 * t);
+    var ph2 = 2.3 * x - 1.1 * y + 0.11 * t, s2 = Math.sin(ph2), c2 = Math.cos(ph2);
+    var ph3 = 1.2 * x + 2.1 * y - 0.09 * t, s3 = Math.sin(ph3), c3 = Math.cos(ph3);
+    // psi = 0.38 sin(1.7x) cos(1.3y) + 0.22 cos(2.3x - 1.1y) + 0.18 cos(1.2x + 2.1y)
+    var psi = 0.38 * s1x * c1y + 0.22 * c2 + 0.18 * c3;
+    var dpx = 0.38 * 1.7 * c1x * c1y - 0.22 * 2.3 * s2 - 0.18 * 1.2 * s3;
+    var dpy = -0.38 * 1.3 * s1x * s1y + 0.22 * 1.1 * s2 - 0.18 * 2.1 * s3;
+    var r4 = r2 * r2, w = 1 - r4 * r2, dw = -6 * r4;      // w = 1 - r^6, grad w = -6 r^4 (x, y)
+    var gx = w * dpx + psi * dw * x, gy = w * dpy + psi * dw * y;
+    var k = 0.38;
+    out[0] += gy * k; out[1] += -gx * k;
+    if (r > 1) { var push = (r - 1) * 3; out[0] -= x / r * push; out[1] -= y / r * push; }
+  }
 
-        // Visually identical to the old 8-column layout — just without the
-        // two 1- and 3-node columns far off the left edge and the terminal
-        // 1-node column off the right, since none of them were ever drawn
-        // inside the visible cell. Spacing and positions below match what
-        // the old cols 2–6 had.
-        const columnCounts = [5, 7, 6, 4, 2];
-        dagW = w * 1.086;       // 4 × old colSpacing (1.9w / 7)
-        offsetX = -w * 0.177;   // = old col-2 x position
-        offsetY = h * 0.02;
-        dagH = h * 0.96;
+  // Actuator: everything is pulled into one laminar, controlled band of orbits and held there.
+  function vActuator(p, t, out) {
+    var r = Math.hypot(p.x, p.y) || 1e-6, ux = p.x / r, uy = p.y / r;
+    var corr = ((0.50 + 0.22 * p.seed) - r) * 2.6;
+    out[0] += (-uy) * 0.5 + ux * corr; out[1] += ux * 0.5 + uy * corr;
+  }
+  // Marvin: particles range outward and return, each on its own schedule. Exploration that comes home.
+  function vMarvin(p, t, out) {
+    var r = Math.hypot(p.x, p.y) || 1e-6, ux = p.x / r, uy = p.y / r;
+    var breathe = 0.55 * Math.sin(0.9 * t + p.seed * 6.283);
+    if (r > 0.92) breathe -= (r - 0.92) * 6;   // keep the excursion inside the specimen
+    if (r < 0.08) breathe += 0.4;              // nothing sits at the origin
+    out[0] += (-uy) * 0.26 + ux * breathe; out[1] += ux * 0.26 + uy * breathe;
+  }
+  // IORI: many strands. Each particle belongs to one of four rings, alternating direction; newcomers arrive from the edge.
+  var RINGS = [0.42, 0.51, 0.60, 0.69];
+  function vIori(p, t, out) {
+    var r = Math.hypot(p.x, p.y) || 1e-6, ux = p.x / r, uy = p.y / r;
+    var corr = (RINGS[p.ring] - r) * 2.4;
+    out[0] += (-uy) * 0.34 * p.dir + ux * corr; out[1] += ux * 0.34 * p.dir + uy * corr;
+  }
+  var FIELDS = { rest: vRest, actuator: vActuator, marvin: vMarvin, iori: vIori };
 
-        const colSpacing = dagW / (columnCounts.length - 1);
-        const scale = Math.min(1.15, w / 560);
-        bw = 54 * scale; bh = 22 * scale;
-        const vGap = 26 * scale;
+  /* ---- Canvas sizing ---- */
+  function resize() {
+    var rect = wrap.getBoundingClientRect();
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    size = Math.max(1, Math.round(Math.min(rect.width, rect.height)));
+    canvas.style.width = size + 'px';
+    canvas.style.height = size + 'px';
+    canvas.width = Math.round(size * dpr);
+    canvas.height = Math.round(size * dpr);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = '#14141A';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(wrap); else window.addEventListener('resize', resize);
+  resize();
 
-        columns = columnCounts.map((count, ci) => {
-            const nodes = [];
-            const totalH = (count - 1) * (bh + vGap);
-            const startY = (dagH - totalH) / 2;
-            for (let n = 0; n < count; n++) {
-                nodes.push({ x: offsetX + ci * colSpacing, y: offsetY + startY + n * (bh + vGap), ci, ni: n });
-            }
-            return nodes;
-        });
-        allNodes = columns.flat();
+  /* ---- Simulation step ---- */
+  var tmp = [0, 0];
+  function step(dt, t) {
+    // ease weights toward targets
+    var sum = 0, m, i;
+    for (i = 0; i < MODES.length; i++) {
+      m = MODES[i];
+      weight[m] += (target[m] - weight[m]) * Math.min(1, dt * 3.2);
+      sum += weight[m];
+    }
+    var inv = sum > 0 ? 1 / sum : 1;
+    // blended color
+    var cr = 0, cg = 0, cb = 0;
+    for (i = 0; i < MODES.length; i++) {
+      m = MODES[i]; var w = weight[m] * inv, c = COLORS[m];
+      cr += c[0] * w; cg += c[1] * w; cb += c[2] * w;
+    }
+    var ioriOn = weight.iori * inv, restOn = weight.rest * inv;
 
-        edges = [];
-        for (let ci = 0; ci < columns.length - 1; ci++) {
-            columns[ci].forEach(a => {
-                const nextCol = columns[ci + 1];
-                const sorted = [...nextCol].sort((x, y) => Math.abs(x.y - a.y) - Math.abs(y.y - a.y));
-                const count = Math.min(sorted.length, Math.floor(1 + Math.random() * 2.5));
-                sorted.slice(0, count).forEach(b => {
-                    if (!edges.some(e => e.from === a && e.to === b)) edges.push({ from: a, to: b });
-                });
-            });
-            columns[ci + 1].forEach(b => {
-                if (!edges.some(e => e.to === b)) {
-                    const closest = [...columns[ci]].sort((x, y) => Math.abs(x.y - b.y) - Math.abs(y.y - b.y))[0];
-                    edges.push({ from: closest, to: b });
-                }
-            });
+    for (var k = 0; k < P.length; k++) {
+      var p = P[k];
+      tmp[0] = 0; tmp[1] = 0;
+      for (i = 0; i < MODES.length; i++) {
+        m = MODES[i]; var wm = weight[m] * inv;
+        if (wm > 0.002) {
+          var before0 = tmp[0], before1 = tmp[1];
+          FIELDS[m](p, t, tmp);
+          tmp[0] = before0 + (tmp[0] - before0) * wm;
+          tmp[1] = before1 + (tmp[1] - before1) * wm;
         }
-        edges.forEach(e => { if (!e.from._out) e.from._out = []; e.from._out.push(e); });
+      }
+      p.px = p.x; p.py = p.y;
+      p.x += tmp[0] * dt; p.y += tmp[1] * dt;
+      var r2 = p.x * p.x + p.y * p.y;
+      p.h.push(p.x, p.y); if (p.h.length > (K + 1) * 2) p.h.splice(0, 2);
+      // At rest the cloud dissolves toward the rim, so the particles never imply a circle
+      var fr = 1 - restOn * r2 * r2;
+      p.bin = fr >= 0.8 ? 0 : (fr >= 0.45 ? 1 : 2);
+      if (r2 > 1.1) { if (ioriOn > 0.5) spawnEdge(p); else spawnDisc(p); }
+      else if (ioriOn > 0.5 && rand() < 0.0035) spawnEdge(p);   // newcomers keep arriving
+      else if (ioriOn <= 0.5 && weight.rest * inv > 0.6 && rand() < 0.0015) spawnDisc(p); // keep the rest field fresh
+    }
+    return [cr, cg, cb];
+  }
 
-        skipEdges = [];
-        for (let s = 0; s < 4; s++) {
-            const ci = Math.floor(Math.random() * (columns.length - 3));
-            const a = columns[ci][Math.floor(Math.random() * columns[ci].length)];
-            const target = columns[ci + 2];
-            if (!target || target.length === 0) continue;
-            const b = target[Math.floor(Math.random() * target.length)];
-            skipEdges.push({ from: a, to: b });
+  /* ---- Draw: fading trails, so motion reads as lines not dots ---- */
+  function draw(color) {
+    var S = canvas.width, half = S / 2, scale = half * 0.98;
+    ctx.fillStyle = '#14141A';
+    ctx.fillRect(0, 0, S, S);
+    ctx.lineWidth = 1.1 * dpr;
+    ctx.lineCap = 'round';
+    var base = 'rgba(' + Math.round(color[0]) + ',' + Math.round(color[1]) + ',' + Math.round(color[2]) + ',';
+    var BIN = [1, 0.62, 0.3];
+    for (var bin = 0; bin < 3; bin++) {
+      for (var age = 0; age < K; age++) {
+        var alpha = 0.62 * Math.pow(1 - age / K, 1.3) * BIN[bin];
+        if (alpha < 0.02) continue;
+        ctx.strokeStyle = base + alpha.toFixed(3) + ')';
+        ctx.beginPath();
+        var any = false;
+        for (var k = 0; k < P.length; k++) {
+          var p = P[k];
+          if (p.bin !== bin) continue;
+          var n = p.h.length / 2, j = n - 1 - age;
+          if (j < 1) continue;
+          var h = p.h;
+          ctx.moveTo(half + h[(j - 1) * 2] * scale, half + h[(j - 1) * 2 + 1] * scale);
+          ctx.lineTo(half + h[j * 2] * scale, half + h[j * 2 + 1] * scale);
+          any = true;
         }
-
-        feedbackEdges = [
-            { fromCol: 4, toCol: 1, dy: 30 },
-            { fromCol: 3, toCol: 1, dy: 22 },
-            { fromCol: 2, toCol: 0, dy: 14 },
-        ];
-
-        staticCanvas = document.createElement('canvas');
-        staticCanvas.width = canvas.width; staticCanvas.height = canvas.height;
-        const sctx = staticCanvas.getContext('2d'); sctx.scale(2, 2);
-        drawStatic(sctx);
+        if (any) ctx.stroke();
+      }
     }
+  }
 
-    function drawStatic(ctx) {
-        edges.forEach(e => {
-            ctx.strokeStyle = `rgba(${INK},0.22)`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            const midX = (e.from.x + e.to.x) / 2;
-            ctx.moveTo(e.from.x + bw / 2, e.from.y);
-            ctx.bezierCurveTo(midX, e.from.y, midX, e.to.y, e.to.x - bw / 2, e.to.y);
-            ctx.stroke();
-        });
-        allNodes.forEach(n => {
-            ctx.strokeStyle = `rgba(${INK},0.32)`;
-            ctx.fillStyle = `rgba(${INK},0.05)`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.roundRect(n.x - bw / 2, n.y - bh / 2, bw, bh, 3);
-            ctx.fill(); ctx.stroke();
-        });
-        feedbackEdges.forEach(fb => {
-            if (!columns[fb.fromCol] || !columns[fb.toCol]) return;
-            const fromN = columns[fb.fromCol][columns[fb.fromCol].length - 1];
-            const toN = columns[fb.toCol][columns[fb.toCol].length - 1];
-            const arcY = offsetY + dagH + fb.dy;
-            if (arcY > h - 4) return;
-            ctx.strokeStyle = `rgba(${ACCENT},0.5)`;
-            ctx.lineWidth = 1;
-            ctx.setLineDash([4, 5]);
-            ctx.beginPath();
-            ctx.moveTo(fromN.x, fromN.y + bh / 2);
-            ctx.lineTo(fromN.x, arcY);
-            ctx.lineTo(toN.x, arcY);
-            ctx.lineTo(toN.x, toN.y + bh / 2);
-            ctx.stroke();
-            ctx.setLineDash([]);
-        });
-        skipEdges.forEach(se => {
-            ctx.strokeStyle = `rgba(${INK},0.13)`;
-            ctx.lineWidth = 1;
-            ctx.setLineDash([2, 4]);
-            ctx.beginPath();
-            const midX = (se.from.x + se.to.x) / 2;
-            const curveY = Math.min(se.from.y, se.to.y) - 18;
-            ctx.moveTo(se.from.x + bw / 2, se.from.y);
-            ctx.bezierCurveTo(midX, curveY, midX, curveY, se.to.x - bw / 2, se.to.y);
-            ctx.stroke();
-            ctx.setLineDash([]);
-        });
+  /* ---- Loop ---- */
+  // Fixed timestep: the simulation always advances in exact 1/60 s substeps, however irregular the
+  // frames are. Trails are recorded per substep, so they are a constant span of motion at any frame
+  // rate. A long pause (tab switch, throttled window) is dropped, not caught up, so nothing lurches.
+  var FIXED = 1 / 60, MAX_SUB = 3, acc = 0;
+  var last = 0, time = 0, running = false, raf = null;
+  function frame(now) {
+    if (!running) return;
+    var elapsed = (now - last) / 1000;
+    last = now;
+    if (!(elapsed > 0) || elapsed > 0.25) elapsed = FIXED;
+    acc += elapsed;
+    var color = null, n = 0;
+    while (acc >= FIXED - 1e-4 && n < MAX_SUB) { time += FIXED; color = step(FIXED, time); acc -= FIXED; n++; }
+    if (acc > FIXED) acc = 0;
+    if (color) draw(color);
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (running) return; running = true; last = performance.now(); acc = 0; raf = requestAnimationFrame(frame); }
+  function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = null; }
+
+  // Reduced motion: settle the field once into a still image, no continuous animation.
+  function still() {
+    var t = 0, c;
+    for (var i = 0; i < 220; i++) { t += 1 / 40; c = step(1 / 40, t); }
+    draw(c);
+  }
+
+  function setMode(mode) {
+    for (var i = 0; i < MODES.length; i++) target[MODES[i]] = (MODES[i] === mode) ? 1 : 0;
+    if (reduce) { for (var j = 0; j < MODES.length; j++) weight[MODES[j]] = target[MODES[j]]; still(); }
+  }
+
+  var labs = document.querySelectorAll('.lab');
+  Array.prototype.forEach.call(labs, function (el) {
+    var mode = el.getAttribute('data-lab');
+    el.addEventListener('pointerenter', function () { if (!forcedLock) setMode(mode); });
+    el.addEventListener('focus', function () { setMode(mode); });
+    el.addEventListener('blur', function () { setMode('rest'); });
+  });
+  var forcedLock = false;
+  document.querySelector('.list').addEventListener('pointerleave', function () { if (!forcedLock) setMode('rest'); });
+
+  /* ---- The rotating third line ---- */
+  (function () {
+    var WORDS = ['post-training.', 'scientific research.', 'drug discovery.', 'materials science.', 'computational biology.', 'reinforcement learning.', 'compression.', 'distillation.', 'self-evolving AI.'];
+    var el = document.querySelector('.rotor-word');
+    if (!el || reduce) return;
+    var i = 0, paused = false;
+    function next() {
+      if (paused || document.hidden) return;
+      el.classList.add('out');
+      setTimeout(function () { i = (i + 1) % WORDS.length; el.textContent = WORDS[i]; el.classList.remove('out'); }, 520);
     }
+    setInterval(next, 3400);
+    Array.prototype.forEach.call(document.querySelectorAll('.lab'), function (lab) {
+      lab.addEventListener('pointerenter', function () { paused = true; });
+      lab.addEventListener('focus', function () { paused = true; });
+      lab.addEventListener('blur', function () { paused = false; });
+    });
+    document.querySelector('.list').addEventListener('pointerleave', function () { paused = false; });
+  })();
 
-    function bezierPt(e, t) {
-        const x0 = e.from.x + bw / 2, y0 = e.from.y;
-        const x3 = e.to.x - bw / 2, y3 = e.to.y;
-        const mx = (x0 + x3) / 2;
-        const u = 1 - t;
-        return {
-            x: u*u*u*x0 + 3*u*u*t*mx + 3*u*t*t*mx + t*t*t*x3,
-            y: u*u*u*y0 + 3*u*u*t*y0 + 3*u*t*t*y3 + t*t*t*y3,
-        };
-    }
+  var forced = new URLSearchParams(location.search).get('state');
+  if (forced && COLORS[forced] && forced !== 'rest') {
+    // Comparison state: lock onto the lab, let the field form off-screen, then run live
+    document.querySelector('.lab[data-lab="' + forced + '"]').classList.add('forced');
+    forcedLock = true;
+    for (var fi = 0; fi < MODES.length; fi++) { target[MODES[fi]] = (MODES[fi] === forced) ? 1 : 0; weight[MODES[fi]] = target[MODES[fi]]; }
+    var ft = 0; for (var fk = 0; fk < 150; fk++) { ft += 1 / 40; step(1 / 40, ft); }
+    time = ft;
+  }
 
-    const SAMPLES_PER_EDGE = 32;
-    const NODE_THROUGH_SAMPLES = 6;
-    function buildPolyline(path) {
-        const points = [];
-        const numEdges = path.length;
-        const totalSegs = numEdges * SAMPLES_PER_EDGE + (numEdges - 1) * NODE_THROUGH_SAMPLES;
-        let idx = 0;
-        for (let ei = 0; ei < numEdges; ei++) {
-            const e = path[ei];
-            for (let s = 0; s <= SAMPLES_PER_EDGE; s++) {
-                if (s === 0 && ei > 0) { idx++; continue; }
-                const localT = s / SAMPLES_PER_EDGE;
-                const pt = bezierPt(e, localT);
-                pt.t = idx / totalSegs;
-                points.push(pt);
-                idx++;
-            }
-            // Through-node samples: the trace walks across the node itself
-            // between adjacent edges. This makes the head visibly travel
-            // through each node, not jump past it.
-            if (ei < numEdges - 1) {
-                const x0 = path[ei].to.x - bw / 2, y0 = path[ei].to.y;
-                const x1 = path[ei].to.x + bw / 2, y1 = path[ei].to.y;
-                for (let s = 0; s <= NODE_THROUGH_SAMPLES; s++) {
-                    if (s === 0) { idx++; continue; }
-                    const frac = s / NODE_THROUGH_SAMPLES;
-                    const pt = { x: x0 + (x1 - x0) * frac, y: y0 + (y1 - y0) * frac };
-                    pt.t = idx / totalSegs;
-                    points.push(pt);
-                    idx++;
-                }
-            }
-        }
-        // Parametric positions of each node along the path — used to know
-        // when the trace is "visiting" a node so we can light it up.
-        const nodes = [];
-        path.forEach((e, ei) => {
-            nodes.push({ node: e.from, t: ei / numEdges });
-            if (ei === numEdges - 1) nodes.push({ node: e.to, t: 1 });
-        });
-        return { points, nodes };
-    }
-
-    function randomPath() {
-        // Start at col 0 or 1 so traces still emerge from the fade on the
-        // left edge, just like when the DAG had 8 columns (old cols 2–3).
-        const startCi = Math.floor(Math.random() * 2);
-        if (!columns[startCi]) return [];
-        const start = columns[startCi][Math.floor(Math.random() * columns[startCi].length)];
-        const path = []; let node = start;
-        for (let ci = startCi; ci < columns.length - 1; ci++) {
-            const outs = (node._out || []).filter(e => e.to.ci === ci + 1);
-            if (outs.length === 0) break;
-            const edge = outs[Math.floor(Math.random() * outs.length)];
-            path.push(edge);
-            node = edge.to;
-        }
-        return path;
-    }
-
-    function spawnTrace() {
-        const path = randomPath();
-        if (path.length < 3) return;
-        traces.push({
-            poly: buildPolyline(path),
-            head: 0,
-            speed: 0.0010 + Math.random() * 0.0007,
-            tailLen: 0.45 + Math.random() * 0.2,
-        });
-    }
-
-    function render() {
-        const ctx = canvas.getContext('2d');
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (staticCanvas) ctx.drawImage(staticCanvas, 0, 0);
-        ctx.setTransform(2, 0, 0, 2, 0, 0);
-
-        traces.forEach(tr => {
-            const tailStart = tr.head - tr.tailLen;
-            const pts = tr.poly.points;
-            let iStart = -1, iEnd = -1;
-            for (let i = 0; i < pts.length; i++) {
-                if (pts[i].t >= tailStart && iStart === -1) iStart = i;
-                if (pts[i].t <= tr.head) iEnd = i;
-            }
-            if (iStart === -1 || iEnd === -1 || iEnd <= iStart) return;
-
-            // Trace line — coral, vivid head fading to nothing at the tail.
-            for (let i = iStart; i < iEnd; i++) {
-                const p0 = pts[i], p1 = pts[i + 1];
-                const frac = (p0.t - tailStart) / tr.tailLen;
-                const alpha = Math.max(0, Math.min(1, frac));
-                ctx.strokeStyle = `rgba(${ACCENT},${(0.95 * alpha).toFixed(3)})`;
-                ctx.lineWidth = 1.2 + alpha * 1.5;
-                ctx.beginPath();
-                ctx.moveTo(p0.x, p0.y);
-                ctx.lineTo(p1.x, p1.y);
-                ctx.stroke();
-            }
-
-            // Light up each node the trace is currently passing through.
-            // Three-pass: (1) wipe static edges behind the node with cream,
-            // (2) redraw the node's static baseline so it never looks fainter
-            // than un-lit, (3) overlay coral that scales with tail position.
-            tr.poly.nodes.forEach(({ node: n, t }) => {
-                if (t < tailStart || t > tr.head) return;
-                const b = Math.max(0, Math.min(1, (t - tailStart) / tr.tailLen));
-                if (b < 0.02) return;
-                // 1) wipe edges behind
-                ctx.fillStyle = `rgba(${CREAM},1)`;
-                ctx.beginPath();
-                ctx.roundRect(n.x - bw / 2, n.y - bh / 2, bw, bh, 3);
-                ctx.fill();
-                // 2) static baseline (matches drawStatic)
-                ctx.fillStyle = `rgba(${INK},0.05)`;
-                ctx.strokeStyle = `rgba(${INK},0.32)`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.roundRect(n.x - bw / 2, n.y - bh / 2, bw, bh, 3);
-                ctx.fill(); ctx.stroke();
-                // 3) coral lit overlay, additive with b
-                ctx.fillStyle   = `rgba(${ACCENT},${(0.2 * b).toFixed(3)})`;
-                ctx.strokeStyle = `rgba(${ACCENT},${(0.85 * b).toFixed(3)})`;
-                ctx.lineWidth = 1.4;
-                ctx.beginPath();
-                ctx.roundRect(n.x - bw / 2, n.y - bh / 2, bw, bh, 3);
-                ctx.fill();
-                ctx.stroke();
-            });
-        });
-
-        traces.forEach(tr => { tr.head += tr.speed; });
-        traces = traces.filter(tr => (tr.head - tr.tailLen) < 1.05);
-
-        if (traces.length < 3 || (traces.length < 5 && Math.random() < 0.015)) {
-            spawnTrace();
-        }
-
-        animId = requestAnimationFrame(render);
-    }
-
-    function init() {
-        if (animId) cancelAnimationFrame(animId);
-        traces = [];
-        buildDAG();
-        if (!columns) { animId = requestAnimationFrame(init); return; }
-        for (let i = 0; i < 4; i++) spawnTrace();
-        traces.forEach((tr, i) => { tr.head = i * 0.25; });
-        render();
-    }
-
-    window.addEventListener('load', () => setTimeout(init, 50));
-    window.addEventListener('resize', () => { clearTimeout(window._actResize); window._actResize = setTimeout(init, 150); });
+  if (reduce) { still(); }
+  else {
+    start();
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+  }
 })();
 </script>
-
-<!-- ──────────────────────────────────────────────── -->
-<!-- Marvin constellation on dark (cream nodes)       -->
-<!-- ──────────────────────────────────────────────── -->
-<script>
-(function() {
-    const canvas = document.getElementById('marvinConstellation');
-    if (!canvas) return;
-    const container = canvas.parentElement;
-    let w, h, nodes, halos, ripples, animId;
-
-    const INK = '245,241,235';          // cream on indigo
-    const ACCENT = '233,123,106';       // coral for contrast on indigo
-    const MAX_DIST = 82;
-    const TARGET_AREA_PER_NODE = 1100;
-
-    function setup() {
-        const rect = container.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) return false;
-        canvas.width = rect.width * 2; canvas.height = rect.height * 2;
-        w = rect.width; h = rect.height;
-
-        const nodeCount = Math.max(120, Math.min(320, Math.floor((w * h) / TARGET_AREA_PER_NODE)));
-        nodes = [];
-        for (let i = 0; i < nodeCount; i++) {
-            nodes.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                vx: (Math.random() - 0.5) * 0.14,
-                vy: (Math.random() - 0.5) * 0.14,
-                size: 1.0 + Math.random() * 2.2,
-                brightness: 0.25 + Math.random() * 0.55,
-                pulsePhase: Math.random() * Math.PI * 2,
-                pulseSpeed: 0.008 + Math.random() * 0.014,
-                accent: Math.random() < 0.12,
-            });
-        }
-        halos = [];
-        nodes.filter(n => n.brightness > 0.6).slice(0, 9).forEach(n => {
-            halos.push({ node: n, phase: Math.random() * Math.PI * 2, speed: 0.012 + Math.random() * 0.01 });
-        });
-        ripples = [];
-        return true;
-    }
-
-    function tick() {
-        nodes.forEach(n => {
-            n.x += n.vx; n.y += n.vy;
-            if (n.x < 2)     { n.x = 2;     n.vx = Math.abs(n.vx); }
-            if (n.x > w - 2) { n.x = w - 2; n.vx = -Math.abs(n.vx); }
-            if (n.y < 2)     { n.y = 2;     n.vy = Math.abs(n.vy); }
-            if (n.y > h - 2) { n.y = h - 2; n.vy = -Math.abs(n.vy); }
-            n.pulsePhase += n.pulseSpeed;
-        });
-        if (Math.random() < 0.016 && ripples.length < 5) {
-            const bright = nodes.filter(n => n.brightness > 0.55);
-            if (bright.length > 0) {
-                const n = bright[Math.floor(Math.random() * bright.length)];
-                ripples.push({ x: n.x, y: n.y, r: n.size + 2, maxR: 34 + Math.random() * 28, alpha: 0.34, accent: n.accent });
-            }
-        }
-        ripples.forEach(rp => { rp.r += 0.65; rp.alpha -= 0.006; });
-        ripples = ripples.filter(rp => rp.alpha > 0 && rp.r < rp.maxR);
-    }
-
-    function render() {
-        const ctx = canvas.getContext('2d');
-        ctx.setTransform(2, 0, 0, 2, 0, 0);
-        ctx.clearRect(0, 0, w, h);
-
-        const cell = MAX_DIST;
-        const cols = Math.ceil(w / cell), rows = Math.ceil(h / cell);
-        const grid = Array(cols * rows).fill(null).map(() => []);
-        nodes.forEach((n, idx) => {
-            const cx = Math.min(cols - 1, Math.max(0, Math.floor(n.x / cell)));
-            const cy = Math.min(rows - 1, Math.max(0, Math.floor(n.y / cell)));
-            grid[cy * cols + cx].push(idx);
-        });
-        for (let cy = 0; cy < rows; cy++) {
-            for (let cx = 0; cx < cols; cx++) {
-                const bucket = grid[cy * cols + cx];
-                for (let dy = 0; dy <= 1; dy++) {
-                    for (let dx = -1; dx <= 1; dx++) {
-                        if (dy === 0 && dx < 0) continue;
-                        const nx = cx + dx, ny = cy + dy;
-                        if (nx < 0 || nx >= cols || ny >= rows) continue;
-                        const nb = grid[ny * cols + nx];
-                        for (let i = 0; i < bucket.length; i++) {
-                            for (let j = 0; j < nb.length; j++) {
-                                if (bucket === nb && nb[j] <= bucket[i]) continue;
-                                const a = nodes[bucket[i]], b = nodes[nb[j]];
-                                const ddx = a.x - b.x, ddy = a.y - b.y;
-                                const dist = Math.sqrt(ddx*ddx + ddy*ddy);
-                                if (dist < MAX_DIST) {
-                                    const t = 1 - dist / MAX_DIST;
-                                    const alpha = 0.05 + t * 0.14;
-                                    ctx.strokeStyle = `rgba(${INK},${alpha.toFixed(3)})`;
-                                    ctx.lineWidth = 0.45 + t * 0.55;
-                                    ctx.beginPath();
-                                    ctx.moveTo(a.x, a.y);
-                                    ctx.lineTo(b.x, b.y);
-                                    ctx.stroke();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        nodes.forEach(n => {
-            const pulse = 1 + Math.sin(n.pulsePhase) * 0.16;
-            const color = n.accent ? ACCENT : INK;
-            ctx.fillStyle = `rgba(${color},${(n.brightness * pulse).toFixed(3)})`;
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, n.size * pulse, 0, Math.PI * 2);
-            ctx.fill();
-        });
-
-        halos.forEach(hl => {
-            hl.phase += hl.speed;
-            const size = hl.node.size + 5 + Math.sin(hl.phase) * 2.5;
-            const alpha = 0.14 + (Math.sin(hl.phase) + 1) * 0.07;
-            const color = hl.node.accent ? ACCENT : INK;
-            ctx.strokeStyle = `rgba(${color},${alpha.toFixed(3)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.arc(hl.node.x, hl.node.y, size, 0, Math.PI * 2);
-            ctx.stroke();
-        });
-
-        ripples.forEach(rp => {
-            const color = rp.accent ? ACCENT : INK;
-            ctx.strokeStyle = `rgba(${color},${rp.alpha.toFixed(3)})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-            ctx.stroke();
-        });
-
-        tick();
-        animId = requestAnimationFrame(render);
-    }
-
-    function init() {
-        if (animId) cancelAnimationFrame(animId);
-        const ok = setup();
-        if (!ok) { animId = requestAnimationFrame(init); return; }
-        render();
-    }
-
-    window.addEventListener('load', () => setTimeout(init, 50));
-    window.addEventListener('resize', () => { clearTimeout(window._marResize); window._marResize = setTimeout(init, 150); });
-})();
-</script>
-
-{% include footer.html %}
-
 </body>
 </html>

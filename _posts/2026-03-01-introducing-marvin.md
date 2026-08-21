@@ -10,7 +10,7 @@ image: /assets/images/introducing-marvin/social-card.png
 excerpt: "We built Marvin because too much ML research time is still spent on preparation, context gathering, and logistics instead of the science itself."
 ---
 
-Today, we're introducing Marvin, an autonomous research agent for ML science. Marvin takes the information overload and busywork out of research. It does deep literature review, generates and tests novel and scientifically valid hypotheses, and can perform the entire research loop fully autonomously, end to end. [Learn more about Marvin.](/marvin/)
+Today, we're introducing Marvin, an autonomous research agent for ML science. Marvin takes the information overload and busywork out of research. It does deep literature review, generates and tests novel and scientifically valid hypotheses, and can perform the entire research loop fully autonomously, end to end. [Learn more about Marvin.](https://marvinsci.com){:target="_blank" rel="noopener noreferrer"}
 
 ## Why we built Marvin
 
@@ -40,6 +40,6 @@ Marvin's capabilities are also cross-domain. It can do research across fields as
 
 In head-to-head evaluations using both LLM judges and human PhD judges in the relevant fields, Marvin scored higher than competing autonomous science agents on research depth, rigor, and creativity. We will publish a broader meta-paper with those results closer to Marvin's open launch.
 
-Marvin is in closed testing now. Read more on the [Marvin page](/marvin/) and see examples of its work there. If you're interested, we'd love to hear about your project's needs and discuss how Marvin can help.
+Marvin is in closed testing now. Read more on the [Marvin page](https://marvinsci.com){:target="_blank" rel="noopener noreferrer"} and see examples of its work there. If you're interested, we'd love to hear about your project's needs and discuss how Marvin can help.
 
 [^ruslan]: Ruslan Salakhutdinov, "[the future of science is less about producing results and more about verifying them](https://x.com/rust_ruslan/status/2047718238663172329)," X, July 18, 2025. Embedded figure above from the linked post.

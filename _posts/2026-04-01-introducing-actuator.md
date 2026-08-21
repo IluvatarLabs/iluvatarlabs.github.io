@@ -7,6 +7,7 @@ category: Product
 thumbnail: actuator
 author: "Iluvatar Labs"
 excerpt: "Actuator is a patent-pending closed-loop control layer for model transformation with live training-time monitoring and in-flight adjustment."
+summary: "A closed-loop control layer for model transformation: live monitoring and in-flight adjustment."
 ---
 
 Post-training has become the **primary differentiation** lever for AI labs in 2026.
